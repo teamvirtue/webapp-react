@@ -1,26 +1,7 @@
-.pageContainer {
-  position: relative;
-  width: 100%;
-  margin-bottom: 100px; }
-
-.tabIndicator {
-  top: 0;
-  bottom: auto; }
-
-/*.swipeableViews {
-  width: auto;
-}*/
-.panelView {
-  display: inline; }
-  @media only screen and (min-width: 1200px) {
-    .panelView {
-      position: absolute;
-      width: 40vw;
-      margin-top: 50px; } }
-
 .statusBar {
   display: flex;
   flex-direction: row;
+  justify-content: center;
   width: 100%;
   margin: 75px 0; }
   .statusBar h1 {
@@ -29,16 +10,17 @@
   .statusBar h3 {
     margin: 0; }
   .statusBar .statusItem {
-    width: 50%; }
-  @media only screen and (min-width: 1200px) {
-    .statusBar {
-      margin: 6vw 0; } }
+    width: 45%; }
+    @media only screen and (min-width: 1200px) {
+      .statusBar .statusItem {
+        width: 30%; } }
 
 .infoBar {
   display: flex;
   flex-direction: row;
+  justify-content: center;
   width: 100%;
-  margin: 50px 0; }
+  margin: 75px 0; }
   .infoBar h1 {
     margin: 0;
     line-height: 35px; }
@@ -47,6 +29,9 @@
   .infoBar [class*='infoItem'] {
     position: relative;
     width: calc(100% / 3); }
+    @media only screen and (min-width: 1200px) {
+      .infoBar [class*='infoItem'] {
+        width: 20%; } }
   .infoBar .infoItem2:before {
     content: '';
     position: absolute;

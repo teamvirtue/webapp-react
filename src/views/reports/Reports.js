@@ -63,7 +63,7 @@ const styles = {
     },
 };
 
-const systems = [ // Use https://github.com/github/fetch for loading data?
+let systems = [ // Use https://github.com/github/fetch for loading data?
     { value: 'HVAC', icon: 'toys', status: 'check_circle', key: '1' },
     { value: 'Water System', icon: 'info', status: 'highlight_off', key: '2' },
     { value: 'Battery', icon: 'battery_full', status: 'warning', key: '3' },
@@ -282,11 +282,11 @@ class Reports extends Component {
 
                             { systems.map(data => {
                                 return (
-                                    <ExpansionPanel key={data.key}>
-                                        <ExpansionPanelSummary expandIcon={<Icon>{data.icon}</Icon>} classes={{
+                                    <ExpansionPanel key={ data.key }>
+                                        <ExpansionPanelSummary expandIcon={<Icon>{ data.icon }</Icon>} classes={{
                                             expandIconExpanded: classes.expandIconExpanded,
                                         }}>
-                                            <Typography type='title'>{data.value}</Typography>
+                                            <Typography type='title'>{ data.value }</Typography>
                                         </ExpansionPanelSummary>
                                         <ExpansionPanelDetails className={ classes.ExpansionPanelDetails }>
                                             <LineChart />

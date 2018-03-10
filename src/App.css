@@ -4,9 +4,20 @@ body {
 .App {
   text-align: center; }
 
-/*
-h1 {
+.pageContainer {
+  position: relative;
+  width: 100%;
+  margin-bottom: 100px; }
+
+.tabIndicator {
+  top: 0;
+  bottom: auto; }
+
+.panelView {
+  display: inline; }
   @media only screen and (min-width: 1200px) {
-    font-size: 3em;
-  }
-}*/
+    .panelView {
+      position: absolute;
+      width: 30vw;
+      margin-top: 50px;
+      margin-left: 25px; } }

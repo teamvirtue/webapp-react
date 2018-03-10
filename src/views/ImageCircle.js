@@ -17,8 +17,6 @@ class ImageCircle extends Component {
     }*/
 
     render() {
-        // const { classes } = this.props;
-
         return (
             <div className='circleContainer'>
                 <img className='circle' src={ this.props.imageSource } alt='circle'/>

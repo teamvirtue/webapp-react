@@ -15,7 +15,30 @@ import myLinqImage from '../../assets/my_linq.svg';
 import linqImage from '../../assets/linq.svg';
 import communityImage from '../../assets/city.svg';
 import earthIcon from '../../assets/earth.svg';
-import halfEarthIcon from '../../assets/half_earth.svg';
+// import halfEarthIcon from '../../assets/half_earth.svg';
+
+let worlds = [
+    { key: '1' },
+    { key: '2' },
+];
+
+let advices = [
+    {   key: '1',
+        title: 'Washer-dryer',
+        message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+        icons: 'schedule',
+    },
+    {   key: '2',
+        title: 'Dishwasher',
+        message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+        icons: 'agree',
+    },
+    {   key: '3',
+        title: 'TV',
+        message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+        icons: 'agree',
+    },
+];
 
 const styles = {
     /*root: {
@@ -28,7 +51,7 @@ const styles = {
     energyIcon: {
         fontSize: '3.5em',
         lineHeight: '50px',
-        color: '#f15b27',
+        color: '#f15b27', // TODO: create global theme
     },
     checkIcon: {
         fontSize: '2em',
@@ -39,14 +62,14 @@ const styles = {
     },
     cardContainer: {
         //minWidth: 275,
-        margin: 50,
+        margin: 25,
     },
 };
 
 function TabContainer({ children, dir }) {
     return (
-        <div className='pageContainer' dir={dir}>
-            {children}
+        <div className='pageContainer' dir={ dir }>
+            { children }
         </div>
     );
 }
@@ -106,9 +129,13 @@ class Home extends Component {
 
                             <div className='statusBar'>
                                 <div className='statusItem'>
-                                    <img className={ classes.earthIcon } src={ earthIcon } alt='icon'/>
-                                    <img className={ classes.earthIcon } src={ earthIcon } alt='icon'/>
-                                    <img className={ classes.earthIcon } src={ halfEarthIcon } alt='icon'/>
+                                    { worlds.map(data => {
+                                        return (
+                                            <img key={ data.key } className={ classes.earthIcon } src={ earthIcon } alt='icon'/>
+                                        );
+                                    })}
+                                    {/*{ data.half && <img className={ classes.earthIcon } src={ halfEarthIcon } alt='icon'/> }*/}
+
                                     {/*<h1>25%</h1>*/}
                                     <Typography type='subheading'>
                                         Use of resources
@@ -137,12 +164,16 @@ class Home extends Component {
                                 </div>
                             </div>
 
-                            <Divider />
+                            {/*<Divider />*/}
 
                             <div className={ classes.cardContainer }>
-                                <AdviceCard />
-                                <AdviceCard />
-                                <AdviceCard />
+                                { advices.map(data => {
+                                    return (
+                                        <AdviceCard key={ data.key } title={ data.title } icons={ data.icons }>
+                                            { data.message }
+                                        </AdviceCard>
+                                    );
+                                })}
                             </div>
 
                             {/*<div className='adviceContainer'> {

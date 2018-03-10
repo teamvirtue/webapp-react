@@ -8,6 +8,7 @@ import List, {
     ListItemText,
 } from 'material-ui/List';
 import Switch from 'material-ui/Switch';
+import Slider from 'rc-slider';
 import Icon from 'material-ui/Icon';
 
 import './Controls.css';
@@ -18,8 +19,9 @@ class Control extends Component {
     // componentDidMount() {    }
 
     state = {
-        checkedOnOff: false,
+        checkedLightOnOff: false,
         checkedNightMode: true,
+        checkedTemperature: true,
     };
 
     handleChange = name => (event, checked) => {
@@ -36,7 +38,6 @@ class Control extends Component {
                 <ImageCircle imageSource={ myLinqImage }/>
 
                 <div className='panelView'>
-                    {/*<div className='controlsCircle' />*/}
 
                     <div className='controlsContainer'>
                         <List>
@@ -44,19 +45,6 @@ class Control extends Component {
                                 Lights
                             </Typography>
 
-                            <ListItem
-                                button
-                                aria-haspopup='true'
-                                aria-controls='lorem-ipsum'
-                                aria-label='Lorem ipsum'
-                                // onClick={this.handleClickListItem}
-                            >
-                                <ListItemIcon>
-                                    <Icon>lightbulb_outline</Icon>
-                                </ListItemIcon>
-
-                                <ListItemText primary='Dim' secondary='[slider]' />
-                            </ListItem>
                             <ListItem>
                                 <ListItemIcon>
                                     <Icon>power_settings_new</Icon>
@@ -66,12 +54,46 @@ class Control extends Component {
 
                                 <ListItemSecondaryAction>
                                     <Switch
-                                        checked={this.state.checkedOnOff}
-                                        onChange={this.handleChange('checkedOnOff')}
+                                        checked={this.state.checkedLightOnOff}
+                                        onChange={this.handleChange('checkedLightOnOff')}
                                     />
                                 </ListItemSecondaryAction>
                             </ListItem>
                             <ListItem>
+                                <ListItemIcon>
+                                    <Icon>lightbulb_outline</Icon>
+                                </ListItemIcon>
+
+                                <ListItemText disableTypography primary='Brightness' secondary={
+                                    <Slider
+                                        min={ 0 }
+                                        max={ 20 }
+                                        defaultValue={ 5 }
+                                        trackStyle={{ backgroundColor: '#f15b27' }}
+                                        handleStyle={{
+                                            borderColor: '#f15b27',
+                                            backgroundColor: '#f15b27',
+                                        }}
+                                        railStyle={{ backgroundColor: 'lightgray' }}
+                                    />
+                                }
+                                />
+
+                            </ListItem>
+                            <ListItem
+                                button
+                                aria-haspopup='true'
+                                aria-controls='lorem-ipsum'
+                                aria-label='Lorem ipsum'
+                                // onClick={this.handleClickListItem}
+                            >
+                                <ListItemIcon>
+                                    <Icon>color_lens</Icon>
+                                </ListItemIcon>
+
+                                <ListItemText primary='Colors' secondary='Choose colors of your lights' />
+                            </ListItem>
+                            <ListItem divider>
                                 <ListItemIcon>
                                     <Icon>brightness_2</Icon>
                                 </ListItemIcon>
@@ -85,19 +107,50 @@ class Control extends Component {
                                     />
                                 </ListItemSecondaryAction>
                             </ListItem>
-                            <ListItem
+                            {/*<ListItem
                                 button
-                                divider
                                 aria-haspopup='true'
                                 aria-controls='lorem-ipsum'
                                 aria-label='Lorem ipsum'
                                 // onClick={this.handleClickListItem}
                             >
                                 <ListItemIcon>
-                                    <Icon>color_lens</Icon>
+                                    <Icon>lightbulb_outline</Icon>
                                 </ListItemIcon>
 
-                                <ListItemText primary='Colors' secondary='Choose colors of your lights' />
+                                <ListItemText disableTypography primary='Volume' secondary='Lorem ipsum'/>
+                            </ListItem>*/}
+
+                            <Typography className='controlsTitle' type='subheading'>
+                                Temperature
+                            </Typography>
+
+                            <ListItem button onClick={ this.handleChange('checkedTemperature') } > {/*TODO: fix click*/}
+                                <ListItemIcon>
+                                    <Icon>ac_unit</Icon>
+                                </ListItemIcon>
+
+                                <ListItemText primary='Air conditioning' />
+
+                                <ListItemSecondaryAction>
+                                    <Switch
+                                        checked={ this.state.checkedTemperature }
+                                        onChange={ this.handleChange('checkedTemperature') }
+                                    />
+                                </ListItemSecondaryAction>
+                            </ListItem>
+                            <ListItem
+                                button
+                                divider
+                                /*aria-haspopup='true'
+                                aria-controls='set-temperature'
+                                aria-label='Set temperature'*/
+                            >
+                                <ListItemIcon>
+                                    <Icon>touch_app</Icon>
+                                </ListItemIcon>
+
+                                <ListItemText primary='Set temperature' secondary='Lorem ipsum' />
                             </ListItem>
 
                             <Typography className='controlsTitle' type='subheading'>
@@ -113,8 +166,8 @@ class Control extends Component {
 
                                 <ListItemSecondaryAction>
                                     <Switch
-                                        checked={this.state.checkedOnOff}
-                                        onChange={this.handleChange('checkedOnOff')}
+                                        checked={this.state.checkedTemperature}
+                                        onChange={this.handleChange('checkedTemperature')}
                                     />
                                 </ListItemSecondaryAction>
                             </ListItem>

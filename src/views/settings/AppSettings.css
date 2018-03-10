@@ -1,22 +1,24 @@
 .settingsContainer {
   height: 1000px;
-  text-align: left; }
-  @media only screen and (min-width: 1200px) {
-    .settingsContainer {
-      width: 40vw; } }
+  text-align: left;
+  /*@media only screen and (min-width: 1200px) {
+    width: 40vw;
+    //background-color: firebrick;
+  }*/ }
 
-.settingsCircle {
+/*.settingsCircle {
   width: 20vw;
   height: 20vw;
   margin: 15px auto;
   border-radius: 50%;
-  box-shadow: inset 0 0 10px 5px rgba(0, 0, 0, 0.25); }
-  @media only screen and (min-width: 1200px) {
-    .settingsCircle {
-      width: 20vw;
-      height: 20vw;
-      margin: auto 75px; } }
+  box-shadow: inset 0 0 10px 5px rgba(0,0,0,0.25);
 
+  @media only screen and (min-width: 1200px) {
+    width: 20vw;
+    height: 20vw;
+    margin: auto 75px;
+  }
+}*/
 .pageTitle {
   line-height: 48px; }
 

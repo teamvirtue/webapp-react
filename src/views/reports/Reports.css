@@ -1,16 +1,17 @@
-.reportsCircle {
+/*.reportsCircle {
   display: block;
   width: 20vw;
   height: 20vw;
   margin: 15px auto 16px auto;
   border-radius: 50%;
-  box-shadow: inset 0 0 10px 5px rgba(0, 0, 0, 0.25); }
-  @media only screen and (min-width: 1200px) {
-    .reportsCircle {
-      width: 20vw;
-      height: 20vw;
-      margin: auto 75px; } }
+  box-shadow: inset 0 0 10px 5px rgba(0,0,0,0.25);
 
+  @media only screen and (min-width: 1200px) {
+    width: 20vw;
+    height: 20vw;
+    margin: auto 75px;
+  }
+}*/
 .reportsInfoBar {
   display: flex;
   flex-direction: row;

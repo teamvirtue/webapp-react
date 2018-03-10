@@ -3,61 +3,63 @@ import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import Card, { CardActions, CardContent } from 'material-ui/Card';
 import IconButton from 'material-ui/IconButton';
-//import Button from 'material-ui/Button';
+// import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
 import Icon from 'material-ui/Icon';
 
 const styles = theme => ({
     card: {
         minWidth: 275,
-        margin: '10px 0',
+        maxWidth: 500,
+        margin: '15px auto',
+        textAlign: 'left',
+    },
+    controls: {
+        justifyContent: 'space-between',
     },
     title: {
         marginBottom: 16,
-        fontSize: 14,
-        color: theme.palette.text.secondary,
+        fontSize: 20,
     },
-    pos: {
+    /*pos: {
         marginBottom: 12,
         color: theme.palette.text.secondary,
-    },
+    },*/
 });
 
-function SimpleCard(props) {
+function AdviceCard(props) { // TODO: function or class?
     const { classes } = props;
 
     return (
         <Card className={ classes.card }>
             <CardContent>
-                <Typography variant="headline" component="h1">
-                    Lorem ipsum
+                <Typography variant='headline' className={ classes.title } component='h1'>
+                    { props.title }
                 </Typography>
-                <Typography component="p">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-                    et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                    aliquip ex ea commodo consequat.
+               {/* <Icon>info</Icon>*/}
+
+                <Typography component='p'>
+                    { props.children }
                 </Typography>
             </CardContent>
-            <CardActions>
-                <IconButton aria-label="Add to favorites">
-                    <Icon>info</Icon>
+            <CardActions className={ classes.controls }>
+                <IconButton color='primary'> {/*aria-label='Share'*/}
+                    { props.icons === 'schedule'    && <Icon>schedule</Icon> }
+                    { props.icons === 'agree'       && <Icon>done</Icon> }
                 </IconButton>
-                <IconButton aria-label="Share">
-                    <Icon>info</Icon>
+                <IconButton>
+                    <Icon>not_interested</Icon>
                 </IconButton>
-                {/*<Button size="small" color="primary">
-                    Share
-                </Button>
-                <Button size="small" color="primary">
-                    Learn More
+                {/*<Button size='small' color='primary'>
+                    Ignore
                 </Button>*/}
             </CardActions>
         </Card>
     );
 }
 
-SimpleCard.propTypes = {
+AdviceCard.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(SimpleCard);
+export default withStyles(styles)(AdviceCard);

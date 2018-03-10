@@ -13,11 +13,13 @@ import Settings from './settings/AppSettings';
 
 const styles = {
     /*root: {
-        display: 'flex',
+        //display: 'flex',
+        backgroundColor: 'lightblue'
     },*/
     nav: {
         position: 'fixed',
         bottom: 0,
+        zIndex: 1,
         width: '100%',
         boxShadow: '0px -3px 3px 0px rgba(0,0,0,0.15)',
     },

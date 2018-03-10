@@ -13,19 +13,23 @@ import Menu, { MenuItem } from 'material-ui/Menu';
 import { TimePicker, DatePicker } from 'material-ui-pickers';
 // import { withStyles } from 'material-ui/styles';
 import Icon from 'material-ui/Icon';
-// import deepOrange from 'material-ui/colors/deepOrange';
 
-// import SelectItem from './SelectMenuItem';
 import './AppSettings.css';
 import ImageCircle from '../ImageCircle';
 import settingsImage from '../../assets/settings.svg';
 
-const options = [ // TODO: add allergy option as well?
+const foodOptions = [ // TODO: add allergy option as well?
     'Not applicable',
     'Flexitarian',
     'Pescatarian',
     'Vegetarian',
     'Vegan',
+];
+
+const optionsNightmode = [ // TODO: add allergy option as well?
+    'Disabled',
+    'Automatically enable from sunset to sunrise',
+    'Custom time range',
 ];
 
 class Settings extends Component {
@@ -34,10 +38,11 @@ class Settings extends Component {
         selectedTime: new Date(),
         selectedDateTime: new Date(),
 
+        checkedNightMode: false,
         checkedVibrate: true,
         checkedDesktopNotifications: false,
 
-        anchorEl: null,
+        anchorEl: null, // TODO: check https://stackoverflow.com/questions/48169492/how-to-assign-which-menuitems-open-onclick-when-multiple-menus-are-present-on-th?rq=1
         selectedIndex: 2,
     };
 
@@ -122,7 +127,7 @@ class Settings extends Component {
                             <ListItem
                                 button
                                 aria-haspopup='true'
-                                aria-controls='lock-menu'
+                                aria-controls='food-menu'
                                 aria-label='Food preferences'
                                 onClick={ this.handleClickListItem }
                             >
@@ -132,19 +137,74 @@ class Settings extends Component {
 
                                 <ListItemText
                                     primary='Food preferences'
-                                    secondary={ options[this.state.selectedIndex] }
+                                    secondary={ foodOptions[this.state.selectedIndex] }
                                 />
                             </ListItem>
                             <Menu
-                                id='lock-menu'
+                                id='food-menu'
                                 anchorEl={ anchorEl }
                                 open={ Boolean(anchorEl) }
                                 onClose={ this.handleClose }
                             >
-                                { options.map((option, index) => (
+                                { foodOptions.map((option, index) => (
                                     <MenuItem
                                         key={ option }
                                         /*disabled={index === 0}*/
+                                        selected={ index === this.state.selectedIndex }
+                                        onClick={ event => this.handleMenuItemClick(event, index) }
+                                    >
+                                        { option }
+                                    </MenuItem>
+                                )) }
+                            </Menu>
+                        </List>
+
+                        <Divider />
+
+                        <Typography className='settingsTitle' type='subheading'>
+                            App Settings
+                        </Typography>
+
+                        <List>
+                            <ListItem>
+                                <ListItemIcon>
+                                    <Icon>brightness_2</Icon>
+                                </ListItemIcon>
+
+                                <ListItemText primary='Night mode' />
+
+                                <ListItemSecondaryAction>
+                                    <Switch
+                                        checked={this.state.checkedNightMode}
+                                        onChange={this.handleChange('checkedNightMode')}
+                                    />
+                                </ListItemSecondaryAction>
+                            </ListItem>
+                            <ListItem
+                                button
+                                aria-haspopup='true'
+                                aria-controls='nightmode-menu'
+                                aria-label='Night mode'
+                                onClick={ this.handleClickListItem }
+                            >
+                                <ListItemIcon>
+                                    <Icon>autorenew</Icon>
+                                </ListItemIcon>
+
+                                <ListItemText
+                                    primary='Turn on automatically'
+                                    secondary={ optionsNightmode[this.state.selectedIndex] }
+                                />
+                            </ListItem>
+                            <Menu
+                                id='nightmode-menu'
+                                anchorEl={ anchorEl }
+                                open={ Boolean(anchorEl) }
+                                onClose={ this.handleClose }
+                            >
+                                { optionsNightmode.map((option, index) => (
+                                    <MenuItem
+                                        key={ option }
                                         selected={ index === this.state.selectedIndex }
                                         onClick={ event => this.handleMenuItemClick(event, index) }
                                     >
