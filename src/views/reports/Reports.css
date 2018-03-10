@@ -1,0 +1,46 @@
+.reportsCircle {
+  display: block;
+  width: 20vw;
+  height: 20vw;
+  margin: 15px auto 16px auto;
+  border-radius: 50%;
+  box-shadow: inset 0 0 10px 5px rgba(0, 0, 0, 0.25); }
+  @media only screen and (min-width: 1200px) {
+    .reportsCircle {
+      width: 20vw;
+      height: 20vw;
+      margin: auto 75px; } }
+
+.reportsInfoBar {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  margin: 35px 0; }
+  .reportsInfoBar h1 {
+    margin: 0;
+    line-height: 35px;
+    display: inline; }
+  .reportsInfoBar h3 {
+    display: inline; }
+  .reportsInfoBar p {
+    margin: 10px 0; }
+  .reportsInfoBar [class*='infoItem'] {
+    position: relative;
+    width: calc(100% / 3); }
+  .reportsInfoBar .infoItem2:before {
+    content: '';
+    position: absolute;
+    top: 15px;
+    bottom: 30px;
+    left: 0;
+    border-left: 1px solid lightgray; }
+  .reportsInfoBar .infoItem2:after {
+    content: '';
+    position: absolute;
+    top: 15px;
+    bottom: 30px;
+    right: 0;
+    border-left: 1px solid lightgray; }
+
+.RadioGroup {
+  justify-content: center; }

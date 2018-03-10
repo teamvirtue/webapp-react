@@ -1,0 +1,12 @@
+body {
+  font-family: 'Roboto', Arial, Helvetica, sans-serif; }
+
+.App {
+  text-align: center; }
+
+/*
+h1 {
+  @media only screen and (min-width: 1200px) {
+    font-size: 3em;
+  }
+}*/

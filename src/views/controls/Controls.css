@@ -1,0 +1,9 @@
+.controlsContainer {
+  text-align: left; }
+  @media only screen and (min-width: 1200px) {
+    .controlsContainer {
+      width: 40vw; } }
+
+.controlsTitle {
+  padding-top: 16px;
+  padding-left: 16px; }

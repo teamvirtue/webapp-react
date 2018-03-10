@@ -1,0 +1,67 @@
+/*-------VARIABLES------*/
+//$primary-color: #BD2525;
+//$hover-color: #F1F1F1;
+
+$phone-width: 480px;
+$tablet-width: 1280px;
+$desktop-width: 1920px;
+$tv-width: 2560px;
+
+/*-------MIXINS------*/
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  border-radius: $radius;
+}
+
+@mixin border-box {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+@mixin box-shadow($parameters) {
+  -webkit-box-shadow: $parameters;
+  -moz-box-shadow: $parameters;
+  box-shadow: $parameters;
+}
+
+@mixin phone {
+  @media (min-width: #{$phone-width}) and (max-width: #{$tablet-width - 1px}) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width: #{$tablet-width}) and (max-width: #{$desktop-width - 1px}) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: #{$desktop-width}) and (max-width: #{$tv-width - 1px}) {
+    @content;
+  }
+}
+
+@mixin tv {
+  @media (min-width: #{$tv-width}) {
+    @content;
+  }
+}
+
+@mixin transition($parameters) {
+  -webkit-transition: $parameters;
+  -moz-transition: $parameters;
+  -ms-transition: $parameters;
+  -o-transition: $parameters;
+  transition: $parameters;
+}
+
+@mixin transform($parameters) {
+  -moz-transform: $parameters;
+  -o-transform: $parameters;
+  -ms-transform: $parameters;
+  -webkit-transform: $parameters;
+  transform: $parameters;
+}

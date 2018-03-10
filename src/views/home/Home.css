@@ -1,0 +1,78 @@
+.pageContainer {
+  position: relative;
+  width: 100%;
+  margin-bottom: 100px; }
+
+.tabIndicator {
+  top: 0;
+  bottom: auto; }
+
+/*.swipeableViews {
+  width: auto;
+}*/
+.panelView {
+  display: inline; }
+  @media only screen and (min-width: 1200px) {
+    .panelView {
+      position: absolute;
+      width: 40vw;
+      margin-top: 50px; } }
+
+.statusBar {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  margin: 75px 0; }
+  .statusBar h1 {
+    margin: 0;
+    line-height: 50px; }
+  .statusBar h3 {
+    margin: 0; }
+  .statusBar .statusItem {
+    width: 50%; }
+  @media only screen and (min-width: 1200px) {
+    .statusBar {
+      margin: 6vw 0; } }
+
+.infoBar {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  margin: 50px 0; }
+  .infoBar h1 {
+    margin: 0;
+    line-height: 35px; }
+  .infoBar p {
+    margin: 10px 0; }
+  .infoBar [class*='infoItem'] {
+    position: relative;
+    width: calc(100% / 3); }
+  .infoBar .infoItem2:before {
+    content: '';
+    position: absolute;
+    top: 15px;
+    bottom: 30px;
+    left: 0;
+    border-left: 1px solid lightgray; }
+  .infoBar .infoItem2:after {
+    content: '';
+    position: absolute;
+    top: 15px;
+    bottom: 30px;
+    right: 0;
+    border-left: 1px solid lightgray; }
+
+/*
+.adviceContainer {
+  width: 100%;
+  margin: 35px 0;
+
+  .adviceItem {
+    width: 70%;
+    margin: 35px auto;
+    padding: 15px;
+    text-align: left;
+    border-radius: 2px;
+    box-shadow: 0 0 2px 3px rgba(0,0,0,0.25);
+  }
+}*/

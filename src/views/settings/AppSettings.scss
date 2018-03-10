@@ -1,0 +1,37 @@
+.settingsContainer {
+  height: 1000px;
+  text-align: left;
+  // padding-left: 16px;
+
+  @media only screen and (min-width: 1200px) {
+    width: 40vw;
+    //background-color: firebrick;
+  }
+}
+
+.settingsCircle {
+  width: 20vw;
+  height: 20vw;
+  margin: 15px auto;
+  border-radius: 50%;
+  box-shadow: inset 0 0 10px 5px rgba(0,0,0,0.25);
+
+  @media only screen and (min-width: 1200px) {
+    width: 20vw;
+    height: 20vw;
+    margin: auto 75px;
+  }
+}
+
+.pageTitle {
+  line-height: 48px;
+}
+
+.settingsTitle {
+  padding-top: 16px;
+  padding-left: 16px;
+}
+
+.datePicker {
+  padding-left: 16px;
+}
