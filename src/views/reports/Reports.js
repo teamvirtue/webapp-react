@@ -164,43 +164,6 @@ class Reports extends Component {
                         onChangeIndex={ this.handleChangeIndex }
                     >
                         <TabContainer dir={ theme.direction }>
-                            <RadioButtonGroup />
-
-                            <h1>Total Energy</h1>
-
-                            <LineChart />
-                            <Checkboxes />
-
-                            <h1>Per Appliance</h1>
-                            <BarChart />
-
-                            <Divider/>
-
-                            <h1>Systems</h1>
-                            <Table>
-                                <TableBody>
-                                    { systems.map(data => {
-                                        return (
-                                            <TableRow key={ data.key }>
-                                                <TableCell className={ classes.tableCellName }>{ data.value }</TableCell>{/*// TODO: make 'clickable'*/}
-                                                <TableCell className={ classes.tableCell } numeric>
-                                                    <Icon className={ classes.tableIcon }>{ data.status }</Icon>
-                                                </TableCell>
-                                            </TableRow>
-                                        );
-                                    })}
-                                </TableBody>
-
-                                <TableFooter>
-                                    <TableRow>
-                                        <TableCell />
-                                        <TableCell className={ classes.tableCell } numeric>STATUS</TableCell>
-                                    </TableRow>
-                                </TableFooter>
-                            </Table>
-
-                            <Divider/>
-
                             <h1>On Average</h1>
 
                             <div className='reportsInfoBar'>
@@ -239,6 +202,43 @@ class Reports extends Component {
                                     <p>Trees saved</p>
                                 </div>
                             </div>
+
+                            <Divider/>
+
+                            <RadioButtonGroup />
+
+                            <h1>Total Energy</h1>
+
+                            <LineChart />
+                            <Checkboxes />
+
+                            <h1>Per Appliance</h1>
+                            <BarChart />
+
+                            <Divider/>
+
+                            <h1>Systems</h1>
+                            <Table>
+                                <TableBody>
+                                    { systems.map(data => {
+                                        return (
+                                            <TableRow key={ data.key }>
+                                                <TableCell className={ classes.tableCellName }>{ data.value }</TableCell>{/*// TODO: make 'clickable'*/}
+                                                <TableCell className={ classes.tableCell } numeric>
+                                                    <Icon className={ classes.tableIcon }>{ data.status }</Icon>
+                                                </TableCell>
+                                            </TableRow>
+                                        );
+                                    })}
+                                </TableBody>
+
+                                <TableFooter>
+                                    <TableRow>
+                                        <TableCell />
+                                        <TableCell className={ classes.tableCell } numeric>STATUS</TableCell>
+                                    </TableRow>
+                                </TableFooter>
+                            </Table>
                         </TabContainer>
 
                         <TabContainer dir={ theme.direction }>

@@ -3,6 +3,8 @@ import { HorizontalBar } from 'react-chartjs-2';
 
 // import Icon from 'material-ui/Icon';
 
+let data = [35, 45, 80, 81, 65, 59, 40, 81, 90, 13,];
+
 const Chart = require('chart.js');
 
 class BarChart extends Component{
@@ -15,7 +17,7 @@ class BarChart extends Component{
                 labels: ['Washer dryer', 'Dishwasher', 'Oven', 'Fridge', 'Music system', 'TV', 'Laptop', 'Lights', 'Clock', 'Car'],
                 datasets:[{
                     label: 'Appliance Usage',
-                    data: [65, 59, 80, 81, 65, 59, 80, 81, 124, 13],
+                    data: data,
                     fillColor: 'rgba(220, 220, 220, 0.5)',
                     strokeColor: 'rgba(220, 220, 220, 0.8)',
                     highlightFill: 'rgba(220, 220, 220, 0.75)',

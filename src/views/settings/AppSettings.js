@@ -33,18 +33,21 @@ const optionsNightmode = [ // TODO: add allergy option as well?
 ];
 
 class Settings extends Component {
-    state = {
-        selectedDate: new Date(),
-        selectedTime: new Date(),
-        selectedDateTime: new Date(),
+    constructor(props) {
+        super(props);
+        this.state = {
+            selectedDate: new Date(),
+            selectedTime: new Date(),
+            selectedDateTime: new Date(),
 
-        checkedNightMode: false,
-        checkedVibrate: true,
-        checkedDesktopNotifications: false,
+            checkedNightMode: false,
+            checkedVibrate: true,
+            checkedDesktopNotifications: false,
 
-        anchorEl: null, // TODO: check https://stackoverflow.com/questions/48169492/how-to-assign-which-menuitems-open-onclick-when-multiple-menus-are-present-on-th?rq=1
-        selectedIndex: 2,
-    };
+            anchorEl: null, // TODO: check https://stackoverflow.com/questions/48169492/how-to-assign-which-menuitems-open-onclick-when-multiple-menus-are-present-on-th?rq=1
+            selectedIndex: 2,
+        };
+    }
 
     handleDateChange = date => {
         this.setState({ selectedDate: date });
@@ -116,7 +119,27 @@ class Settings extends Component {
                                     <Icon>timelapse</Icon>
                                 </ListItemIcon>
 
-                                <ListItemText primary='Sleep cycle' />
+                                <ListItemText
+                                    primary='Sleep cycle'
+                                    secondary='Allows system to automatically adjust light settings' />
+
+                                <ListItemSecondaryAction>
+                                    <Switch
+                                        checked={this.state.checkedNightMode}
+                                        onChange={this.handleChange('checkedNightMode')}
+                                    />
+                                </ListItemSecondaryAction>
+                            </ListItem>
+                            <ListItem>
+                                <ListItemText inset primary='Start' />
+
+                                <TimePicker
+                                    value={ selectedTime }
+                                    onChange={ this.handleTimeChange }
+                                />
+                            </ListItem>
+                            <ListItem> {/*TODO: make separate components*/}
+                                <ListItemText inset primary='End' />
 
                                 <TimePicker
                                     value={ selectedTime }
@@ -187,11 +210,12 @@ class Settings extends Component {
                                 aria-label='Night mode'
                                 onClick={ this.handleClickListItem }
                             >
-                                <ListItemIcon>
+                                {/*<ListItemIcon>
                                     <Icon>autorenew</Icon>
-                                </ListItemIcon>
+                                </ListItemIcon>*/}
 
                                 <ListItemText
+                                    inset
                                     primary='Turn on automatically'
                                     secondary={ optionsNightmode[this.state.selectedIndex] }
                                 />
@@ -313,6 +337,8 @@ class Settings extends Component {
                         <Typography className='settingsTitle' type='subheading'>
                             About
                         </Typography>
+
+                        {/*TODO: add licences and dependencies*/}
 
                         <List>
                             <ListItem

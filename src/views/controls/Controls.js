@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withStyles } from 'material-ui/styles';
 import Typography from 'material-ui/Typography';
 import 'rc-slider/assets/index.css';
 import List, {
@@ -11,27 +12,50 @@ import Switch from 'material-ui/Switch';
 import Slider from 'rc-slider';
 import Icon from 'material-ui/Icon';
 
-import './Controls.css';
+//import './Controls.css';
 import ImageCircle from '../ImageCircle';
 import myLinqImage from '../../assets/controls.svg';
 
-class Control extends Component {
-    // componentDidMount() {    }
 
-    state = {
-        checkedLightOnOff: false,
-        checkedNightMode: true,
-        checkedTemperature: true,
-    };
+const styles = theme => ({
+    root: {
+        marginBottom: 100,
+        //textAlign: 'left',
+    },
+    pageTitle: {
+        //textAlign: 'center',
+        paddingTop: 15,
+        paddingBottom: 16,
+    },
+    controlsTitle: {
+        paddingTop: 16,
+        paddingLeft: 16,
+    },
+    controlsContainer: {
+        textAlign: 'left',
+    },
+});
+
+class Controls extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            checkedLightOnOff: false,
+            checkedNightMode: true,
+            checkedTemperature: true,
+        };
+    }
 
     handleChange = name => (event, checked) => {
         this.setState({ [name]: checked });
     };
 
     render() {
+        const { classes } = this.props;
+
         return (
-            <div>
-                <Typography className='pageTitle' type='button'>
+            <div className={ classes.root }>
+                <Typography className={ classes.pageTitle } type='button'>
                     Controls
                 </Typography>
 
@@ -39,9 +63,9 @@ class Control extends Component {
 
                 <div className='panelView'>
 
-                    <div className='controlsContainer'>
+                    <div className={ classes.controlsContainer }>
                         <List>
-                            <Typography className='controlsTitle' type='subheading'>
+                            <Typography className={ classes.controlsTitle } type='subheading'>
                                 Lights
                             </Typography>
 
@@ -50,12 +74,12 @@ class Control extends Component {
                                     <Icon>power_settings_new</Icon>
                                 </ListItemIcon>
 
-                                <ListItemText primary='On/off' />
+                                <ListItemText primary='Power' />
 
                                 <ListItemSecondaryAction>
                                     <Switch
-                                        checked={this.state.checkedLightOnOff}
-                                        onChange={this.handleChange('checkedLightOnOff')}
+                                        checked={ this.state.checkedLightOnOff }
+                                        onChange={ this.handleChange('checkedLightOnOff') }
                                     />
                                 </ListItemSecondaryAction>
                             </ListItem>
@@ -121,7 +145,7 @@ class Control extends Component {
                                 <ListItemText disableTypography primary='Volume' secondary='Lorem ipsum'/>
                             </ListItem>*/}
 
-                            <Typography className='controlsTitle' type='subheading'>
+                            <Typography className={ classes.controlsTitle } type='subheading'>
                                 Temperature
                             </Typography>
 
@@ -150,10 +174,10 @@ class Control extends Component {
                                     <Icon>touch_app</Icon>
                                 </ListItemIcon>
 
-                                <ListItemText primary='Set temperature' secondary='Lorem ipsum' />
+                                <ListItemText primary='Set temperature' secondary='14 degrees' /> {/*TODO: insert pop-up menu*/}
                             </ListItem>
 
-                            <Typography className='controlsTitle' type='subheading'>
+                            <Typography className={ classes.controlsTitle } type='subheading'>
                                 Appliances
                             </Typography>
 
@@ -192,4 +216,4 @@ class Control extends Component {
     }
 }
 
-export default (Control);
+export default withStyles(styles)(Controls);

@@ -5,9 +5,8 @@ body {
   text-align: center; }
 
 .pageContainer {
-  position: relative;
   width: 100%;
-  margin-bottom: 100px; }
+  padding-bottom: 75px; }
 
 .tabIndicator {
   top: 0;
@@ -19,5 +18,4 @@ body {
     .panelView {
       position: absolute;
       width: 30vw;
-      margin-top: 50px;
-      margin-left: 25px; } }
+      margin-top: 50px; } }

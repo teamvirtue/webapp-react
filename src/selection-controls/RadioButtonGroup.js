@@ -3,9 +3,12 @@ import Radio, { RadioGroup } from 'material-ui/Radio';
 import { FormControlLabel } from 'material-ui/Form';
 
 class RadioButtonGroup extends Component {
-    state = {
-        value: 'week',
-    };
+    constructor(props) {
+        super(props);
+        this.state = {
+            value: 'week',
+        };
+    }
 
     handleChange = (event, value) => {
         this.setState({ value });

@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { Line } from 'react-chartjs-2';
 
+let dataUsage =[ 617, 181, 153, 106, 105, 95, 56, 604, 150, 234, 76, 86,];
+let dataGeneration =[ 250, 200, 153, 400, 475, 350, 142, 500, 150, 95, 215, 86,];
+
 class LineChart extends Component{
     constructor(props){
         super(props);
@@ -10,20 +13,7 @@ class LineChart extends Component{
                 labels: ['Jan', 'Feb', 'Mrt', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
                 datasets:[{
                     label:'Usage',
-                    data:[
-                        617,
-                        181,
-                        153,
-                        106,
-                        105,
-                        95,
-                        56,
-                        604,
-                        150,
-                        234,
-                        76,
-                        86,
-                    ],
+                    data: dataUsage,
                     backgroundColor:[
                         'rgba(241, 91, 39, 0.35)',
                         /*'rgba(54, 162, 235, 0.5)',
@@ -38,20 +28,7 @@ class LineChart extends Component{
                     // radius: 0, // radius is 0 for only this dataset
                 }, {
                     label:'Generation',
-                    data:[
-                        250,
-                        200,
-                        153,
-                        400,
-                        475,
-                        350,
-                        142,
-                        500,
-                        150,
-                        95,
-                        215,
-                        86,
-                    ],
+                    data: dataGeneration,
                     fill: false,
                     borderColor: ['LightGray'],
                     borderWidth: 3,

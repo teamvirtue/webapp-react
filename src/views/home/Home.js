@@ -5,6 +5,7 @@ import SwipeableViews from 'react-swipeable-views';
 import AppBar from 'material-ui/AppBar';
 import Tabs, { Tab } from 'material-ui/Tabs';
 import Typography from 'material-ui/Typography';
+import MediaQuery from 'react-responsive';
 import Divider from 'material-ui/Divider';
 import Icon from 'material-ui/Icon';
 
@@ -22,25 +23,25 @@ let worlds = [
     { key: '2' },
 ];
 
-let advices = [
+let advices = [ // use fetch in future https://blog.hellojs.org/fetching-api-data-with-react-js-460fe8bbf8f2
     {   key: '1',
         title: 'Washer-dryer',
-        message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+        message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do ut labore et dolore magna aliqua.',
         icons: 'schedule',
     },
     {   key: '2',
         title: 'Dishwasher',
-        message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+        message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
         icons: 'agree',
     },
     {   key: '3',
         title: 'TV',
-        message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+        message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
         icons: 'agree',
     },
 ];
 
-const styles = {
+const styles = theme => ({
     /*root: {
     },*/
     appBar: {
@@ -48,6 +49,11 @@ const styles = {
         boxShadow: 'none',
         backgroundColor: 'white',
     },
+    /*pageContainer: {
+        position: 'relative',
+        width: '100%',
+        marginBottom: 100,
+    },*/
     energyIcon: {
         fontSize: '3.5em',
         lineHeight: '50px',
@@ -62,11 +68,12 @@ const styles = {
     },
     cardContainer: {
         //minWidth: 275,
-        margin: 25,
+        margin: '25px 15px',
     },
-};
+});
 
 function TabContainer({ children, dir }) {
+
     return (
         <div className='pageContainer' dir={ dir }>
             { children }
@@ -108,7 +115,7 @@ class Home extends Component {
                     >
                         <Tab label='My LINQ' />
                         <Tab label='LINQ' />
-                        <Tab label='City' /> {/*// Community*/}
+                        <Tab label='City' />
                     </Tabs>
                 </AppBar>
 
@@ -116,13 +123,14 @@ class Home extends Component {
                 { value === 1 && <ImageCircle imageSource={ linqImage }/> }
                 { value === 2 && <ImageCircle imageSource={ communityImage }/> }
 
+                {/*TODO: check https://react-swipeable-views.com/demos/demos/ & https://react-swipeable-views.com/demos/demos/*/}
                 <div className='panelView'>
                     <SwipeableViews
                         className={ 'swipeableViews' }
                         axis={ theme.direction === 'rtl' ? 'x-reverse' : 'x' }
                         index={ value }
                         onChangeIndex={ this.handleChangeIndex }
-                        //animateHeight={ true }
+                        animateHeight={ true }
                     >
                         <TabContainer dir={ theme.direction }>
                             <h1>Good morning Jane</h1>
@@ -136,17 +144,16 @@ class Home extends Component {
                                     })}
                                     {/*{ data.half && <img className={ classes.earthIcon } src={ halfEarthIcon } alt='icon'/> }*/}
 
-                                    {/*<h1>25%</h1>*/}
                                     <Typography type='subheading'>
                                         Use of resources
                                     </Typography>
                                 </div>
-                                <div className='statusItem'>
+                                {/*<div className='statusItem'>
                                     <Icon className={ classes.energyIcon }>swap_vert</Icon>
                                     <Typography type='subheading'>
-                                        Generating energy
+                                        Generating
                                     </Typography>
-                                </div>
+                                </div>*/}
                             </div>
 
                             <div className='infoBar'>
@@ -155,8 +162,8 @@ class Home extends Component {
                                     <p>Indoors</p>
                                 </div>
                                 <div className='infoItem2'>
-                                    <h1>30</h1>
-                                    <p>January</p>
+                                    <Icon className={ classes.checkIcon }>swap_vert</Icon>
+                                    <p>Generating energy</p>
                                 </div>
                                 <div className='infoItem3'>
                                     <Icon className={ classes.checkIcon }>check_circle</Icon>
@@ -164,7 +171,9 @@ class Home extends Component {
                                 </div>
                             </div>
 
-                            {/*<Divider />*/}
+                            <MediaQuery query='(max-width: 1200px)'>
+                                <Divider />
+                            </MediaQuery>
 
                             <div className={ classes.cardContainer }>
                                 { advices.map(data => {
@@ -175,20 +184,6 @@ class Home extends Component {
                                     );
                                 })}
                             </div>
-
-                            {/*<div className='adviceContainer'> {
-                                <h1>Advices</h1>
-
-                                <div className='adviceItem'>
-                                    <Icon>info</Icon>
-                                    <p>Message</p>
-                                </div>
-
-                                <div className='adviceItem'>
-                                    <Icon>info</Icon>
-                                    <p>Message</p>
-                                </div>
-                            </div>*/}
                         </TabContainer>
 
                         <TabContainer dir={ theme.direction }>
@@ -202,9 +197,9 @@ class Home extends Component {
                                     </Typography>
                                 </div>
                                 <div className='statusItem'>
-                                    <Icon className={ classes.energyIcon }>swap_vert</Icon>
+                                    <h1>3</h1>
                                     <Typography type='subheading'>
-                                        Generating and using energy
+                                        Spaces available
                                     </Typography>
                                 </div>
                             </div>
@@ -215,8 +210,8 @@ class Home extends Component {
                                     <p>Indoors</p>
                                 </div>
                                 <div className='infoItem2'>
-                                    <h1>3</h1>
-                                    <p>Spaces free</p>
+                                    <Icon className={ classes.checkIcon }>swap_vert</Icon>
+                                    <p>Generating & using energy</p>
                                 </div>
                                 <div className='infoItem3'>
                                     <h1>1</h1>

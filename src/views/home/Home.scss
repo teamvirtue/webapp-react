@@ -3,7 +3,7 @@
   flex-direction: row;
   justify-content: center;
   width: 100%;
-  margin: 75px 0;
+  margin: 50px 0;
   h1 {
     margin: 0;
     line-height: 50px;
@@ -26,7 +26,7 @@
   flex-direction: row;
   justify-content: center;
   width: 100%;
-  margin: 75px 0;
+  margin: 50px 0;
   h1 {
     margin: 0;
     line-height: 35px;
@@ -40,7 +40,7 @@
     width: calc(100% / 3);
 
     @media only screen and (min-width: 1200px) {
-      width: 20%; //calc(100% / 3)
+      width: 30%; //calc(100% / 3)
     }
   }
 
@@ -63,18 +63,3 @@
     }
   }
 }
-
-/*
-.adviceContainer {
-  width: 100%;
-  margin: 35px 0;
-
-  .adviceItem {
-    width: 70%;
-    margin: 35px auto;
-    padding: 15px;
-    text-align: left;
-    border-radius: 2px;
-    box-shadow: 0 0 2px 3px rgba(0,0,0,0.25);
-  }
-}*/

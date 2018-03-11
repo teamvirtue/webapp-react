@@ -6,11 +6,9 @@ body {
   text-align: center;
 }
 
-.pageContainer {
-  position: relative;
+.pageContainer { // TODO: move pageContainer to component
   width: 100%;
-  margin-bottom: 100px;
-  //background-color: firebrick;
+  padding-bottom: 75px;
 }
 
 .tabIndicator {
@@ -25,6 +23,6 @@ body {
     position: absolute;
     width: 30vw;
     margin-top: 50px;
-    margin-left: 25px; //-50px; // TODO: fix this another way
+    //margin-left: 15px;
   }
 }

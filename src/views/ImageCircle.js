@@ -13,7 +13,6 @@ const styles = {
 class ImageCircle extends Component {
     /*constructor(props) {
         super(props);
-
     }*/
 
     render() {
