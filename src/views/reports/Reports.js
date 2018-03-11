@@ -16,12 +16,14 @@ import ExpansionPanel, {
     ExpansionPanelSummary,
     ExpansionPanelDetails,
 } from 'material-ui/ExpansionPanel';
+import { FormGroup, FormControlLabel } from 'material-ui/Form';
+import Checkbox from 'material-ui/Checkbox';
 import Typography from 'material-ui/Typography';
 
 import RadioButtonGroup from '../../selection-controls/RadioButtonGroup';
 import LineChart from './LineChart';
 import BarChart from './BarChart';
-import Checkboxes from '../../selection-controls/Checkboxes';
+// import Checkboxes from '../../selection-controls/Checkboxes';
 import ImageCircle from '../ImageCircle';
 import './Reports.css';
 
@@ -99,8 +101,9 @@ class Reports extends Component {
         super(props);
         this.state = {
             value: 0,
-            checkedA: true,
-            checkedB: false,
+
+            usage: false,
+            generation: true,
         };
     }
 
@@ -112,14 +115,15 @@ class Reports extends Component {
         window.removeEventListener('scroll', this.handleScroll);
     };
 
-    handleScroll = function(event) {
+    /*handleScroll = function(event) {
         let scrollTop = window.scrollY;
 
         console.log(scrollTop);
-    };
+    };*/
 
-    handleChangeCheck = name => event => {
-        this.setState({ [name]: event.target.checked });
+    handleChangeBox = name => (event, checked) => {
+        this.setState({ [name]: checked });
+        console.log('hi ' + this.state.generation);
     };
 
     handleChange = (event, value) => {
@@ -164,6 +168,8 @@ class Reports extends Component {
                         onChangeIndex={ this.handleChangeIndex }
                     >
                         <TabContainer dir={ theme.direction }>
+                            {/*TODO: fix titles layout*/}
+
                             <h1>On Average</h1>
 
                             <div className='reportsInfoBar'>
@@ -187,12 +193,12 @@ class Reports extends Component {
 
                             <div className='reportsInfoBar'>
                                 <div className='infoItem1'>
-                                    <Icon style={{display: 'block'}}>local_atm</Icon>
+                                    <Icon style={{ display: 'block' }}>local_atm</Icon>
                                     <h1>5500</h1><h3>$</h3>
                                     <p>Money saved</p>
                                 </div>
                                 <div className='infoItem2'>
-                                    <Icon style={{display: 'block'}}>bubble_chart</Icon>
+                                    <Icon style={{ display: 'block' }}>bubble_chart</Icon>
                                     <h1>2</h1><h3>T</h3>
                                     <p>CO<sub>2</sub> reduced</p>
                                 </div>
@@ -209,8 +215,30 @@ class Reports extends Component {
 
                             <h1>Total Energy</h1>
 
-                            <LineChart />
-                            <Checkboxes />
+                            <LineChart graph={ this.state.generation }/>
+                            <FormGroup className='FormGroup' row>
+                                <FormControlLabel
+                                    control= {
+                                        <Checkbox
+                                            checked={ this.state.usage }
+                                            onChange={ this.handleChangeBox('usage') }
+                                            value='usage'
+                                        />
+                                    }
+                                    label='Usage'
+                                />
+                                <FormControlLabel
+                                    control={
+                                        <Checkbox
+                                            checked={ this.state.generation }
+                                            onChange={ this.handleChangeBox('generation') }
+                                            value='generation'
+                                        />
+                                    }
+                                    label='Generation'
+                                />
+                            </FormGroup>
+                            {/*<Checkboxes />*/}
 
                             <h1>Per Appliance</h1>
                             <BarChart />

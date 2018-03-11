@@ -14,14 +14,21 @@ import './Checkboxes.css';
 };*/
 
 class CheckboxGroup extends Component {
-    state = {
-        usage: false,
-        generation: true,
+    constructor(props) {
+        super(props);
+        this.state = {
+            usage: false,
+            generation: true,
+        };
+    }
+
+    handleChange = name => (event, checked) => {
+        this.setState({ [name]: checked });
     };
 
-    handleChange = name => event => {
+    /*handleChange = name => event => {
         this.setState({ [name]: event.target.checked });
-    };
+    };*/
 
     render() {
         // const { classes } = this.props;

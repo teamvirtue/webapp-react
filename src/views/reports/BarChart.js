@@ -80,7 +80,7 @@ class BarChart extends Component{
                         },
                     },
                     animation: {
-                        duration: 1000,
+                        duration: 500,
                         onComplete: function() {
                             const chartInstance = this.chart;
                             const ctx = chartInstance.ctx;
