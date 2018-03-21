@@ -4,7 +4,7 @@
     display: flex;
     height: calc(100% - 48px * 2);
     margin-left: 250px;
-    padding: 0 50px; } }
+    padding: 0 40px; } }
 
 .circle {
   display: block;

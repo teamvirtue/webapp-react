@@ -38,8 +38,8 @@ class CheckboxGroup extends Component {
                 <FormControlLabel
                     control= {
                         <Checkbox
-                            checked={this.state.usage}
-                            onChange={this.handleChange('usage')}
+                            checked={ this.state.usage }
+                            onChange={ this.handleChange('usage') }
                             value='usage'
                         />
                     }
@@ -48,8 +48,8 @@ class CheckboxGroup extends Component {
                 <FormControlLabel
                     control={
                         <Checkbox
-                            checked={this.state.generation}
-                            onChange={this.handleChange('generation')}
+                            checked={ this.state.generation }
+                            onChange={ this.handleChange('generation') }
                             value='generation'
                         />
                     }

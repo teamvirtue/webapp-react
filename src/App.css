@@ -17,5 +17,5 @@ body {
   @media only screen and (min-width: 1200px) {
     .panelView {
       position: absolute;
-      width: 30vw;
+      width: 35vw;
       margin-top: 50px; } }

@@ -16,8 +16,6 @@ import ExpansionPanel, {
     ExpansionPanelSummary,
     ExpansionPanelDetails,
 } from 'material-ui/ExpansionPanel';
-import { FormGroup, FormControlLabel } from 'material-ui/Form';
-import Checkbox from 'material-ui/Checkbox';
 import Typography from 'material-ui/Typography';
 
 import RadioButtonGroup from '../../selection-controls/RadioButtonGroup';
@@ -101,9 +99,6 @@ class Reports extends Component {
         super(props);
         this.state = {
             value: 0,
-
-            usage: false,
-            generation: true,
         };
     }
 
@@ -120,11 +115,6 @@ class Reports extends Component {
 
         console.log(scrollTop);
     };*/
-
-    handleChangeBox = name => (event, checked) => {
-        this.setState({ [name]: checked });
-        console.log('hi ' + this.state.generation);
-    };
 
     handleChange = (event, value) => {
         this.setState({ value });
@@ -215,29 +205,7 @@ class Reports extends Component {
 
                             <h1>Total Energy</h1>
 
-                            <LineChart graph={ this.state.generation }/>
-                            <FormGroup className='FormGroup' row>
-                                <FormControlLabel
-                                    control= {
-                                        <Checkbox
-                                            checked={ this.state.usage }
-                                            onChange={ this.handleChangeBox('usage') }
-                                            value='usage'
-                                        />
-                                    }
-                                    label='Usage'
-                                />
-                                <FormControlLabel
-                                    control={
-                                        <Checkbox
-                                            checked={ this.state.generation }
-                                            onChange={ this.handleChangeBox('generation') }
-                                            value='generation'
-                                        />
-                                    }
-                                    label='Generation'
-                                />
-                            </FormGroup>
+                            <LineChart />
                             {/*<Checkboxes />*/}
 
                             <h1>Per Appliance</h1>
