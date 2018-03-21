@@ -5,12 +5,12 @@ import SwipeableViews from 'react-swipeable-views';
 import AppBar from 'material-ui/AppBar';
 import Tabs, { Tab } from 'material-ui/Tabs';
 import Divider from 'material-ui/Divider';
-import Table, {
+/* import Table, {
     TableBody,
     TableCell,
     TableFooter,
     TableRow,
-} from 'material-ui/Table';
+} from 'material-ui/Table'; */
 import Icon from 'material-ui/Icon';
 import ExpansionPanel, {
     ExpansionPanelSummary,
@@ -210,31 +210,6 @@ class Reports extends Component {
 
                             <h1>Per Appliance</h1>
                             <BarChart />
-
-                            <Divider/>
-
-                            <h1>Systems</h1>
-                            <Table>
-                                <TableBody>
-                                    { systems.map(data => {
-                                        return (
-                                            <TableRow key={ data.key }>
-                                                <TableCell className={ classes.tableCellName }>{ data.value }</TableCell>{/*// TODO: make 'clickable'*/}
-                                                <TableCell className={ classes.tableCell } numeric>
-                                                    <Icon className={ classes.tableIcon }>{ data.status }</Icon>
-                                                </TableCell>
-                                            </TableRow>
-                                        );
-                                    })}
-                                </TableBody>
-
-                                <TableFooter>
-                                    <TableRow>
-                                        <TableCell />
-                                        <TableCell className={ classes.tableCell } numeric>STATUS</TableCell>
-                                    </TableRow>
-                                </TableFooter>
-                            </Table>
                         </TabContainer>
 
                         <TabContainer dir={ theme.direction }>
