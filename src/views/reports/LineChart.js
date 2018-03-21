@@ -3,24 +3,24 @@ import { Line } from 'react-chartjs-2';
 import { FormGroup, FormControlLabel } from 'material-ui/Form';
 import Checkbox from 'material-ui/Checkbox';
 
-let dataUsage = [617, 181, 153, 106, 105, 95, 56, 604, 150, 234, 76, 86,];
-let dataGeneration = [250, 200, 153, 400, 475, 350, 142, 500, 150, 95, 215, 86,];
+let data = [1000, 181, -1200, 106, 105, 95, 56, 604, 150, 234, 76, 86,];
+// let dataGeneration = [1000, 200, 153, 400, 475, 1200, 142, 500, 150, 95, 215, 86,];
 
 const MONTHS = ['Jan', 'Feb', 'Mrt', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 const WEEK = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
-let chartUsage = {
+let chart = {
     labels: MONTHS,
     datasets:[{
-        label:'Usage',
-        data: dataUsage,
+        label:'Difference',
+        data: data,
         fill: false,
-        borderColor: ['rgb(241, 91, 39)'],
+        borderColor: ['rgb(241, 91, 39)'], // TODO; use global colour theme
         borderWidth: 3,
     }],
 };
 
-let chartGeneration = {
+/*let chartGeneration = {
     labels: MONTHS,
     datasets:[{
         label: 'Generation',
@@ -29,13 +29,13 @@ let chartGeneration = {
         borderColor: ['rgb(241, 91, 39)'],
         borderWidth: 3,
     }],
-};
+};*/
 
 class LineChart extends Component{
     constructor(props){
         super(props);
         this.state = {
-            chartData: chartGeneration,
+            chartData: chart,
 
             usage: false,
             generation: true,
@@ -113,9 +113,9 @@ class LineChart extends Component{
                                 gridLines: {
                                     // color: 'rgba(0, 0, 0, 0)',
                                     display: false,
-                                    drawBorder: true,
+                                    drawBorder: false,
                                     lineWidth: 3,
-                                    color: 'rgb(75,75,75)',
+                                    color: '#e3e3e3',
                                 },
                                 ticks: {
                                     minRotation: 90,
@@ -125,14 +125,18 @@ class LineChart extends Component{
                             }],
                             yAxes: [{
                                 gridLines: {
-                                    color: 'rgba(0, 0, 0, 0)',
-                                    display: false,
+                                    display: true,
+                                    color: 'white',
+                                    drawBorder: false,
+                                    lineWidth: 0,
+                                    zeroLineColor: '#e3e3e3',
+                                    zeroLineWidth: 2,
                                 },
                                 ticks: {
                                     fontFamily: "'Roboto'",
                                     fontColor: 'gray',
                                 },
-                            }]
+                            }],
                         },
                         elements: {
                             point: {
@@ -146,11 +150,12 @@ class LineChart extends Component{
                             mode: 'nearest'
                         },
                         responsive: true,
+                        responsiveAnimationDuration: 0, // animation duration after a resize
                         //maintainAspectRatio: false,
                     }}
                 />
 
-                <FormGroup className='FormGroup' row>
+               {/* <FormGroup className='FormGroup' row>
                     <FormControlLabel
                         control= {
                             <Checkbox
@@ -171,7 +176,7 @@ class LineChart extends Component{
                         }
                         label='Generation'
                     />
-                </FormGroup>
+                </FormGroup>*/}
             </div>
         )
     }
