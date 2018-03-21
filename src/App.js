@@ -1,18 +1,21 @@
 import React, { Component } from 'react';
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
-import deepOrange from 'material-ui/colors/deepOrange';
 
 import MainNavigation from './views/MainNavigation';
 import './App.css';
 
 const theme = createMuiTheme({
     palette: {
-        primary: deepOrange,
-        //secondary: light,
-    },
-    /*status: {
-        danger: 'orange',
-    },*/
+		primary: {
+			main: "#4286f4",//#f15b27
+		},
+		secondary: {
+			main: "#000000",
+		},
+		error: {
+			main: "#e83a3a",
+		},
+	},
 });
 
 class App extends Component {
