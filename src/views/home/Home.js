@@ -27,17 +27,20 @@ let advices = [ // use fetch in future https://blog.hellojs.org/fetching-api-dat
     {   key: '1',
         title: 'Washer-dryer',
         message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do ut labore et dolore magna aliqua.',
-        icons: 'schedule',
+        buttonIcon: 'schedule',
+		buttonText: 'schedule',
     },
     {   key: '2',
         title: 'Dishwasher',
         message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-        icons: 'agree',
+        buttonIcon: 'done',
+		buttonText: 'Agree',
     },
     {   key: '3',
         title: 'TV',
         message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-        icons: 'agree',
+        buttonIcon: 'done',
+		buttonText: 'Agree',
     },
 ];
 
@@ -178,7 +181,7 @@ class Home extends Component {
                             <div className={ classes.cardContainer }>
                                 { advices.map(data => {
                                     return (
-                                        <AdviceCard key={ data.key } title={ data.title } icons={ data.icons }>
+                                        <AdviceCard key={ data.key } title={ data.title } buttonIcon={ data.buttonIcon } buttonText={ data.buttonText }>
                                             { data.message }
                                         </AdviceCard>
                                     );
