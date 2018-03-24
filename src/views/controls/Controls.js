@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withTheme } from 'material-ui/styles';
 import { withStyles } from 'material-ui/styles';
 import Typography from 'material-ui/Typography';
 import 'rc-slider/assets/index.css';
@@ -15,7 +16,6 @@ import Icon from 'material-ui/Icon';
 //import './Controls.css';
 import ImageCircle from '../ImageCircle';
 import myLinqImage from '../../assets/controls.svg';
-
 
 const styles = theme => ({
     root: {
@@ -51,7 +51,7 @@ class Controls extends Component {
     };
 
     render() {
-        const { classes } = this.props;
+        const { classes, theme } = this.props;
 
         return (
             <div className={ classes.root }>
@@ -88,15 +88,15 @@ class Controls extends Component {
                                     <Icon>lightbulb_outline</Icon>
                                 </ListItemIcon>
 
-                                <ListItemText disableTypography primary='Brightness' secondary={
+                                <ListItemText primary='Brightness' secondary={
                                     <Slider
                                         min={ 0 }
                                         max={ 20 }
                                         defaultValue={ 5 }
-                                        trackStyle={{ backgroundColor: '#f15b27' }}
+                                        trackStyle={{ backgroundColor: theme.palette.primary.main }}
                                         handleStyle={{
-                                            borderColor: '#f15b27',
-                                            backgroundColor: '#f15b27',
+                                            borderColor: theme.palette.primary.main,
+                                            backgroundColor: theme.palette.primary.main,
                                         }}
                                         railStyle={{ backgroundColor: 'lightgray' }}
                                     />
@@ -216,4 +216,4 @@ class Controls extends Component {
     }
 }
 
-export default withStyles(styles)(Controls);
+export default withTheme()(withStyles(styles)(Controls));

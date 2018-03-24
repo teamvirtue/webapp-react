@@ -7,14 +7,18 @@ import './App.css';
 const theme = createMuiTheme({
     palette: {
 		primary: {
-			main: "#4286f4",//#f15b27
+			main: "#5ff442",//#f15b27
 		},
 		secondary: {
-			main: "#000000",
+			main: "#5ff442",
 		},
 		error: {
 			main: "#e83a3a",
 		},
+	},
+	typography: {
+		fontFamily: 'Roboto, Arial, Helvetica, sans-serif',
+		fontSize: 14,
 	},
 });
 
