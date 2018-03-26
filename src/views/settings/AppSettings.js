@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Typography from 'material-ui/Typography';
+import { withTheme } from 'material-ui/styles';
 import Divider from 'material-ui/Divider';
 import List, {
     ListItem,
@@ -75,6 +76,7 @@ class Settings extends Component {
 
     render() {
         // const { classes } = this.props;
+		const { theme } = this.props;
         const { selectedDate, selectedTime } = this.state;
         const { anchorEl } = this.state;
 
@@ -250,15 +252,15 @@ class Settings extends Component {
                                     <Icon>volume_up</Icon>
                                 </ListItemIcon>
 
-                                <ListItemText disableTypography primary='Volume' secondary={
+                                <ListItemText primary='Volume' secondary={
                                     <Slider
                                         min={ 0 }
                                         max={ 20 }
                                         defaultValue={ 5 }
-                                        trackStyle={{ backgroundColor: '#f15b27' }}
+                                        trackStyle={{ backgroundColor: theme.palette.primary.main }}
                                         handleStyle={{
-                                            borderColor: '#f15b27',
-                                            backgroundColor: '#f15b27',
+                                            borderColor: theme.palette.primary.main,
+                                            backgroundColor: theme.palette.primary.main,
                                         }}
                                         railStyle={{ backgroundColor: 'lightgray' }}
                                     />
@@ -368,4 +370,4 @@ class Settings extends Component {
     }
 }
 
-export default (Settings); // withStyles(styles)
+export default withTheme()(Settings);

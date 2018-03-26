@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { withTheme } from 'material-ui/styles';
 import { withStyles } from 'material-ui/styles';
 import SwipeableViews from 'react-swipeable-views';
 import AppBar from 'material-ui/AppBar';
@@ -29,7 +30,7 @@ import OverviewImage from '../../assets/reports.svg';
 import AppliancesImage from '../../assets/reports.svg';
 import SystemsImage from '../../assets/reports.svg';
 
-const styles = {
+const styles = theme => ({
     /*theme => root: {
         backgroundColor: theme.palette.background.paper,
     },*/
@@ -46,14 +47,14 @@ const styles = {
         border: 'none',
     },
     tableIcon: {
-        color: '#f15b27',
+        color: theme.palette.primary.main,
     },
     ExpansionPanelDetails: {
         display: 'block',
         padding: 0,
     },
     expandIconExpanded: {
-        color: '#f15b27',
+        color: theme.palette.primary.main,
         transform: 'translateY(-50%)',
     },
     icon: {
@@ -61,7 +62,7 @@ const styles = {
         marginTop: '23px',
         lineHeight: '50px',
     },
-};
+});
 
 let systems = [ // Use https://github.com/github/fetch for loading data?
     { value: 'HVAC', icon: 'toys', status: 'check_circle', key: '1' },
@@ -301,4 +302,5 @@ Reports.propTypes = {
     theme: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles, { withTheme: true })(Reports);
+
+export default withTheme()(withStyles(styles)(Reports));

@@ -15,7 +15,6 @@ let chart = {
         label:'Difference',
         data: data,
         fill: false,
-        borderColor: ['rgb(241, 91, 39)'], // TODO; use global colour theme
         borderWidth: 3,
     }],
 };
