@@ -2,6 +2,7 @@
   "name": "virtue-webapp-react",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://webapp.teamvirtue.nl",
   "dependencies": {
     "chart.js": "^2.7.1",
     "material-ui": "^1.0.0-beta.38",
