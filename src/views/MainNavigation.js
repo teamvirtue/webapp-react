@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
+import grey from 'material-ui/colors/grey';
 import BottomNavigation, { BottomNavigationAction } from 'material-ui/BottomNavigation';
 import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
 import Icon from 'material-ui/Icon';
@@ -27,13 +28,13 @@ const styles = theme => ({
         position: 'fixed',
         display: 'flex',
         height: '100%',
-        width: '200px',
-        //backgroundColor: 'red',
+        backgroundColor: grey[100],
     },
     desktopMenu: {
         alignSelf: 'center',
     },
     listItem: {
+		width: '200px',
         padding: '20px 16px',
     },
     bottomNav: {

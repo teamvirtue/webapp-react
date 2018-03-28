@@ -19,7 +19,7 @@ const theme = createMuiTheme({
 	},
 	typography: {
 		fontFamily: 'Roboto, Arial, Helvetica, sans-serif',
-		fontSize: 14,
+		fontSize: 20,
 	},
 });
 
@@ -33,9 +33,11 @@ class App extends Component {
     render() {
         return (
             <div className="App">
-                <MuiThemeProvider theme={ theme }>
-                    <MainNavigation />
-                </MuiThemeProvider>
+				<div className="fluid-container">
+					<MuiThemeProvider theme={ theme }>
+						<MainNavigation />
+					</MuiThemeProvider>
+				</div>
             </div>
         );
     }
