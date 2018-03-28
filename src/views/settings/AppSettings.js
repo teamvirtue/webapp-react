@@ -82,7 +82,7 @@ class Settings extends Component {
 
         return (
             <div> {/*className={classes.root}*/}
-                <Typography className='pageTitle' type='button'>
+                <Typography variant="headline" gutterBottom className='pageTitle'>
                     Settings
                 </Typography>
 
