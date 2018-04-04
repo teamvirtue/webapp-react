@@ -14,6 +14,8 @@ import Switch from 'material-ui/Switch';
 import 'rc-slider/assets/index.css';
 import Slider from 'rc-slider';
 
+import Temperature from '../controlComponents/Temperature';
+
 const styles = theme => ({
 
 });
@@ -24,7 +26,6 @@ class LivingRoom extends Component {
         this.state = {
             checkedLightOnOff: false,
             checkedNightMode: true,
-            checkedTemperature: true,
         };
     }
 	
@@ -117,39 +118,7 @@ class LivingRoom extends Component {
 
 						<ListItemText disableTypography primary='Volume' secondary='Lorem ipsum'/>
 					</ListItem>*/}
-
-					<Typography className={ classes.controlsTitle } type='subheading'>
-						Temperature
-					</Typography>
-
-					<ListItem button onClick={ this.handleChange('checkedTemperature') } > {/*TODO: fix click*/}
-						<ListItemIcon>
-							<Icon>ac_unit</Icon>
-						</ListItemIcon>
-
-						<ListItemText primary='Air conditioning' />
-
-						<ListItemSecondaryAction>
-							<Switch
-								checked={ this.state.checkedTemperature }
-								onChange={ this.handleChange('checkedTemperature') }
-							/>
-						</ListItemSecondaryAction>
-					</ListItem>
-					<ListItem
-						button
-						divider
-						/*aria-haspopup='true'
-						aria-controls='set-temperature'
-						aria-label='Set temperature'*/
-					>
-						<ListItemIcon>
-							<Icon>touch_app</Icon>
-						</ListItemIcon>
-
-						<ListItemText primary='Set temperature' secondary='14 degrees' /> {/*TODO: insert pop-up menu*/}
-					</ListItem>
-
+					
 					<Typography className={ classes.controlsTitle } type='subheading'>
 						Appliances
 					</Typography>

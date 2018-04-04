@@ -4,6 +4,7 @@ import { withStyles } from 'material-ui/styles';
 import grey from 'material-ui/colors/grey';
 import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
 
+import All from './rooms/All';
 import LivingRoom from './rooms/LivingRoom';
 
 const styles = theme => ({
@@ -66,10 +67,13 @@ class RoomNavigation extends Component {
 					</List>
 				</div>
 				<div className='col-xs-7'>
-					{ value === 0 && <LivingRoom /> }
+					{ value === 0 && <All /> }
 					{ value === 1 && <LivingRoom /> }
-					{ value === 2 && <LivingRoom /> }
-					{ value === 3 && <LivingRoom /> }
+					{ value === 2 && <div></div> }
+					{ value === 3 && <div></div> }
+					{ value === 4 && <div></div> }
+					{ value === 5 && <div></div> }
+					{ value === 6 && <div></div> }
 				</div>
             </div>
         );
