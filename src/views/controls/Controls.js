@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withTheme } from 'material-ui/styles';
+// import { withTheme } from 'material-ui/styles';
 import { withStyles } from 'material-ui/styles';
 import RoomNavigation from './RoomNavigation';
-import SwipeableViews from 'react-swipeable-views';
+// import SwipeableViews from 'react-swipeable-views';
 import Typography from 'material-ui/Typography';
-import AppBar from 'material-ui/AppBar';
+/*import AppBar from 'material-ui/AppBar';
 import List from 'material-ui/List';
-import Tabs, { Tab } from 'material-ui/Tabs';
+import Tabs, { Tab } from 'material-ui/Tabs';*/
 import grey from 'material-ui/colors/grey';
 
 //import './Controls.css';
@@ -58,7 +58,7 @@ TabContainer.propTypes = {
 
 class Controls extends Component {
     render() {
-        const { classes, theme } = this.props;
+        const { classes } = this.props;
 
         return (
             <div className={ classes.root }>
@@ -78,7 +78,7 @@ class Controls extends Component {
 
 Controls.propTypes = {
 	classes: PropTypes.object.isRequired,
-	theme: PropTypes.object.isRequired,
+	//theme: PropTypes.object.isRequired,
 };
 
-export default withTheme()(withStyles(styles)(Controls));
+export default (withStyles(styles)(Controls));
