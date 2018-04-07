@@ -202,7 +202,7 @@ class Reports extends Component {
 
                             <Divider/>
 
-                            <RadioButtonGroup />
+                            {/*<RadioButtonGroup />*/}
 
                             <h1>Total Energy</h1>
 

@@ -277,8 +277,8 @@ class Settings extends Component {
 
                                 <ListItemSecondaryAction>
                                     <Switch
-                                        checked={this.state.checkedVibrate}
-                                        onChange={this.handleChange('checkedVibrate')}
+                                        checked={ this.state.checkedVibrate }
+                                        onChange={ this.handleChange('checkedVibrate') }
                                     />
                                 </ListItemSecondaryAction>
                             </ListItem>
@@ -291,8 +291,8 @@ class Settings extends Component {
 
                                 <ListItemSecondaryAction>
                                     <Switch
-                                        checked={this.state.checkedDesktopNotifications}
-                                        onChange={this.handleChange('checkedDesktopNotifications')}
+                                        checked={ this.state.checkedDesktopNotifications }
+                                        onChange={ this.handleChange('checkedDesktopNotifications') }
                                     />
                                 </ListItemSecondaryAction>
                             </ListItem>

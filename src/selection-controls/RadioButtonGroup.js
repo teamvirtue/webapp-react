@@ -22,13 +22,13 @@ class RadioButtonGroup extends Component {
                 aria-label='time'
                 name='time'
                 className='RadioGroup'
-                value={this.state.value}
-                onChange={this.handleChange}
+                value={ this.state.value }
+                onChange={ this.handleChange }
                 row
             >
-                <FormControlLabel style={{display: 'inline', margin: 0}} value='week' control={<Radio />} label='Week' />
-                <FormControlLabel style={{display: 'inline', margin: 0}} value='month' control={<Radio />} label='Month' />
-                <FormControlLabel style={{display: 'inline', margin: 0}} value='year' control={<Radio />} label='Year' />
+                <FormControlLabel style={{ display: 'inline', margin: 0 }} value='week' control={ <Radio /> } label='Week' />
+                <FormControlLabel style={{ display: 'inline', margin: 0 }} value='month' control={ <Radio /> } label='Month' />
+                <FormControlLabel style={{ display: 'inline', margin: 0 }} value='year' control={ <Radio /> } label='Year' />
             </RadioGroup>
         );
     }
