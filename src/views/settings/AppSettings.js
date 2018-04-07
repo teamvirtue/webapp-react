@@ -252,7 +252,7 @@ class Settings extends Component {
                                     <Icon>volume_up</Icon>
                                 </ListItemIcon>
 
-                                <ListItemText primary='Volume' secondary={
+                                <ListItemText disableTypography	primary='Volume' secondary={
                                     <Slider
                                         min={ 0 }
                                         max={ 20 }

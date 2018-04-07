@@ -136,7 +136,7 @@ class Reports extends Component {
                         value={ value }
                         onChange={ this.handleChange }
                         indicatorColor='primary'
-                        indicatorClassName='tabIndicator'
+                        //indicatorClassName='tabIndicator'
                         textColor='primary'
                         fullWidth
                         centered

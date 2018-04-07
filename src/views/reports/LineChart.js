@@ -51,7 +51,6 @@ class LineChart extends Component{
         let _this = this;
 
         setInterval(function(){
-            //console.log(_this.state.datasets[0]);
             let oldDataSet = _this.state.datasets[0];
             let newData = [];
 
