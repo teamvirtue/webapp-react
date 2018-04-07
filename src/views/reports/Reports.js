@@ -19,7 +19,7 @@ import ExpansionPanel, {
 } from 'material-ui/ExpansionPanel';
 import Typography from 'material-ui/Typography';
 
-import RadioButtonGroup from '../../selection-controls/RadioButtonGroup';
+// import RadioButtonGroup from '../../selection-controls/RadioButtonGroup';
 import LineChart from './LineChart';
 import BarChart from './BarChart';
 // import Checkboxes from '../../selection-controls/Checkboxes';
@@ -130,7 +130,7 @@ class Reports extends Component {
         const { value } = this.state;
 
         return (
-            <div> {/*className={ classes.root }*/}
+            <div className={ classes.root }>
                 <AppBar className={ classes.appBar }>
                     <Tabs
                         value={ value }
@@ -214,7 +214,7 @@ class Reports extends Component {
                         </TabContainer>
 
                         <TabContainer dir={ theme.direction }>
-                            <RadioButtonGroup />
+                            {/*<RadioButtonGroup />*/}
 
                             { appliances.map(data => {
                                 return (
@@ -250,7 +250,7 @@ class Reports extends Component {
                         </TabContainer>
 
                         <TabContainer dir={ theme.direction }>
-                            <RadioButtonGroup />
+                            {/*<RadioButtonGroup />*/}
 
                             { systems.map(data => {
                                 return (
