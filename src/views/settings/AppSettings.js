@@ -145,7 +145,7 @@ class Settings extends Component {
         this.state = {
             selectedDate: new Date('October 13, 2014 11:13:00'),
             selectedTime: new Date(),
-            selectedDateTime: new Date(),
+            //selectedDateTime: new Date(),
 
             checkedNightMode: true,
             checkedVibrate: false,
@@ -160,17 +160,13 @@ class Settings extends Component {
         this.setState({ selectedDate: date });
     };
 
-    /*handleTimeChange = time => {
-        this.setState({ selectedTime: time });
-    };*/
-
     handleChange = name => event => {
         this.setState({ [name]: event.target.checked });
     };
 
     render() {
 		const { classes, theme } = this.props;
-        const { selectedDate, selectedTime, checkedNightMode } = this.state;
+        const { selectedDate, checkedNightMode } = this.state;
 
         return (
             <div className={classes.root}>
@@ -201,7 +197,7 @@ class Settings extends Component {
                                 <ListItemText primary='Birthdate' />
 
                                 <DatePicker className='datePicker'
-                                            //keyboard
+                                            keyboard
                                             format='MMMM Do, YYYY'
                                             value={ selectedDate }
                                             onChange={ this.handleDateChange }
