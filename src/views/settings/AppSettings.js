@@ -147,6 +147,7 @@ class Settings extends Component {
             selectedTime: new Date(),
             //selectedDateTime: new Date(),
 
+            checkedSleepCycleMode: true,
             checkedNightMode: true,
             checkedVibrate: false,
             checkedDesktopNotifications: false,
@@ -166,7 +167,7 @@ class Settings extends Component {
 
     render() {
 		const { classes, theme } = this.props;
-        const { selectedDate, checkedNightMode } = this.state;
+        const { selectedDate, checkedSleepCycleMode } = this.state;
 
         return (
             <div className={classes.root}>
@@ -215,14 +216,14 @@ class Settings extends Component {
 
                                 <ListItemSecondaryAction>
                                     <Switch
-                                        checked={ this.state.checkedNightMode }
-                                        onChange={ this.handleChange('checkedNightMode') }
-                                        value='checkedNightMode'
+                                        checked={ this.state.checkedSleepCycleMode }
+                                        onChange={ this.handleChange('checkedSleepCycleMode') }
+                                        value='checkedSleepCycleMode'
                                     />
                                 </ListItemSecondaryAction>
                             </ListItem>
 
-                            { checkedNightMode &&
+                            { checkedSleepCycleMode &&
                                 <ListItem>
                                     <ListItemText inset primary='Start' />
 
@@ -233,7 +234,7 @@ class Settings extends Component {
                                     />*/}
                                 </ListItem>
                             }
-                            { checkedNightMode &&
+                            { checkedSleepCycleMode &&
                                 <ListItem>
                                     <ListItemText inset primary='End' />
 
@@ -251,7 +252,7 @@ class Settings extends Component {
                         </Typography>
 
                         <List>
-                            {/*<ListItem>
+                            <ListItem>
                                 <ListItemIcon>
                                     <Icon>brightness_2</Icon>
                                 </ListItemIcon>
@@ -264,7 +265,7 @@ class Settings extends Component {
                                         onChange={this.handleChange('checkedNightMode')}
                                     />
                                 </ListItemSecondaryAction>
-                            </ListItem>*/}
+                            </ListItem>
 
                             <ListMenu label='Night mode' title='Turn on automatically' options={ optionsNightmode } />
                         </List>
