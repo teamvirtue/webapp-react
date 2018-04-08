@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withStyles } from 'material-ui/styles';
 import { Line } from 'react-chartjs-2';
 import Radio, { RadioGroup } from 'material-ui/Radio';
 import { FormControlLabel } from 'material-ui/Form';
@@ -7,7 +8,7 @@ let data = [1000, 181, -1200, 106, 105, 95, 56, 604, 150, 234, 76, 86,];
 
 const WEEK = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 const MONTHS = ['Jan', 'Feb', 'Mrt', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-const YEARS = ['2015', '2016', '2017', '2018'];
+const YEARS = ['2014', '2015', '2016', '2017', '2018'];
 
 const initialState = {
     labels: MONTHS,
@@ -33,8 +34,12 @@ const initialState = {
 
 const styles = theme => ({
     root: {
-        backgroundColor: 'firebrick'
+        //backgroundColor: 'firebrick'
     },
+    radioGroup: {
+        justifyContent: 'center',
+        marginBottom: 50,
+    }
 });
 
 class LineChart extends Component{
@@ -64,7 +69,7 @@ class LineChart extends Component{
             default:
                 selectedLabel = WEEK;
         }
-        
+
         let oldDataSet = this.state.datasets[0]; //myBarChart.data.datasets[0].data[12] = 500;
         let newData = [];
 
@@ -94,11 +99,11 @@ class LineChart extends Component{
         const { classes } = this.props;
 
         return (
-            <div> {/*className={ classes.root }>*/}
+            <div className={ classes.root }>
                 <RadioGroup
                     aria-label='time'
                     name='time'
-                    className='RadioGroup'
+                    className={ classes.radioGroup } /*RadioGroup*/
                     value={ this.state.value }
                     onChange={ this.handleChange }
                     row
@@ -176,4 +181,4 @@ class LineChart extends Component{
     }
 }
 
-export default LineChart;
+export default (withStyles(styles)(LineChart));

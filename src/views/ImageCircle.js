@@ -26,6 +26,7 @@ class ImageCircle extends Component {
 
 ImageCircle.propTypes = {
     classes: PropTypes.object.isRequired,
+    //src: PropTypes.string.isRequired,
 };
 
 export default withStyles(styles)(ImageCircle);

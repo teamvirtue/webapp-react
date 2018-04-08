@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Typography from 'material-ui/Typography';
+import { withStyles } from 'material-ui/styles'
 import { withTheme } from 'material-ui/styles';
 import Divider from 'material-ui/Divider';
 import List, {
@@ -19,7 +21,9 @@ import './AppSettings.css';
 import ImageCircle from '../ImageCircle';
 import settingsImage from '../../assets/settings.svg';
 
-const foodOptions = [ // TODO: add allergy option as well?
+const options = [];
+
+const optionsFood = [ // TODO: add allergy option as well?
     'Not applicable',
     'Flexitarian',
     'Pescatarian',
@@ -27,36 +31,28 @@ const foodOptions = [ // TODO: add allergy option as well?
     'Vegan',
 ];
 
-const optionsNightmode = [ // TODO: add allergy option as well?
+const optionsNightmode = [
     'Disabled',
     'Automatically enable from sunset to sunrise',
     'Custom time range',
 ];
 
-class Settings extends Component {
+const styles = {
+    root: {
+        backgroundColor: 'firebrick',
+    },
+};
+
+class ListMenu extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            selectedDate: new Date(),
-            selectedTime: new Date(),
-            selectedDateTime: new Date(),
-
-            checkedNightMode: false,
-            checkedVibrate: true,
-            checkedDesktopNotifications: false,
-
-            anchorEl: null, // TODO: check https://stackoverflow.com/questions/48169492/how-to-assign-which-menuitems-open-onclick-when-multiple-menus-are-present-on-th?rq=1
-            selectedIndex: 2,
+            anchorEl: null,
+            selectedIndex: 1,
         };
     }
 
-    handleDateChange = date => {
-        this.setState({ selectedDate: date });
-    };
-
-    handleTimeChange = time => {
-        this.setState({ selectedTime: time });
-    };
+    // button = undefined;
 
     handleClickListItem = event => {
         this.setState({ anchorEl: event.currentTarget });
@@ -70,13 +66,81 @@ class Settings extends Component {
         this.setState({ anchorEl: null });
     };
 
+    render() {
+        // const { classes } = this.props;
+        const { anchorEl } = this.state;
+
+        return (
+            <div> {/*className={ classes.root }*/}
+                <ListItem
+                    button
+                    aria-haspopup='true'
+                    aria-controls='menu'
+                    aria-label={ this.props.label }
+                    onClick={ this.handleClickListItem }
+                >
+                    <ListItemIcon>
+                        <Icon>{ this.props.icon }</Icon>
+                    </ListItemIcon>
+
+                    <ListItemText
+                        primary={ this.props.title }
+                        secondary={ this.props.options[this.state.selectedIndex] }
+                    />
+                </ListItem>
+                <Menu
+                    id='menu'
+                    anchorEl={ anchorEl }
+                    open={ Boolean(anchorEl) }
+                    onClose={ this.handleClose }
+                >
+                    { this.props.options.map((option, index) => (
+                        <MenuItem
+                            key={ option }
+                            selected={ index === this.state.selectedIndex }
+                            onClick={ event => this.handleMenuItemClick(event, index) }
+                        >
+                            { option }
+                        </MenuItem>
+                    )) }
+                </Menu>
+            </div>
+        );
+    }
+}
+
+class Settings extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            selectedDate: new Date(),
+            selectedTime: new Date(),
+            selectedDateTime: new Date(),
+
+            checkedNightMode: false,
+            checkedVibrate: true,
+            checkedDesktopNotifications: false,
+
+            anchorEl: null,
+            selectedIndex: 2,
+        };
+    }
+
+    handleDateChange = date => {
+        this.setState({ selectedDate: date });
+    };
+
+    handleTimeChange = time => {
+        this.setState({ selectedTime: time });
+    };
+
     handleChange = name => (event, checked) => {
         this.setState({ [name]: checked });
     };
 
     render() {
         // const { classes } = this.props;
-		const { theme } = this.props;
+		const { classes, theme } = this.props;
         const { selectedDate, selectedTime } = this.state;
         const { anchorEl } = this.state;
 
@@ -127,8 +191,8 @@ class Settings extends Component {
 
                                 <ListItemSecondaryAction>
                                     <Switch
-                                        checked={this.state.checkedNightMode}
-                                        onChange={this.handleChange('checkedNightMode')}
+                                        checked={ this.state.checkedNightMode }
+                                        onChange={ this.handleChange('checkedNightMode') }
                                     />
                                 </ListItemSecondaryAction>
                             </ListItem>
@@ -149,39 +213,7 @@ class Settings extends Component {
                                 />
                             </ListItem>
 
-                            <ListItem
-                                button
-                                aria-haspopup='true'
-                                aria-controls='food-menu'
-                                aria-label='Food preferences'
-                                onClick={ this.handleClickListItem }
-                            >
-                                <ListItemIcon>
-                                    <Icon>restaurant</Icon>
-                                </ListItemIcon>
-
-                                <ListItemText
-                                    primary='Food preferences'
-                                    secondary={ foodOptions[this.state.selectedIndex] }
-                                />
-                            </ListItem>
-                            <Menu
-                                id='food-menu'
-                                anchorEl={ anchorEl }
-                                open={ Boolean(anchorEl) }
-                                onClose={ this.handleClose }
-                            >
-                                { foodOptions.map((option, index) => (
-                                    <MenuItem
-                                        key={ option }
-                                        /*disabled={index === 0}*/
-                                        selected={ index === this.state.selectedIndex }
-                                        onClick={ event => this.handleMenuItemClick(event, index) }
-                                    >
-                                        { option }
-                                    </MenuItem>
-                                )) }
-                            </Menu>
+                            <ListMenu label='food-preferences' title='Food preferences' options={ optionsFood } icon='restaurant'/>
                         </List>
 
                         <Divider />
@@ -205,16 +237,15 @@ class Settings extends Component {
                                     />
                                 </ListItemSecondaryAction>
                             </ListItem>
-                            <ListItem
+
+                            <ListMenu label='night mode' title='Turn on automatically' options={ optionsNightmode } />
+                            {/*<ListItem
                                 button
                                 aria-haspopup='true'
                                 aria-controls='nightmode-menu'
                                 aria-label='Night mode'
                                 onClick={ this.handleClickListItem }
                             >
-                                {/*<ListItemIcon>
-                                    <Icon>autorenew</Icon>
-                                </ListItemIcon>*/}
 
                                 <ListItemText
                                     inset
@@ -237,7 +268,7 @@ class Settings extends Component {
                                         { option }
                                     </MenuItem>
                                 )) }
-                            </Menu>
+                            </Menu>*/}
                         </List>
 
                         <Divider />
@@ -370,4 +401,14 @@ class Settings extends Component {
     }
 }
 
-export default withTheme()(Settings);
+ListMenu.propTypes = {
+    title: PropTypes.string.isRequired,
+    options: PropTypes.array.isRequired,
+};
+
+/*Home.propTypes = {
+    classes: PropTypes.object.isRequired,
+    theme: PropTypes.object.isRequired,
+};*/
+
+export default withTheme() (withStyles(styles)(Settings));
