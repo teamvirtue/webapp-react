@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import Typography from 'material-ui/Typography';
 import { withStyles } from 'material-ui/styles'
@@ -37,11 +37,41 @@ const optionsNightmode = [
     'Custom time range',
 ];
 
-const styles = {
+const styles = theme => ({
     root: {
-        backgroundColor: 'firebrick',
+        // backgroundColor: theme.palette.primary.main,
     },
-};
+});
+
+class Picker extends PureComponent {
+    constructor(props) {
+        super(props);
+        this.state = {
+            selectedDate: new Date(this.props.time),
+        };
+    }
+
+    handleDateChange = (date) => {
+        this.setState({ selectedDate: date });
+    };
+
+    render() {
+        const { selectedDate } = this.state;
+
+        return (
+            <div className='picker'>
+                <TimePicker
+                    keyboard
+                    //label='Masked timepicker'
+                    mask={[/\d/, /\d/, ':', /\d/, /\d/, ' ', /a|p/i, 'M']}
+                    placeholder={ this.props.placeholder }
+                    value={ selectedDate }
+                    onChange={this.handleDateChange}
+                />
+            </div>
+        );
+    }
+}
 
 class ListMenu extends Component {
     constructor(props) {
@@ -113,12 +143,12 @@ class Settings extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            selectedDate: new Date(),
+            selectedDate: new Date('October 13, 2014 11:13:00'),
             selectedTime: new Date(),
             selectedDateTime: new Date(),
 
-            checkedNightMode: false,
-            checkedVibrate: true,
+            checkedNightMode: true,
+            checkedVibrate: false,
             checkedDesktopNotifications: false,
 
             anchorEl: null,
@@ -130,23 +160,21 @@ class Settings extends Component {
         this.setState({ selectedDate: date });
     };
 
-    handleTimeChange = time => {
+    /*handleTimeChange = time => {
         this.setState({ selectedTime: time });
-    };
+    };*/
 
-    handleChange = name => (event, checked) => {
-        this.setState({ [name]: checked });
+    handleChange = name => event => {
+        this.setState({ [name]: event.target.checked });
     };
 
     render() {
-        // const { classes } = this.props;
 		const { classes, theme } = this.props;
-        const { selectedDate, selectedTime } = this.state;
-        const { anchorEl } = this.state;
+        const { selectedDate, selectedTime, checkedNightMode } = this.state;
 
         return (
-            <div> {/*className={classes.root}*/}
-                <Typography variant="headline" gutterBottom className='pageTitle'>
+            <div className={classes.root}>
+                <Typography variant='headline' gutterBottom className='pageTitle'>
                     Settings
                 </Typography>
 
@@ -193,27 +221,31 @@ class Settings extends Component {
                                     <Switch
                                         checked={ this.state.checkedNightMode }
                                         onChange={ this.handleChange('checkedNightMode') }
+                                        value='checkedNightMode'
                                     />
                                 </ListItemSecondaryAction>
                             </ListItem>
-                            <ListItem>
-                                <ListItemText inset primary='Start' />
 
-                                <TimePicker
-                                    value={ selectedTime }
-                                    onChange={ this.handleTimeChange }
-                                />
-                            </ListItem>
-                            <ListItem> {/*TODO: make separate components*/}
-                                <ListItemText inset primary='End' />
+                            { checkedNightMode &&
+                                <ListItem>
+                                    <ListItemText inset primary='Start' />
 
-                                <TimePicker
-                                    value={ selectedTime }
-                                    onChange={ this.handleTimeChange }
-                                />
-                            </ListItem>
+                                    <Picker time='October 15, 2018 09:00:00' placeholder='09:00 AM'/>
+                                    {/*<TimePicker
+                                        value={ selectedTime }
+                                        onChange={ this.handleTimeChange }
+                                    />*/}
+                                </ListItem>
+                            }
+                            { checkedNightMode &&
+                                <ListItem>
+                                    <ListItemText inset primary='End' />
 
-                            <ListMenu label='food-preferences' title='Food preferences' options={ optionsFood } icon='restaurant'/>
+                                    <Picker time='October 15, 2018 17:00:00' placeholder='17:00 PM'/>
+                                </ListItem>
+                            }
+
+                            <ListMenu label='Food preferences' title='Food preferences' options={ optionsFood } icon='restaurant'/>
                         </List>
 
                         <Divider />
@@ -223,7 +255,7 @@ class Settings extends Component {
                         </Typography>
 
                         <List>
-                            <ListItem>
+                            {/*<ListItem>
                                 <ListItemIcon>
                                     <Icon>brightness_2</Icon>
                                 </ListItemIcon>
@@ -236,39 +268,9 @@ class Settings extends Component {
                                         onChange={this.handleChange('checkedNightMode')}
                                     />
                                 </ListItemSecondaryAction>
-                            </ListItem>
+                            </ListItem>*/}
 
-                            <ListMenu label='night mode' title='Turn on automatically' options={ optionsNightmode } />
-                            {/*<ListItem
-                                button
-                                aria-haspopup='true'
-                                aria-controls='nightmode-menu'
-                                aria-label='Night mode'
-                                onClick={ this.handleClickListItem }
-                            >
-
-                                <ListItemText
-                                    inset
-                                    primary='Turn on automatically'
-                                    secondary={ optionsNightmode[this.state.selectedIndex] }
-                                />
-                            </ListItem>
-                            <Menu
-                                id='nightmode-menu'
-                                anchorEl={ anchorEl }
-                                open={ Boolean(anchorEl) }
-                                onClose={ this.handleClose }
-                            >
-                                { optionsNightmode.map((option, index) => (
-                                    <MenuItem
-                                        key={ option }
-                                        selected={ index === this.state.selectedIndex }
-                                        onClick={ event => this.handleMenuItemClick(event, index) }
-                                    >
-                                        { option }
-                                    </MenuItem>
-                                )) }
-                            </Menu>*/}
+                            <ListMenu label='Night mode' title='Turn on automatically' options={ optionsNightmode } />
                         </List>
 
                         <Divider />
@@ -330,8 +332,8 @@ class Settings extends Component {
                             <ListItem
                                 button
                                 aria-haspopup='true'
-                                aria-controls='ringtone-menu'
-                                aria-label='Phone ringtone'
+                                aria-controls='menu'
+                                aria-label='Notification types'
                                 // onClick={this.handleClickListItem}
                             >
                                 <ListItemIcon>
