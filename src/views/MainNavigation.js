@@ -12,7 +12,8 @@ import Controls from './controls/Controls';
 import Reports from './reports/Reports';
 import Settings from './settings/AppSettings';
 
-const styles = theme => ({
+//const styles = theme => ({
+const styles = {
     /*root: {
         //display: 'flex',
         backgroundColor: 'lightblue'
@@ -40,10 +41,10 @@ const styles = theme => ({
     bottomNav: {
         minWidth: '60px',
     },
-    checked: {
+    /*checked: {
         color: theme.palette.primary.main,
-    },
-});
+    },*/
+};
 
 class MainNavigation extends Component {
     constructor(props) {
@@ -58,6 +59,8 @@ class MainNavigation extends Component {
     // from https://reactjs.org/docs/handling-events.html
     handleChange = (event, value) => {
         this.setState({ value });
+
+        console.log(value);
     };
 
     handleClick = (id, event) => {
