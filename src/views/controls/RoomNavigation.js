@@ -6,6 +6,7 @@ import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
 
 import All from './rooms/All';
 import LivingRoom from './rooms/LivingRoom';
+import DinnerRoom from './rooms/DinnerRoom';
 
 const styles = theme => ({
     navContainer: {
@@ -69,7 +70,7 @@ class RoomNavigation extends Component {
 				<div className='col-xs-7'>
 					{ value === 0 && <All /> }
 					{ value === 1 && <LivingRoom /> }
-					{ value === 2 && <div></div> }
+					{ value === 2 && <DinnerRoom /> }
 					{ value === 3 && <div></div> }
 					{ value === 4 && <div></div> }
 					{ value === 5 && <div></div> }

@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import Typography from 'material-ui/Typography';
 import List from 'material-ui/List';
 
 import Temperature from '../controlComponents/Temperature';
-import NightMode from '../controlComponents/NightMode';
+import Light from '../controlComponents/Light';
 
-class LivingRoom extends Component {
+class DinnerRoom extends Component {
 
     render() {
 		const classes = this.props;
@@ -13,12 +14,16 @@ class LivingRoom extends Component {
         return (
             <div>
 				<List>
-					<Temperature />
-					<NightMode />
+					<Light room={"DinnerRoom"} />
+					
+					<Typography className={ classes.controlsTitle } type='subheading'>
+						Appliances
+					</Typography>
+
 				</List>
 			</div>
         );
     }
 }
 
-export default LivingRoom;
+export default DinnerRoom;
