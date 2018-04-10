@@ -45,7 +45,7 @@ class RoomNavigation extends Component {
 
         return (
 			<div className='row'>
-				<div className={["col-xs-8", classes.navWrapper].join(' ')}>
+				<div className={["col-xs-5", classes.navWrapper].join(' ')}>
 					<List component='nav' className={ classes.navContainer }>
 						<ListItem className={ classes.listItem } button onClick={ () => this.handleClick(0) }>
 							<ListItemText primary='All' classes={{ primary: value === 0 ? classes.checked : 'unchecked' }} />
