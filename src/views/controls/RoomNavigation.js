@@ -9,6 +9,9 @@ import LivingRoom from './rooms/LivingRoom';
 import DinnerRoom from './rooms/DinnerRoom';
 
 const styles = theme => ({
+    navWrapper: {
+		maxWidth: 175,
+    },
     navContainer: {
         backgroundColor: grey[200],
     },
@@ -42,7 +45,7 @@ class RoomNavigation extends Component {
 
         return (
 			<div className='row'>
-				<div className='col-xs-5'>
+				<div className={["col-xs-5", classes.navWrapper].join(' ')}>
 					<List component='nav' className={ classes.navContainer }>
 						<ListItem className={ classes.listItem } button onClick={ () => this.handleClick(0) }>
 							<ListItemText primary='All' classes={{ primary: value === 0 ? classes.checked : 'unchecked' }} />
