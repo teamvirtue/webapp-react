@@ -4,6 +4,7 @@ import { withTheme } from 'material-ui/styles';
 import { withStyles } from 'material-ui/styles';
 import SwipeableViews from 'react-swipeable-views';
 import ApplianceNavigation from './ApplianceNavigation';
+import SystemNavigation from './SystemNavigation';
 import AppBar from 'material-ui/AppBar';
 import Tabs, { Tab } from 'material-ui/Tabs';
 import Divider from 'material-ui/Divider';
@@ -207,39 +208,7 @@ class Reports extends Component {
                         </TabContainer>
 
                         <TabContainer dir={ theme.direction }>
-                            {/*<RadioButtonGroup />*/}
-
-                            { systems.map(data => {
-                                return (
-                                    <ExpansionPanel key={ data.key }>
-                                        <ExpansionPanelSummary expandIcon={<Icon>{ data.icon }</Icon>} classes={{
-                                            expandIconExpanded: classes.expandIconExpanded,
-                                        }}>
-                                            <Typography type='title'>{ data.value }</Typography>
-                                        </ExpansionPanelSummary>
-                                        <ExpansionPanelDetails className={ classes.ExpansionPanelDetails }>
-                                            <LineChart />
-
-                                            <Divider/>
-
-                                            <div className='statusBar'>
-                                                <div className='statusItem'>
-                                                    <h3>Feb</h3><h1>18</h1>
-                                                    <Typography type='subheading' gutterBottom>
-                                                        Last maintenance
-                                                    </Typography>
-                                                </div>
-                                                <div className='statusItem'>
-                                                    <Icon className={ classes.icon }>check_circle</Icon>
-                                                    <Typography type='subheading' gutterBottom>
-                                                        Operating normally
-                                                    </Typography>
-                                                </div>
-                                            </div>
-                                        </ExpansionPanelDetails>
-                                    </ExpansionPanel>
-                                );
-                            }) }
+                            <SystemNavigation />
                         </TabContainer>
                     </SwipeableViews>
                 </div>
