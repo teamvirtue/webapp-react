@@ -8,7 +8,7 @@ import WasherDryer from './appliances/WasherDryer';
 
 const styles = theme => ({
     navWrapper: {
-		maxWidth: 175,
+		maxWidth: 165,
     },
     navContainer: {
         backgroundColor: grey[200],
@@ -16,6 +16,10 @@ const styles = theme => ({
     checked: {
         color: theme.palette.primary.main,
     },
+	listItemGutters: {
+		paddingLeft: 15,
+		paddingRight: 15,
+	},
 });
 
 let appliances = [
@@ -55,7 +59,9 @@ class ApplianceNavigation extends Component {
 					<List component='nav' className={ classes.navContainer }>
 						{ appliances.map(data => {
 							return (
-								<ListItem className={ classes.listItem } button onClick={ () => this.handleClick(data.key) }>
+								<ListItem classes={{
+										gutters: classes.listItemGutters,
+									}} button onClick={ () => this.handleClick(data.key) }>
 									<ListItemText primary={data.value} classes={{ primary: value === data.key ? classes.checked : 'unchecked' }} />
 								</ListItem>
 							);

@@ -18,6 +18,10 @@ const styles = theme => ({
     checked: {
         color: theme.palette.primary.main,
     },
+	listItemGutters: {
+		paddingLeft: 15,
+		paddingRight: 15,
+	},
 });
 
 let rooms = [
@@ -54,7 +58,9 @@ class RoomNavigation extends Component {
 					<List component='nav' className={ classes.navContainer }>
 						{ rooms.map(data => {
 							return (
-								<ListItem className={ classes.listItem } button onClick={ () => this.handleClick(data.key) }>
+								<ListItem classes={{
+										gutters: classes.listItemGutters,
+									}} button onClick={ () => this.handleClick(data.key) }>
 									<ListItemText primary={data.value} classes={{ primary: value === data.key ? classes.checked : 'unchecked' }} />
 								</ListItem>
 							);
