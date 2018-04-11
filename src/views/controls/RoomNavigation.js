@@ -20,18 +20,23 @@ const styles = theme => ({
     },
 });
 
+let rooms = [
+    { value: 'All', component: <All />, key: 1 },
+    { value: 'Living room', component: <LivingRoom />, key: 2 },
+    { value: 'Dinner room', component: <DinnerRoom />, key: 3 },
+    { value: 'Bed room', component: '', key: 4 },
+    { value: 'Bathroom', component: '', key: 5 },
+    { value: 'Hallway', component: '', key: 6 },
+    { value: 'Outdoor', component: '', key: 7 },
+];
+
 class RoomNavigation extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            value: 0,
-            selectedValue: 0,
+            value: 1,
         };
     }
-
-    handleChange = (event, value) => {
-        this.setState({ value });
-    };
 
     handleClick = (id, event) => {
         this.setState({
@@ -47,37 +52,21 @@ class RoomNavigation extends Component {
 			<div className='row'>
 				<div className={["col-xs-5", classes.navWrapper].join(' ')}>
 					<List component='nav' className={ classes.navContainer }>
-						<ListItem className={ classes.listItem } button onClick={ () => this.handleClick(0) }>
-							<ListItemText primary='All' classes={{ primary: value === 0 ? classes.checked : 'unchecked' }} />
-						</ListItem>
-						<ListItem className={ classes.listItem } button onClick={ () => this.handleClick(1) }>
-							<ListItemText primary='Living room' classes={{ primary: value === 1 ? classes.checked : 'unchecked' }} />
-						</ListItem>
-						<ListItem className={ classes.listItem } button onClick={ () => this.handleClick(2) }>
-							<ListItemText primary='Dinner room' classes={{ primary: value === 2 ? classes.checked : 'unchecked' }} />
-						</ListItem>
-						<ListItem className={ classes.listItem } button onClick={ () => this.handleClick(3) }>
-							<ListItemText primary='Bed room' classes={{ primary: value === 3 ? classes.checked : 'unchecked' }} />
-						</ListItem>
-						<ListItem className={ classes.listItem } button onClick={ () => this.handleClick(4) }>
-							<ListItemText primary='Bathroom' classes={{ primary: value === 4 ? classes.checked : 'unchecked' }} />
-						</ListItem>
-						<ListItem className={ classes.listItem } button onClick={ () => this.handleClick(5) }>
-							<ListItemText primary='Hallway' classes={{ primary: value === 5 ? classes.checked : 'unchecked' }} />
-						</ListItem>
-						<ListItem className={ classes.listItem } button onClick={ () => this.handleClick(6) }>
-							<ListItemText primary='Outdoor' classes={{ primary: value === 6 ? classes.checked : 'unchecked' }} />
-						</ListItem>
+						{ rooms.map(data => {
+							return (
+								<ListItem className={ classes.listItem } button onClick={ () => this.handleClick(data.key) }>
+									<ListItemText primary={data.value} classes={{ primary: value === data.key ? classes.checked : 'unchecked' }} />
+								</ListItem>
+							);
+						}) }
 					</List>
 				</div>
 				<div className='col-xs-7'>
-					{ value === 0 && <All /> }
-					{ value === 1 && <LivingRoom /> }
-					{ value === 2 && <DinnerRoom /> }
-					{ value === 3 && <div></div> }
-					{ value === 4 && <div></div> }
-					{ value === 5 && <div></div> }
-					{ value === 6 && <div></div> }
+					{ rooms.map(data => {
+						return (
+							value === data.key && data.component
+						);
+					}) }
 				</div>
             </div>
         );
