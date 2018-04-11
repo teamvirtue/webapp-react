@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { withTheme } from 'material-ui/styles';
 import { withStyles } from 'material-ui/styles';
 import SwipeableViews from 'react-swipeable-views';
+import ApplianceNavigation from './ApplianceNavigation';
 import AppBar from 'material-ui/AppBar';
 import Tabs, { Tab } from 'material-ui/Tabs';
 import Divider from 'material-ui/Divider';
@@ -74,19 +75,6 @@ let systems = [ // Use https://github.com/github/fetch for loading data?
     { value: 'Wi-Fi', icon: 'wifi', status: 'check_circle', key: '7' },
 ];
 
-let appliances = [
-    { value: 'Washer-dryer', icon: 'local_laundry_service', key: '1' },
-    { value: 'Dishwasher', icon: 'info', key: '2' },
-    { value: 'Oven', icon: 'info', key: '3' },
-    { value: 'Kitchen', icon: 'kitchen', key: '4' },
-    { value: 'Music System', icon: 'speaker', key: '5' },
-    { value: 'TV', icon: 'tv', key: '6' },
-    { value: 'Laptop', icon: 'laptop', key: '7' },
-    { value: 'Lights', icon: 'lightbulb_outline', key: '8' },
-    { value: 'Clock', icon: 'access_time', key: '9' },
-    { value: 'Car', icon: 'directions_car', key: '10' },
-];
-
 function TabContainer({ children, dir }) {
     return (
         <div className='pageContainer' dir={dir}>
@@ -152,6 +140,7 @@ class Reports extends Component {
                 { value === 2 && <ImageCircle imageSource={ SystemsImage }/> }
 
                 <div className='panelView'>
+					
                     <SwipeableViews
                         className={ 'swipeableViews' }
                         axis={ theme.direction === 'rtl' ? 'x-reverse' : 'x' }
@@ -214,39 +203,7 @@ class Reports extends Component {
                         </TabContainer>
 
                         <TabContainer dir={ theme.direction }>
-                            {/*<RadioButtonGroup />*/}
-
-                            { appliances.map(data => {
-                                return (
-                                    <ExpansionPanel key={data.key}>
-                                        <ExpansionPanelSummary expandIcon={<Icon>{data.icon}</Icon>} classes={{
-                                            expandIconExpanded: classes.expandIconExpanded,
-                                        }}>
-                                            <Typography type='title'>{data.value}</Typography>
-                                        </ExpansionPanelSummary>
-                                        <ExpansionPanelDetails className={ classes.ExpansionPanelDetails }>
-                                            <LineChart />
-
-                                            <Divider/>
-
-                                            <div className='statusBar'>
-                                                <div className='statusItem'>
-                                                    <h3>Feb</h3><h1>18</h1>
-                                                    <Typography type='subheading' gutterBottom>
-                                                        Last maintenance
-                                                    </Typography>
-                                                </div>
-                                                <div className='statusItem'>
-                                                    <Icon className={ classes.icon }>check_circle</Icon>
-                                                    <Typography type='subheading' gutterBottom>
-                                                        Operating normally
-                                                    </Typography>
-                                                </div>
-                                            </div>
-                                        </ExpansionPanelDetails>
-                                    </ExpansionPanel>
-                                );
-                            }) }
+							<ApplianceNavigation />
                         </TabContainer>
 
                         <TabContainer dir={ theme.direction }>
