@@ -12,8 +12,7 @@ import Controls from './controls/Controls';
 import Reports from './reports/Reports';
 import Settings from './settings/AppSettings';
 
-//const styles = theme => ({
-const styles = {
+const styles = theme => ({
     /*root: {
         //display: 'flex',
         backgroundColor: 'lightblue'
@@ -41,10 +40,10 @@ const styles = {
     bottomNav: {
         minWidth: '60px',
     },
-    /*checked: {
+    checked: {
         color: theme.palette.primary.main,
-    },*/
-};
+    },
+});
 
 class MainNavigation extends Component {
     constructor(props) {

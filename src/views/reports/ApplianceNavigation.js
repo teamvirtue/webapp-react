@@ -4,13 +4,11 @@ import { withStyles } from 'material-ui/styles';
 import grey from 'material-ui/colors/grey';
 import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
 
-import All from './rooms/All';
-import LivingRoom from './rooms/LivingRoom';
-import DinnerRoom from './rooms/DinnerRoom';
+import WasherDryer from './appliances/WasherDryer';
 
 const styles = theme => ({
     navWrapper: {
-		maxWidth: 175,
+		maxWidth: 165,
     },
     navContainer: {
         backgroundColor: grey[200],
@@ -24,17 +22,20 @@ const styles = theme => ({
 	},
 });
 
-let rooms = [
-    { value: 'All', component: <All />, key: 1 },
-    { value: 'Living room', component: <LivingRoom />, key: 2 },
-    { value: 'Dinner room', component: <DinnerRoom />, key: 3 },
-    { value: 'Bed room', component: '', key: 4 },
-    { value: 'Bathroom', component: '', key: 5 },
-    { value: 'Hallway', component: '', key: 6 },
-    { value: 'Outdoor', component: '', key: 7 },
+let appliances = [
+    { value: 'Washer-dryer', component: <WasherDryer />, key: 1 },
+    { value: 'Dishwasher', component: '', key: 2 },
+    { value: 'Oven', component: '', key: 3 },
+    { value: 'Kitchen', component: '', key: 4 },
+    { value: 'Music System', component: '', key: 5 },
+    { value: 'TV', component: '', key: 6 },
+    { value: 'Laptop', component: '', key: 7 },
+    { value: 'Lights', component: '', key: 8 },
+    { value: 'Clock', component: '', key: 9 },
+    { value: 'Car', component: '', key: 10 },
 ];
 
-class RoomNavigation extends Component {
+class ApplianceNavigation extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -56,7 +57,7 @@ class RoomNavigation extends Component {
 			<div className='row'>
 				<div className={["col-xs-5", classes.navWrapper].join(' ')}>
 					<List component='nav' className={ classes.navContainer }>
-						{ rooms.map(data => {
+						{ appliances.map(data => {
 							return (
 								<ListItem classes={{
 										gutters: classes.listItemGutters,
@@ -68,7 +69,7 @@ class RoomNavigation extends Component {
 					</List>
 				</div>
 				<div className='col-xs-7'>
-					{ rooms.map(data => {
+					{ appliances.map(data => {
 						return (
 							value === data.key && data.component
 						);
@@ -79,8 +80,8 @@ class RoomNavigation extends Component {
     }
 }
 
-RoomNavigation.propTypes = {
+ApplianceNavigation.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(RoomNavigation);
+export default withStyles(styles)(ApplianceNavigation);

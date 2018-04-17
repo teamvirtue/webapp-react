@@ -4,9 +4,7 @@ import { withStyles } from 'material-ui/styles';
 import grey from 'material-ui/colors/grey';
 import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
 
-import All from './rooms/All';
-import LivingRoom from './rooms/LivingRoom';
-import DinnerRoom from './rooms/DinnerRoom';
+import HVAC from './systems/HVAC';
 
 const styles = theme => ({
     navWrapper: {
@@ -24,17 +22,17 @@ const styles = theme => ({
 	},
 });
 
-let rooms = [
-    { value: 'All', component: <All />, key: 1 },
-    { value: 'Living room', component: <LivingRoom />, key: 2 },
-    { value: 'Dinner room', component: <DinnerRoom />, key: 3 },
-    { value: 'Bed room', component: '', key: 4 },
-    { value: 'Bathroom', component: '', key: 5 },
-    { value: 'Hallway', component: '', key: 6 },
-    { value: 'Outdoor', component: '', key: 7 },
+let systems = [
+    { value: 'HVAC', component: <HVAC />, key: 1 },
+    { value: 'Water System', component: '', key: 2 },
+    { value: 'Battery', component: '', key: 3 },
+    { value: 'Grid', component: '', key: 4 },
+    { value: 'Solar Panels', component: '', key: 5 },
+    { value: 'Smart System', component: '', key: 6 },
+    { value: 'Wi-Fi', component: '', key: 7 },
 ];
 
-class RoomNavigation extends Component {
+class SystemNavigation extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -56,11 +54,12 @@ class RoomNavigation extends Component {
 			<div className='row'>
 				<div className={["col-xs-5", classes.navWrapper].join(' ')}>
 					<List component='nav' className={ classes.navContainer }>
-						{ rooms.map(data => {
+						{ systems.map(data => {
 							return (
 								<ListItem classes={{
 										gutters: classes.listItemGutters,
-									}} button onClick={ () => this.handleClick(data.key) }>
+									}}
+									button onClick={ () => this.handleClick(data.key) }>
 									<ListItemText primary={data.value} classes={{ primary: value === data.key ? classes.checked : 'unchecked' }} />
 								</ListItem>
 							);
@@ -68,7 +67,7 @@ class RoomNavigation extends Component {
 					</List>
 				</div>
 				<div className='col-xs-7'>
-					{ rooms.map(data => {
+					{ systems.map(data => {
 						return (
 							value === data.key && data.component
 						);
@@ -79,8 +78,8 @@ class RoomNavigation extends Component {
     }
 }
 
-RoomNavigation.propTypes = {
+SystemNavigation.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(RoomNavigation);
+export default withStyles(styles)(SystemNavigation);
