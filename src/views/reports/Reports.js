@@ -39,6 +39,10 @@ const styles = theme => ({
         boxShadow: 'none',
         backgroundColor: 'white',
     },
+    tabIndicator: {
+        top: 0,
+        bottom: 'auto',
+    },
     tableCell: {
         border: 'none', // TODO: combine tableCellName & tableCell
         textAlign: 'center',
@@ -136,7 +140,7 @@ class Reports extends Component {
                         value={ value }
                         onChange={ this.handleChange }
                         indicatorColor='primary'
-                        //indicatorClassName='tabIndicator'
+                        classes={{ indicator: classes.tabIndicator }}
                         textColor='primary'
                         fullWidth
                         centered

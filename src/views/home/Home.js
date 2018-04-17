@@ -53,6 +53,10 @@ const styles = theme => ({
         boxShadow: 'none',
         backgroundColor: 'white',
     },
+    tabIndicator: {
+        top: 0,
+        bottom: 'auto',
+    },
     /*pageContainer: {
         position: 'relative',
         width: '100%',
@@ -61,7 +65,7 @@ const styles = theme => ({
     energyIcon: {
         fontSize: '3.5em',
         lineHeight: '50px',
-        color: '#f15b27', // TODO: create global theme
+        color: theme.palette.primary.main,
     },
     checkIcon: {
         fontSize: '2em',
@@ -112,7 +116,7 @@ class Home extends Component {
                         value={ value }
                         onChange={ this.handleChange }
                         indicatorColor='primary'
-                        //indicatorClassName='tabIndicator'
+                        classes={{ indicator: classes.tabIndicator }}
                         textColor='primary'
                         fullWidth
                         centered
