@@ -4,9 +4,9 @@ import { Line } from 'react-chartjs-2';
 import Radio, { RadioGroup } from 'material-ui/Radio';
 import { FormControlLabel } from 'material-ui/Form';
 
-let dataWeek = [10, 18, -20, 16, 105, 95, ]; //56
-let dataMonths = [100, 181, -200, 106, 105, 95, 56, 604, 150, 234, 76, ]; //86
-let dataYears = [1000, 1810, -2000, 1060, ]; //105
+let dataWeek = [10, 18, -20, 16, 105]; //56
+let dataMonths = [100, 181, -200, 106, 105, 95, 56, 604, 150, 234, 76, 86]; //86
+let dataYears = [1000, 1810, -2000, 1060, 105]; //105
 
 /*let dataWeek = [500, -200, 500, -200, 500, -200, 500];
 let dataMonth = [1400, 1400, -1400, 1400, 1400, 1400, 1400, 1400, 1400, 1400, 1400, 1400];
@@ -21,7 +21,7 @@ const initialState = {
     datasets: [
         {
             label: 'Difference Graph',
-            fill: false,
+            /*fill: false,
             lineTension: 0.1,
             borderCapStyle: 'butt',
             borderDash: [],
@@ -32,7 +32,7 @@ const initialState = {
             pointHoverRadius: 5,
             pointHoverBorderWidth: 2,
             pointRadius: 1,
-            pointHitRadius: 10,
+            pointHitRadius: 10,*/
             data: dataWeek,
         }
     ]
@@ -81,7 +81,7 @@ class LineChart extends Component{
                 oldDataSet = dataWeek;
         }
 
-        console.log(oldDataSet);
+        //console.log(oldDataSet);
 
         for (let x = 0; x < selectedLabel.length; x++) {
             newData.push(oldDataSet[x]);
@@ -107,33 +107,45 @@ class LineChart extends Component{
     componentWillMount() {
         this.setState(initialState);
     };
-    /*componentDidMount(){
+    componentDidMount(){ // TODO: remember previously drawn graph
         let _this = this;
 
-        setInterval(function(){
-            let oldDataSet = _this.state.datasets[0];
-            let newData = [];
+        this.timer = setInterval(function(){
+            const datasetsCopy = _this.state.datasets.slice(0);
+            let dataCopy = datasetsCopy[0].data.slice(0);
+            let dataPoint = Math.floor(Math.random() * 100);
 
-            for(let x=0; x< _this.state.labels.length; x++){
-                newData.push(Math.floor(Math.random() * 100));
+           /* dataCopy[dataCopy.length] = dataPoint;
+            //dataCopy[dataCopy.length] += 10;
+            datasetsCopy[0].data = dataCopy;*/
+
+            if (dataCopy.length < 7) {
+                dataCopy[dataCopy.length] = dataPoint;
+            } else {
+                dataCopy = [dataPoint];
+                //console.log(dataCopy);
             }
 
-            let newDataSet = {
-                ...oldDataSet
-            };
+            datasetsCopy[0].data = dataCopy;
 
-            newDataSet.data = newData;
-
-            console.log(oldDataSet);
-
-            let newState = {
+            /*let newState = {
                 ...initialState,
-                datasets: [newDataSet]
+                datasets: datasetsCopy
             };
 
-            _this.setState(newState);
-        }, 5000);
-    };*/
+            _this.setState(newState);*/
+
+            _this.setState({
+                data: Object.assign({}, this.state, {
+                    datasets: datasetsCopy
+                })
+            });
+        }, 3000);
+    };
+
+    componentWillUnmount() {
+        clearInterval(this.timer);
+    }
 
     render(){
         const { classes } = this.props;
@@ -143,12 +155,12 @@ class LineChart extends Component{
                 <RadioGroup
                     aria-label='time'
                     name='time'
-                    className={ classes.radioGroup } /*RadioGroup*/
+                    className={ classes.radioGroup }
                     value={ this.state.value }
                     onChange={ this.handleChange }
                     row
                 >
-                    <FormControlLabel style={{ display: 'inline', margin: 0 }} value='week' control={ <Radio /> } label='Week' />
+                    <FormControlLabel style={{ display: 'inline', margin: 0 }} value='week' control={ <Radio /> } label='Week' /> {/*TODO: remove inline style*/}
                     <FormControlLabel style={{ display: 'inline', margin: 0 }} value='month' control={ <Radio /> } label='Month' />
                     <FormControlLabel style={{ display: 'inline', margin: 0 }} value='year' control={ <Radio /> } label='Year' />
                 </RadioGroup>

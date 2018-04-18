@@ -7,7 +7,10 @@ You can find the most recent version of this guide [here]
 (https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/template/README.md).
 
 # VIRTUe Student Team
-Lorem ipsum
+VIRTUe is a student team from the Eindhoven University of Technology. Follow us on our journey designing and building
+the most sustainable house at the Solar Decathlon Middle East 2018 in Dubai.
+
+Check out our website: https://teamvirtue.nl/
 
 # Web App Functionalities
 Through the web app the residents are able to view their behaviour in terms of sustainability, the status of LINQ and
