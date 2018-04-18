@@ -4,14 +4,20 @@ import { Line } from 'react-chartjs-2';
 import Radio, { RadioGroup } from 'material-ui/Radio';
 import { FormControlLabel } from 'material-ui/Form';
 
-let data = [1000, 181, -1200, 106, 105, 95, 56, 604, 150, 234, 76, 86,];
+let dataWeek = [10, 18, -20, 16, 105, 95, ]; //56
+let dataMonths = [100, 181, -200, 106, 105, 95, 56, 604, 150, 234, 76, ]; //86
+let dataYears = [1000, 1810, -2000, 1060, ]; //105
+
+/*let dataWeek = [500, -200, 500, -200, 500, -200, 500];
+let dataMonth = [1400, 1400, -1400, 1400, 1400, 1400, 1400, 1400, 1400, 1400, 1400, 1400];
+let dataYear = [16000, 16000, -16000, 16000, 16000];*/
 
 const WEEK = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 const MONTHS = ['Jan', 'Feb', 'Mrt', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 const YEARS = ['2014', '2015', '2016', '2017', '2018'];
 
 const initialState = {
-    labels: MONTHS,
+    labels: WEEK,
     datasets: [
         {
             label: 'Difference Graph',
@@ -27,7 +33,7 @@ const initialState = {
             pointHoverBorderWidth: 2,
             pointRadius: 1,
             pointHitRadius: 10,
-            data: data,
+            data: dataWeek,
         }
     ]
 };
@@ -46,36 +52,43 @@ class LineChart extends Component{
     constructor(props){
         super(props);
         this.state = {
-            chartData: initialState,
+            //chartData: initialState,
             value: 'week'
         };
     }
 
     handleChange = (event, value) => {
         this.setState({ value });
-
         let selectedLabel;
+        let oldDataSet = this.state.datasets[0]; //myBarChart.data.datasets[0].data[12] = 500;
+        let newData = [];
 
         switch (value) {
             case 'week':
                 selectedLabel = WEEK;
+                oldDataSet = dataWeek;
                 break;
             case 'month':
                 selectedLabel = MONTHS;
+                oldDataSet = dataMonths;
                 break;
             case 'year':
                 selectedLabel = YEARS;
+                oldDataSet = dataYears;
                 break;
             default:
                 selectedLabel = WEEK;
+                oldDataSet = dataWeek;
         }
 
-        let oldDataSet = this.state.datasets[0]; //myBarChart.data.datasets[0].data[12] = 500;
-        let newData = [];
+        console.log(oldDataSet);
 
         for (let x = 0; x < selectedLabel.length; x++) {
-            newData.push(Math.floor(Math.random() * 1000));
+            newData.push(oldDataSet[x]);
         }
+        /*for (let x = 0; x < selectedLabel.length; x++) {
+            newData.push(Math.floor(Math.random() * 1000));
+        }*/
 
         let newDataSet = { ...oldDataSet };
 
@@ -94,6 +107,33 @@ class LineChart extends Component{
     componentWillMount() {
         this.setState(initialState);
     };
+    /*componentDidMount(){
+        let _this = this;
+
+        setInterval(function(){
+            let oldDataSet = _this.state.datasets[0];
+            let newData = [];
+
+            for(let x=0; x< _this.state.labels.length; x++){
+                newData.push(Math.floor(Math.random() * 100));
+            }
+
+            let newDataSet = {
+                ...oldDataSet
+            };
+
+            newDataSet.data = newData;
+
+            console.log(oldDataSet);
+
+            let newState = {
+                ...initialState,
+                datasets: [newDataSet]
+            };
+
+            _this.setState(newState);
+        }, 5000);
+    };*/
 
     render(){
         const { classes } = this.props;
