@@ -7,11 +7,18 @@ import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
 import WasherDryer from './appliances/WasherDryer';
 
 const styles = theme => ({
-    navWrapper: {
-		maxWidth: 165,
+    subNavContainer: {
+		width: "30%",
+		maxWidth: 175,
+		float: "left",
+		whiteSpace: "nowrap",
     },
-    navContainer: {
+    subNavList: {
         backgroundColor: grey[200],
+    },
+    subNavContent: {
+		width: "70%",
+		float: "left",
     },
     checked: {
         color: theme.palette.primary.main,
@@ -54,9 +61,9 @@ class ApplianceNavigation extends Component {
         const { value } = this.state;
 
         return (
-			<div className='row'>
-				<div className={["col-xs-5", classes.navWrapper].join(' ')}>
-					<List component='nav' className={ classes.navContainer }>
+			<div>
+				<div className={classes.subNavContainer}>
+					<List component='nav' className={ classes.subNavList }>
 						{ appliances.map(data => {
 							return (
 								<ListItem classes={{
@@ -68,7 +75,7 @@ class ApplianceNavigation extends Component {
 						}) }
 					</List>
 				</div>
-				<div className='col-xs-7'>
+				<div className={classes.subNavContent}>
 					{ appliances.map(data => {
 						return (
 							value === data.key && data.component

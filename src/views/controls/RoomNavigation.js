@@ -9,11 +9,18 @@ import LivingRoom from './rooms/LivingRoom';
 import DinnerRoom from './rooms/DinnerRoom';
 
 const styles = theme => ({
-    navWrapper: {
+    subNavContainer: {
+		width: "30%",
 		maxWidth: 175,
+		float: "left",
+		whiteSpace: "nowrap",
     },
-    navContainer: {
+    subNavList: {
         backgroundColor: grey[200],
+    },
+    subNavContent: {
+		width: "70%",
+		float: "left",
     },
     checked: {
         color: theme.palette.primary.main,
@@ -53,9 +60,9 @@ class RoomNavigation extends Component {
         const { value } = this.state;
 
         return (
-			<div className='row'>
-				<div className={["col-xs-5", classes.navWrapper].join(' ')}>
-					<List component='nav' className={ classes.navContainer }>
+			<div>
+				<div className={classes.subNavContainer}>
+					<List component='nav' className={ classes.subNavList }>
 						{ rooms.map(data => {
 							return (
 								<ListItem classes={{
@@ -67,7 +74,7 @@ class RoomNavigation extends Component {
 						}) }
 					</List>
 				</div>
-				<div className='col-xs-7'>
+				<div className={classes.subNavContent}>
 					{ rooms.map(data => {
 						return (
 							value === data.key && data.component
