@@ -16,7 +16,6 @@ import myLinqImage from '../../assets/controls.svg';
 
 const styles = theme => ({
     root: {
-        marginBottom: 100,
         //textAlign: 'left',
     },
     pageTitle: {
@@ -62,10 +61,6 @@ class Controls extends Component {
 
         return (
             <div className={ classes.root }>
-                <Typography variant="headline" gutterBottom className={ classes.pageTitle }>
-                    Controls
-                </Typography>
-
                 <ImageCircle imageSource={ myLinqImage }/>
 
                 <div className='panelView'>

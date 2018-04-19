@@ -60,7 +60,7 @@ class SystemNavigation extends Component {
         return (
 			<div>
 				<div className={classes.subNavContainer}>
-					<List component='nav' className={ classes.subNavList }>
+					<List component='nav' className={ classes.navContainer }>
 						{ systems.map(data => {
 							return (
 								<ListItem classes={{
@@ -73,7 +73,7 @@ class SystemNavigation extends Component {
 						}) }
 					</List>
 				</div>
-				<div className={classes.subNavContent}>
+				<div className='col-xs-7'>
 					{ systems.map(data => {
 						return (
 							value === data.key && data.component
