@@ -171,10 +171,6 @@ class Settings extends Component {
 
         return (
             <div className={classes.root}>
-                <Typography variant='headline' gutterBottom className='pageTitle'>
-                    Settings
-                </Typography>
-
                 <ImageCircle imageSource={ settingsImage }/>
 
                 <div className='panelView'>
