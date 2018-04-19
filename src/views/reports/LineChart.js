@@ -4,13 +4,10 @@ import { Line } from 'react-chartjs-2';
 import Radio, { RadioGroup } from 'material-ui/Radio';
 import { FormControlLabel } from 'material-ui/Form';
 
-let dataWeek = [10, 18, -20, 16, 105]; //56
-let dataMonths = [100, 181, -200, 106, 105, 95, 56, 604, 150, 234, 76, 86]; //86
-let dataYears = [1000, 1810, -2000, 1060, 105]; //105
-
-/*let dataWeek = [500, -200, 500, -200, 500, -200, 500];
-let dataMonth = [1400, 1400, -1400, 1400, 1400, 1400, 1400, 1400, 1400, 1400, 1400, 1400];
-let dataYear = [16000, 16000, -16000, 16000, 16000];*/
+let data = [10, 18, -20, 16, 105, 56, 78];
+let dataWeek = [10, 18, -20, 16, 105, 56, 78];
+let dataMonths = [100, 181, -200, 106, 105, 95, 56, 604, 150, 234, 11, 245];
+let dataYears = [1000, 1810, -2000, 1060, 4000];
 
 const WEEK = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 const MONTHS = ['Jan', 'Feb', 'Mrt', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -21,8 +18,8 @@ const initialState = {
     datasets: [
         {
             label: 'Difference Graph',
-            /*fill: false,
-            lineTension: 0.1,
+            fill: false,
+           /* lineTension: 0.1,
             borderCapStyle: 'butt',
             borderDash: [],
             borderDashOffset: 0.0,
@@ -53,39 +50,42 @@ class LineChart extends Component{
         super(props);
         this.state = {
             //chartData: initialState,
-            value: 'week'
+            value: 'week',
         };
     }
 
     handleChange = (event, value) => {
         this.setState({ value });
         let selectedLabel;
-        let oldDataSet = this.state.datasets[0]; //myBarChart.data.datasets[0].data[12] = 500;
+        const oldDataSet = this.state.datasets[0];
         let newData = [];
 
         switch (value) {
             case 'week':
                 selectedLabel = WEEK;
-                oldDataSet = dataWeek;
+                for (let x = 0; x < selectedLabel.length; x++) {
+                    newData.push(dataWeek[x]);
+                }
                 break;
             case 'month':
                 selectedLabel = MONTHS;
-                oldDataSet = dataMonths;
+                for (let x = 0; x < selectedLabel.length; x++) {
+                    newData.push(dataMonths[x]);
+                }
                 break;
             case 'year':
                 selectedLabel = YEARS;
-                oldDataSet = dataYears;
+                for (let x = 0; x < selectedLabel.length; x++) {
+                    newData.push(dataYears[x]);
+                }
                 break;
-            default:
-                selectedLabel = WEEK;
-                oldDataSet = dataWeek;
+            /*default:
+                selectedLabel = WEEK;*/
         }
 
-        //console.log(oldDataSet);
-
-        for (let x = 0; x < selectedLabel.length; x++) {
-            newData.push(oldDataSet[x]);
-        }
+        /*for (let x = 0; x < selectedLabel.length; x++) {
+            newData.push(newDataSet[x]);
+        }*/
         /*for (let x = 0; x < selectedLabel.length; x++) {
             newData.push(Math.floor(Math.random() * 1000));
         }*/
@@ -94,57 +94,95 @@ class LineChart extends Component{
 
         newDataSet.data = newData;
 
-        let newState = {
-            ...initialState,
+        this.setState({
+            // ...initialState,
             labels: selectedLabel,
             datasets: [newDataSet]
-        };
+        });
 
-        this.setState(newState);
+        console.log(newData);
     };
 
     //displayName: 'LineChart';
     componentWillMount() {
-        this.setState(initialState);
+        this.setState({
+            labels: WEEK,
+            datasets: [
+                {
+                    label: 'Difference Graph',
+                    fill: false,
+                    data: data,
+                }
+            ]
+        });
+        // this.setState(initialState);
     };
-    componentDidMount(){ // TODO: remember previously drawn graph
-        let _this = this;
+    componentDidMount(){ // TODO: remember previously drawn graph & labels
+        this.timer = setInterval(
+            () => this.retrieve(),
+            3000
+        );
+
+        /*let _this = this;
 
         this.timer = setInterval(function(){
             const datasetsCopy = _this.state.datasets.slice(0);
             let dataCopy = datasetsCopy[0].data.slice(0);
             let dataPoint = Math.floor(Math.random() * 100);
 
-           /* dataCopy[dataCopy.length] = dataPoint;
-            //dataCopy[dataCopy.length] += 10;
-            datasetsCopy[0].data = dataCopy;*/
+            /!* dataCopy[dataCopy.length] = dataPoint;
+             //dataCopy[dataCopy.length] += 10;
+             datasetsCopy[0].data = dataCopy;*!/
 
-            if (dataCopy.length < 7) {
+            if (dataCopy.length < 7) { // TODO: make dynamic variable based on selected label
                 dataCopy[dataCopy.length] = dataPoint;
             } else {
                 dataCopy = [dataPoint];
-                //console.log(dataCopy);
             }
 
             datasetsCopy[0].data = dataCopy;
 
-            /*let newState = {
+            let newState = {
                 ...initialState,
+                //labels: selectedLabel,
                 datasets: datasetsCopy
             };
 
-            _this.setState(newState);*/
+            _this.setState(newState);
 
-            _this.setState({
+            /!*_this.setState({
                 data: Object.assign({}, this.state, {
                     datasets: datasetsCopy
                 })
-            });
-        }, 3000);
+            });*!/
+        }, 3000);*/
     };
 
     componentWillUnmount() {
         clearInterval(this.timer);
+    }
+
+    retrieve() {
+        //console.log('hi');
+
+        /*const datasetsCopy = this.state.datasets.slice(0);
+        let dataCopy = datasetsCopy[0].data.slice(0);
+        let dataPoint = Math.floor(Math.random() * 100);
+
+        if (dataCopy.length < 7) { // TODO: make dynamic variable based on selected label
+            dataCopy[dataCopy.length] = dataPoint;
+        } else {
+            dataCopy = [dataPoint];
+        }
+
+        datasetsCopy[0].data = dataCopy;
+
+        let newState = {
+            ...initialState,
+            datasets: datasetsCopy
+        };
+
+        this.setState(newState);*/
     }
 
     render(){

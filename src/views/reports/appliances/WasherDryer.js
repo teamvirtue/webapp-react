@@ -19,7 +19,7 @@ class WasherDryer extends Component {
 						Chart
 					</Typography>
 					
-					<LineChart />
+					{/*<LineChart />*/}
 					
 					<Divider/>
 
