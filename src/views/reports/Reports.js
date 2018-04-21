@@ -45,8 +45,8 @@ const styles = theme => ({
         top: 0,
         bottom: 'auto',
     },
-    tableCell: {
-        border: 'none', // TODO: combine tableCellName & tableCell
+    /*tableCell: {
+        border: 'none',
         textAlign: 'center',
     },
     tableCellName: {
@@ -62,7 +62,7 @@ const styles = theme => ({
     expandIconExpanded: {
         color: theme.palette.primary.main,
         transform: 'translateY(-50%)',
-    },
+    },*/
     icon: {
         fontSize: '2em',
         marginTop: '23px',
