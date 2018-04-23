@@ -60,7 +60,7 @@ class SystemNavigation extends Component {
         return (
 			<div>
 				<div className={classes.subNavContainer}>
-					<List component='nav' className={ classes.navContainer }>
+					<List component='nav' className={ classes.subNavList }>
 						{ systems.map(data => {
 							return (
 								<ListItem classes={{

@@ -17,6 +17,8 @@ import { TimePicker, DatePicker } from 'material-ui-pickers';
 // import { withStyles } from 'material-ui/styles';
 import Icon from 'material-ui/Icon';
 
+import UserDialog from './setting/UserDialog';
+
 import './AppSettings.css';
 import ImageCircle from '../ImageCircle';
 import settingsImage from '../../assets/settings.svg';
@@ -186,6 +188,8 @@ class Settings extends Component {
                         </Typography>
 
                         <List>
+							<UserDialog />
+                            
                             <ListItem>
                                 <ListItemIcon>
                                     <Icon>cake</Icon>
@@ -194,11 +198,11 @@ class Settings extends Component {
                                 <ListItemText primary='Birthdate' />
 
                                 <DatePicker className='datePicker'
-                                            keyboard
-                                            format='MMMM Do, YYYY'
-                                            value={ selectedDate }
-                                            onChange={ this.handleDateChange }
-                                            animateYearScrolling={ false }
+									keyboard
+									format='MMMM Do, YYYY'
+									value={ selectedDate }
+									onChange={ this.handleDateChange }
+									animateYearScrolling={ false }
                                 />
                             </ListItem>
                             <ListItem>
