@@ -17,6 +17,10 @@ import Button from 'material-ui/Button';
 import Icon from 'material-ui/Icon';
 import orange from 'material-ui/colors/orange';
 
+import accountPicture1 from '../../../assets/accounts/1.jpg';
+import accountPicture2 from '../../../assets/accounts/2.jpg';
+import accountPicture3 from '../../../assets/accounts/3.jpg';
+
 const styles = theme => ({
 	avatar: {
 		backgroundColor: orange[100],
@@ -24,8 +28,10 @@ const styles = theme => ({
 	},
 });
 
-const accountNames = ['Manar Bishara', 'Sara Abadi'];
-
+let accountNames = [
+    { id:'2', value: 'Manar Bishara', imgName: accountPicture2 },
+    { id:'3', value: 'Sara Abadi', imgName: accountPicture3 },
+];
 
 class UserDialog extends Component {
     constructor(props) {
@@ -34,12 +40,11 @@ class UserDialog extends Component {
 			openNamePopup: false,
 			currentAccountName: "Gregory Abadi",
         };
-		this.handleNameChangeSubmit = this.handleNameChangeSubmit.bind(this);
     }
 	
     handleNameChangeSubmit = event => {
 		event.preventDefault();
-        this.setState({ currentAccountName: this.refs.cqurrentAccountName.value });
+        this.setState({ currentAccountName: this.newAccountName.value });
     };
 	
 	handleNamePopupOpen = () => {
@@ -77,18 +82,20 @@ class UserDialog extends Component {
 							<List>
 								<ListItem>
 									<ListItemAvatar>
-										<Avatar className={classes.avatar}>
-											<Icon>person</Icon>
-										</Avatar>
+										<Avatar 
+										  alt={this.state.currentAccountName}
+										  src={accountPicture1}
+										  className={classes.avatar}
+										/>
 									</ListItemAvatar>
 									<ListItemText>
 										<TextField
 											defaultValue={this.state.currentAccountName}
 											margin="dense"
-											id="name"
+											id="newAccountName"
 											label="Your name"
 											type="text"
-											ref="cqurrentAccountName"
+											inputRef={(element) => { this.newAccountName = element }}
 											fullWidth
 										/>
 									</ListItemText>
@@ -99,14 +106,16 @@ class UserDialog extends Component {
 								Other family members
 							</Typography>
 							<List>
-								{accountNames.map(name => (
-									<ListItem button onClick={() => this.handleListItemClick(name)} key={name}>
+								{accountNames.map(data => (
+									<ListItem button key={data.value}>
 										<ListItemAvatar>
-											<Avatar className={classes.avatar}>
-												<Icon>person</Icon>
-											</Avatar>
+											<Avatar 
+											  alt={data.value}
+											  src={data.imgName}
+											  className={classes.avatar}
+											/>
 										</ListItemAvatar>
-										<ListItemText primary={name} />
+										<ListItemText primary={data.value} />
 									</ListItem>
 								))}
 								<ListItem button>
@@ -115,7 +124,7 @@ class UserDialog extends Component {
 											<Icon>add</Icon>
 										</Avatar>
 									</ListItemAvatar>
-									<ListItemText primary="Add account" />
+									<ListItemText primary="Add account" onClick={()=>{ alert('Not supported yet'); }} />
 								</ListItem>
 							</List>
 						</DialogContent>
