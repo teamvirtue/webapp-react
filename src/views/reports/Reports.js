@@ -45,8 +45,8 @@ const styles = theme => ({
         top: 0,
         bottom: 'auto',
     },
-    tableCell: {
-        border: 'none', // TODO: combine tableCellName & tableCell
+    /*tableCell: {
+        border: 'none',
         textAlign: 'center',
     },
     tableCellName: {
@@ -62,7 +62,7 @@ const styles = theme => ({
     expandIconExpanded: {
         color: theme.palette.primary.main,
         transform: 'translateY(-50%)',
-    },
+    },*/
     icon: {
         fontSize: '2em',
         marginTop: '23px',
@@ -153,9 +153,7 @@ class Reports extends Component {
                         onChangeIndex={ this.handleChangeIndex }
                     >
                         <TabContainer dir={ theme.direction }>
-                            {/*TODO: fix titles layout*/}
-
-                            <h1>On Average</h1>
+                            {/*<h1>On Average</h1>
 
                             <div className='reportsInfoBar'>
                                 <div className='infoItem1'>
@@ -194,14 +192,11 @@ class Reports extends Component {
                                 </div>
                             </div>
 
-                            <Divider/>
-
-                            {/*<RadioButtonGroup />*/}
+                            <Divider/>*/}
 
                             <h1>Total Energy</h1>
 
-                            <LineChart />
-                            {/*<Checkboxes />*/}
+                            <LineChart /> {/*TODO: add props to pass to LineChart*/}
 
                             <h1>Per Appliance</h1>
                             <BarChart />

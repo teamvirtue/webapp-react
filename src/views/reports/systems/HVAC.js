@@ -19,7 +19,7 @@ class HVAC extends Component {
 						Chart
 					</Typography>
 					
-					<LineChart />
+					{/*<LineChart />*/}
 					
 					<Divider/>
 
