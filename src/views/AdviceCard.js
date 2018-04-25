@@ -49,8 +49,14 @@ class AdviceCard extends Component {
         };
     }
 
-    handleExpandClick = () => {
-        this.setState({ ignored: !this.state.ignored });
+    handleClick = (event) => {
+        console.log('hi');
+        // this.setState({ ignored: !this.state.ignored });
+    };
+
+    handleClickIgnore = (event) => {
+        this.setState({ ignored: true });
+        console.log(this.state.ignored);
     };
 
     render() {
@@ -71,7 +77,7 @@ class AdviceCard extends Component {
                     <CardActions className={ classes.controls }>
                         <Button
                             className={ classes.button }
-                            onClick={ this.handleExpandClick }
+                            onClick={ this.handleClick }
                             variant='raised'
                             color='primary'
                         >
@@ -79,7 +85,7 @@ class AdviceCard extends Component {
                             <Icon className={ classes.rightIcon }>{ this.props.buttonIcon }</Icon>
                         </Button>
                         <Button
-                            onClick={ this.handleClick }
+                            onClick={ this.handleClickIgnore }
                             color='secondary'
                         >
                             Ignore

@@ -6,15 +6,13 @@ import SwipeableViews from 'react-swipeable-views';
 import AppBar from 'material-ui/AppBar';
 import Tabs, { Tab } from 'material-ui/Tabs';
 import Typography from 'material-ui/Typography';
-import Card, { CardActions, CardContent } from 'material-ui/Card';
-import Button from 'material-ui/Button';
 import Divider from 'material-ui/Divider';
 import Icon from 'material-ui/Icon';
 import MediaQuery from 'react-responsive';
 
 // custom import
 import './Home.css';
-// import AdviceCard from '../AdviceCard';
+import AdviceCard from '../AdviceCard';
 import ImageCircle from '../ImageCircle';
 import myLinqImage from '../../assets/my_linq.svg';
 import linqImage from '../../assets/linq.svg';
@@ -23,24 +21,24 @@ import earthIcon from '../../assets/earth.svg';
 // import halfEarthIcon from '../../assets/half_earth.svg';
 
 let worlds = [
-    { key: '1' },
-    { key: '2' },
+    { id: '1' },
+    { id: '2' },
 ];
 
 let advices = [ // use fetch in future https://blog.hellojs.org/fetching-api-data-with-react-js-460fe8bbf8f2
-    {   key: '1',
+    {   id: '1',
         title: 'Washer-dryer',
         message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do ut labore et dolore magna aliqua.',
         buttonIcon: 'schedule',
 		buttonText: 'schedule',
     },
-    {   key: '2',
+    {   id: '2',
         title: 'Dishwasher',
         message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
         buttonIcon: 'done',
 		buttonText: 'Agree',
     },
-    {   key: '3',
+    {   id: '3',
         title: 'TV',
         message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
         buttonIcon: 'done',
@@ -117,6 +115,7 @@ class Home extends Component {
         super(props);
         this.state = {
             value: 0,
+            ignored: false,
         };
     }
 
@@ -126,10 +125,6 @@ class Home extends Component {
 
     handleChangeIndex = (index) => {
         this.setState({ value: index });
-    };
-
-    handleClick = (event) => {
-        this.setState({ expanded: !this.state.expanded });
     };
 
     render() {
@@ -174,7 +169,7 @@ class Home extends Component {
                                 <div className='statusItem'>
                                     { worlds.map(data => {
                                         return (
-                                            <img key={ data.key } className={ classes.earthIcon } src={ earthIcon } alt='icon'/>
+                                            <img key={ data.id } className={ classes.earthIcon } src={ earthIcon } alt='icon'/>
                                         );
                                     })}
                                     {/*{ data.half && <img className={ classes.earthIcon } src={ halfEarthIcon } alt='icon'/> }*/}
@@ -207,45 +202,17 @@ class Home extends Component {
                             <div className={ classes.cardContainer }>
                                 { advices.map(data => {
                                     return (
-                                        <Card className={ classes.card }>
-                                            <CardContent>
-                                                <Typography variant='headline' className={ classes.title } component='h1'>
-                                                    { this.props.title }
-                                                </Typography>
-
-                                                <Typography component='p'>
-                                                    { this.props.children }
-                                                </Typography>
-                                            </CardContent>
-                                            <CardActions className={ classes.controls }>
-                                                <Button
-                                                    className={ classes.button }
-                                                    onClick={ this.handleExpandClick }
-                                                    variant='raised'
-                                                    color='primary'
-                                                >
-                                                    { this.props.buttonText }
-                                                    <Icon className={ classes.rightIcon }>{ this.props.buttonIcon }</Icon>
-                                                </Button>
-                                                <Button
-                                                    onClick={ this.handleClick }
-                                                    color='secondary'
-                                                >
-                                                    Ignore
-                                                </Button>
-                                            </CardActions>
-                                        </Card>
-                                    );
-                                })}
-                            </div>
-                            {/*<AdviceCard
-                                            key={ data.key }
+                                        <AdviceCard
+                                            key={ data.id }
                                             title={ data.title }
                                             buttonIcon={ data.buttonIcon }
                                             buttonText={ data.buttonText }
                                         >
                                             { data.message }
-                                        </AdviceCard>*/}
+                                        </AdviceCard>
+                                    );
+                                })}
+                            </div>
                         </TabContainer>
 
                         <TabContainer dir={ theme.direction }>
