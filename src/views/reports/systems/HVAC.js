@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import Typography from 'material-ui/Typography';
 import Icon from 'material-ui/Icon';
 import Divider from 'material-ui/Divider';
 import List from 'material-ui/List';
-import LineChart from '../LineChart';
+// import LineChart from '../LineChart';
 
 class HVAC extends Component {
 

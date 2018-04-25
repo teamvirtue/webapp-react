@@ -23,7 +23,7 @@ import './AppSettings.css';
 import ImageCircle from '../ImageCircle';
 import settingsImage from '../../assets/settings.svg';
 
-const options = [];
+// const options = [];
 
 const optionsFood = [ // TODO: add allergy option as well?
     'Not applicable',

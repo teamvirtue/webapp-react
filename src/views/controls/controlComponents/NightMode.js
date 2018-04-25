@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Typography from 'material-ui/Typography';
-import List, {
+import {
+// import List, {
     ListItem,
     ListItemIcon,
     ListItemSecondaryAction,

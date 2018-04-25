@@ -6,10 +6,11 @@ import SwipeableViews from 'react-swipeable-views';
 import AppBar from 'material-ui/AppBar';
 import Tabs, { Tab } from 'material-ui/Tabs';
 import Typography from 'material-ui/Typography';
-import MediaQuery from 'react-responsive';
 import Divider from 'material-ui/Divider';
 import Icon from 'material-ui/Icon';
+import MediaQuery from 'react-responsive';
 
+// custom import
 import './Home.css';
 import AdviceCard from '../AdviceCard';
 import ImageCircle from '../ImageCircle';
@@ -20,24 +21,24 @@ import earthIcon from '../../assets/earth.svg';
 // import halfEarthIcon from '../../assets/half_earth.svg';
 
 let worlds = [
-    { key: '1' },
-    { key: '2' },
+    { id: '1' },
+    { id: '2' },
 ];
 
 let advices = [ // use fetch in future https://blog.hellojs.org/fetching-api-data-with-react-js-460fe8bbf8f2
-    {   key: '1',
+    {   id: '1',
         title: 'Washer-dryer',
         message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do ut labore et dolore magna aliqua.',
         buttonIcon: 'schedule',
 		buttonText: 'schedule',
     },
-    {   key: '2',
+    {   id: '2',
         title: 'Dishwasher',
         message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
         buttonIcon: 'done',
 		buttonText: 'Agree',
     },
-    {   key: '3',
+    {   id: '3',
         title: 'TV',
         message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
         buttonIcon: 'done',
@@ -57,11 +58,6 @@ const styles = theme => ({
         top: 0,
         bottom: 'auto',
     },
-    /*pageContainer: {
-        position: 'relative',
-        width: '100%',
-        marginBottom: 100,
-    },*/
     energyIcon: {
         fontSize: '3.5em',
         lineHeight: '50px',
@@ -77,6 +73,31 @@ const styles = theme => ({
     cardContainer: {
         //minWidth: 275,
         margin: '25px 15px',
+    },
+    card: {
+        minWidth: 275,
+        maxWidth: 500,
+        margin: '15px auto',
+        textAlign: 'left',
+    },
+    controls: {
+        justifyContent: 'space-between',
+    },
+    title: {
+        marginBottom: 16,
+        fontSize: 20,
+    },
+    button: {
+        margin: theme.spacing.unit,
+    },
+    leftIcon: {
+        marginRight: theme.spacing.unit,
+    },
+    rightIcon: {
+        marginLeft: theme.spacing.unit,
+    },
+    iconSmall: {
+        fontSize: 20,
     },
 });
 
@@ -94,6 +115,7 @@ class Home extends Component {
         super(props);
         this.state = {
             value: 0,
+            ignored: false,
         };
     }
 
@@ -147,7 +169,7 @@ class Home extends Component {
                                 <div className='statusItem'>
                                     { worlds.map(data => {
                                         return (
-                                            <img key={ data.key } className={ classes.earthIcon } src={ earthIcon } alt='icon'/>
+                                            <img key={ data.id } className={ classes.earthIcon } src={ earthIcon } alt='icon'/>
                                         );
                                     })}
                                     {/*{ data.half && <img className={ classes.earthIcon } src={ halfEarthIcon } alt='icon'/> }*/}
@@ -156,12 +178,6 @@ class Home extends Component {
                                         Use of resources
                                     </Typography>
                                 </div>
-                                {/*<div className='statusItem'>
-                                    <Icon className={ classes.energyIcon }>swap_vert</Icon>
-                                    <Typography type='subheading'>
-                                        Generating
-                                    </Typography>
-                                </div>*/}
                             </div>
 
                             <div className='infoBar'>
@@ -186,7 +202,12 @@ class Home extends Component {
                             <div className={ classes.cardContainer }>
                                 { advices.map(data => {
                                     return (
-                                        <AdviceCard key={ data.key } title={ data.title } buttonIcon={ data.buttonIcon } buttonText={ data.buttonText }>
+                                        <AdviceCard
+                                            key={ data.id }
+                                            title={ data.title }
+                                            buttonIcon={ data.buttonIcon }
+                                            buttonText={ data.buttonText }
+                                        >
                                             { data.message }
                                         </AdviceCard>
                                     );

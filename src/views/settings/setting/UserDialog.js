@@ -1,5 +1,5 @@
-import React, { Component, PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+// import PropTypes from 'prop-types';
 import Typography from 'material-ui/Typography';
 import { withStyles } from 'material-ui/styles'
 import { withTheme } from 'material-ui/styles';
@@ -9,9 +9,9 @@ import TextField from 'material-ui/TextField';
 import Dialog, {
   DialogActions,
   DialogContent,
-  DialogContentText,
-  DialogTitle,
-  withMobileDialog,
+  // DialogContentText,
+  // DialogTitle,
+  // withMobileDialog,
 } from 'material-ui/Dialog';
 import Button from 'material-ui/Button';
 import Icon from 'material-ui/Icon';
@@ -21,12 +21,12 @@ import accountPicture1 from '../../../assets/accounts/1.jpg';
 import accountPicture2 from '../../../assets/accounts/2.jpg';
 import accountPicture3 from '../../../assets/accounts/3.jpg';
 
-const styles = theme => ({
+const styles = {
 	avatar: {
 		backgroundColor: orange[100],
 		color: orange[600],
 	},
-});
+};
 
 let accountNames = [
     { id:'2', value: 'Manar Bishara', imgName: accountPicture2 },
@@ -56,10 +56,10 @@ class UserDialog extends Component {
 	};
 
     render() {
-		const { classes, theme } = this.props;
+		const { classes } = this.props;
 
         return (
-            <div>
+            <div> {/*TODO: reduce unnamed divs*/}
 				<ListItem
 					button
 					onClick={this.handleNamePopupOpen}

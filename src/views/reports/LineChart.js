@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { withStyles } from 'material-ui/styles';
-import { Line } from 'react-chartjs-2';
+// import { withTheme } from 'material-ui/styles';
 import Radio, { RadioGroup } from 'material-ui/Radio';
 import { FormControlLabel } from 'material-ui/Form';
+import { Line } from 'react-chartjs-2';
 
-let dataWeek = [10, 18, -20, 16, 105, 56, 78];
-let dataMonths = [100, 181, -200, 106, 105, 95, 56, 604, 150, 234, 11, 245];
-let dataYears = [1000, 1810, -2000, 1060, 4000];
+let dataWeek = [10, 18, -20, 16, 105, 56,];
+let dataMonths = [100, 181, -200, 106, 105, 95, 56, 604, 150, 234, 11,];
+let dataYears = [1000, 1810, -2000, 1060,];
 
 let data = [10, 18, -20, 16, 105, 56, 78]; // TODO: find way to insert initial array more efficient
 
@@ -21,7 +22,11 @@ const styles = theme => ({
     radioGroup: {
         justifyContent: 'center',
         marginBottom: 50,
-    }
+    },
+    radioButton: {
+        display: 'inline',
+        margin: 0,
+    },
 });
 
 class LineChart extends Component{
@@ -29,7 +34,9 @@ class LineChart extends Component{
         super(props);
         this.state = {
             value: 'week',
+            type: props.type,
         };
+        // const { theme } = props;
     }
 
     handleChange = (event, value) => {
@@ -59,10 +66,6 @@ class LineChart extends Component{
                 newData.push(...dataWeek);
         }
 
-        /*for (let x = 0; x < selectedLabel.length; x++) {
-            newData.push(Math.floor(Math.random() * 1000));
-        }*/
-
         let newDataSet = { ...oldDataSet };
 
         newDataSet.data = newData;
@@ -74,68 +77,49 @@ class LineChart extends Component{
     };
 
     componentWillMount() {
-        this.setState({
-            labels: WEEK,
-            datasets: [
-                {
-                    label: 'Difference Graph',
-                    fill: false,
-                   /* lineTension: 0.1,
-                    borderCapStyle: 'butt',
-                    borderDash: [],
-                    borderDashOffset: 0.0,
-                    borderJoinStyle: 'miter',
-                    borderWidth: 3,
-                    pointBorderWidth: 1,
-                    pointHoverRadius: 5,
-                    pointHoverBorderWidth: 2,
-                    pointRadius: 1,
-                    pointHitRadius: 10,*/
-                    data: data,
-                }
-            ]
-        });
+        if (this.state.type === 'water') {
+            this.setState({
+                labels: WEEK,
+                datasets: [
+                    {
+                        label: 'Difference Water Graph',
+                        fill: true,
+                        data: data,
+                        backgroundColor: '#AFE4F5',
+                        borderColor: '#0EA4D8', // TODO: get color from theme
+                    }
+                ]
+            });
+        } else {
+            this.setState({
+                labels: WEEK,
+                datasets: [
+                    {
+                        label: 'Difference Energy Graph',
+                        fill: false,
+                        lineTension: 0.15, //0.1
+                        borderCapStyle: 'butt',
+                        borderDash: [],
+                        borderDashOffset: 0.0,
+                        borderJoinStyle: 'miter',
+                        borderWidth: 3,
+                        pointBorderWidth: 1,
+                        pointHoverRadius: 5,
+                        pointHoverBorderWidth: 2,
+                        pointRadius: 1,
+                        pointHitRadius: 10,
+                        data: data,
+                    }
+                ]
+            });
+        }
         // this.setState(initialState);
     };
-    componentDidMount(){
+    componentDidMount(){ // TODO: replace with API call
         this.timer = setInterval(
             (value) => this.retrieve(this.state.value),
             3000
         );
-
-        /*let _this = this;
-
-        this.timer = setInterval(function(){
-            const datasetsCopy = _this.state.datasets.slice(0);
-            let dataCopy = datasetsCopy[0].data.slice(0);
-            let dataPoint = Math.floor(Math.random() * 100);
-
-            /!* dataCopy[dataCopy.length] = dataPoint;
-             //dataCopy[dataCopy.length] += 10;
-             datasetsCopy[0].data = dataCopy;*!/
-
-            if (dataCopy.length < 7) {
-                dataCopy[dataCopy.length] = dataPoint;
-            } else {
-                dataCopy = [dataPoint];
-            }
-
-            datasetsCopy[0].data = dataCopy;
-
-            let newState = {
-                ...initialState,
-                //labels: selectedLabel,
-                datasets: datasetsCopy
-            };
-
-            _this.setState(newState);
-
-            /!*_this.setState({
-                data: Object.assign({}, this.state, {
-                    datasets: datasetsCopy
-                })
-            });*!/
-        }, 3000);*/
     };
 
     componentWillUnmount() {
@@ -153,17 +137,18 @@ class LineChart extends Component{
             dataCopy = [dataPoint];
         }
 
-        switch (value) { // TODO: remember previously drawn graph (& labels?)
+        switch (value) {
             case 'week':
-                console.log('week');
+                dataWeek = dataCopy;
                 break;
             case 'month':
-                console.log('month');
+                dataMonths = dataCopy;
                 break;
             case 'year':
-                console.log('year');
+                dataYears = dataCopy;
                 break;
             default:
+                dataWeek = dataCopy;
                 console.log('default');
         }
 
@@ -188,9 +173,9 @@ class LineChart extends Component{
                     onChange={ this.handleChange }
                     row
                 >
-                    <FormControlLabel style={{ display: 'inline', margin: 0 }} value='week' control={ <Radio /> } label='Week' /> {/*TODO: remove inline style*/}
-                    <FormControlLabel style={{ display: 'inline', margin: 0 }} value='month' control={ <Radio /> } label='Month' />
-                    <FormControlLabel style={{ display: 'inline', margin: 0 }} value='year' control={ <Radio /> } label='Year' />
+                    <FormControlLabel className={ classes.radioButton } value='week' control={ <Radio /> } label='Week' />
+                    <FormControlLabel className={ classes.radioButton } value='month' control={ <Radio /> } label='Month' />
+                    <FormControlLabel className={ classes.radioButton } value='year' control={ <Radio /> } label='Year' />
                 </RadioGroup>
 
                 <Line
@@ -262,4 +247,4 @@ class LineChart extends Component{
     }
 }
 
-export default (withStyles(styles)(LineChart));
+export default withStyles(styles)(LineChart);

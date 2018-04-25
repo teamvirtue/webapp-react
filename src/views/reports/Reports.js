@@ -7,19 +7,6 @@ import ApplianceNavigation from './ApplianceNavigation';
 import SystemNavigation from './SystemNavigation';
 import AppBar from 'material-ui/AppBar';
 import Tabs, { Tab } from 'material-ui/Tabs';
-import Divider from 'material-ui/Divider';
-/* import Table, {
-    TableBody,
-    TableCell,
-    TableFooter,
-    TableRow,
-} from 'material-ui/Table'; */
-import Icon from 'material-ui/Icon';
-import ExpansionPanel, {
-    ExpansionPanelSummary,
-    ExpansionPanelDetails,
-} from 'material-ui/ExpansionPanel';
-import Typography from 'material-ui/Typography';
 
 // import RadioButtonGroup from '../../selection-controls/RadioButtonGroup';
 import LineChart from './LineChart';
@@ -70,7 +57,7 @@ const styles = theme => ({
     },
 });
 
-let systems = [ // Use https://github.com/github/fetch for loading data?
+/*let systems = [ // Use https://github.com/github/fetch for loading data?
     { value: 'HVAC', icon: 'toys', status: 'check_circle', key: '1' },
     { value: 'Water System', icon: 'info', status: 'highlight_off', key: '2' },
     { value: 'Battery', icon: 'battery_full', status: 'warning', key: '3' },
@@ -78,7 +65,7 @@ let systems = [ // Use https://github.com/github/fetch for loading data?
     { value: 'Solar Panels', icon: 'check_circle', status: 'check_circle', key: '5' },
     { value: 'Smart System', icon: 'developer_board', status: 'check_circle', key: '6' },
     { value: 'Wi-Fi', icon: 'wifi', status: 'check_circle', key: '7' },
-];
+];*/
 
 function TabContainer({ children, dir }) {
     return (
@@ -196,7 +183,11 @@ class Reports extends Component {
 
                             <h1>Total Energy</h1>
 
-                            <LineChart /> {/*TODO: add props to pass to LineChart*/}
+                            <LineChart type='energy' /> {/*TODO: add props to pass to LineChart*/}
+
+                            <h1>Total Water</h1>
+
+                            <LineChart type='water' /> {/*TODO: add props to pass to LineChart*/}
 
                             <h1>Per Appliance</h1>
                             <BarChart />

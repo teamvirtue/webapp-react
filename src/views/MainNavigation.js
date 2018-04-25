@@ -49,7 +49,7 @@ class MainNavigation extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            value: 2,
+            value: 0,
             selectedValue: 0,
         };
     }
@@ -118,7 +118,7 @@ class MainNavigation extends Component {
                     { value === 2 && <Reports /> }
                     { value === 3 && <Settings /> }
 
-                    <BottomNavigation value={ value } onChange={ this.handleChange } className={ classes.nav }>
+                    <BottomNavigation value={ value } onChange={ this.handleChange } className={ classes.nav } showLabels>
                         <BottomNavigationAction className={ classes.bottomNav } label='Home' href='#home' icon={ <Icon>home</Icon> } />
                         <BottomNavigationAction className={ classes.bottomNav } label='Controls' href='#controls' icon={ <Icon>tune</Icon> } />
                         <BottomNavigationAction className={ classes.bottomNav } label='Reports' href='#reports' icon={ <Icon>assessment</Icon> } />
