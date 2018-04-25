@@ -196,7 +196,11 @@ class Reports extends Component {
 
                             <h1>Total Energy</h1>
 
-                            <LineChart /> {/*TODO: add props to pass to LineChart*/}
+                            <LineChart type='energy' /> {/*TODO: add props to pass to LineChart*/}
+
+                            <h1>Total Water</h1>
+
+                            <LineChart type='water' /> {/*TODO: add props to pass to LineChart*/}
 
                             <h1>Per Appliance</h1>
                             <BarChart />

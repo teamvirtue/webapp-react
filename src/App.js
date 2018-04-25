@@ -9,13 +9,13 @@ import './assets/bootstrap-grid.min.css';
 const theme = createMuiTheme({
     palette: {
 		primary: {
-			main: "#f15b27",
+			main: '#f15b27',
 		},
 		secondary: {
-			main: "#f15b27",
+			main: '#f15b27',
 		},
 		error: {
-			main: "#e83a3a",
+			main: '#e83a3a', //inverted (blue): 0EA4D8
 		},
 	},
 	typography: {
@@ -51,8 +51,8 @@ defaults.global.elements.point.hitRadius = 15;
 class App extends Component {
     render() {
         return (
-            <div className="App">
-				<div className="fluid-container">
+            <div className='App'>
+				<div className='fluid-container'>
 					<MuiThemeProvider theme={ theme }>
 						<MainNavigation />
 					</MuiThemeProvider>

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { withStyles } from 'material-ui/styles';
-import { Line } from 'react-chartjs-2';
+import { withTheme } from 'material-ui/styles';
 import Radio, { RadioGroup } from 'material-ui/Radio';
 import { FormControlLabel } from 'material-ui/Form';
+import { Line } from 'react-chartjs-2';
 
 let dataWeek = [10, 18, -20, 16, 105, 56,];
 let dataMonths = [100, 181, -200, 106, 105, 95, 56, 604, 150, 234, 11,];
@@ -33,7 +34,9 @@ class LineChart extends Component{
         super(props);
         this.state = {
             value: 'week',
+            type: props.type,
         };
+        // const { theme } = props;
     }
 
     handleChange = (event, value) => {
@@ -74,27 +77,42 @@ class LineChart extends Component{
     };
 
     componentWillMount() {
-        this.setState({
-            labels: WEEK,
-            datasets: [
-                {
-                    label: 'Difference Graph',
-                    fill: false,
-                    lineTension: 0.1,
-                    borderCapStyle: 'butt',
-                    borderDash: [],
-                    borderDashOffset: 0.0,
-                    borderJoinStyle: 'miter',
-                    borderWidth: 3,
-                    pointBorderWidth: 1,
-                    pointHoverRadius: 5,
-                    pointHoverBorderWidth: 2,
-                    pointRadius: 1,
-                    pointHitRadius: 10,
-                    data: data,
-                }
-            ]
-        });
+        if (this.state.type === 'water') {
+            this.setState({
+                labels: WEEK,
+                datasets: [
+                    {
+                        label: 'Difference Water Graph',
+                        fill: true,
+                        data: data,
+                        backgroundColor: '#AFE4F5',
+                        borderColor: '#0EA4D8', // TODO: get color from theme
+                    }
+                ]
+            });
+        } else {
+            this.setState({
+                labels: WEEK,
+                datasets: [
+                    {
+                        label: 'Difference Energy Graph',
+                        fill: false,
+                        lineTension: 0.15, //0.1
+                        borderCapStyle: 'butt',
+                        borderDash: [],
+                        borderDashOffset: 0.0,
+                        borderJoinStyle: 'miter',
+                        borderWidth: 3,
+                        pointBorderWidth: 1,
+                        pointHoverRadius: 5,
+                        pointHoverBorderWidth: 2,
+                        pointRadius: 1,
+                        pointHitRadius: 10,
+                        data: data,
+                    }
+                ]
+            });
+        }
         // this.setState(initialState);
     };
     componentDidMount(){ // TODO: replace with API call
@@ -130,6 +148,7 @@ class LineChart extends Component{
                 dataYears = dataCopy;
                 break;
             default:
+                dataWeek = dataCopy;
                 console.log('default');
         }
 
@@ -154,7 +173,7 @@ class LineChart extends Component{
                     onChange={ this.handleChange }
                     row
                 >
-                    <FormControlLabel className={ classes.radioButton } value='week' control={ <Radio /> } label='Week' /> {/*TODO: remove inline style*/}
+                    <FormControlLabel className={ classes.radioButton } value='week' control={ <Radio /> } label='Week' />
                     <FormControlLabel className={ classes.radioButton } value='month' control={ <Radio /> } label='Month' />
                     <FormControlLabel className={ classes.radioButton } value='year' control={ <Radio /> } label='Year' />
                 </RadioGroup>
@@ -228,4 +247,4 @@ class LineChart extends Component{
     }
 }
 
-export default (withStyles(styles)(LineChart));
+export default withStyles(styles)(LineChart);
