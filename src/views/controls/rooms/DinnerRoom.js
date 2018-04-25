@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import Typography from 'material-ui/Typography';
 import List from 'material-ui/List';
 
-import Temperature from '../controlComponents/Temperature';
+// import Temperature from '../controlComponents/Temperature';
 import Light from '../controlComponents/Light';
 
 class DinnerRoom extends Component {

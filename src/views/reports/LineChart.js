@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { withStyles } from 'material-ui/styles';
-import { withTheme } from 'material-ui/styles';
+// import { withTheme } from 'material-ui/styles';
 import Radio, { RadioGroup } from 'material-ui/Radio';
 import { FormControlLabel } from 'material-ui/Form';
 import { Line } from 'react-chartjs-2';

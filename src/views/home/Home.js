@@ -6,12 +6,15 @@ import SwipeableViews from 'react-swipeable-views';
 import AppBar from 'material-ui/AppBar';
 import Tabs, { Tab } from 'material-ui/Tabs';
 import Typography from 'material-ui/Typography';
-import MediaQuery from 'react-responsive';
+import Card, { CardActions, CardContent } from 'material-ui/Card';
+import Button from 'material-ui/Button';
 import Divider from 'material-ui/Divider';
 import Icon from 'material-ui/Icon';
+import MediaQuery from 'react-responsive';
 
+// custom import
 import './Home.css';
-import AdviceCard from '../AdviceCard';
+// import AdviceCard from '../AdviceCard';
 import ImageCircle from '../ImageCircle';
 import myLinqImage from '../../assets/my_linq.svg';
 import linqImage from '../../assets/linq.svg';
@@ -57,11 +60,6 @@ const styles = theme => ({
         top: 0,
         bottom: 'auto',
     },
-    /*pageContainer: {
-        position: 'relative',
-        width: '100%',
-        marginBottom: 100,
-    },*/
     energyIcon: {
         fontSize: '3.5em',
         lineHeight: '50px',
@@ -77,6 +75,31 @@ const styles = theme => ({
     cardContainer: {
         //minWidth: 275,
         margin: '25px 15px',
+    },
+    card: {
+        minWidth: 275,
+        maxWidth: 500,
+        margin: '15px auto',
+        textAlign: 'left',
+    },
+    controls: {
+        justifyContent: 'space-between',
+    },
+    title: {
+        marginBottom: 16,
+        fontSize: 20,
+    },
+    button: {
+        margin: theme.spacing.unit,
+    },
+    leftIcon: {
+        marginRight: theme.spacing.unit,
+    },
+    rightIcon: {
+        marginLeft: theme.spacing.unit,
+    },
+    iconSmall: {
+        fontSize: 20,
     },
 });
 
@@ -103,6 +126,10 @@ class Home extends Component {
 
     handleChangeIndex = (index) => {
         this.setState({ value: index });
+    };
+
+    handleClick = (event) => {
+        this.setState({ expanded: !this.state.expanded });
     };
 
     render() {
@@ -156,12 +183,6 @@ class Home extends Component {
                                         Use of resources
                                     </Typography>
                                 </div>
-                                {/*<div className='statusItem'>
-                                    <Icon className={ classes.energyIcon }>swap_vert</Icon>
-                                    <Typography type='subheading'>
-                                        Generating
-                                    </Typography>
-                                </div>*/}
                             </div>
 
                             <div className='infoBar'>
@@ -186,12 +207,45 @@ class Home extends Component {
                             <div className={ classes.cardContainer }>
                                 { advices.map(data => {
                                     return (
-                                        <AdviceCard key={ data.key } title={ data.title } buttonIcon={ data.buttonIcon } buttonText={ data.buttonText }>
-                                            { data.message }
-                                        </AdviceCard>
+                                        <Card className={ classes.card }>
+                                            <CardContent>
+                                                <Typography variant='headline' className={ classes.title } component='h1'>
+                                                    { this.props.title }
+                                                </Typography>
+
+                                                <Typography component='p'>
+                                                    { this.props.children }
+                                                </Typography>
+                                            </CardContent>
+                                            <CardActions className={ classes.controls }>
+                                                <Button
+                                                    className={ classes.button }
+                                                    onClick={ this.handleExpandClick }
+                                                    variant='raised'
+                                                    color='primary'
+                                                >
+                                                    { this.props.buttonText }
+                                                    <Icon className={ classes.rightIcon }>{ this.props.buttonIcon }</Icon>
+                                                </Button>
+                                                <Button
+                                                    onClick={ this.handleClick }
+                                                    color='secondary'
+                                                >
+                                                    Ignore
+                                                </Button>
+                                            </CardActions>
+                                        </Card>
                                     );
                                 })}
                             </div>
+                            {/*<AdviceCard
+                                            key={ data.key }
+                                            title={ data.title }
+                                            buttonIcon={ data.buttonIcon }
+                                            buttonText={ data.buttonText }
+                                        >
+                                            { data.message }
+                                        </AdviceCard>*/}
                         </TabContainer>
 
                         <TabContainer dir={ theme.direction }>
