@@ -269,6 +269,45 @@ class Settings extends Component {
 
                             <ListMenu label='Night mode' title='Turn on automatically' options={ optionsNightmode } />
                         </List>
+						
+                        <Divider />
+
+                        <Typography className='settingsTitle' type='subheading'>
+                            Clock
+                        </Typography>
+
+                        <List>
+                            <ListItem>
+                                <ListItemIcon>
+                                    <Icon>av_timer</Icon>
+                                </ListItemIcon>
+
+                                <ListItemText disableTypography	primary='Clock Budget' secondary={
+                                    <Slider
+                                        min={ 0 }
+                                        max={ 20 }
+                                        defaultValue={ 5 }
+                                        trackStyle={{ backgroundColor: theme.palette.primary.main }}
+										dotStyle={{ backgroundColor: 'lightgray', borderColor: 'lightgray' }}
+										activeDotStyle={{ backgroundColor: theme.palette.primary.main, borderColor: theme.palette.primary.main }}
+                                        handleStyle={{
+                                            borderColor: theme.palette.primary.main,
+                                            backgroundColor: theme.palette.primary.main,
+                                        }}
+										marks = {{
+											0: '0',
+											5: '5',
+											10: '10',
+											15: '15',
+											20: '20',
+										}}
+                                        railStyle={{ backgroundColor: 'lightgray' }}
+                                    />
+                                }
+                                />
+
+                            </ListItem>
+						</List>
 
                         <Divider />
 
