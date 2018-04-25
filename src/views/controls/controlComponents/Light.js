@@ -58,7 +58,7 @@ class Light extends Component {
 						<Icon>lightbulb_outline</Icon>
 					</ListItemIcon>
 
-					<ListItemText primary='Brightness' secondary={
+					<ListItemText disableTypography primary='Brightness' secondary={
 						<Slider
 							min={ 0 }
 							max={ 20 }

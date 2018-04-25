@@ -181,7 +181,7 @@ class Settings extends Component {
                     </div>*/}
 
                     <div className='settingsContainer'> {/*TODO: remove settings/reportsContainer?*/}
-                        <h1 style={{ textAlign: 'center' }}>Jane Doe</h1> {/*// TODO: make editable*/}
+                        <h1 style={{ textAlign: 'center' }}>Jane Doe</h1>
 
                         <Typography className='settingsTitle' type='subheading'>
                             Profile

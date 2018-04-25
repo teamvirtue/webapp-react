@@ -5,6 +5,8 @@ import { withStyles } from 'material-ui/styles';
 import SwipeableViews from 'react-swipeable-views';
 import AppBar from 'material-ui/AppBar';
 import Tabs, { Tab } from 'material-ui/Tabs';
+import Card, { CardActions, CardContent, CardMedia } from 'material-ui/Card';
+import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
 import Divider from 'material-ui/Divider';
 import Icon from 'material-ui/Icon';
@@ -18,6 +20,7 @@ import myLinqImage from '../../assets/my_linq.svg';
 import linqImage from '../../assets/linq.svg';
 import communityImage from '../../assets/city.svg';
 import earthIcon from '../../assets/earth.svg';
+import socketPlan from '../../assets/placeholder.jpg';
 // import halfEarthIcon from '../../assets/half_earth.svg';
 
 let worlds = [
@@ -25,26 +28,36 @@ let worlds = [
     { id: '2' },
 ];
 
+let sockets = [
+    {   id: '4',
+        title: 'Appliance Connected',
+        message: 'Lorem ipsum dolor sit amet.',
+        buttonIcon: 'schedule',
+        buttonText: 'schedule',
+    },
+];
+
 let advices = [ // use fetch in future https://blog.hellojs.org/fetching-api-data-with-react-js-460fe8bbf8f2
     {   id: '1',
         title: 'Washer-dryer',
         message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do ut labore et dolore magna aliqua.',
         buttonIcon: 'schedule',
-		buttonText: 'schedule',
+        buttonText: 'schedule',
     },
     {   id: '2',
         title: 'Dishwasher',
         message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
         buttonIcon: 'done',
-		buttonText: 'Agree',
+        buttonText: 'Agree',
     },
     {   id: '3',
         title: 'TV',
         message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
         buttonIcon: 'done',
-		buttonText: 'Agree',
+        buttonText: 'Agree',
     },
 ];
+
 
 const styles = theme => ({
     /*root: {
@@ -73,6 +86,10 @@ const styles = theme => ({
     cardContainer: {
         //minWidth: 275,
         margin: '25px 15px',
+    },
+    media: {
+        height: 0,
+        paddingTop: '56.25%', // 16:9
     },
     card: {
         minWidth: 275,
@@ -200,6 +217,37 @@ class Home extends Component {
                             </MediaQuery>
 
                             <div className={ classes.cardContainer }>
+                                { sockets.map(data => {
+                                    return (
+                                        <Card key={ data.id } className={ classes.card }>
+                                            <CardMedia
+                                                className={ classes.media }
+                                                image={ socketPlan }
+                                                title='Contemplative Reptile'
+                                            />
+                                            <CardContent>
+                                                <Typography gutterBottom variant='headline' component='h2'>
+                                                    { data.title }
+                                                </Typography>
+                                                <Typography component='p'>
+                                                    Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
+                                                    across all continents except Antarctica
+                                                </Typography>
+                                            </CardContent>
+                                            <CardActions>
+                                                <Button size='small' color='primary'>
+                                                    Share
+                                                </Button>
+                                                <Button size='small' color='primary'>
+                                                    Learn More
+                                                </Button>
+                                            </CardActions>
+                                        </Card>
+                                    );
+                                })}
+
+                                {/*<Divider />*/}
+
                                 { advices.map(data => {
                                     return (
                                         <AdviceCard
