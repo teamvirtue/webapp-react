@@ -11,7 +11,7 @@ import Tabs, { Tab } from 'material-ui/Tabs';*/
 import grey from 'material-ui/colors/grey';
 
 //import './Controls.css';
-import ImageCircle from '../ImageCircle';
+import ImageCircle from '../../ImageCircle';
 import myLinqImage from '../../assets/controls.svg';
 
 const styles = theme => ({

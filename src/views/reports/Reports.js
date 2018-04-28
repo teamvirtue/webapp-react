@@ -10,7 +10,7 @@ import Tabs, { Tab } from 'material-ui/Tabs';
 
 import LineChart from './LineChart';
 import BarChart from './BarChart';
-import ImageCircle from '../ImageCircle';
+import ImageCircle from '../../ImageCircle';
 
 import OverviewImage from '../../assets/reports.svg';
 import AppliancesImage from '../../assets/reports.svg';
@@ -116,13 +116,13 @@ class Reports extends Component {
                         onChangeIndex={ this.handleChangeIndex }
                     >
                         <TabContainer dir={ theme.direction }>
-                            <h1>Total Energy</h1>
+                            <h1>Energy Difference</h1>
                             <LineChart type='energy' />
 
-                            <h1>Total Water</h1>
+                            <h1>Water Usage</h1>
                             <LineChart type='water' />
 
-                            <h1>Per Appliance</h1>
+                            <h1>Energy per Appliance</h1>
                             <BarChart />
                         </TabContainer>
 

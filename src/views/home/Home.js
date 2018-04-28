@@ -15,7 +15,7 @@ import MediaQuery from 'react-responsive';
 // custom import
 import './Home.css';
 import AdviceCard from '../AdviceCard';
-import ImageCircle from '../ImageCircle';
+import ImageCircle from '../../ImageCircle';
 import myLinqImage from '../../assets/my_linq.svg';
 import linqImage from '../../assets/linq.svg';
 import communityImage from '../../assets/city.svg';

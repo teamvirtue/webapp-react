@@ -20,7 +20,7 @@ import Icon from 'material-ui/Icon';
 import UserDialog from './setting/UserDialog';
 
 import './AppSettings.css';
-import ImageCircle from '../ImageCircle';
+import ImageCircle from '../../ImageCircle';
 import settingsImage from '../../assets/settings.svg';
 
 // const options = [];
