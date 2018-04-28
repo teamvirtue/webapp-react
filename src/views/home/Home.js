@@ -5,8 +5,6 @@ import { withStyles } from 'material-ui/styles';
 import SwipeableViews from 'react-swipeable-views';
 import AppBar from 'material-ui/AppBar';
 import Tabs, { Tab } from 'material-ui/Tabs';
-import Card, { CardActions, CardContent, CardMedia } from 'material-ui/Card';
-import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
 import Divider from 'material-ui/Divider';
 import Icon from 'material-ui/Icon';
@@ -14,13 +12,13 @@ import MediaQuery from 'react-responsive';
 
 // custom import
 import './Home.css';
-import AdviceCard from '../AdviceCard';
+import AdviceCard from './AdviceCard';
+import SocketCard from './SocketCard';
 import ImageCircle from '../../ImageCircle';
 import myLinqImage from '../../assets/my_linq.svg';
 import linqImage from '../../assets/linq.svg';
 import communityImage from '../../assets/city.svg';
 import earthIcon from '../../assets/earth.svg';
-import socketPlan from '../../assets/placeholder.jpg';
 // import halfEarthIcon from '../../assets/half_earth.svg';
 
 let worlds = [
@@ -87,35 +85,33 @@ const styles = theme => ({
         //minWidth: 275,
         margin: '25px 15px',
     },
-    media: {
-        height: 0,
-        paddingTop: '56.25%', // 16:9
-    },
-    card: {
-        minWidth: 275,
-        maxWidth: 500,
-        margin: '15px auto',
-        textAlign: 'left',
-    },
-    controls: {
-        justifyContent: 'space-between',
-    },
+    /*media: {
+         height: 0,
+         paddingTop: '56.25%', // 16:9
+     },
+     card: {
+         minWidth: 275,
+         maxWidth: 500,
+         margin: '15px auto',
+         textAlign: 'left',
+     },
+     controls: {
+         justifyContent: 'space-between',
+     },*/
     title: {
         marginBottom: 16,
         fontSize: 20,
     },
-    button: {
+    /*button: {
         margin: theme.spacing.unit,
     },
-    leftIcon: {
+    buttonIcon: {
         marginRight: theme.spacing.unit,
-    },
-    rightIcon: {
-        marginLeft: theme.spacing.unit,
-    },
+    },*/
     iconSmall: {
-        fontSize: 20,
+        fontSize: 25,
     },
+
 });
 
 function TabContainer({ children, dir }) {
@@ -180,7 +176,7 @@ class Home extends Component {
                         animateHeight={ true }
                     >
                         <TabContainer dir={ theme.direction }>
-                            <h1>Good morning Jane</h1>
+                            <h1>Good morning [Jane]</h1>
 
                             <div className='statusBar'>
                                 <div className='statusItem'>
@@ -191,8 +187,8 @@ class Home extends Component {
                                     })}
                                     {/*{ data.half && <img className={ classes.earthIcon } src={ halfEarthIcon } alt='icon'/> }*/}
 
-                                    <Typography type='subheading'>
-                                        Use of resources
+                                    <Typography type='p'>
+                                        Your footprint [today]
                                     </Typography>
                                 </div>
                             </div>
@@ -219,30 +215,11 @@ class Home extends Component {
                             <div className={ classes.cardContainer }>
                                 { sockets.map(data => {
                                     return (
-                                        <Card key={ data.id } className={ classes.card }>
-                                            <CardMedia
-                                                className={ classes.media }
-                                                image={ socketPlan }
-                                                title='Contemplative Reptile'
-                                            />
-                                            <CardContent>
-                                                <Typography gutterBottom variant='headline' component='h2'>
-                                                    { data.title }
-                                                </Typography>
-                                                <Typography component='p'>
-                                                    Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-                                                    across all continents except Antarctica
-                                                </Typography>
-                                            </CardContent>
-                                            <CardActions>
-                                                <Button size='small' color='primary'>
-                                                    Share
-                                                </Button>
-                                                <Button size='small' color='primary'>
-                                                    Learn More
-                                                </Button>
-                                            </CardActions>
-                                        </Card>
+                                        <SocketCard
+                                            key={ data.id }
+                                        >
+                                            { data.message }
+                                        </SocketCard>
                                     );
                                 })}
 
