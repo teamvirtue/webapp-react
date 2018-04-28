@@ -49,8 +49,8 @@ class MainNavigation extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            value: 0,
-            selectedValue: 0,
+            value: 2,
+            selectedValue: 2,
         };
     }
 

@@ -183,6 +183,9 @@ class LineChart extends Component{
                     /*width={75}*/
                     /*height={ 175 }*/
                     options={{
+                        tooltips: {
+                            enabled: false
+                        },
                         layout: {
                             padding: {
                                 left: 15,
@@ -206,11 +209,12 @@ class LineChart extends Component{
                                 ticks: {
                                     minRotation: 90,
                                     fontFamily: "'Roboto'",
-                                    fontColor: 'gray'
+                                    fontColor: 'gray',
                                 },
                             }],
                             yAxes: [{
-                                gridLines: {
+                                display: false,
+                                /*gridLines: {
                                     display: true,
                                     color: 'white',
                                     drawBorder: false,
@@ -223,7 +227,7 @@ class LineChart extends Component{
                                     suggestedMin: 0,    // minimum will be 0, unless there is a lower value
                                     fontFamily: "'Roboto'",
                                     fontColor: 'gray',
-                                },
+                                },*/
                             }],
                         },
                         elements: {
@@ -240,6 +244,19 @@ class LineChart extends Component{
                         responsive: true,
                         responsiveAnimationDuration: 0, // animation duration after a resize
                         //maintainAspectRatio: false,
+                        plugins: {
+                            datalabels: {
+                                backgroundColor: function(context) {
+                                    return context.dataset.borderColor;
+                                },
+                                borderRadius: 100, //4,
+                                color: 'white',
+                                font: {
+                                    weight: 'bold'
+                                },
+                                formatter: Math.round
+                            },
+                        },
                     }}
                 />
             </div>

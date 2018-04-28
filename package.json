@@ -5,6 +5,7 @@
   "homepage": "https://teamvirtue.nl/webapp",
   "dependencies": {
     "chart.js": "^2.7.2",
+    "chartjs-plugin-datalabels": "^0.3.0",
     "material-ui": "^1.0.0-beta.38",
     "material-ui-icons": "^1.0.0-beta.17",
     "material-ui-pickers": "^1.0.0-beta.14",
