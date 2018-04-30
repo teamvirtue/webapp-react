@@ -12,7 +12,7 @@ import MediaQuery from 'react-responsive';
 
 // custom import
 import './Home.css';
-import AdviceCard from '../AdviceCard';
+import AdviceCard from './AdviceCard';
 import ImageCircle from '../ImageCircle';
 import myLinqImage from '../../assets/my_linq.svg';
 import linqImage from '../../assets/linq.svg';
@@ -126,6 +126,11 @@ class Home extends Component {
     handleChangeIndex = (index) => {
         this.setState({ value: index });
     };
+	
+	handleAdviceCardSubmitClick(childData,event) {
+		alert("The Child button data is: " + childData.childText + " - " + childData.childNumber);
+		alert("The Child HTML is: " + event.target.outerHTML);
+	}
 
     render() {
         const { classes, theme } = this.props;
@@ -207,6 +212,7 @@ class Home extends Component {
                                             title={ data.title }
                                             buttonIcon={ data.buttonIcon }
                                             buttonText={ data.buttonText }
+											//onClick={e => this.handleAdviceCardButtonClick(child,e)}
                                         >
                                             { data.message }
                                         </AdviceCard>

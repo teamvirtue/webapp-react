@@ -35,29 +35,12 @@ const styles = theme => ({
 	iconSmall: {
 		fontSize: 20,
 	},
-    /*pos: {
-        marginBottom: 12,
-        color: theme.palette.text.secondary,
-    },*/
 });
 
 class AdviceCard extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            ignored: false,
-        };
     }
-
-    handleClick = (event) => {
-        console.log('hi');
-        // this.setState({ ignored: !this.state.ignored });
-    };
-
-    handleClickIgnore = (event) => {
-        this.setState({ ignored: true });
-        console.log(this.state.ignored);
-    };
 
     render() {
         const { classes } = this.props;
@@ -77,7 +60,7 @@ class AdviceCard extends Component {
                     <CardActions className={ classes.controls }>
                         <Button
                             className={ classes.button }
-                            onClick={ this.handleClick }
+                            myFunc={this.handleChildFunc}
                             variant='raised'
                             color='primary'
                         >
@@ -85,7 +68,7 @@ class AdviceCard extends Component {
                             <Icon className={ classes.rightIcon }>{ this.props.buttonIcon }</Icon>
                         </Button>
                         <Button
-                            onClick={ this.handleClickIgnore }
+                            myFunc={this.handleChildFunc}
                             color='secondary'
                         >
                             Ignore
