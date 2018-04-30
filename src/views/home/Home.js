@@ -13,7 +13,8 @@ import MediaQuery from 'react-responsive';
 // custom import
 import './Home.css';
 import AdviceCard from './AdviceCard';
-import ImageCircle from '../ImageCircle';
+import SocketCard from './SocketCard';
+import ImageCircle from '../../ImageCircle';
 import myLinqImage from '../../assets/my_linq.svg';
 import linqImage from '../../assets/linq.svg';
 import communityImage from '../../assets/city.svg';
@@ -25,26 +26,36 @@ let worlds = [
     { id: '2' },
 ];
 
+let sockets = [
+    {   id: '4',
+        title: 'Appliance Connected',
+        message: 'Lorem ipsum dolor sit amet.',
+        buttonIcon: 'schedule',
+        buttonText: 'schedule',
+    },
+];
+
 let advices = [ // use fetch in future https://blog.hellojs.org/fetching-api-data-with-react-js-460fe8bbf8f2
     {   id: '1',
         title: 'Washer-dryer',
         message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do ut labore et dolore magna aliqua.',
         buttonIcon: 'schedule',
-		buttonText: 'schedule',
+        buttonText: 'schedule',
     },
     {   id: '2',
         title: 'Dishwasher',
         message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
         buttonIcon: 'done',
-		buttonText: 'Agree',
+        buttonText: 'Agree',
     },
     {   id: '3',
         title: 'TV',
         message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
         buttonIcon: 'done',
-		buttonText: 'Agree',
+        buttonText: 'Agree',
     },
 ];
+
 
 const styles = theme => ({
     /*root: {
@@ -74,31 +85,33 @@ const styles = theme => ({
         //minWidth: 275,
         margin: '25px 15px',
     },
-    card: {
-        minWidth: 275,
-        maxWidth: 500,
-        margin: '15px auto',
-        textAlign: 'left',
-    },
-    controls: {
-        justifyContent: 'space-between',
-    },
+    /*media: {
+         height: 0,
+         paddingTop: '56.25%', // 16:9
+     },
+     card: {
+         minWidth: 275,
+         maxWidth: 500,
+         margin: '15px auto',
+         textAlign: 'left',
+     },
+     controls: {
+         justifyContent: 'space-between',
+     },*/
     title: {
         marginBottom: 16,
         fontSize: 20,
     },
-    button: {
+    /*button: {
         margin: theme.spacing.unit,
     },
-    leftIcon: {
+    buttonIcon: {
         marginRight: theme.spacing.unit,
-    },
-    rightIcon: {
-        marginLeft: theme.spacing.unit,
-    },
+    },*/
     iconSmall: {
-        fontSize: 20,
+        fontSize: 25,
     },
+
 });
 
 function TabContainer({ children, dir }) {
@@ -126,11 +139,6 @@ class Home extends Component {
     handleChangeIndex = (index) => {
         this.setState({ value: index });
     };
-	
-	handleAdviceCardSubmitClick(childData,event) {
-		alert("The Child button data is: " + childData.childText + " - " + childData.childNumber);
-		alert("The Child HTML is: " + event.target.outerHTML);
-	}
 
     render() {
         const { classes, theme } = this.props;
@@ -168,7 +176,7 @@ class Home extends Component {
                         animateHeight={ true }
                     >
                         <TabContainer dir={ theme.direction }>
-                            <h1>Good morning Jane</h1>
+                            <h1>Good morning [Jane]</h1>
 
                             <div className='statusBar'>
                                 <div className='statusItem'>
@@ -179,8 +187,8 @@ class Home extends Component {
                                     })}
                                     {/*{ data.half && <img className={ classes.earthIcon } src={ halfEarthIcon } alt='icon'/> }*/}
 
-                                    <Typography type='subheading'>
-                                        Use of resources
+                                    <Typography type='p'>
+                                        Your footprint [today]
                                     </Typography>
                                 </div>
                             </div>
@@ -205,6 +213,18 @@ class Home extends Component {
                             </MediaQuery>
 
                             <div className={ classes.cardContainer }>
+                                { sockets.map(data => {
+                                    return (
+                                        <SocketCard
+                                            key={ data.id }
+                                        >
+                                            { data.message }
+                                        </SocketCard>
+                                    );
+                                })}
+
+                                {/*<Divider />*/}
+
                                 { advices.map(data => {
                                     return (
                                         <AdviceCard
@@ -212,7 +232,6 @@ class Home extends Component {
                                             title={ data.title }
                                             buttonIcon={ data.buttonIcon }
                                             buttonText={ data.buttonText }
-											//onClick={e => this.handleAdviceCardButtonClick(child,e)}
                                         >
                                             { data.message }
                                         </AdviceCard>

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { withStyles } from 'material-ui/styles';
-// import { withTheme } from 'material-ui/styles';
 import Radio, { RadioGroup } from 'material-ui/Radio';
 import { FormControlLabel } from 'material-ui/Form';
 import { Line } from 'react-chartjs-2';
@@ -9,13 +8,14 @@ let dataWeek = [10, 18, -20, 16, 105, 56,];
 let dataMonths = [100, 181, -200, 106, 105, 95, 56, 604, 150, 234, 11,];
 let dataYears = [1000, 1810, -2000, 1060,];
 
-let data = [10, 18, -20, 16, 105, 56, 78]; // TODO: find way to insert initial array more efficient
+let initialData = [10, 18, -20, 16, 105, 56, 78]; // TODO: find way to insert initial array more efficient
 
-const WEEK = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+const WEEK = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+// const WEEK = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 const MONTHS = ['Jan', 'Feb', 'Mrt', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 const YEARS = ['2014', '2015', '2016', '2017', '2018'];
 
-const styles = theme => ({
+const styles = {
     root: {
         //backgroundColor: 'firebrick'
     },
@@ -27,7 +27,10 @@ const styles = theme => ({
         display: 'inline',
         margin: 0,
     },
-});
+    water: {
+        color: '#0EA4D8',
+    }
+};
 
 class LineChart extends Component{
     constructor(props){
@@ -45,7 +48,7 @@ class LineChart extends Component{
         const oldDataSet = this.state.datasets[0];
         let newData = [];
 
-        switch (value) {
+        switch(value) {
             case 'week':
                 selectedLabel = WEEK;
                 newData.push(...dataWeek);
@@ -82,9 +85,9 @@ class LineChart extends Component{
                 labels: WEEK,
                 datasets: [
                     {
-                        label: 'Difference Water Graph',
+                        label: 'Water Graph',
                         fill: true,
-                        data: data,
+                        data: initialData,
                         backgroundColor: '#AFE4F5',
                         borderColor: '#0EA4D8', // TODO: get color from theme
                     }
@@ -108,14 +111,16 @@ class LineChart extends Component{
                         pointHoverBorderWidth: 2,
                         pointRadius: 1,
                         pointHitRadius: 10,
-                        data: data,
+                        data: initialData,
+                        borderColor: '#f15b27',
                     }
                 ]
             });
         }
         // this.setState(initialState);
     };
-    componentDidMount(){ // TODO: replace with API call
+
+    componentDidMount() { // TODO: replace with API call
         this.timer = setInterval(
             (value) => this.retrieve(this.state.value),
             3000
@@ -173,9 +178,15 @@ class LineChart extends Component{
                     onChange={ this.handleChange }
                     row
                 >
-                    <FormControlLabel className={ classes.radioButton } value='week' control={ <Radio /> } label='Week' />
-                    <FormControlLabel className={ classes.radioButton } value='month' control={ <Radio /> } label='Month' />
-                    <FormControlLabel className={ classes.radioButton } value='year' control={ <Radio /> } label='Year' />
+                    <FormControlLabel className={ classes.radioButton } value='week' control={
+                        <Radio className={ this.state.type === 'water' ? classes.water : null }/>
+                    } label='Week'/>
+                    <FormControlLabel className={ classes.radioButton } value='month' control={
+                        <Radio className={ this.state.type === 'water' ? classes.water : null }/>
+                    } label='Month'/>
+                    <FormControlLabel className={ classes.radioButton } value='year' control={
+                        <Radio className={ this.state.type === 'water' ? classes.water : null }/>
+                    } label='Year'/>
                 </RadioGroup>
 
                 <Line
@@ -183,9 +194,13 @@ class LineChart extends Component{
                     /*width={75}*/
                     /*height={ 175 }*/
                     options={{
+                        tooltips: {
+                            enabled: false,
+                            // mode: 'nearest'
+                        },
                         layout: {
                             padding: {
-                                left: 15,
+                                left: 30,
                                 right: 35,
                                 top: 15, //10
                                 bottom: 15 //10
@@ -206,23 +221,25 @@ class LineChart extends Component{
                                 ticks: {
                                     minRotation: 90,
                                     fontFamily: "'Roboto'",
-                                    fontColor: 'gray'
+                                    fontColor: 'gray',
                                 },
                             }],
                             yAxes: [{
+                                // display: false,
                                 gridLines: {
                                     display: true,
                                     color: 'white',
                                     drawBorder: false,
                                     lineWidth: 0,
-                                    zeroLineColor: '#e3e3e3',
+                                    zeroLineColor: '#e3e3e3', //'#e3e3e3',
                                     zeroLineWidth: 2,
                                     //tickMarkLength: 0
                                 },
                                 ticks: {
-                                    suggestedMin: 0,    // minimum will be 0, unless there is a lower value
+                                    display: false,
+                                    /*suggestedMin: 0,    // minimum will be 0, unless there is a lower value
                                     fontFamily: "'Roboto'",
-                                    fontColor: 'gray',
+                                    fontColor: 'gray',*/
                                 },
                             }],
                         },
@@ -234,12 +251,22 @@ class LineChart extends Component{
                         animation: {
                             duration: 500,
                         },
-                        tooltips: {
-                            mode: 'nearest'
-                        },
                         responsive: true,
                         responsiveAnimationDuration: 0, // animation duration after a resize
                         //maintainAspectRatio: false,
+                        plugins: {
+                            datalabels: {
+                                backgroundColor: function(context) {
+                                    return context.dataset.borderColor;
+                                },
+                                borderRadius: 100, //4,
+                                color: 'white',
+                                font: {
+                                    weight: 'bold'
+                                },
+                                formatter: Math.round
+                            },
+                        },
                     }}
                 />
             </div>

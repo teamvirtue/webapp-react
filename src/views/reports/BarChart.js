@@ -1,129 +1,241 @@
 import React, { Component } from 'react';
+import { withStyles } from 'material-ui/styles';
+import Radio, { RadioGroup } from 'material-ui/Radio';
+import { FormControlLabel } from 'material-ui/Form';
 import { HorizontalBar } from 'react-chartjs-2';
+import 'chartjs-plugin-datalabels';
 
-// import Icon from 'material-ui/Icon';
+// const Chart = require('chart.js');
 
-let data = [35, 45, 80, 81, 65, 59, 40, 81, 90, 13,];
+let dataWeek = [15, 45, 80, 81, 65, 59, 40, 81, 90, 13,];
+let dataMonths = [45, 45, 80, 81, 65, 59, 40, 81, 90, 13,];
+let dataYears = [50, 45, 80, 81, 65, 59, 40, 81, 90, 13,];
 
-const Chart = require('chart.js');
+let initialData = [10, 18, -20, 16, 105, 56, 78, 133, 334, 20]; // TODO: find way to insert initial array more efficient
+
+const labels = ['Washer dryer', 'Dishwasher', 'Oven', 'Fridge', 'Music system', 'TV', 'Laptop', 'Lights', 'Clock', 'Car'];
+
+const styles = {
+    root: {
+        // backgroundColor: 'firebrick'
+    },
+    radioGroup: {
+        justifyContent: 'center',
+        marginBottom: 50,
+    },
+    radioButton: {
+        display: 'inline',
+        margin: 0,
+    },
+    water: {
+        color: '#0EA4D8',
+    }
+};
 
 class BarChart extends Component{
     constructor(props){
         super(props);
         // Chart.defaults.global.defaultFontColor = 'red';
         this.state = {
-            chartData:{
-                // pointLabelFontFamily: "FontAwesome",
-                labels: ['Washer dryer', 'Dishwasher', 'Oven', 'Fridge', 'Music system', 'TV', 'Laptop', 'Lights', 'Clock', 'Car'],
-                datasets:[{
-                    label: 'Appliance Usage',
-                    data: data,
-                    fillColor: 'rgba(220, 220, 220, 0.5)',
-                    strokeColor: 'rgba(220, 220, 220, 0.8)',
-                    highlightFill: 'rgba(220, 220, 220, 0.75)',
-                    highlightStroke: 'rgba(220, 220, 220, 1)',
-                }],
-            }
+            value: 'week',
         };
     }
 
-    static defaultProps = {
-        displayTitle: false,
-        displayLegend: false,
+    handleChange = (event, value) => {
+        this.setState({ value });
+        const oldDataSet = this.state.datasets[0];
+        let newData = [];
+
+        switch (value) {
+            case 'week':
+                newData.push(...dataWeek);
+                break;
+            case 'month':
+                newData.push(...dataMonths);
+                break;
+            case 'year':
+                newData.push(...dataYears);
+                break;
+            default:
+                newData.push(...dataWeek);
+        }
+
+        let newDataSet = { ...oldDataSet };
+
+        newDataSet.data = newData;
+
+        this.setState({
+            datasets: [newDataSet]
+        });
     };
 
+    componentWillMount() {
+        this.setState({
+            labels: labels,
+            datasets:[{
+                label: 'Appliance Usage',
+                data: initialData,
+                backgroundColor: 'rgba(241, 93, 39, 0.5)',
+                borderColor: '#f15b27',
+                datalabels: {
+                    align: 'end',
+                    anchor: 'end'
+                }
+            }]
+        });
+    };
+
+    /*componentWillMount() {
+        Chart.pluginService.register({
+            afterDraw: (chart) => {
+                const meta = chart.controller.getDatasetMeta(0);
+
+                Chart.helpers.each(meta.data.forEach((bar, index) => {
+                    const label = chart.data.labels[index];
+                    const labelPositionX = 100;
+
+                    chart.chart.ctx.textBaseline = 'middle';
+                    chart.chart.ctx.textAlign = 'left';
+                    chart.chart.ctx.fillStyle = 'black';
+                    chart.chart.ctx.fillText(label, labelPositionX, bar._model.y);
+                }));
+            }
+        });
+    }*/
+
+    componentDidMount() { // TODO: replace with API call
+        this.timer = setInterval(
+            (value) => this.retrieve(this.state.value),
+            3000
+        );
+    };
+
+    componentWillUnmount() {
+        clearInterval(this.timer);
+    }
+
+    retrieve(value) {
+        let oldDataSet = this.state.datasets[0];
+        let newData = [];
+
+        for(let x = 0; x < this.state.labels.length; x++){
+            newData.push(Math.floor(Math.random() * 100));
+        }
+
+        let newDataSet = {
+            ...oldDataSet
+        };
+
+        newDataSet.data = newData;
+
+        this.setState({
+            datasets: [newDataSet]
+        });
+    }
+
     render(){
+        const { classes } = this.props;
+
         return (
-            <HorizontalBar
-                data={this.state.chartData}
-                options={{
-                    layout: {
-                        padding: { // TODO: put this in SCSS
-                            left: 50,
-                            right: 45,
-                            top: 0,
-                            bottom: 25,
-                        }
-                    },
-                    legend: {
-                        display: this.props.displayLegend,
-                        position: this.props.legendPosition,
-                    },
-                    scales: {
-                        xAxes: [{
-                            gridLines: {
-                                display: false,
-                                offsetGridLines : true,
-                                drawBorder: false,
-                            },
-                            ticks: {
-                                fontFamily: 'Roboto',
-                                // fontFamily: "FontAwesome",
-                                fontColor: 'gray'
-                            },
-                        }],
-                        yAxes: [{
-                            // barThickness: 17,
-                            gridLines: {
-                                color: 'rgba(0, 0, 0, 0)',
-                                display: false,
-                            },
-                            display: false,
-                            /*ticks: {
-                                beginAtZero: false,
-                            }*/
-                        }]
-                    },
-                    elements: {
-                        point: {
-                            radius: 0,
+            <div className={ classes.root }>
+                <RadioGroup
+                    aria-label='time'
+                    name='time'
+                    className={ classes.radioGroup }
+                    value={ this.state.value }
+                    onChange={ this.handleChange }
+                    row
+                >
+                    <FormControlLabel className={ classes.radioButton } value='week' control={ <Radio/> } label='Week'/>
+                    <FormControlLabel className={ classes.radioButton } value='month' control={<Radio/> } label='Month'/>
+                    <FormControlLabel className={ classes.radioButton } value='year' control={ <Radio/> } label='Year'/>
+                </RadioGroup>
+                <HorizontalBar
+                    data={ this.state }
+                    options={{
+                        tooltips: {
+                            enabled: false
                         },
-                    },
-                    animation: {
-                        duration: 500,
-                        onComplete: function() {
-                            const chartInstance = this.chart;
-                            const ctx = chartInstance.ctx;
-                            // const dataset = this.data.datasets[0];
-                            const meta = chartInstance.controller.getDatasetMeta(0);
+                        layout: {
+                            padding: {
+                                left: 30,
+                                right: 35,
+                                top: 0,
+                                bottom: 0,
+                            }
+                        },
+                        legend: {
+                            display: false,
+                        },
+                        scales: {
+                            xAxes: [{
+                                display: false,
+                                /*gridLines: {
+                                    display: false,
+                                    offsetGridLines : true,
+                                    drawBorder: false,
+                                },
+                                ticks: {
+                                    fontFamily: "'Roboto'",
+                                    fontColor: 'gray',
+                                },*/
+                            }],
+                            yAxes: [{
+                                // barThickness: 17,
+                                gridLines: {
+                                    color: 'rgba(0, 0, 0, 0)',
+                                    display: false,
+                                },
+                                ticks: {
+                                    //beginAtZero: false,
+                                    suggestedMin: 0,    // minimum will be 0, unless there is a lower value
+                                    fontFamily: "'Roboto'",
+                                    fontColor: 'gray',
+                                },
+                            }]
+                        },
+                        elements: {
+                            point: {
+                                radius: 0,
+                            },
+                        },
+                        /*animation: {
+                            duration: 500,
+                            onComplete: function() {
+                                const chartInstance = this.chart;
+                                const ctx = chartInstance.ctx;
+                                const meta = chartInstance.controller.getDatasetMeta(0);
 
-                            Chart.helpers.each(meta.data.forEach((bar, index) => {
-                                const label = this.data.labels[index];
-                                const labelPositionX = 55; // padding + 10
-                                // const labelWidth = ctx.measureText(label).width + labelPositionX;
+                                Chart.helpers.each(meta.data.forEach((bar, index) => {
+                                    const label = this.data.labels[index];
+                                    const labelPositionX = 55; // padding + 10
 
-                                ctx.textBaseline = 'middle';
-                                ctx.textAlign = 'left';
-                                ctx.fillStyle = 'black';
-                                // ctx.fontFamily = 'Roboto';
-                                ctx.fillText(label, labelPositionX, bar._model.y);
-                            }));
-                        }
-                        /*onComplete: function () {
-                            const chartInstance = this.chart,
-                                  ctx = chartInstance.ctx,
-                                  // dataset = this.data.datasets[0],
-                                  meta = chartInstance.controller.getDatasetMeta(0);
-                            ctx.textAlign = 'center';
-                            ctx.fillStyle = 'black';
-                            ctx.textBaseline = 'middle';
-
-                            this.data.datasets.forEach(function (dataset, labels) { // dataset, index
-                                meta.data.forEach(function(bar, index) {
-                                    const data = dataset.data[index],
-                                          label = labels[0];
-                                    console.log(label);
-                                    // ctx.fillText(data, bar._model.x, bar._model.y - 5);
-                                    ctx.fillText(data, 20, bar._model.y);
-                                });
-                            });
-                        }*/
-                    },
-                    responsive: true,
-                }}
-            />
+                                    ctx.textBaseline = 'middle';
+                                    ctx.textAlign = 'left';
+                                    ctx.fillStyle = 'black';
+                                    ctx.fillText(label, labelPositionX, bar._model.y);
+                                }));
+                            }
+                        },*/
+                        plugins: {
+                            datalabels: {
+                                backgroundColor: function(context) {
+                                    return context.dataset.borderColor;
+                                },
+                                borderRadius: 100,
+                                color: 'white',
+                                font: {
+                                    weight: 'bold'
+                                },
+                                formatter: Math.round
+                            },
+                        },
+                        responsive: true,
+                    }}
+                />
+            </div>
         )
     }
 }
 
-export default BarChart;
+export default withStyles(styles)(BarChart);

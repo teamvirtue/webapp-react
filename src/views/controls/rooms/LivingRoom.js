@@ -14,12 +14,11 @@ class LivingRoom extends Component {
         return (
             <div>
 				<List>
-					<Light room={"LivingRoom"} />
+					<Light room={'LivingRoom'} />
 					
 					<Typography className={ classes.controlsTitle } type='subheading'>
 						Appliances
 					</Typography>
-
 				</List>
 			</div>
         );

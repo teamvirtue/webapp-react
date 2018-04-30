@@ -8,21 +8,15 @@ import SystemNavigation from './SystemNavigation';
 import AppBar from 'material-ui/AppBar';
 import Tabs, { Tab } from 'material-ui/Tabs';
 
-// import RadioButtonGroup from '../../selection-controls/RadioButtonGroup';
 import LineChart from './LineChart';
 import BarChart from './BarChart';
-// import Checkboxes from '../../selection-controls/Checkboxes';
-import ImageCircle from '../ImageCircle';
-import './Reports.css';
+import ImageCircle from '../../ImageCircle';
 
 import OverviewImage from '../../assets/reports.svg';
 import AppliancesImage from '../../assets/reports.svg';
 import SystemsImage from '../../assets/reports.svg';
 
 const styles = theme => ({
-    /*theme => root: {
-        backgroundColor: theme.palette.background.paper,
-    },*/
     appBar: {
         position: 'static',
         boxShadow: 'none',
@@ -32,24 +26,6 @@ const styles = theme => ({
         top: 0,
         bottom: 'auto',
     },
-    /*tableCell: {
-        border: 'none',
-        textAlign: 'center',
-    },
-    tableCellName: {
-        border: 'none',
-    },
-    tableIcon: {
-        color: theme.palette.primary.main,
-    },
-    ExpansionPanelDetails: {
-        display: 'block',
-        padding: 0,
-    },
-    expandIconExpanded: {
-        color: theme.palette.primary.main,
-        transform: 'translateY(-50%)',
-    },*/
     icon: {
         fontSize: '2em',
         marginTop: '23px',
@@ -140,56 +116,13 @@ class Reports extends Component {
                         onChangeIndex={ this.handleChangeIndex }
                     >
                         <TabContainer dir={ theme.direction }>
-                            {/*<h1>On Average</h1>
+                            <h1>Energy Difference</h1>
+                            <LineChart type='energy' />
 
-                            <div className='reportsInfoBar'>
-                                <div className='infoItem1'>
-                                    <h1>15</h1><h3>kwh</h3>
-                                    <p>Weekly</p>
-                                </div>
-                                <div className='infoItem2'>
-                                    <h1>60</h1><h3>kwh</h3>
-                                    <p>Monthly</p>
-                                </div>
-                                <div className='infoItem3'>
-                                    <h1>720</h1><h3>kwh</h3>
-                                    <p>Yearly</p>
-                                </div>
-                            </div>
+                            <h1>Water Usage</h1>
+                            <LineChart type='water' />
 
-                            <Divider/>
-
-                            <h1>Estimated Figures</h1>
-
-                            <div className='reportsInfoBar'>
-                                <div className='infoItem1'>
-                                    <Icon style={{ display: 'block' }}>local_atm</Icon>
-                                    <h1>5500</h1><h3>$</h3>
-                                    <p>Money saved</p>
-                                </div>
-                                <div className='infoItem2'>
-                                    <Icon style={{ display: 'block' }}>bubble_chart</Icon>
-                                    <h1>2</h1><h3>T</h3>
-                                    <p>CO<sub>2</sub> reduced</p>
-                                </div>
-                                <div className='infoItem3'>
-                                    <Icon>nature</Icon>
-                                    <h1>100</h1>
-                                    <p>Trees saved</p>
-                                </div>
-                            </div>
-
-                            <Divider/>*/}
-
-                            <h1>Total Energy</h1>
-
-                            <LineChart type='energy' /> {/*TODO: add props to pass to LineChart*/}
-
-                            <h1>Total Water</h1>
-
-                            <LineChart type='water' /> {/*TODO: add props to pass to LineChart*/}
-
-                            <h1>Per Appliance</h1>
+                            <h1>Energy per Appliance</h1>
                             <BarChart />
                         </TabContainer>
 

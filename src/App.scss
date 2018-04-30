@@ -3,13 +3,42 @@ body {
   margin: 0;
 }
 
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #A0A0A0;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #808080;
+}
+
+/* Make selected text gold on a red background */
+::-moz-selection {
+  background: #f15b27;
+}
+
+::selection {
+  background: #f15b27;
+}
+
 .App {
   text-align: center;
 }
 
 .pageContainer { // TODO: move pageContainer to component
   width: 100%;
-  padding-bottom: 75px;
+  padding-bottom: 150px;
 }
 
 .tabIndicator {
