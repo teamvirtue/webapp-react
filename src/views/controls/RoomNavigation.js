@@ -46,7 +46,7 @@ const styles = theme => ({
 });
 
 let rooms = [
-    { id: 1, value: 'All', icon: 'check_circle', component: <All key={ 1 } />, },
+    { id: 1, value: 'General', icon: 'check_circle', component: <All key={ 1 } />, },
     { id: 2, value: 'Living Room', icon: 'weekend', component: <LivingRoom key={ 2 } />, },
     { id: 3, value: 'Dinner Room', icon: 'local_dining', component: <DinnerRoom key={ 3 } />, },
     { id: 4, value: 'Bedroom', icon: 'hotel', component: '', },
@@ -54,6 +54,7 @@ let rooms = [
     { id: 6, value: 'Hallway', icon: 'transfer_within_a_station', component: '', },
 	{ id: 7, value: 'Kitchen', icon: 'room_service', component: '', },
     { id: 8, value: 'Outdoor', icon: 'local_florist', component: '', },
+	{ id: 9, value: 'Technical Room', icon: 'power', component: '', },
 ];
 
 class RoomNavigation extends Component {

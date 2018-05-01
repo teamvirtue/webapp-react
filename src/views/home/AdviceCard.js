@@ -41,6 +41,10 @@ class AdviceCard extends Component {
     constructor(props) {
         super(props);
     }
+	
+    handleDismissCard = () => {
+        this.props.onDismissCard(this.props.id);            
+    }
 
     render() {
         const { classes } = this.props;
@@ -60,7 +64,7 @@ class AdviceCard extends Component {
                     <CardActions className={ classes.controls }>
                         <Button
                             className={ classes.button }
-                            myFunc={this.handleChildFunc}
+                            onClick={this.handleDismissCard}
                             variant='raised'
                             color='primary'
                         >
@@ -68,7 +72,7 @@ class AdviceCard extends Component {
                             <Icon className={ classes.rightIcon }>{ this.props.buttonIcon }</Icon>
                         </Button>
                         <Button
-                            myFunc={this.handleChildFunc}
+                            onClick={this.handleDismissCard}
                             color='secondary'
                         >
                             Ignore

@@ -27,7 +27,7 @@ class Temperature extends Component {
 		
 		return (
 			<div>
-				<Typography className={ classes.controlsTitle } type='subheading'>
+				<Typography variant="title" gutterBottom>
 					Temperature
 				</Typography>
 

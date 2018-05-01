@@ -139,6 +139,11 @@ class Home extends Component {
     handleChangeIndex = (index) => {
         this.setState({ value: index });
     };
+	
+    dismissCard = (id) => {
+		//alert(advices);
+        //delete advices[0];
+    }
 
     render() {
         const { classes, theme } = this.props;
@@ -229,9 +234,11 @@ class Home extends Component {
                                     return (
                                         <AdviceCard
                                             key={ data.id }
+											id={ data.id }
                                             title={ data.title }
                                             buttonIcon={ data.buttonIcon }
                                             buttonText={ data.buttonText }
+											onDismissCard={this.dismissCard}
                                         >
                                             { data.message }
                                         </AdviceCard>
