@@ -116,13 +116,13 @@ class Reports extends Component {
                         onChangeIndex={ this.handleChangeIndex }
                     >
                         <TabContainer dir={ theme.direction }>
-                            <h1>Energy Difference</h1>
+                            <h1>Net Energy (kWh)</h1>
                             <LineChart type='energy' />
 
-                            <h1>Water Usage</h1>
+                            <h1>Water Usage (L)</h1>
                             <LineChart type='water' />
 
-                            <h1>Energy per Appliance</h1>
+                            <h1>Appliance Energy (kWh)</h1>
                             <BarChart />
                         </TabContainer>
 

@@ -12,7 +12,7 @@ const styles = theme => ({
 	},
     card: {
         minWidth: 275,
-        maxWidth: 500,
+        maxWidth: 600,
         margin: '15px auto',
         textAlign: 'left',
     },
@@ -26,12 +26,9 @@ const styles = theme => ({
 	button: {
 		margin: theme.spacing.unit,
 	},
-	leftIcon: {
-		marginRight: theme.spacing.unit,
-	},
-	rightIcon: {
-		marginLeft: theme.spacing.unit,
-	},
+    buttonIcon: {
+        marginRight: theme.spacing.unit,
+    },
 	iconSmall: {
 		fontSize: 20,
 	},
@@ -68,8 +65,8 @@ class AdviceCard extends Component {
                             variant='raised'
                             color='primary'
                         >
+                            <Icon className={ classes.buttonIcon }>{ this.props.buttonIcon }</Icon>
                             { this.props.buttonText }
-                            <Icon className={ classes.rightIcon }>{ this.props.buttonIcon }</Icon>
                         </Button>
                         <Button
                             onClick={this.handleDismissCard}

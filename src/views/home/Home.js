@@ -27,11 +27,11 @@ let worlds = [
 ];
 
 let sockets = [
-    {   id: '4',
+    {   id: '1',
         title: 'Appliance Connected',
         message: 'Lorem ipsum dolor sit amet.',
-        buttonIcon: 'schedule',
-        buttonText: 'schedule',
+        // buttonIcon: 'schedule',
+        // buttonText: 'schedule',
     },
 ];
 
@@ -85,29 +85,10 @@ const styles = theme => ({
         //minWidth: 275,
         margin: '25px 15px',
     },
-    /*media: {
-         height: 0,
-         paddingTop: '56.25%', // 16:9
-     },
-     card: {
-         minWidth: 275,
-         maxWidth: 500,
-         margin: '15px auto',
-         textAlign: 'left',
-     },
-     controls: {
-         justifyContent: 'space-between',
-     },*/
     title: {
         marginBottom: 16,
         fontSize: 20,
     },
-    /*button: {
-        margin: theme.spacing.unit,
-    },
-    buttonIcon: {
-        marginRight: theme.spacing.unit,
-    },*/
     iconSmall: {
         fontSize: 25,
     },
@@ -115,7 +96,6 @@ const styles = theme => ({
 });
 
 function TabContainer({ children, dir }) {
-
     return (
         <div className='pageContainer' dir={ dir }>
             { children }
@@ -222,6 +202,8 @@ class Home extends Component {
                                     return (
                                         <SocketCard
                                             key={ data.id }
+                                            fullScreen
+                                            title={ data.title }
                                         >
                                             { data.message }
                                         </SocketCard>
