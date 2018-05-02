@@ -3,59 +3,75 @@ import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import grey from 'material-ui/colors/grey';
 import List, { ListItem, ListItemText } from 'material-ui/List';
+import Icon from 'material-ui/Icon';
+import Paper from 'material-ui/Paper';
+import Typography from 'material-ui/Typography';
+import Dialog, {
+  DialogActions,
+  DialogContent,
+  // DialogContentText,
+  // DialogTitle,
+  // withMobileDialog,
+} from 'material-ui/Dialog';
+import Button from 'material-ui/Button';
+import Grow from 'material-ui/transitions/Grow';
 
 import HVAC from './systems/HVAC';
 
 const styles = theme => ({
     subNavContainer: {
-		width: "30%",
-		maxWidth: 175,
-		float: "left",
-		whiteSpace: "nowrap",
+		whiteSpace: 'nowrap',
     },
-    subNavList: {
+    subNavItem: {
+		marginTop: 10,
+		marginBottom: 10,
+		display: 'table',
+    },
+    subNavItemPaper: {
         backgroundColor: grey[200],
-    },
-    subNavContent: {
-		width: "70%",
-		float: "left",
-    },
-    checked: {
-        color: theme.palette.primary.main,
-    },
-	listItemGutters: {
-		paddingLeft: 15,
-		paddingRight: 15,
+		height: 120,
+		cursor: 'pointer',
+		display: 'table-cell',
+		verticalAlign: 'middle',
 	},
 });
 
 let systems = [
-    { value: 'HVAC', component: <HVAC />, key: 1 },
-    { value: 'Water System', component: '', key: 2 },
-    { value: 'Battery', component: '', key: 3 },
-    { value: 'Grid', component: '', key: 4 },
-    { value: 'Solar Panels', component: '', key: 5 },
-    { value: 'Smart System', component: '', key: 6 },
-    { value: 'Wi-Fi', component: '', key: 7 },
+    { id: 1, value: 'HVAC', icon: 'toys', component: <HVAC /> },
+    { id: 2, value: 'Water System', icon: 'invert_colors', component: '' },
+    { id: 3, value: 'Battery', icon: 'battery_full', component: '' },
+    { id: 4, value: 'Grid', icon: 'power', component: '' },
+    { id: 5, value: 'Solar Panels', icon: 'view_column', component: '' },
+    { id: 6, value: 'Smart System', icon: 'developer_board', component: '' },
+    { id: 7, value: 'Wi-Fi', icon: 'wifi', component: '' },
 ];
 
 class SystemNavigation extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            value: 1,
+            currentId: 1,
+			openDialog: false,
         };
     }
 
     handleClick = (id, event) => {
         this.setState({
-            value: id,
+            currentId: id,
         });
     };
+	
+	handleDialogOpen = () => {
+		this.setState({ openDialog: true });
+	};
+
+	handleDialogClose = () => {
+		this.setState({ openDialog: false });
+	};
 
     render() {
         const { classes } = this.props;
-        const { value } = this.state;
+        const { currentId } = this.state;
 
         return (
 			<div>
@@ -63,23 +79,42 @@ class SystemNavigation extends Component {
 					<List component='nav' className={ classes.subNavList }>
 						{ systems.map(data => {
 							return (
-								<ListItem classes={{
-										gutters: classes.listItemGutters,
-									}}
-									button onClick={ () => this.handleClick(data.key) }>
-									<ListItemText primary={data.value} classes={{ primary: value === data.key ? classes.checked : 'unchecked' }} />
-								</ListItem>
+								<div key={ data.id } className={[classes.subNavItem, "col-xs-4"].join(' ')}>
+									<Paper className={classes.subNavItemPaper} elevation={1} onClick={ () => { this.handleClick(data.id);this.handleDialogOpen(); } }>
+										<Icon style={{ fontSize: 30 }}>{ data.icon }</Icon>
+										<Typography component="p">
+											{ data.value }
+										</Typography>
+									</Paper>
+								</div>
 							);
 						}) }
 					</List>
 				</div>
-				<div className='col-xs-7'>
-					{ systems.map(data => {
-						return (
-							value === data.key && data.component
-						);
-					}) }
-				</div>
+				
+				
+				<Dialog
+					open={this.state.openDialog}
+					transition={Grow}
+					onClose={this.handleDialogClose}
+				>
+					<DialogContent>
+						{ systems.map(data => {
+							if(currentId === data.id){
+								return (
+									<div key={ data.id }>
+										{ data.component }
+									</div>
+								);
+							}
+						}) }
+					</DialogContent>
+					<DialogActions>
+						<Button onClick={this.handleDialogClose} color="secondary">
+							Close
+						</Button>
+					</DialogActions>
+				</Dialog>
             </div>
         );
     }
