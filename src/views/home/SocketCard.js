@@ -16,13 +16,13 @@ import Icon from 'material-ui/Icon';
 // custom import
 import socketPlan from '../../assets/kitchen.jpg';
 
-const styles = theme => ({
+const styles = { //theme
     root: {
         // backgroundColor: 'lightblue',
     },
     card: {
         minWidth: 275,
-        maxWidth: 500,
+        maxWidth: 600,
         margin: '15px auto',
         textAlign: 'left',
     },
@@ -38,15 +38,15 @@ const styles = theme => ({
         fontSize: 20,
 	},
 	button: {
-		margin: theme.spacing.unit,
+		margin: 8, //theme.spacing.unit,
 	},
 	buttonIcon: {
-		marginRight: theme.spacing.unit,
+		marginRight: 8, //theme.spacing.unit,
 	},
 	iconSmall: {
 		fontSize: 20,
 	},
-});
+};
 
 class SocketCard extends Component {
     constructor(props) {
@@ -70,8 +70,8 @@ class SocketCard extends Component {
         const { classes, fullScreen } = this.props;
 
         return (
-            <div>
-                <Card className={ classes.root } >
+            <div className={ classes.root }>
+                <Card className={ classes.card } >
                     <CardMedia
                         className={ classes.media }
                         image={ socketPlan }
@@ -107,19 +107,18 @@ class SocketCard extends Component {
                     onClose={ this.handleClose }
                     aria-labelledby='responsive-dialog-title'
                 >
-                    <DialogTitle id='responsive-dialog-title'>{ "Use Google's location service?" }</DialogTitle>
+                    <DialogTitle id='responsive-dialog-title'>Choose from list of appliances</DialogTitle>
                     <DialogContent>
                         <DialogContentText>
-                            Let Google help apps determine location. This means sending anonymous location data to
-                            Google, even when no apps are running.
+                            Lorem ipsum
                         </DialogContentText>
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={ this.handleClose } color='primary'>
-                            Disagree
+                            Save
                         </Button>
                         <Button onClick={ this.handleClose } color='primary' autoFocus>
-                            Agree
+                            Cancel
                         </Button>
                     </DialogActions>
                 </Dialog>
