@@ -79,10 +79,11 @@ const styles = theme => ({
     },
     earthIcon: {
         width: 50,
+
         margin: 2,
     },
     cardContainer: {
-        //minWidth: 275,
+        // minWidth: 275,
         margin: '25px 15px',
     },
     title: {
@@ -126,7 +127,7 @@ class Home extends Component {
     }
 
     render() {
-        const { classes, theme } = this.props;
+        const { classes, fullScreen, theme } = this.props;
         const { value } = this.state;
 
         return (
@@ -202,7 +203,7 @@ class Home extends Component {
                                     return (
                                         <SocketCard
                                             key={ data.id }
-                                            fullScreen
+                                            fullScreen={ fullScreen }
                                             title={ data.title }
                                         >
                                             { data.message }
