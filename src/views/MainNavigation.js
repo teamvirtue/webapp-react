@@ -5,7 +5,6 @@ import grey from 'material-ui/colors/grey';
 import BottomNavigation, { BottomNavigationAction } from 'material-ui/BottomNavigation';
 import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
 import Icon from 'material-ui/Icon';
-import MediaQuery from 'react-responsive';
 
 import Home from './home/Home';
 import Controls from './controls/Controls';
@@ -13,31 +12,29 @@ import Reports from './reports/Reports';
 import Settings from './settings/AppSettings';
 
 const styles = theme => ({
-    /*root: {
-        //display: 'flex',
-        backgroundColor: 'lightblue'
-    },*/
-    nav: {
+    root: {
+    },
+    desktopNav: {
+        position: 'fixed',
+        display: 'flex',
+        height: '100%',
+        backgroundColor: grey[100],
+    },
+    desktopNavList: {
+        alignSelf: 'center',
+    },
+    desktopNavListItem: {
+		width: '200px',
+        padding: '20px 16px',
+    },
+    mobileNav: {
         position: 'fixed',
         bottom: 0,
         zIndex: 1,
         width: '100%',
         boxShadow: '0px -3px 3px 0px rgba(0,0,0,0.15)',
     },
-    desktopMenuContainer: {
-        position: 'fixed',
-        display: 'flex',
-        height: '100%',
-        backgroundColor: grey[100],
-    },
-    desktopMenu: {
-        alignSelf: 'center',
-    },
-    listItem: {
-		width: '200px',
-        padding: '20px 16px',
-    },
-    bottomNav: {
+    mobileNavItem: {
         minWidth: '60px',
     },
     checked: {
@@ -76,28 +73,28 @@ class MainNavigation extends Component {
 
         return (
             <div className={ classes.root }>
-                <MediaQuery minWidth={ 1200 }>
-                    <div className={ classes.desktopMenuContainer }>
-                        <List component='nav' className={ classes.desktopMenu }>
-                            <ListItem className={ classes.listItem } button onClick={ () => this.handleClick(0) }>
+                <div className="hidden-md hidden-sm hidden-xs">
+                    <div className={ classes.desktopNav }>
+                        <List component='nav' className={ classes.desktopNavList }>
+                            <ListItem className={ classes.desktopNavListItem } button onClick={ () => this.handleClick(0) }>
                                 <ListItemIcon>
                                     <Icon className={ value === 0 ? classes.checked : 'unchecked' }>home</Icon>
                                 </ListItemIcon>
                                 <ListItemText primary='Home' classes={{ primary: value === 0 ? classes.checked : 'unchecked' }} />
                             </ListItem>
-                            <ListItem className={ classes.listItem } button onClick={ () => this.handleClick(1) }>
+                            <ListItem className={ classes.desktopNavListItem } button onClick={ () => this.handleClick(1) }>
                                 <ListItemIcon>
                                     <Icon className={ value === 1 ? classes.checked : 'unchecked' }>tune</Icon>
                                 </ListItemIcon>
                                 <ListItemText primary='Controls' classes={{ primary: value === 1 ? classes.checked : 'unchecked' }} />
                             </ListItem>
-                            <ListItem className={ classes.listItem } button onClick={ () => this.handleClick(2) }>
+                            <ListItem className={ classes.desktopNavListItem } button onClick={ () => this.handleClick(2) }>
                                 <ListItemIcon>
                                     <Icon className={ value === 2 ? classes.checked : 'unchecked' }>assessment</Icon>
                                 </ListItemIcon>
                                 <ListItemText primary='Reports' classes={{ primary: value === 2 ? classes.checked : 'unchecked' }} />
                             </ListItem>
-                            <ListItem className={ classes.listItem } button onClick={ () => this.handleClick(3) }>
+                            <ListItem className={ classes.desktopNavListItem } button onClick={ () => this.handleClick(3) }>
                                 <ListItemIcon>
                                     <Icon className={ value === 3 ? classes.checked : 'unchecked' }>settings</Icon>
                                 </ListItemIcon>
@@ -105,26 +102,22 @@ class MainNavigation extends Component {
                             </ListItem>
                         </List>
                     </div>
+                </div>
 
-                    { value === 0 && <Home/> }
-                    { value === 1 && <Controls /> }
-                    { value === 2 && <Reports /> }
-                    { value === 3 && <Settings /> }
-                </MediaQuery>
-
-                <MediaQuery maxWidth={ 1200 }>
-                    { value === 0 && <Home/> }
-                    { value === 1 && <Controls /> }
-                    { value === 2 && <Reports /> }
-                    { value === 3 && <Settings /> }
-
-                    <BottomNavigation value={ value } onChange={ this.handleChange } className={ classes.nav } showLabels>
-                        <BottomNavigationAction className={ classes.bottomNav } label='Home' href='#home' icon={ <Icon>home</Icon> } />
-                        <BottomNavigationAction className={ classes.bottomNav } label='Controls' href='#controls' icon={ <Icon>tune</Icon> } />
-                        <BottomNavigationAction className={ classes.bottomNav } label='Reports' href='#reports' icon={ <Icon>assessment</Icon> } />
-                        <BottomNavigationAction className={ classes.bottomNav } label='Settings' href='#settings' icon={ <Icon>settings</Icon> } />
+                <div className="hidden-lg">
+                    <BottomNavigation value={ value } onChange={ this.handleChange } className={ classes.mobileNav } showLabels>
+                        <BottomNavigationAction className={ classes.mobileNavItem } label='Home' href='#home' icon={ <Icon>home</Icon> } />
+                        <BottomNavigationAction className={ classes.mobileNavItem } label='Controls' href='#controls' icon={ <Icon>tune</Icon> } />
+                        <BottomNavigationAction className={ classes.mobileNavItem } label='Reports' href='#reports' icon={ <Icon>assessment</Icon> } />
+                        <BottomNavigationAction className={ classes.mobileNavItem } label='Settings' href='#settings' icon={ <Icon>settings</Icon> } />
                     </BottomNavigation>
-                </MediaQuery>
+                </div>
+				
+				
+				{ value === 0 && <Home/> }
+				{ value === 1 && <Controls /> }
+				{ value === 2 && <Reports /> }
+				{ value === 3 && <Settings /> }
             </div>
         );
     }

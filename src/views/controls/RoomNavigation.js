@@ -85,7 +85,7 @@ class RoomNavigation extends Component {
 							return (
 								<div key={ data.id } className={[classes.subNavItem, "col-xs-4"].join(' ')}>
 									<Paper className={classes.subNavItemPaper} elevation={1} onClick={ () => { this.handleClick(data.id);this.handleDialogOpen(); } }>
-										<Icon style={{ fontSize: 30 }}>{ data.icon }</Icon>
+										<Icon color="primary" style={{ fontSize: 30 }}>{ data.icon }</Icon>
 										<Typography component="p">
 											{ data.value }
 										</Typography>
