@@ -52,10 +52,12 @@ class App extends Component {
     render() {
         return (
             <div className='App'>
-				<div className='fluid-container'>
-					<MuiThemeProvider theme={ theme }>
-						<MainNavigation />
-					</MuiThemeProvider>
+				<div className='container-fluid'>
+					<div className='row'>
+						<MuiThemeProvider theme={ theme }>
+							<MainNavigation />
+						</MuiThemeProvider>
+					</div>
 				</div>
             </div>
         );

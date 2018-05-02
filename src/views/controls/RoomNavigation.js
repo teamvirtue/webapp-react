@@ -36,13 +36,6 @@ const styles = theme => ({
 		display: 'table-cell',
 		verticalAlign: 'middle',
 	},
-    checked: {
-        color: theme.palette.primary.main,
-    },
-	listItemGutters: {
-		paddingLeft: 15,
-		paddingRight: 15,
-	},
 });
 
 let rooms = [
@@ -61,28 +54,28 @@ class RoomNavigation extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            value: 1,
-			openRoomPopup: false,
+            currentId: 1,
+			openDialog: false,
         };
     }
 
     handleClick = (id, event) => {
         this.setState({
-            value: id,
+            currentId: id,
         });
     };
 	
-	handleRoomPopupOpen = () => {
-		this.setState({ openRoomPopup: true });
+	handleDialogOpen = () => {
+		this.setState({ openDialog: true });
 	};
 
-	handleRoomPopupClose = () => {
-		this.setState({ openRoomPopup: false });
+	handleDialogClose = () => {
+		this.setState({ openDialog: false });
 	};
 
     render() {
         const { classes } = this.props;
-        const { value } = this.state;
+        const { currentId } = this.state;
 
         return (
 			<div>
@@ -90,9 +83,9 @@ class RoomNavigation extends Component {
 					<div className={ classes.subNavContainer }>
 						{ rooms.map(data => {
 							return (
-								<div className={[classes.subNavItem, "col-xs-4"].join(' ')}>
-									<Paper className={classes.subNavItemPaper} elevation={1} onClick={ () => { this.handleClick(data.id);this.handleRoomPopupOpen(); } }>
-										<Icon style={{ fontSize: 30 }}>{ data.icon }</Icon>
+								<div key={ data.id } className={[classes.subNavItem, "col-xs-4"].join(' ')}>
+									<Paper className={classes.subNavItemPaper} elevation={1} onClick={ () => { this.handleClick(data.id);this.handleDialogOpen(); } }>
+										<Icon color="primary" style={{ fontSize: 30 }}>{ data.icon }</Icon>
 										<Typography component="p">
 											{ data.value }
 										</Typography>
@@ -105,19 +98,23 @@ class RoomNavigation extends Component {
 				
 				
 				<Dialog
-					open={this.state.openRoomPopup}
+					open={this.state.openDialog}
 					transition={Grow}
-					onClose={this.handleRoomPopupClose}
+					onClose={this.handleDialogClose}
 				>
 					<DialogContent>
 						{ rooms.map(data => {
-							return (
-								value === data.id && data.component
-							);
+							if(currentId === data.id){
+								return (
+									<div key={ data.id }>
+										{ data.component }
+									</div>
+								);
+							}
 						}) }
 					</DialogContent>
 					<DialogActions>
-						<Button onClick={this.handleRoomPopupClose} color="secondary">
+						<Button onClick={this.handleDialogClose} color="secondary">
 							Close
 						</Button>
 					</DialogActions>
