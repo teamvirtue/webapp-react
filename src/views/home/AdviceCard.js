@@ -35,10 +35,6 @@ const styles = theme => ({
 });
 
 class AdviceCard extends Component {
-    constructor(props) {
-        super(props);
-    }
-	
     handleDismissCard = () => {
         this.props.onDismissCard(this.props.id);            
     }

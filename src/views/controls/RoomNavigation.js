@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import grey from 'material-ui/colors/grey';
-import List, { ListItem, ListItemText } from 'material-ui/List';
 import Icon from 'material-ui/Icon';
 import Paper from 'material-ui/Paper';
 import Typography from 'material-ui/Typography';
@@ -111,6 +110,7 @@ class RoomNavigation extends Component {
 									</div>
 								);
 							}
+							return false;
 						}) }
 					</DialogContent>
 					<DialogActions>

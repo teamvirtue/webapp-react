@@ -5,7 +5,6 @@ import grey from 'material-ui/colors/grey';
 import BottomNavigation, { BottomNavigationAction } from 'material-ui/BottomNavigation';
 import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
 import Icon from 'material-ui/Icon';
-import MediaQuery from 'react-responsive';
 
 import Home from './home/Home';
 import Controls from './controls/Controls';

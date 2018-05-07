@@ -23,8 +23,6 @@ class Temperature extends Component {
     };
 	
 	render() {
-		const classes = this.props;
-		
 		return (
 			<div>
 				<Typography variant="title" gutterBottom>
