@@ -173,9 +173,12 @@ class Settings extends Component {
 
         return (
             <div className={classes.root}>
-                <ImageCircle imageSource={ settingsImage }/>
+			
+				<div className='col-md-5'>
+					<ImageCircle imageSource={ settingsImage }/>
+				</div>
 
-                <div className='panelView'>
+                <div className='col-md-7'>
                     {/*<div className='settingsContainer'>
                         <SelectItem />
                     </div>*/}

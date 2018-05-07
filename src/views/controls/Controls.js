@@ -61,11 +61,15 @@ class Controls extends Component {
 
         return (
             <div className={ classes.root }>
-                <ImageCircle imageSource={ myLinqImage }/>
+				<div className='col-md-5'>
+					<ImageCircle imageSource={ myLinqImage }/>
+				</div>
 
-                <div className='panelView'>
+				<div className='col-md-7'>
+					<h1>Control your room</h1>
+					
 					<RoomNavigation />
-                </div>
+				</div>
             </div>
         );
     }

@@ -5,6 +5,7 @@ import grey from 'material-ui/colors/grey';
 import BottomNavigation, { BottomNavigationAction } from 'material-ui/BottomNavigation';
 import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
 import Icon from 'material-ui/Icon';
+import MediaQuery from 'react-responsive';
 
 import Home from './home/Home';
 import Controls from './controls/Controls';
@@ -18,6 +19,7 @@ const styles = theme => ({
         position: 'fixed',
         display: 'flex',
         height: '100%',
+		width: '200px',
         backgroundColor: grey[100],
     },
     desktopNavList: {
@@ -25,7 +27,8 @@ const styles = theme => ({
     },
     desktopNavListItem: {
 		width: '200px',
-        padding: '20px 16px',
+        paddingTop: '20px',
+		paddingBottom: '20px',
     },
     mobileNav: {
         position: 'fixed',
@@ -40,7 +43,13 @@ const styles = theme => ({
     checked: {
         color: theme.palette.primary.main,
     },
+	content: {
+	},
+	contentNavMargin: {
+		marginLeft: '200px',
+	},
 });
+
 
 class MainNavigation extends Component {
     constructor(props) {
@@ -48,6 +57,7 @@ class MainNavigation extends Component {
         this.state = {
             value: 0,
             selectedValue: 0,
+			addContentNavMargin: false,
         };
     }
 
@@ -66,6 +76,15 @@ class MainNavigation extends Component {
         });
         //console.log(id);
     };
+	
+	componentDidMount() {
+		window.addEventListener('resize', () => {
+			this.setState({
+				addContentNavMargin: window.innerWidth > 1140
+			});
+		}, false);
+		window.dispatchEvent(new Event('resize'));
+	}
 
     render() {
         const { classes } = this.props;
@@ -113,11 +132,14 @@ class MainNavigation extends Component {
                     </BottomNavigation>
                 </div>
 				
-				
-				{ value === 0 && <Home/> }
-				{ value === 1 && <Controls /> }
-				{ value === 2 && <Reports /> }
-				{ value === 3 && <Settings /> }
+				<div className="content">
+					<div className={ this.state.addContentNavMargin ? classes.contentNavMargin : '' }>
+						{ value === 0 && <Home/> }
+						{ value === 1 && <Controls /> }
+						{ value === 2 && <Reports /> }
+						{ value === 3 && <Settings /> }
+					</div>
+				</div>
             </div>
         );
     }

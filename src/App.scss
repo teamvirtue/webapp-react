@@ -45,14 +45,3 @@ body {
   top: 0;
   bottom: auto;
 }
-
-.panelView {
-  display: inline;
-
-  @media only screen and (min-width: 1200px) {
-    position: absolute;
-    width: 35vw;
-    margin-top: 50px;
-    //margin-left: 15px;
-  }
-}
