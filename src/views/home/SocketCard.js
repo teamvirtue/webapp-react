@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React  from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import Card, { CardActions, CardContent, CardMedia } from 'material-ui/Card';
 import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
 
-// custom import
+// local import
 import SocketPlan from '../../assets/kitchen.jpg';
 import DialogResponsive from './DialogResponsive';
 

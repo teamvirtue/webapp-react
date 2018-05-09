@@ -6,18 +6,23 @@ import BottomNavigation, { BottomNavigationAction } from 'material-ui/BottomNavi
 import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
 import Icon from 'material-ui/Icon';
 
+// local import
 import Home from './home/Home';
 import Controls from './controls/Controls';
 import Reports from './reports/Reports';
 import Settings from './settings/AppSettings';
 
+import '../index.css';
+
 const styles = theme => ({
     root: {
+        backgroundColor: theme.palette.secondary.light,
     },
     desktopNav: {
         position: 'fixed',
         display: 'flex',
         height: '100%',
+		width: '200px',
         backgroundColor: grey[100],
     },
     desktopNavList: {
@@ -25,7 +30,8 @@ const styles = theme => ({
     },
     desktopNavListItem: {
 		width: '200px',
-        padding: '20px 16px',
+        paddingTop: '20px',
+		paddingBottom: '20px',
     },
     mobileNav: {
         position: 'fixed',
@@ -42,20 +48,19 @@ const styles = theme => ({
     },
 });
 
+
 class MainNavigation extends Component {
     constructor(props) {
         super(props);
         this.state = {
             value: 0,
             selectedValue: 0,
+			addContentNavMargin: false,
         };
     }
 
-    // The '()' are necessary to make `this` work in the callback
-    // from https://reactjs.org/docs/handling-events.html
     handleChange = (event, value) => {
         this.setState({ value });
-
         console.log(value);
     };
 
@@ -64,7 +69,6 @@ class MainNavigation extends Component {
             //id: !this.state.selectedValue,
             value: id,
         });
-        //console.log(id);
     };
 
     render() {
@@ -73,7 +77,7 @@ class MainNavigation extends Component {
 
         return (
             <div className={ classes.root }>
-                <div className="hidden-md hidden-sm hidden-xs">
+                <div className='hidden-md hidden-sm hidden-xs'>
                     <div className={ classes.desktopNav }>
                         <List component='nav' className={ classes.desktopNavList }>
                             <ListItem className={ classes.desktopNavListItem } button onClick={ () => this.handleClick(0) }>
@@ -104,7 +108,7 @@ class MainNavigation extends Component {
                     </div>
                 </div>
 
-                <div className="hidden-lg">
+                <div className='hidden-lg'>
                     <BottomNavigation value={ value } onChange={ this.handleChange } className={ classes.mobileNav } showLabels>
                         <BottomNavigationAction className={ classes.mobileNavItem } label='Home' href='#home' icon={ <Icon>home</Icon> } />
                         <BottomNavigationAction className={ classes.mobileNavItem } label='Controls' href='#controls' icon={ <Icon>tune</Icon> } />
@@ -113,11 +117,18 @@ class MainNavigation extends Component {
                     </BottomNavigation>
                 </div>
 				
-				
-				{ value === 0 && <Home/> }
-				{ value === 1 && <Controls /> }
-				{ value === 2 && <Reports /> }
-				{ value === 3 && <Settings /> }
+				<div className='content'>
+                    { value === 0 && <Home/> }
+                    { value === 1 && <Controls /> }
+                    { value === 2 && <Reports /> }
+                    { value === 3 && <Settings /> }
+                    {/*<div className={ this.state.addContentNavMargin ? classes.contentNavMargin : '' }>
+						{ value === 0 && <Home/> }
+						{ value === 1 && <Controls /> }
+						{ value === 2 && <Reports /> }
+						{ value === 3 && <Settings /> }
+					</div>*/}
+				</div>
             </div>
         );
     }

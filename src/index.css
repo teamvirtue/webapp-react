@@ -36,10 +36,6 @@ body {
   top: 0;
   bottom: auto; }
 
-.panelView {
-  display: inline; }
-  @media only screen and (min-width: 1200px) {
-    .panelView {
-      position: absolute;
-      width: 35vw;
-      margin-top: 50px; } }
+@media only screen and (min-width: 1140px) {
+  .content {
+    margin-left: 200px; } }

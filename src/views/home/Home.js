@@ -124,10 +124,10 @@ class Home extends Component {
     dismissCard = (id) => {
 		//alert(advices);
         //delete advices[0];
-    }
+    };
 
     render() {
-        const { classes, fullScreen, theme } = this.props;
+        const { classes, theme } = this.props;
         const { value } = this.state;
 
         return (
@@ -148,62 +148,63 @@ class Home extends Component {
                     </Tabs>
                 </AppBar>
 
-                { value === 0 && <ImageCircle imageSource={ myLinqImage }/> }
-                { value === 1 && <ImageCircle imageSource={ linqImage }/> }
-                { value === 2 && <ImageCircle imageSource={ communityImage }/> }
+				<div className='col-md-5'>
+					{ value === 0 && <ImageCircle imageSource={ myLinqImage }/> }
+					{ value === 1 && <ImageCircle imageSource={ linqImage }/> }
+					{ value === 2 && <ImageCircle imageSource={ communityImage }/> }
+				</div>
 
-                {/*TODO: check https://react-swipeable-views.com/demos/demos/ & https://react-swipeable-views.com/demos/demos/*/}
-                <div className='panelView'>
-                    <SwipeableViews
-                        className={ 'swipeableViews' }
-                        axis={ theme.direction === 'rtl' ? 'x-reverse' : 'x' }
-                        index={ value }
-                        onChangeIndex={ this.handleChangeIndex }
-                        animateHeight={ true }
-                    >
-                        <TabContainer dir={ theme.direction }>
-                            <h1>Good morning [Jane]</h1>
+				<div className='col-md-7'>
+					{/*TODO: check https://react-swipeable-views.com/demos/demos/ & https://react-swipeable-views.com/demos/demos/*/}
+					<SwipeableViews
+						className={ 'swipeableViews' }
+						axis={ theme.direction === 'rtl' ? 'x-reverse' : 'x' }
+						index={ value }
+						onChangeIndex={ this.handleChangeIndex }
+						animateHeight={ true }
+					>
+						<TabContainer dir={ theme.direction }>
+							<h1>Good morning [Jane]</h1>
 
-                            <div className='statusBar'>
-                                <div className='statusItem'>
-                                    { worlds.map(data => {
-                                        return (
-                                            <img key={ data.id } className={ classes.earthIcon } src={ earthIcon } alt='icon'/>
-                                        );
-                                    })}
-                                    {/*{ data.half && <img className={ classes.earthIcon } src={ halfEarthIcon } alt='icon'/> }*/}
+							<div className='statusBar'>
+								<div className='statusItem'>
+									{ worlds.map(data => {
+										return (
+											<img key={ data.id } className={ classes.earthIcon } src={ earthIcon } alt='icon'/>
+										);
+									})}
+									{/*{ data.half && <img className={ classes.earthIcon } src={ halfEarthIcon } alt='icon'/> }*/}
 
-                                    <Typography type='p'>
-                                        Your footprint [today]
-                                    </Typography>
-                                </div>
-                            </div>
+									<Typography type='p'>
+										Your footprint [today]
+									</Typography>
+								</div>
+							</div>
 
-                            <div className='infoBar'>
-                                <div className='infoItem1'>
-                                    <h1>16°</h1>
-                                    <p>Indoors</p>
-                                </div>
-                                <div className='infoItem2'>
-                                    <Icon className={ classes.checkIcon }>swap_vert</Icon>
-                                    <p>Generating energy</p>
-                                </div>
-                                <div className='infoItem3'>
-                                    <Icon className={ classes.checkIcon }>check_circle</Icon>
-                                    <p>System</p>
-                                </div>
-                            </div>
+							<div className='infoBar'>
+								<div className='infoItem1'>
+									<h1>16°</h1>
+									<p>Indoors</p>
+								</div>
+								<div className='infoItem2'>
+									<Icon className={ classes.checkIcon }>swap_vert</Icon>
+									<p>Generating energy</p>
+								</div>
+								<div className='infoItem3'>
+									<Icon className={ classes.checkIcon }>check_circle</Icon>
+									<p>System</p>
+								</div>
+							</div>
 
-                            <MediaQuery query='(max-width: 1200px)'>
-                                <Divider />
-                            </MediaQuery>
+							<MediaQuery query='(max-width: 1200px)'>
+								<Divider />
+							</MediaQuery>
 
                             <div className={ classes.cardContainer }>
                                 { sockets.map(data => {
                                     return (
                                         <SocketCard
                                             key={ data.id }
-                                            fullScreen={ fullScreen }
                                             title={ data.title }
                                         >
                                             { data.message }
@@ -211,79 +212,79 @@ class Home extends Component {
                                     );
                                 })}
 
-                                {/*<Divider />*/}
+								{/*<Divider />*/}
 
-                                { advices.map(data => {
-                                    return (
-                                        <AdviceCard
-                                            key={ data.id }
+								{ advices.map(data => {
+									return (
+										<AdviceCard
+											key={ data.id }
 											id={ data.id }
-                                            title={ data.title }
-                                            buttonIcon={ data.buttonIcon }
-                                            buttonText={ data.buttonText }
+											title={ data.title }
+											buttonIcon={ data.buttonIcon }
+											buttonText={ data.buttonText }
 											onDismissCard={this.dismissCard}
-                                        >
-                                            { data.message }
-                                        </AdviceCard>
-                                    );
-                                })}
-                            </div>
-                        </TabContainer>
+										>
+											{ data.message }
+										</AdviceCard>
+									);
+								})}
+							</div>
+						</TabContainer>
 
-                        <TabContainer dir={ theme.direction }>
-                            <h1>LINQ Activity</h1>
+						<TabContainer dir={ theme.direction }>
+							<h1>LINQ Activity</h1>
 
-                            <div className='statusBar'>
-                                <div className='statusItem'>
-                                    <h1>30%</h1>
-                                    <Typography type='subheading'>
-                                        Greener than average
-                                    </Typography>
-                                </div>
-                                <div className='statusItem'>
-                                    <h1>3</h1>
-                                    <Typography type='subheading'>
-                                        Spaces available
-                                    </Typography>
-                                </div>
-                            </div>
+							<div className='statusBar'>
+								<div className='statusItem'>
+									<h1>30%</h1>
+									<Typography type='subheading'>
+										Greener than average
+									</Typography>
+								</div>
+								<div className='statusItem'>
+									<h1>3</h1>
+									<Typography type='subheading'>
+										Spaces available
+									</Typography>
+								</div>
+							</div>
 
-                            <div className='infoBar'>
-                                <div className='infoItem1'>
-                                    <h1>18°</h1>
-                                    <p>Indoors</p>
-                                </div>
-                                <div className='infoItem2'>
-                                    <Icon className={ classes.checkIcon }>swap_vert</Icon>
-                                    <p>Generating & using energy</p>
-                                </div>
-                                <div className='infoItem3'>
-                                    <h1>1</h1>
-                                    <p>Planned activity</p>
-                                </div>
-                            </div>
-                        </TabContainer>
+							<div className='infoBar'>
+								<div className='infoItem1'>
+									<h1>18°</h1>
+									<p>Indoors</p>
+								</div>
+								<div className='infoItem2'>
+									<Icon className={ classes.checkIcon }>swap_vert</Icon>
+									<p>Generating & using energy</p>
+								</div>
+								<div className='infoItem3'>
+									<h1>1</h1>
+									<p>Planned activity</p>
+								</div>
+							</div>
+						</TabContainer>
 
-                        <TabContainer dir={ theme.direction }>
-                            <h1>City Activity</h1>
+						<TabContainer dir={ theme.direction }>
+							<h1>City Activity</h1>
 
-                            <div className='infoBar'>
-                                <div className='infoItem1'>
-                                    <h1>25°</h1>
-                                    <p>Shade temperature</p>
-                                </div>
-                                <div className='infoItem2'>
-                                    <h1>10</h1>
-                                    <p>Spaces free in other LINQs</p>
-                                </div>
-                                <div className='infoItem3'>
-                                    <h1>5</h1>
-                                    <p>Events near you</p>
-                                </div>
-                            </div>
-                        </TabContainer>
-                    </SwipeableViews>
-                </div>
+							<div className='infoBar'>
+								<div className='infoItem1'>
+									<h1>25°</h1>
+									<p>Shade temperature</p>
+								</div>
+								<div className='infoItem2'>
+									<h1>10</h1>
+									<p>Spaces free in other LINQs</p>
+								</div>
+								<div className='infoItem3'>
+									<h1>5</h1>
+									<p>Events near you</p>
+								</div>
+							</div>
+						</TabContainer>
+					</SwipeableViews>
+				</div>
             </div>
         );
     }

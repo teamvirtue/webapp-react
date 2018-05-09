@@ -103,12 +103,13 @@ class Reports extends Component {
                     </Tabs>
                 </AppBar>
 
-                { value === 0 && <ImageCircle imageSource={ OverviewImage }/> }
-                { value === 1 && <ImageCircle imageSource={ AppliancesImage }/> }
-                { value === 2 && <ImageCircle imageSource={ SystemsImage }/> }
+				<div className='col-md-5'>
+					{ value === 0 && <ImageCircle imageSource={ OverviewImage }/> }
+					{ value === 1 && <ImageCircle imageSource={ AppliancesImage }/> }
+					{ value === 2 && <ImageCircle imageSource={ SystemsImage }/> }
+				</div>
 
-                <div className='panelView'>
-					
+                <div className='col-md-7'>
                     <SwipeableViews
                         className={ 'swipeableViews' }
                         axis={ theme.direction === 'rtl' ? 'x-reverse' : 'x' }
