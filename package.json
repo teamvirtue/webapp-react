@@ -14,9 +14,11 @@
     "react": "^16.2.0",
     "react-chartjs-2": "^2.7.0",
     "react-dom": "^16.2.0",
+    "react-redux": "^5.0.7",
     "react-responsive": "^4.0.4",
     "react-scripts": "1.1.0",
-    "react-swipeable-views": "^0.12.12"
+    "react-swipeable-views": "^0.12.12",
+    "redux": "^4.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
