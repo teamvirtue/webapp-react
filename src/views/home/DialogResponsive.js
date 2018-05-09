@@ -63,7 +63,7 @@ class ResponsiveDialog extends Component {
                     <DialogTitle id='responsive-dialog-title'>{ "Choose from list of appliances" }</DialogTitle>
                     <DialogContent>
                         <DialogContentText>
-                            Lorem ipsum
+                            Did you plug in one of these devices?
                         </DialogContentText>
                     </DialogContent>
                     <DialogActions>
