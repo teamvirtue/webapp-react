@@ -4,7 +4,7 @@ import Typography from 'material-ui/Typography';
 import Icon from 'material-ui/Icon';
 import Divider from 'material-ui/Divider';
 import List from 'material-ui/List';
-// import LineChart from '../LineChart';
+import LineChart from '../LineChart';
 
 class WasherDryer extends Component {
 
@@ -16,12 +16,16 @@ class WasherDryer extends Component {
 				<List>
 					
 					<Typography className={ classes.controlsTitle } type='subheading'>
-						Chart
+						Consumption
 					</Typography>
 					
-					{/*<LineChart />*/}
+					{<LineChart />}
 					
 					<Divider/>
+					
+					<Typography className={ classes.controlsTitle } type='subheading'>
+						Status
+					</Typography>
 
 					<div className='statusBar'>
 						<div className='statusItem'>

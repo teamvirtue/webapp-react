@@ -18,7 +18,7 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: #808080; }
 
-/* Make selected text gold on a red background */
+/* Change selected text background */
 ::-moz-selection {
   background: #f15b27; }
 
