@@ -7,7 +7,8 @@ import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
 import Icon from 'material-ui/Icon';
 
 // local import
-import Home from './home/Home';
+// import Home from './home/Home';
+import { HomeContainer } from '../containers/HomeContainer';
 import Controls from './controls/Controls';
 import Reports from './reports/Reports';
 import Settings from './settings/AppSettings';
@@ -118,7 +119,8 @@ class MainNavigation extends Component {
                 </div>
 				
 				<div className='content'>
-                    { value === 0 && <Home/> }
+                    {/*{ value === 0 && <CardContainer /> }*/}
+                    { value === 0 && <HomeContainer/> }
                     { value === 1 && <Controls /> }
                     { value === 2 && <Reports /> }
                     { value === 3 && <Settings /> }

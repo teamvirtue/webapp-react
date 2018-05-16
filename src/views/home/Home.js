@@ -12,7 +12,8 @@ import MediaQuery from 'react-responsive';
 
 // custom import
 import './Home.css';
-import AdviceCard from './AdviceCard';
+import { CardContainer } from '../../containers/CardContainer';
+// import AdviceCard from './AdviceCard';
 import SocketCard from './SocketCard';
 import ImageCircle from '../../ImageCircle';
 import myLinqImage from '../../assets/my_linq.svg';
@@ -35,7 +36,7 @@ let sockets = [
     },
 ];
 
-let advices = [ // use fetch in future https://blog.hellojs.org/fetching-api-data-with-react-js-460fe8bbf8f2
+/*let advices = [ // use fetch in future https://blog.hellojs.org/fetching-api-data-with-react-js-460fe8bbf8f2
     {   id: '1',
         title: 'Washer-dryer',
         message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do ut labore et dolore magna aliqua.',
@@ -54,12 +55,13 @@ let advices = [ // use fetch in future https://blog.hellojs.org/fetching-api-dat
         buttonIcon: 'done',
         buttonText: 'Agree',
     },
-];
+];*/
 
 
 const styles = theme => ({
-    /*root: {
-    },*/
+    root: {
+        transition: 'all 1s ease-in-out',
+    },
     appBar: {
         position: 'static',
         boxShadow: 'none',
@@ -121,13 +123,13 @@ class Home extends Component {
         this.setState({ value: index });
     };
 	
-    dismissCard = (id) => {
+    /*dismissCard = (id) => {
 		//alert(advices);
         //delete advices[0];
-    };
+    };*/
 
     render() {
-        const { classes, theme } = this.props;
+        const { classes, theme, advices } = this.props;
         const { value } = this.state;
 
         return (
@@ -214,7 +216,40 @@ class Home extends Component {
 
 								{/*<Divider />*/}
 
-								{ advices.map(data => {
+                                { Object.keys(advices.byId).map((id) => {
+                                    let card = advices.byId[id];
+                                    // let lastMessage = messageArray[messageArray.length - 1];
+
+                                    return card.visible ?
+                                        <CardContainer
+                                            key={ id }
+                                            id={ id }
+                                            title={ card.title }
+                                            buttonIcon={ card.buttonIcon }
+                                            buttonText={ card.buttonText }
+                                            // onDismissCard={this.dismissCard}
+                                        >
+                                            { card.message }
+                                        </CardContainer> : null
+                                    }
+                                ) }
+
+                                {/*{ advices.map(data => {
+                                    return (
+                                        <CardContainer
+                                            key={ data.id }
+                                            id={ data.id }
+                                            title={ data.title }
+                                            buttonIcon={ data.buttonIcon }
+                                            buttonText={ data.buttonText }
+                                            // onDismissCard={this.dismissCard}
+                                        >
+                                            { data.message }
+                                        </CardContainer>
+                                    );
+                                })}*/}
+
+								{/*{ advices.map(data => {
 									return (
 										<AdviceCard
 											key={ data.id }
@@ -227,7 +262,7 @@ class Home extends Component {
 											{ data.message }
 										</AdviceCard>
 									);
-								})}
+								})}*/}
 							</div>
 						</TabContainer>
 

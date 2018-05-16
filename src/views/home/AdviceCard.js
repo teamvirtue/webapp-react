@@ -35,12 +35,14 @@ const styles = theme => ({
 });
 
 class AdviceCard extends Component {
-    handleDismissCard = () => {
-        this.props.onDismissCard(this.props.id);            
-    }
+    handleDismissCard = (event, id) => {
+        this.props.dispatch(id);
+        // console.log(event, id);
+        // this.props.onDismissCard(this.props.id);
+    };
 
     render() {
-        const { classes } = this.props;
+        const { classes, id } = this.props;
 
         return (
             <div className={ classes.root }>
@@ -57,7 +59,7 @@ class AdviceCard extends Component {
                     <CardActions className={ classes.controls }>
                         <Button
                             className={ classes.button }
-                            onClick={this.handleDismissCard}
+                            onClick={ (event) => this.handleDismissCard(event, id) }
                             variant='raised'
                             color='primary'
                         >
@@ -65,7 +67,7 @@ class AdviceCard extends Component {
                             { this.props.buttonText }
                         </Button>
                         <Button
-                            onClick={this.handleDismissCard}
+                            onClick={ (event) => this.handleDismissCard(event, id) }
                             color='secondary'
                         >
                             Ignore
@@ -78,6 +80,7 @@ class AdviceCard extends Component {
 }
 
 AdviceCard.propTypes = {
+    dispatch: PropTypes.func.isRequired,
     classes: PropTypes.object.isRequired,
 };
 
