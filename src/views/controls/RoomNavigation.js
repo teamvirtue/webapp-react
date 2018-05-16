@@ -10,7 +10,7 @@ import Dialog, {
   DialogContent,
   // DialogContentText,
   // DialogTitle,
-  // withMobileDialog,
+  withMobileDialog,
 } from 'material-ui/Dialog';
 import Button from 'material-ui/Button';
 import Grow from 'material-ui/transitions/Grow';
@@ -34,6 +34,12 @@ const styles = theme => ({
 		cursor: 'pointer',
 		display: 'table-cell',
 		verticalAlign: 'middle',
+	},
+	dialogSmall: {
+		minWidth: 350,
+	},
+	dialogFull: {
+		minWidth: 0,
 	},
 });
 
@@ -73,6 +79,7 @@ class RoomNavigation extends Component {
 	};
 
     render() {
+		const { fullScreen } = this.props;
         const { classes } = this.props;
         const { currentId } = this.state;
 
@@ -97,9 +104,14 @@ class RoomNavigation extends Component {
 				
 				
 				<Dialog
+					fullScreen={ fullScreen }
 					open={this.state.openDialog}
 					transition={Grow}
 					onClose={this.handleDialogClose}
+					classes={{
+						paperWidthSm: classes.dialogSmall,
+						paperFullScreen: classes.dialogFull,
+					}}
 				>
 					<DialogContent>
 						{ rooms.map(data => {
@@ -125,7 +137,8 @@ class RoomNavigation extends Component {
 }
 
 RoomNavigation.propTypes = {
+	fullScreen: PropTypes.bool.isRequired,
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(RoomNavigation);
+export default withStyles(styles)(withMobileDialog()(RoomNavigation));
