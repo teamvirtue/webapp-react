@@ -79,10 +79,11 @@ const styles = theme => ({
     },
     earthIcon: {
         width: 50,
+
         margin: 2,
     },
     cardContainer: {
-        //minWidth: 275,
+        // minWidth: 275,
         margin: '25px 15px',
     },
     title: {
@@ -123,7 +124,7 @@ class Home extends Component {
     dismissCard = (id) => {
 		//alert(advices);
         //delete advices[0];
-    }
+    };
 
     render() {
         const { classes, theme } = this.props;
@@ -199,18 +200,17 @@ class Home extends Component {
 								<Divider />
 							</MediaQuery>
 
-							<div className={ classes.cardContainer }>
-								{ sockets.map(data => {
-									return (
-										<SocketCard
-											key={ data.id }
-											fullScreen
-											title={ data.title }
-										>
-											{ data.message }
-										</SocketCard>
-									);
-								})}
+                            <div className={ classes.cardContainer }>
+                                { sockets.map(data => {
+                                    return (
+                                        <SocketCard
+                                            key={ data.id }
+                                            title={ data.title }
+                                        >
+                                            { data.message }
+                                        </SocketCard>
+                                    );
+                                })}
 
 								{/*<Divider />*/}
 

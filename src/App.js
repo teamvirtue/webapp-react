@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import { defaults } from 'react-chartjs-2';
 
+// local import
 import MainNavigation from './views/MainNavigation';
-import './App.css';
+import './index.css';
 import './assets/bootstrap-grid.min.css';
 
 const theme = createMuiTheme({
@@ -13,6 +14,7 @@ const theme = createMuiTheme({
 		},
 		secondary: {
 			main: '#f15b27',
+            light: '#fff',
 		},
 		error: {
 			main: '#e83a3a', //inverted (blue): 0EA4D8
