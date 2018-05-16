@@ -9,6 +9,7 @@ import reducer from './reducers'
 
 const store = createStore(reducer)
 
+
 ReactDOM.render(
   <Provider store={store}>
     <App />

@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux'
-import users from './users'
+import accounts from './accounts'
+import adviceCards from './adviceCards'
 
 const rootReducer = combineReducers({
-	users
+	accounts,
+	adviceCards
 })
 
 export default rootReducer
