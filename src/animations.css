@@ -1,0 +1,30 @@
+.cardAnimation-enter {
+	opacity: 0.01;
+	height:0;
+}
+
+.cardAnimation-enter.cardAnimation-enter-active {
+	opacity: 1;
+	transition: 350ms;
+}
+
+.cardAnimation-leave {
+	opacity: 1;
+	transition: opacity 300ms ease, height 400ms ease 300ms;
+}
+
+.cardAnimation-leave.cardAnimation-leave-active {
+	opacity: 0.01;
+	transition: 350ms;
+	height:0;
+
+}
+
+.cardAnimation-appear {
+	opacity: 0.01;
+}
+
+.cardAnimation-appear.cardAnimation-appear-active {
+	opacity: 1;
+	transition: opacity .5s ease-in;
+}
