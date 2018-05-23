@@ -293,7 +293,6 @@ class Settings extends Component {
                                 <ListItemText disableTypography	primary='Clock Budget' secondary={
                                     <Slider
                                         min={ 0 }
-                                        max={ 20 }
                                         defaultValue={ 5 }
                                         trackStyle={{ backgroundColor: theme.palette.primary.main }}
 										dotStyle={{ backgroundColor: 'lightgray', borderColor: 'lightgray' }}
@@ -303,11 +302,12 @@ class Settings extends Component {
                                             backgroundColor: theme.palette.primary.main,
                                         }}
 										marks = {{
-											0: '0',
-											5: '5',
-											10: '10',
-											15: '15',
-											20: '20',
+
+  0: 0,
+  26: '26°C',
+  37: '37°C',
+  50: '50°C',
+  100: 100,
 										}}
                                         railStyle={{ backgroundColor: 'lightgray' }}
                                     />

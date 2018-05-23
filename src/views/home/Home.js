@@ -11,6 +11,9 @@ import Divider from '@material-ui/core/Divider';
 import Icon from '@material-ui/core/Icon';
 import MediaQuery from 'react-responsive';
 
+import { CSSTransitionGroup } from 'react-transition-group';
+import '../../animations.css';
+
 // custom import
 import './Home.css';
 import { CardContainer } from '../../containers/CardContainer';
@@ -96,7 +99,14 @@ const styles = theme => ({
     iconSmall: {
         fontSize: 25,
     },
-
+	notification: {
+		outline: '2px dashed #f15b27',
+		backgroundColor: '#f15b27',
+		padding:10,
+		maxWidth: 400,
+		margin: '0 auto',
+		color: 'white',
+	},
 });
 
 function TabContainer({ children, dir }) {
@@ -170,7 +180,7 @@ class Home extends Component {
 					>
 						<TabContainer dir={ theme.direction }>
 							<h1>Good morning { accounts.byId[accounts.currentUser].name }</h1>
-							{/*<h1>Good morning { accounts.byId['user1'].name }</h1>*/}
+							<div className = {classes.notification}>This is an alpha version of the VIRTUe LINQ app</div>
 
 							<div className='statusBar'>
 								<div className='statusItem'>
@@ -220,23 +230,31 @@ class Home extends Component {
 
 								{/*<Divider />*/}
 
-                                { Object.keys(advices.byId).map((id) => {
-                                    let card = advices.byId[id];
-                                    // let lastMessage = messageArray[messageArray.length - 1];
+								<CSSTransitionGroup 
+									transitionName="cardAnimation" 
+									transitionAppear={true} 
+									transitionAppearTimeout={500} 
+									transitionEnterTimeout={350} 
+									transitionLeaveTimeout={350}
+								>
+									{ Object.keys(advices.byId).map((id) => {
+										let card = advices.byId[id];
+										// let lastMessage = messageArray[messageArray.length - 1];
 
-                                    return card.visible ?
-                                        <CardContainer
-                                            key={ id }
-                                            id={ id }
-                                            title={ card.title }
-                                            buttonIcon={ card.buttonIcon }
-                                            buttonText={ card.buttonText }
-                                            // onDismissCard={this.dismissCard}
-                                        >
-                                            { card.message }
-                                        </CardContainer> : null
-                                    }
-                                ) }
+										return card.visible ?
+											<CardContainer
+												key={ id }
+												id={ id }
+												title={ card.title }
+												buttonIcon={ card.buttonIcon }
+												buttonText={ card.buttonText }
+												// onDismissCard={this.dismissCard}
+											>
+												{ card.message }
+											</CardContainer> : null
+										}
+									) }
+								</CSSTransitionGroup>
 
                                 {/*{ advices.map(data => {
                                     return (

@@ -28,10 +28,9 @@ const styles = theme => ({
 	roomsBarTab: {
 		borderWidth: 3,
 		borderStyle: 'solid',
-		borderColor: grey[200],
+		borderColor: grey[100],
 		marginLeft: 5,
 		marginRight: 5,
-		borderRadius: 5,
 		minWidth: 120,
 	},
 });

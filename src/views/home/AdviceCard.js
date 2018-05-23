@@ -11,11 +11,11 @@ import Icon from '@material-ui/core/Icon';
 const styles = theme => ({
 	root: {
 		// backgroundColor: 'red',
+		marginBottom:20,
 	},
     card: {
         minWidth: 275,
         maxWidth: 600,
-        margin: '15px auto',
         textAlign: 'left',
     },
     controls: {
@@ -37,17 +37,34 @@ const styles = theme => ({
 });
 
 class AdviceCard extends Component {
+	constructor() {
+		super();
+		this.state = { cardHeight: "" };
+		this.updateCardHeight = this.updateCardHeight.bind(this);
+	}
+	
+	componentDidMount() {
+		this.updateCardHeight();
+	}
+
     handleDismissCard = (event, id) => {
         this.props.dispatch(id);
         // console.log(event, id);
         // this.props.onDismissCard(this.props.id);
     };
+	
+	updateCardHeight() {
+		if (this.state.cardHeight !== this.div.clientHeight){
+			this.setState({ cardHeight: this.div.clientHeight })
+		}
+	}
+	
 
     render() {
         const { classes, id } = this.props;
 
         return (
-            <div className={ classes.root }>
+            <div className={ classes.root } ref={ div => { this.div = div; } } style={{height: `${this.state.cardHeight}px`}}>
                 <Card className={ classes.card }>
                     <CardContent>
                         <Typography variant='headline' className={ classes.title } component='h1'>
