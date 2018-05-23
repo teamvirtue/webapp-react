@@ -17,8 +17,9 @@ import { TimePicker, DatePicker } from 'material-ui-pickers';
 // import { withStyles } from 'material-ui/styles';
 import Icon from 'material-ui/Icon';
 
-import UserDialog from './setting/UserDialog';
 
+import { UserDialogContainer } from '../../containers/UserDialogContainer';
+// import UserDialog from './setting/UserDialog';
 import './AppSettings.css';
 import ImageCircle from '../../ImageCircle';
 import settingsImage from '../../assets/settings.svg';
@@ -168,12 +169,14 @@ class Settings extends Component {
     };
 
     render() {
-		const { classes, theme } = this.props;
+		const { classes, theme, accounts } = this.props;
         const { selectedDate, checkedSleepCycleMode } = this.state;
+        const currentUserId = accounts.byId[accounts.currentUser].id;
+        const currentUser = accounts.byId[accounts.currentUser].name;
+        // const currentUser = accounts.currentUser;
 
         return (
             <div className={classes.root}>
-			
 				<div className='col-md-5'>
 					<ImageCircle imageSource={ settingsImage }/>
 				</div>
@@ -183,15 +186,19 @@ class Settings extends Component {
                         <SelectItem />
                     </div>*/}
 
-                    <div className='settingsContainer'> {/*TODO: remove settings/reportsContainer?*/}
-                        <h1 style={{ textAlign: 'center' }}>[Jane Doe]</h1>
+                    <div className='settingsContainer'> {/*TODO: remove settings/reportsContainer CSS?*/}
+                        <h1 style={{ textAlign: 'center' }}>{ currentUser }</h1>
 
                         <Typography className='settingsTitle' type='subheading'>
                             Profile
                         </Typography>
 
                         <List>
-							<UserDialog />
+							<UserDialogContainer
+                                // user={{ id: currentUserId, name: currentUser }}
+                                // family={ accounts.byId }
+                                // onSubmit={ (event) => this.handleNameChangeSubmit(event) }
+                            />
                             
                             <ListItem>
                                 <ListItemIcon>
@@ -219,7 +226,7 @@ class Settings extends Component {
 
                                 <ListItemSecondaryAction>
                                     <Switch
-                                        checked={ this.state.checkedSleepCycleMode }
+                                        checked={ checkedSleepCycleMode }
                                         onChange={ this.handleChange('checkedSleepCycleMode') }
                                         value='checkedSleepCycleMode'
                                     />
@@ -452,4 +459,4 @@ ListMenu.propTypes = {
     theme: PropTypes.object.isRequired,
 };*/
 
-export default withTheme() (withStyles(styles)(Settings));
+export default withTheme()(withStyles(styles)(Settings));

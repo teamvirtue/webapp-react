@@ -1,4 +1,4 @@
-const adviceCards = (state = {
+const advices = (state = {
     byId: {
         'card1': {
             id: 'card1',
@@ -54,4 +54,4 @@ const adviceCards = (state = {
 	}
 };
 
-export default adviceCards;
+export default advices;

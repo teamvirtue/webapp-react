@@ -129,8 +129,10 @@ class Home extends Component {
     };*/
 
     render() {
-        const { classes, theme, advices } = this.props;
+        const { classes, theme, advices, accounts } = this.props;
         const { value } = this.state;
+
+        // console.log(accounts);
 
         return (
             <div className={ classes.root }> {/*TODO: reduce number of nameless divs*/}
@@ -166,7 +168,8 @@ class Home extends Component {
 						animateHeight={ true }
 					>
 						<TabContainer dir={ theme.direction }>
-							<h1>Good morning [Jane]</h1>
+							<h1>Good morning { accounts.byId[accounts.currentUser].name }</h1>
+							{/*<h1>Good morning { accounts.byId['user1'].name }</h1>*/}
 
 							<div className='statusBar'>
 								<div className='statusItem'>
