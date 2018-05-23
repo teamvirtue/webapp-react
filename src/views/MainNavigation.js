@@ -9,6 +9,7 @@ import Icon from 'material-ui/Icon';
 // local import
 // import Home from './home/Home';
 import { HomeContainer } from '../containers/HomeContainer';
+import { AppSettingsContainer } from '../containers/AppSettingsContainer';
 import Controls from './controls/Controls';
 import Reports from './reports/Reports';
 import Settings from './settings/AppSettings';
@@ -62,7 +63,7 @@ class MainNavigation extends Component {
 
     handleChange = (event, value) => {
         this.setState({ value });
-        console.log(value);
+        // console.log(value);
     };
 
     handleClick = (id, event) => {
@@ -120,10 +121,11 @@ class MainNavigation extends Component {
 				
 				<div className='content'>
                     {/*{ value === 0 && <CardContainer /> }*/}
-                    { value === 0 && <HomeContainer/> }
+                    { value === 0 && <HomeContainer /> }
                     { value === 1 && <Controls /> }
                     { value === 2 && <Reports /> }
-                    { value === 3 && <Settings /> }
+                    { value === 3 && <AppSettingsContainer /> }
+                    {/*{ value === 3 && <Settings /> }*/}
                     {/*<div className={ this.state.addContentNavMargin ? classes.contentNavMargin : '' }>
 						{ value === 0 && <Home/> }
 						{ value === 1 && <Controls /> }

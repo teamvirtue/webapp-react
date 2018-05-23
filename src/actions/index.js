@@ -8,6 +8,11 @@ export const dismissCard = (id) => ({
     // id: nextAdviceCardId++,
 });
 
+export const updateAccountName = (name, id) => ({
+    type: 'UPDATE_ACCOUNT_NAME',
+    payload: { name, id },
+});
+
 /*
 export const addAdviceCard = (content) => ({
 	type: types.ADD_ADVICECARD,

@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import accounts from './accounts';
-import advices from './adviceCards';
+import advices from './advices';
 
 const rootReducer = combineReducers({
 	accounts: accounts,
