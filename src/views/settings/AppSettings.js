@@ -304,12 +304,11 @@ class Settings extends Component {
                                             backgroundColor: theme.palette.primary.main,
                                         }}
 										marks = {{
-
-  0: 0,
-  26: '26°C',
-  37: '37°C',
-  50: '50°C',
-  100: 100,
+											0: 0,
+											26: '26°C',
+											37: '37°C',
+											50: '50°C',
+											100: 100,
 										}}
                                         railStyle={{ backgroundColor: 'lightgray' }}
                                     />

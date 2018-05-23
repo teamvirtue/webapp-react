@@ -13,6 +13,11 @@ export const updateAccountName = (name, id) => ({
     payload: { name, id },
 });
 
+export const updateWeatherData = (temperature) => ({
+    type: 'UPDATE_WEATHER_DATA',
+    payload: temperature,
+});
+
 /*
 export const addAdviceCard = (content) => ({
 	type: types.ADD_ADVICECARD,

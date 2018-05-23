@@ -51,7 +51,24 @@ defaults.global.elements.point.backgroundColor = theme.palette.primary.main;
 defaults.global.elements.point.borderColor = theme.palette.primary.main;
 defaults.global.elements.point.hitRadius = 15;
 
+
 class App extends Component {
+	
+	// Call API every 10 minutes
+	componentDidMount() {
+		this.intervalId = setInterval(() => this.loadData(), 600000);
+		this.loadData(); // also load one immediately
+	}
+
+	componentWillUnmount() {
+		clearInterval(this.intervalId);
+	}
+
+	loadData() {
+		console.log("asdf");
+	}
+
+
     render() {
         return (
             <div className='App'>
