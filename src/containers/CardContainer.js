@@ -16,6 +16,6 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export const CardContainer = connect(
-    mapStateToProps,
+    mapStateToProps, //() => {}
     mapDispatchToProps,
 )(AdviceCard);

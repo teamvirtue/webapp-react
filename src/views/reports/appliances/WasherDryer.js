@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 // import PropTypes from 'prop-types';
-import Typography from 'material-ui/Typography';
-import Icon from 'material-ui/Icon';
-import Divider from 'material-ui/Divider';
-import List from 'material-ui/List';
+import Typography from '@material-ui/core/Typography';
+import Icon from '@material-ui/core/Icon';
+import Divider from '@material-ui/core/Divider';
+import List from '@material-ui/core/List';
+
+// Local import
 import LineChart from '../LineChart';
 
 class WasherDryer extends Component {

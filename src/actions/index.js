@@ -1,6 +1,6 @@
-import * as types from '../constants/ActionTypes'
+// import * as types from '../constants/ActionTypes'
 
-let nextAdviceCardId = 0;
+// let nextAdviceCardId = 0;
 
 export const dismissCard = (id) => ({
     type: 'DISMISS_CARD',

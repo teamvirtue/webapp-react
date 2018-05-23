@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from 'material-ui/styles';
-import grey from 'material-ui/colors/grey';
-import BottomNavigation, { BottomNavigationAction } from 'material-ui/BottomNavigation';
-import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
-import Icon from 'material-ui/Icon';
+import { withStyles } from '@material-ui/core/styles';
+import grey from '@material-ui/core/colors/grey';
+import BottomNavigation  from '@material-ui/core/BottomNavigation';
+import BottomNavigationAction  from '@material-ui/core/BottomNavigationAction';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import Icon from '@material-ui/core/Icon';
 
 // local import
 // import Home from './home/Home';
@@ -12,7 +16,7 @@ import { HomeContainer } from '../containers/HomeContainer';
 import { AppSettingsContainer } from '../containers/AppSettingsContainer';
 import Controls from './controls/Controls';
 import Reports from './reports/Reports';
-import Settings from './settings/AppSettings';
+// import Settings from './settings/AppSettings';
 
 import '../index.css';
 

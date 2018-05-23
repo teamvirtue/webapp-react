@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { defaults } from 'react-chartjs-2';
 
-// local import
+// Local import
 // import { MainNavigationContainer } from './containers/MainNavigationContainer';
 import MainNavigation from './views/MainNavigation';
 import './index.css';

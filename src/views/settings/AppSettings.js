@@ -1,23 +1,21 @@
 import React, { Component, PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import Typography from 'material-ui/Typography';
-import { withStyles } from 'material-ui/styles'
-import { withTheme } from 'material-ui/styles';
-import Divider from 'material-ui/Divider';
-import List, {
-    ListItem,
-    ListItemIcon,
-    ListItemSecondaryAction,
-    ListItemText,
-} from 'material-ui/List';
+import Typography from '@material-ui/core/Typography';
+import { withStyles } from '@material-ui/core/styles'
+import { withTheme } from '@material-ui/core/styles';
+import Divider from '@material-ui/core/Divider';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import ListItemText from '@material-ui/core/ListItemText';
 import Slider from 'rc-slider';
-import Switch from 'material-ui/Switch';
-import Menu, { MenuItem } from 'material-ui/Menu';
+import Switch from '@material-ui/core/Switch';
+import Menu, { MenuItem } from '@material-ui/core/Menu';
 import { TimePicker, DatePicker } from 'material-ui-pickers';
-// import { withStyles } from 'material-ui/styles';
-import Icon from 'material-ui/Icon';
+import Icon from '@material-ui/core/Icon';
 
-
+// Local import
 import { UserDialogContainer } from '../../containers/UserDialogContainer';
 // import UserDialog from './setting/UserDialog';
 import './AppSettings.css';
@@ -171,7 +169,7 @@ class Settings extends Component {
     render() {
 		const { classes, theme, accounts } = this.props;
         const { selectedDate, checkedSleepCycleMode } = this.state;
-        const currentUserId = accounts.byId[accounts.currentUser].id;
+        // const currentUserId = accounts.byId[accounts.currentUser].id;
         const currentUser = accounts.byId[accounts.currentUser].name;
         // const currentUser = accounts.currentUser;
 
