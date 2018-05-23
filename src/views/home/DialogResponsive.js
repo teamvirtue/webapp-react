@@ -1,16 +1,18 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Button from 'material-ui/Button';
-import Dialog, {
-    DialogActions,
-    DialogContent,
-    DialogContentText,
-    DialogTitle,
-    withMobileDialog,
-} from 'material-ui/Dialog';
-import Radio, { RadioGroup } from 'material-ui/Radio';
-import { FormControl, FormControlLabel, FormHelperText } from 'material-ui/Form';
-import Icon from 'material-ui/Icon';
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import withMobileDialog from '@material-ui/core/withMobileDialog';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControl from '@material-ui/core/FormControl';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import Icon from '@material-ui/core/Icon';
 
 const styles = theme => ({ //theme
     root: {

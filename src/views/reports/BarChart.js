@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { withStyles } from 'material-ui/styles';
-import Radio, { RadioGroup } from 'material-ui/Radio';
-import { FormControlLabel } from 'material-ui/Form';
+import { withStyles } from '@material-ui/core/styles';
+import Radio  from '@material-ui/core/Radio';
+import RadioGroup  from '@material-ui/core/RadioGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { HorizontalBar } from 'react-chartjs-2';
 import 'chartjs-plugin-datalabels';
 

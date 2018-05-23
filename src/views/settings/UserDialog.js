@@ -1,21 +1,21 @@
 import React, { Component } from 'react';
 // import PropTypes from 'prop-types';
-import Typography from 'material-ui/Typography';
-import { withStyles } from 'material-ui/styles'
-import { withTheme } from 'material-ui/styles';
-import Avatar from 'material-ui/Avatar';
-import List, { ListItem, ListItemAvatar, ListItemText, ListItemIcon } from 'material-ui/List';
-import TextField from 'material-ui/TextField';
-import Dialog, {
-  DialogActions,
-  DialogContent,
-  // DialogContentText,
-  // DialogTitle,
-  // withMobileDialog,
-} from 'material-ui/Dialog';
-import Button from 'material-ui/Button';
-import Icon from 'material-ui/Icon';
-import orange from 'material-ui/colors/orange';
+import Typography from '@material-ui/core/Typography';
+import { withStyles } from '@material-ui/core/styles'
+import { withTheme } from '@material-ui/core/styles';
+import Avatar from '@material-ui/core/Avatar';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import TextField from '@material-ui/core/TextField';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import Button from '@material-ui/core/Button';
+import Icon from '@material-ui/core/Icon';
+import orange from '@material-ui/core/colors/orange';
 
 const styles = {
 	avatar: {

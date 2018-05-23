@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withTheme } from 'material-ui/styles';
-import { withStyles } from 'material-ui/styles';
+import { withTheme } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import SwipeableViews from 'react-swipeable-views';
 import ApplianceNavigation from './ApplianceNavigation';
 import SystemNavigation from './SystemNavigation';
-import AppBar from 'material-ui/AppBar';
-import Tabs, { Tab } from 'material-ui/Tabs';
+import AppBar from '@material-ui/core/AppBar';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
 
+// Local import
 import LineChart from './LineChart';
 import BarChart from './BarChart';
 import ImageCircle from '../../ImageCircle';
-
 import OverviewImage from '../../assets/reports.svg';
 import AppliancesImage from '../../assets/reports.svg';
 import SystemsImage from '../../assets/reports.svg';

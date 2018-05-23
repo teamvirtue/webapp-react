@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import AppSettings from '../views/settings/AppSettings';
-import { updateAccountName } from '../actions';
+// import { updateAccountName } from '../actions';
 
 const mapStateToProps = (state) => {
     // console.log(state);

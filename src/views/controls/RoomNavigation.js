@@ -1,19 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from 'material-ui/styles';
-import grey from 'material-ui/colors/grey';
-import Icon from 'material-ui/Icon';
-import Paper from 'material-ui/Paper';
-import Typography from 'material-ui/Typography';
-import Dialog, {
-  DialogActions,
-  DialogContent,
-  // DialogContentText,
-  // DialogTitle,
-  withMobileDialog,
-} from 'material-ui/Dialog';
-import Button from 'material-ui/Button';
-import Grow from 'material-ui/transitions/Grow';
+import { withStyles } from '@material-ui/core/styles';
+import grey from '@material-ui/core/colors/grey';
+import Icon from '@material-ui/core/Icon';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import withMobileDialog from '@material-ui/core/withMobileDialog';
+import Button from '@material-ui/core/Button';
+import Grow from '@material-ui/core/Grow';
 
 import All from './rooms/All';
 import LivingRoom from './rooms/LivingRoom';

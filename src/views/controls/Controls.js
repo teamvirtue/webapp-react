@@ -1,17 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-// import { withTheme } from 'material-ui/styles';
-import { withStyles } from 'material-ui/styles';
-import RoomNavigation from './RoomNavigation';
-// import SwipeableViews from 'react-swipeable-views';
-import Typography from 'material-ui/Typography';
-/*import AppBar from 'material-ui/AppBar';
-import List from 'material-ui/List';
-import Tabs, { Tab } from 'material-ui/Tabs';*/
-import grey from 'material-ui/colors/grey';
+import { withStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import grey from '@material-ui/core/colors/grey';
 
-//import './Controls.css';
+// Local import
 import ImageCircle from '../../ImageCircle';
+import RoomNavigation from './RoomNavigation';
 import myLinqImage from '../../assets/controls.svg';
 
 const styles = theme => ({
