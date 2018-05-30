@@ -33,7 +33,7 @@ class Light extends Component {
 		return (
 			<div>
 				<Typography variant="title" gutterBottom>
-					Lights for {this.props.room}
+					Lights
 				</Typography>
 				
 				<ListItem>

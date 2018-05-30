@@ -40,16 +40,20 @@ const styles = theme => ({
 
 let appliances = [
     { id: 1, value: 'Washer-dryer', icon: 'local_laundry_service', component: <WasherDryer />},
-    { id: 2, value: 'Dishwasher', icon: 'local_drink', component: '' },
-    { id: 3, value: 'Oven', icon: 'room_service', component: '' },
-	{ id: 4, value: 'Refrigerator', icon: 'kitchen', component: '' },
-    { id: 5, value: 'Music System', icon: 'queue_music', component: '' },
-    { id: 6, value: 'TV', icon: 'tv', component: '' },
-    { id: 7, value: 'Personal devices', icon: 'important_devices', component: '' },
-    { id: 8, value: 'Lights', icon: 'lightbulb_outline', component: '' },
-    { id: 9, value: 'Clock', icon: 'access_time', component: '' },
-    { id: 10, value: 'Car', icon: 'directions_car', component: '' },
+    { id: 2, value: 'Dishwasher', icon: 'local_drink', component: <WasherDryer /> },
+    { id: 3, value: 'Oven', icon: 'room_service', component: <WasherDryer /> },
+	{ id: 4, value: 'Refrigerator', icon: 'kitchen', component: <WasherDryer /> },
+    { id: 5, value: 'Music System', icon: 'queue_music', component: <WasherDryer /> },
+    { id: 6, value: 'TV', icon: 'tv', component: <WasherDryer /> },
+    { id: 7, value: 'Personal devices', icon: 'important_devices', component: <WasherDryer /> },
+    { id: 8, value: 'Lights', icon: 'lightbulb_outline', component: <WasherDryer /> },
+    { id: 9, value: 'Clock', icon: 'access_time', component: <WasherDryer /> },
+    { id: 10, value: 'Car', icon: 'directions_car', component: <WasherDryer /> },
 ];
+
+function Transition(props) {
+	return <Grow {...props} />;
+}
 
 class ApplianceNavigation extends Component {
     constructor(props) {
@@ -102,7 +106,7 @@ class ApplianceNavigation extends Component {
 				<Dialog
 					fullScreen={ fullScreen }
 					open={this.state.openDialog}
-					transition={Grow}
+					TransitionComponent={Transition}
 					onClose={this.handleDialogClose}
 					classes={{
 						paperWidthSm: classes.dialogSmall,

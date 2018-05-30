@@ -41,13 +41,17 @@ const styles = theme => ({
 
 let systems = [
     { id: 1, value: 'HVAC', icon: 'toys', component: <HVAC /> },
-    { id: 2, value: 'Water System', icon: 'invert_colors', component: '' },
-    { id: 3, value: 'Battery', icon: 'battery_full', component: '' },
-    { id: 4, value: 'Grid', icon: 'power', component: '' },
-    { id: 5, value: 'Solar Panels', icon: 'view_column', component: '' },
-    { id: 6, value: 'Smart System', icon: 'developer_board', component: '' },
-    { id: 7, value: 'Wi-Fi', icon: 'wifi', component: '' },
+    { id: 2, value: 'Water System', icon: 'invert_colors', component: <HVAC /> },
+    { id: 3, value: 'Battery', icon: 'battery_full', component: <HVAC /> },
+    { id: 4, value: 'Grid', icon: 'power', component: <HVAC /> },
+    { id: 5, value: 'Solar Panels', icon: 'view_column', component: <HVAC /> },
+    { id: 6, value: 'Smart System', icon: 'developer_board', component: <HVAC /> },
+    { id: 7, value: 'Wi-Fi', icon: 'wifi', component: <HVAC /> },
 ];
+
+function Transition(props) {
+	return <Grow {...props} />;
+}
 
 class SystemNavigation extends Component {
     constructor(props) {
@@ -100,7 +104,7 @@ class SystemNavigation extends Component {
 				<Dialog
 					fullScreen={ fullScreen }
 					open={this.state.openDialog}
-					transition={Grow}
+					TransitionComponent={Transition}
 					onClose={this.handleDialogClose}
 					classes={{
 						paperWidthSm: classes.dialogSmall,

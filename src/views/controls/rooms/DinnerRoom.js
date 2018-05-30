@@ -15,7 +15,7 @@ class DinnerRoom extends Component {
         return (
             <div>
 				<List>
-					<Light room={"DinnerRoom"} />
+					<Light />
 					
 					<Typography className={ classes.controlsTitle } type='subheading'>
 						Appliances
