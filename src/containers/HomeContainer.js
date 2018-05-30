@@ -6,6 +6,7 @@ const mapStateToProps = (state) => {
     return {
         accounts: state.accounts,
         advices: state.advices,
+		temperature: state.temperature,
     }
 };
 

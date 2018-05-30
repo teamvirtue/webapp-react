@@ -140,10 +140,10 @@ class Home extends Component {
     };*/
 
     render() {
-        const { classes, theme, advices, accounts } = this.props;
+        const { classes, theme, advices, accounts, temperature } = this.props;
         const { value } = this.state;
 
-        // console.log(accounts);
+        //console.log(temperature);
 
         return (
             <div className={ classes.root }> {/*TODO: reduce number of nameless divs*/}
@@ -327,8 +327,8 @@ class Home extends Component {
 
 							<div className='infoBar'>
 								<div className='infoItem1'>
-									<h1>25°</h1>
-									<p>Shade temperature</p>
+									<h1>{ temperature.outside.celsius }°</h1>
+									<p>{ temperature.outside.description }</p>
 								</div>
 								<div className='infoItem2'>
 									<h1>10</h1>

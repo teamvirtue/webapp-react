@@ -3,8 +3,8 @@ import App from '../App';
 import { updateWeatherData } from '../actions';
 
 const mapDispatchToProps = dispatch => ({
-    dispatch: (temperature) => {
-        dispatch(updateWeatherData(temperature));
+    dispatch: (temperature, temperatureDescription) => {
+        dispatch(updateWeatherData(temperature, temperatureDescription));
     }
 });
 
