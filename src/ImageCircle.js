@@ -9,6 +9,7 @@ const styles = {
 		height: '30vw',
 		top: 50,
 		borderRadius: '50%',
+		// border: '2px solid black',
 		boxShadow: 'inset 0 0 10px 3px rgba(0, 0, 0, 0.25);',
 	},
 	circleLarge: {
@@ -19,6 +20,7 @@ const styles = {
 		top: '50%',
 		margin: '-10vw 0 0 -10vw',
 		borderRadius: '50%',
+        // border: '2px solid black',
 		boxShadow: 'inset 0 0 10px 3px rgba(0, 0, 0, 0.25);',
 	},
 };

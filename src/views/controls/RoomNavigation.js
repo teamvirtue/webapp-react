@@ -28,6 +28,7 @@ const styles = theme => ({
     subNavItemPaper: {
         backgroundColor: grey[200],
 		height: 120,
+		// width: 120,
 		cursor: 'pointer',
 		display: 'table-cell',
 		verticalAlign: 'middle',
@@ -86,14 +87,21 @@ class RoomNavigation extends Component {
 
         return (
 			<div>
-				<div className="row">
+				<div className='row'>
 					<div className={ classes.subNavContainer }>
 						{ rooms.map(data => {
 							return (
-								<div key={ data.id } className={[classes.subNavItem, "col-xs-4"].join(' ')}>
-									<Paper className={classes.subNavItemPaper} elevation={1} onClick={ () => { this.handleClick(data.id);this.handleDialogOpen(); } }>
-										<Icon color="primary" style={{ fontSize: 30 }}>{ data.icon }</Icon>
-										<Typography component="p">
+								<div key={ data.id } className={[ classes.subNavItem, 'col-xs-4'].join(' ') }>
+									<Paper
+                                        className={classes.subNavItemPaper}
+                                        elevation={1}
+                                        onClick={ () => {
+                                            this.handleClick(data.id);
+                                            this.handleDialogOpen();
+                                        } }
+                                    >
+										<Icon color='primary' style={{ fontSize: 30 }}>{ data.icon }</Icon>
+										<Typography component='p'>
 											{ data.value }
 										</Typography>
 									</Paper>
@@ -127,7 +135,7 @@ class RoomNavigation extends Component {
 						}) }
 					</DialogContent>
 					<DialogActions>
-						<Button onClick={this.handleDialogClose} color="secondary">
+						<Button onClick={ this.handleDialogClose } color='secondary'>
 							Close
 						</Button>
 					</DialogActions>

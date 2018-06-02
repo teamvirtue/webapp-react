@@ -62,7 +62,7 @@ class ResponsiveDialog extends Component {
                 <Button
                     style={ classes.button }
                     onClick={ this.handleClickOpen }
-                    variant='raised'
+                    variant='outlined'
                     color='primary'
                 >
                     <Icon style={ classes.buttonIcon }>touch_app</Icon>

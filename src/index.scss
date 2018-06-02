@@ -25,10 +25,12 @@ body {
 
 /* Make selected text gold on a red background */
 ::-moz-selection {
+  color: white;
   background: #f15b27;
 }
 
 ::selection {
+  color: white;
   background: #f15b27;
 }
 
@@ -51,3 +53,93 @@ body {
     margin-left: 200px;
   }
 }
+
+
+
+.statusBar {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+  margin: 50px 0;
+  h1 {
+    margin: 0;
+    line-height: 50px;
+  }
+  h3 {
+    margin: 0;
+  }
+
+  .statusItem {
+    width: 45%;
+
+    @media only screen and (min-width: 1200px) {
+      width: 30%;
+    }
+  }
+}
+
+.infoBar {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+  margin: 75px 0;
+  h1 {
+    margin: 0;
+    line-height: 35px;
+  }
+  p {
+    margin: 10px 0;
+  }
+
+  [class*='infoItem'] {
+    position: relative;
+    width: calc(100% / 3);
+
+    @media only screen and (min-width: 1200px) {
+      width: 30%; //calc(100% / 3)
+    }
+  }
+
+  .infoItem2 {
+    &:before {
+      content: '';
+      position: absolute;
+      top: 15px;
+      bottom: 30px;
+      left: 0;
+      border-left: 1px solid lightgray;
+    }
+    &:after {
+      content: '';
+      position: absolute;
+      top: 15px;
+      bottom: 30px;
+      right: 0;
+      border-left: 1px solid lightgray;
+    }
+  }
+}
+
+
+
+.settingsContainer { // TODO: remove height property
+  height: 1400px;
+  text-align: left;
+}
+
+.pageTitle {
+  line-height: 48px;
+}
+
+.settingsTitle {
+  padding-top: 16px;
+  padding-left: 16px;
+}
+
+.datePicker {
+  padding-left: 16px;
+}
+
+

@@ -11,11 +11,11 @@ import Icon from '@material-ui/core/Icon';
 const styles = theme => ({
 	root: {
 		// backgroundColor: 'red',
-		marginBottom:20,
+		// marginBottom:20,
 	},
     card: {
-        minWidth: 275,
-        maxWidth: 600,
+        /*minWidth: 275,
+        maxWidth: 600,*/
         textAlign: 'left',
     },
     controls: {
@@ -79,7 +79,7 @@ class AdviceCard extends Component {
                         <Button
                             className={ classes.button }
                             onClick={ (event) => this.handleDismissCard(event, id) }
-                            variant='raised'
+                            variant='outlined'
                             color='primary'
                         >
                             <Icon className={ classes.buttonIcon }>{ this.props.buttonIcon }</Icon>

@@ -19,9 +19,9 @@ import Icon from '@material-ui/core/Icon';
 // Local import
 import { UserDialogContainer } from '../../containers/UserDialogContainer';
 // import UserDialog from './setting/UserDialog';
-import './AppSettings.css';
+// import './AppSettings.css';
 import ImageCircle from '../../ImageCircle';
-import settingsImage from '../../assets/settings.svg';
+import settingsImage from '../../assets/settings.png';
 
 // const options = [];
 

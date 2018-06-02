@@ -15,14 +15,13 @@ import { CSSTransitionGroup } from 'react-transition-group';
 import '../../animations.css';
 
 // custom import
-import './Home.css';
+// import './Home.css';
 import { CardContainer } from '../../containers/CardContainer';
-// import AdviceCard from './AdviceCard';
 import SocketCard from './SocketCard';
 import ImageCircle from '../../ImageCircle';
-import myLinqImage from '../../assets/my_linq.svg';
-import linqImage from '../../assets/linq.svg';
-import communityImage from '../../assets/city.svg';
+import myLinqImage from '../../assets/my_linq.jpg';
+import linqImage from '../../assets/linq.jpg';
+import communityImage from '../../assets/city.jpg';
 import earthIcon from '../../assets/earth.svg';
 // import halfEarthIcon from '../../assets/half_earth.svg';
 
@@ -39,28 +38,6 @@ let sockets = [
         // buttonText: 'schedule',
     },
 ];
-
-/*let advices = [ // use fetch in future https://blog.hellojs.org/fetching-api-data-with-react-js-460fe8bbf8f2
-    {   id: '1',
-        title: 'Washer-dryer',
-        message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do ut labore et dolore magna aliqua.',
-        buttonIcon: 'schedule',
-        buttonText: 'schedule',
-    },
-    {   id: '2',
-        title: 'Dishwasher',
-        message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-        buttonIcon: 'done',
-        buttonText: 'Agree',
-    },
-    {   id: '3',
-        title: 'TV',
-        message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-        buttonIcon: 'done',
-        buttonText: 'Agree',
-    },
-];*/
-
 
 const styles = theme => ({
     root: {
@@ -85,12 +62,17 @@ const styles = theme => ({
     },
     earthIcon: {
         width: 50,
-
         margin: 2,
     },
     cardContainer: {
         // minWidth: 275,
-        margin: '25px 15px',
+        minWidth: 275,
+        maxWidth: 600,
+       /* display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',*/
+        margin: '0 auto',
+        // backgroundColor: 'lightblue',
     },
     title: {
         marginBottom: 16,
@@ -231,11 +213,11 @@ class Home extends Component {
                                 {/*<Divider />*/}
 
                                 <CSSTransitionGroup
-                                    transitionName="cardAnimation"
-                                    transitionAppear={true}
-                                    transitionAppearTimeout={500}
-                                    transitionEnterTimeout={350}
-                                    transitionLeaveTimeout={350}
+                                    transitionName='cardAnimation'
+                                    transitionAppear={ true }
+                                    transitionAppearTimeout={ 500 }
+                                    transitionEnterTimeout={ 350 }
+                                    transitionLeaveTimeout={ 350 }
                                 >
                                     { Object.keys(advices.byId).map((id) => {
                                             let card = advices.byId[id];

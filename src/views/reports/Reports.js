@@ -13,9 +13,9 @@ import Tab from '@material-ui/core/Tab';
 import LineChart from './LineChart';
 import BarChart from './BarChart';
 import ImageCircle from '../../ImageCircle';
-import OverviewImage from '../../assets/reports.svg';
-import AppliancesImage from '../../assets/reports.svg';
-import SystemsImage from '../../assets/reports.svg';
+import OverviewImage from '../../assets/reports.png';
+import AppliancesImage from '../../assets/reports.png';
+import SystemsImage from '../../assets/reports.png';
 
 const styles = theme => ({
     appBar: {

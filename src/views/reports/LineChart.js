@@ -30,7 +30,11 @@ const styles = {
     },
     water: {
         color: '#0EA4D8',
-    }
+        '&$checked': {
+            color: '#0EA4D8',
+        },
+    },
+    checked: {},
 };
 
 class LineChart extends Component{
@@ -124,7 +128,8 @@ class LineChart extends Component{
     componentDidMount() { // TODO: replace with API call
         this.timer = setInterval(
             (value) => this.retrieve(this.state.value),
-            3000
+            60000
+            //3000
         );
     };
 
@@ -180,13 +185,22 @@ class LineChart extends Component{
                     row
                 >
                     <FormControlLabel className={ classes.radioButton } value='week' control={
-                        <Radio className={ this.state.type === 'water' ? classes.water : null }/>
+                        <Radio classes={{
+                            root: this.state.type === 'water' && classes.water,
+                            checked: this.state.type === 'water' && classes.checked,
+                        }}/>
                     } label='Week'/>
                     <FormControlLabel className={ classes.radioButton } value='month' control={
-                        <Radio className={ this.state.type === 'water' ? classes.water : null }/>
+                        <Radio classes={{
+                            root: this.state.type === 'water' && classes.water,
+                            checked: this.state.type === 'water' && classes.checked,
+                        }}/>
                     } label='Month'/>
                     <FormControlLabel className={ classes.radioButton } value='year' control={
-                        <Radio className={ this.state.type === 'water' ? classes.water : null }/>
+                        <Radio classes={{
+                            root: this.state.type === 'water' && classes.water,
+                            checked: this.state.type === 'water' && classes.checked,
+                        }}/>
                     } label='Year'/>
                 </RadioGroup>
 

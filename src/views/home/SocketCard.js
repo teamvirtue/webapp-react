@@ -14,9 +14,10 @@ import DialogResponsive from './DialogResponsive';
 
 const styles = { //theme
     card: {
-        minWidth: 275,
-        maxWidth: 600,
-        margin: '15px auto',
+       /* minWidth: 275,
+        maxWidth: 600,*/
+        marginBottom: 15,
+        // margin: '15px auto',
         textAlign: 'left',
     },
     media: {

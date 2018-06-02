@@ -107,7 +107,8 @@ class BarChart extends Component{
     componentDidMount() { // TODO: replace with API call
         this.timer = setInterval(
             (value) => this.retrieve(this.state.value),
-            3000
+            60000
+            //3000
         );
     };
 

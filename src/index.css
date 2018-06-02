@@ -18,11 +18,13 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: #808080; }
 
-/* Change selected text background */
+/* Make selected text gold on a red background */
 ::-moz-selection {
+  color: white;
   background: #f15b27; }
 
 ::selection {
+  color: white;
   background: #f15b27; }
 
 .App {
@@ -39,3 +41,66 @@ body {
 @media only screen and (min-width: 1140px) {
   .content {
     margin-left: 200px; } }
+
+.statusBar {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+  margin: 50px 0; }
+  .statusBar h1 {
+    margin: 0;
+    line-height: 50px; }
+  .statusBar h3 {
+    margin: 0; }
+  .statusBar .statusItem {
+    width: 45%; }
+    @media only screen and (min-width: 1200px) {
+      .statusBar .statusItem {
+        width: 30%; } }
+
+.infoBar {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+  margin: 75px 0; }
+  .infoBar h1 {
+    margin: 0;
+    line-height: 35px; }
+  .infoBar p {
+    margin: 10px 0; }
+  .infoBar [class*='infoItem'] {
+    position: relative;
+    width: calc(100% / 3); }
+    @media only screen and (min-width: 1200px) {
+      .infoBar [class*='infoItem'] {
+        width: 30%; } }
+  .infoBar .infoItem2:before {
+    content: '';
+    position: absolute;
+    top: 15px;
+    bottom: 30px;
+    left: 0;
+    border-left: 1px solid lightgray; }
+  .infoBar .infoItem2:after {
+    content: '';
+    position: absolute;
+    top: 15px;
+    bottom: 30px;
+    right: 0;
+    border-left: 1px solid lightgray; }
+
+.settingsContainer {
+  height: 1400px;
+  text-align: left; }
+
+.pageTitle {
+  line-height: 48px; }
+
+.settingsTitle {
+  padding-top: 16px;
+  padding-left: 16px; }
+
+.datePicker {
+  padding-left: 16px; }

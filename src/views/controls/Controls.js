@@ -7,7 +7,7 @@ import grey from '@material-ui/core/colors/grey';
 // Local import
 import ImageCircle from '../../ImageCircle';
 import RoomNavigation from './RoomNavigation';
-import myLinqImage from '../../assets/controls.svg';
+import controlsImage from '../../assets/controls.jpg';
 
 const styles = theme => ({
     root: {
@@ -56,7 +56,7 @@ class Controls extends Component {
         return (
             <div className={ classes.root }>
 				<div className='col-md-5'>
-					<ImageCircle imageSource={ myLinqImage }/>
+					<ImageCircle imageSource={ controlsImage }/>
 				</div>
 
 				<div className='col-md-7'>
