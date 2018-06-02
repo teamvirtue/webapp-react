@@ -44,7 +44,7 @@ class UserDialog extends Component {
     }
 	
     handleSubmit = (event, id) => {
-        console.log(this.newAccountName.value);
+        // console.log(this.newAccountName.value);
 		event.preventDefault();
         this.setState({ currentAccountName: this.newAccountName.value });
         this.props.dispatch(this.newAccountName.value, id);
@@ -67,7 +67,7 @@ class UserDialog extends Component {
         if (index > -1) {
             family.splice(index, 1);
         }
-		console.log(family, accounts);
+		// console.log(family, accounts);
 
         return (
             <div> {/*TODO: reduce unnamed divs*/}

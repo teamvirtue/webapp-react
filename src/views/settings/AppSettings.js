@@ -11,7 +11,8 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
 import Slider from 'rc-slider';
 import Switch from '@material-ui/core/Switch';
-import Menu, { MenuItem } from '@material-ui/core/Menu';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 import { TimePicker, DatePicker } from 'material-ui-pickers';
 import Icon from '@material-ui/core/Icon';
 

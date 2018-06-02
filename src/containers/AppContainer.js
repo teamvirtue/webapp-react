@@ -9,6 +9,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export const AppContainer = connect(
-    () => {},
+    null,
+    // () => {},
     mapDispatchToProps,
 )(App);

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import MomentUtils from 'material-ui-pickers/utils/moment-utils';
+import MuiPickersUtilsProvider from 'material-ui-pickers/utils/MuiPickersUtilsProvider';
 import { defaults } from 'react-chartjs-2';
 
 // Local import
@@ -76,8 +78,8 @@ class App extends Component {
 			.then(res => res.json())
 			.then(
 				(result) => {
-					var currentTemperature = Math.ceil(result.main.temp);
-					var weatherDescription = result.weather[0].description;
+					let currentTemperature = Math.ceil(result.main.temp);
+					let weatherDescription = result.weather[0].description;
 					weatherDescription = weatherDescription.charAt(0).toUpperCase() + weatherDescription.slice(1);
 					
 					this.props.dispatch(currentTemperature, weatherDescription);
@@ -90,14 +92,14 @@ class App extends Component {
 
 
     render() {
-		const { temperature } = this.props;
-
         return (
             <div className='App'>
 				<div className='container-fluid'>
 					<div className='row'>
 						<MuiThemeProvider theme={ theme }>
-							<MainNavigation />
+                            <MuiPickersUtilsProvider utils={ MomentUtils }>
+							    <MainNavigation />
+                            </MuiPickersUtilsProvider>
 						</MuiThemeProvider>
 					</div>
 				</div>

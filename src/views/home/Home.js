@@ -99,14 +99,14 @@ const styles = theme => ({
     iconSmall: {
         fontSize: 25,
     },
-	notification: {
-		outline: '2px dashed #f15b27',
-		backgroundColor: '#f15b27',
-		padding:10,
-		maxWidth: 400,
-		margin: '0 auto',
-		color: 'white',
-	},
+    notification: {
+        outline: '2px dashed #f15b27',
+        backgroundColor: '#f15b27',
+        padding:10,
+        maxWidth: 400,
+        margin: '0 auto',
+        color: 'white',
+    },
 });
 
 function TabContainer({ children, dir }) {
@@ -133,7 +133,7 @@ class Home extends Component {
     handleChangeIndex = (index) => {
         this.setState({ value: index });
     };
-	
+
     /*dismissCard = (id) => {
 		//alert(advices);
         //delete advices[0];
@@ -163,58 +163,58 @@ class Home extends Component {
                     </Tabs>
                 </AppBar>
 
-				<div className='col-md-5'>
-					{ value === 0 && <ImageCircle imageSource={ myLinqImage }/> }
-					{ value === 1 && <ImageCircle imageSource={ linqImage }/> }
-					{ value === 2 && <ImageCircle imageSource={ communityImage }/> }
-				</div>
+                <div className='col-md-5'>
+                    { value === 0 && <ImageCircle imageSource={ myLinqImage }/> }
+                    { value === 1 && <ImageCircle imageSource={ linqImage }/> }
+                    { value === 2 && <ImageCircle imageSource={ communityImage }/> }
+                </div>
 
-				<div className='col-md-7'>
-					{/*TODO: check https://react-swipeable-views.com/demos/demos/ & https://react-swipeable-views.com/demos/demos/*/}
-					<SwipeableViews
-						className={ 'swipeableViews' }
-						axis={ theme.direction === 'rtl' ? 'x-reverse' : 'x' }
-						index={ value }
-						onChangeIndex={ this.handleChangeIndex }
-						animateHeight={ true }
-					>
-						<TabContainer dir={ theme.direction }>
-							<h1>Good morning { accounts.byId[accounts.currentUser].name }</h1>
-							<div className = {classes.notification}>This is an alpha version of the VIRTUe LINQ app</div>
+                <div className='col-md-7'>
+                    {/*TODO: check https://react-swipeable-views.com/demos/demos/ & https://react-swipeable-views.com/demos/demos/*/}
+                    <SwipeableViews
+                        className={ 'swipeableViews' }
+                        axis={ theme.direction === 'rtl' ? 'x-reverse' : 'x' }
+                        index={ value }
+                        onChangeIndex={ this.handleChangeIndex }
+                        animateHeight={ true }
+                    >
+                        <TabContainer dir={ theme.direction }>
+                            <h1>Good morning { accounts.byId[accounts.currentUser].name }</h1>
+                            <div className = {classes.notification}>This is an alpha version of the VIRTUe LINQ app</div>
 
-							<div className='statusBar'>
-								<div className='statusItem'>
-									{ worlds.map(data => {
-										return (
-											<img key={ data.id } className={ classes.earthIcon } src={ earthIcon } alt='icon'/>
-										);
-									})}
-									{/*{ data.half && <img className={ classes.earthIcon } src={ halfEarthIcon } alt='icon'/> }*/}
+                            <div className='statusBar'>
+                                <div className='statusItem'>
+                                    { worlds.map(data => {
+                                        return (
+                                            <img key={ data.id } className={ classes.earthIcon } src={ earthIcon } alt='icon'/>
+                                        );
+                                    })}
+                                    {/*{ data.half && <img className={ classes.earthIcon } src={ halfEarthIcon } alt='icon'/> }*/}
 
-									<Typography type='p'>
-										Your footprint [today]
-									</Typography>
-								</div>
-							</div>
+                                    <Typography type='p'>
+                                        Your footprint [today]
+                                    </Typography>
+                                </div>
+                            </div>
 
-							<div className='infoBar'>
-								<div className='infoItem1'>
-									<h1>16°</h1>
-									<p>Indoors</p>
-								</div>
-								<div className='infoItem2'>
-									<Icon className={ classes.checkIcon }>swap_vert</Icon>
-									<p>Generating energy</p>
-								</div>
-								<div className='infoItem3'>
-									<Icon className={ classes.checkIcon }>check_circle</Icon>
-									<p>System</p>
-								</div>
-							</div>
+                            <div className='infoBar'>
+                                <div className='infoItem1'>
+                                    <h1>16°</h1>
+                                    <p>Indoors</p>
+                                </div>
+                                <div className='infoItem2'>
+                                    <Icon className={ classes.checkIcon }>swap_vert</Icon>
+                                    <p>Generating energy</p>
+                                </div>
+                                <div className='infoItem3'>
+                                    <Icon className={ classes.checkIcon }>check_circle</Icon>
+                                    <p>System</p>
+                                </div>
+                            </div>
 
-							<MediaQuery query='(max-width: 1200px)'>
-								<Divider />
-							</MediaQuery>
+                            <MediaQuery query='(max-width: 1200px)'>
+                                <Divider />
+                            </MediaQuery>
 
                             <div className={ classes.cardContainer }>
                                 { sockets.map(data => {
@@ -228,33 +228,33 @@ class Home extends Component {
                                     );
                                 })}
 
-								{/*<Divider />*/}
+                                {/*<Divider />*/}
 
-								<CSSTransitionGroup 
-									transitionName="cardAnimation" 
-									transitionAppear={true} 
-									transitionAppearTimeout={500} 
-									transitionEnterTimeout={350} 
-									transitionLeaveTimeout={350}
-								>
-									{ Object.keys(advices.byId).map((id) => {
-										let card = advices.byId[id];
-										// let lastMessage = messageArray[messageArray.length - 1];
+                                <CSSTransitionGroup
+                                    transitionName="cardAnimation"
+                                    transitionAppear={true}
+                                    transitionAppearTimeout={500}
+                                    transitionEnterTimeout={350}
+                                    transitionLeaveTimeout={350}
+                                >
+                                    { Object.keys(advices.byId).map((id) => {
+                                            let card = advices.byId[id];
+                                            // let lastMessage = messageArray[messageArray.length - 1];
 
-										return card.visible ?
-											<CardContainer
-												key={ id }
-												id={ id }
-												title={ card.title }
-												buttonIcon={ card.buttonIcon }
-												buttonText={ card.buttonText }
-												// onDismissCard={this.dismissCard}
-											>
-												{ card.message }
-											</CardContainer> : null
-										}
-									) }
-								</CSSTransitionGroup>
+                                            return card.visible ?
+                                                <CardContainer
+                                                    key={ id }
+                                                    id={ id }
+                                                    title={ card.title }
+                                                    buttonIcon={ card.buttonIcon }
+                                                    buttonText={ card.buttonText }
+                                                    // onDismissCard={this.dismissCard}
+                                                >
+                                                    { card.message }
+                                                </CardContainer> : null
+                                        }
+                                    ) }
+                                </CSSTransitionGroup>
 
                                 {/*{ advices.map(data => {
                                     return (
@@ -271,7 +271,7 @@ class Home extends Component {
                                     );
                                 })}*/}
 
-								{/*{ advices.map(data => {
+                                {/*{ advices.map(data => {
 									return (
 										<AdviceCard
 											key={ data.id }
@@ -285,63 +285,63 @@ class Home extends Component {
 										</AdviceCard>
 									);
 								})}*/}
-							</div>
-						</TabContainer>
+                            </div>
+                        </TabContainer>
 
-						<TabContainer dir={ theme.direction }>
-							<h1>LINQ Activity</h1>
+                        <TabContainer dir={ theme.direction }>
+                            <h1>LINQ Activity</h1>
 
-							<div className='statusBar'>
-								<div className='statusItem'>
-									<h1>30%</h1>
-									<Typography type='subheading'>
-										Greener than average
-									</Typography>
-								</div>
-								<div className='statusItem'>
-									<h1>3</h1>
-									<Typography type='subheading'>
-										Spaces available
-									</Typography>
-								</div>
-							</div>
+                            <div className='statusBar'>
+                                <div className='statusItem'>
+                                    <h1>30%</h1>
+                                    <Typography type='subheading'>
+                                        Greener than average
+                                    </Typography>
+                                </div>
+                                <div className='statusItem'>
+                                    <h1>3</h1>
+                                    <Typography type='subheading'>
+                                        Spaces available
+                                    </Typography>
+                                </div>
+                            </div>
 
-							<div className='infoBar'>
-								<div className='infoItem1'>
-									<h1>18°</h1>
-									<p>Indoors</p>
-								</div>
-								<div className='infoItem2'>
-									<Icon className={ classes.checkIcon }>swap_vert</Icon>
-									<p>Generating & using energy</p>
-								</div>
-								<div className='infoItem3'>
-									<h1>1</h1>
-									<p>Planned activity</p>
-								</div>
-							</div>
-						</TabContainer>
+                            <div className='infoBar'>
+                                <div className='infoItem1'>
+                                    <h1>18°</h1>
+                                    <p>Indoors</p>
+                                </div>
+                                <div className='infoItem2'>
+                                    <Icon className={ classes.checkIcon }>swap_vert</Icon>
+                                    <p>Generating & using energy</p>
+                                </div>
+                                <div className='infoItem3'>
+                                    <h1>1</h1>
+                                    <p>Planned activity</p>
+                                </div>
+                            </div>
+                        </TabContainer>
 
-						<TabContainer dir={ theme.direction }>
-							<h1>City Activity</h1>
+                        <TabContainer dir={ theme.direction }>
+                            <h1>City Activity</h1>
 
-							<div className='infoBar'>
-								<div className='infoItem1'>
-									<h1>{ temperature.outside.celsius }°</h1>
-									<p>{ temperature.outside.description }</p>
-								</div>
-								<div className='infoItem2'>
-									<h1>10</h1>
-									<p>Spaces free in other LINQs</p>
-								</div>
-								<div className='infoItem3'>
-									<h1>5</h1>
-									<p>Events near you</p>
-								</div>
-							</div>
-						</TabContainer>
-					</SwipeableViews>
-				</div>
+                            <div className='infoBar'>
+                                <div className='infoItem1'>
+                                    <h1>{ temperature.outside.celsius }°</h1>
+                                    <p>{ temperature.outside.description }</p>
+                                </div>
+                                <div className='infoItem2'>
+                                    <h1>10</h1>
+                                    <p>Spaces free in other LINQs</p>
+                                </div>
+                                <div className='infoItem3'>
+                                    <h1>5</h1>
+                                    <p>Events near you</p>
+                                </div>
+                            </div>
+                        </TabContainer>
+                    </SwipeableViews>
+                </div>
             </div>
         );
     }
