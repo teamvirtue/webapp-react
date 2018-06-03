@@ -8,7 +8,8 @@ const styles = {
 		display: 'inline-block',
 		width: '30vw',
 		height: '30vw',
-		top: 50,
+        marginTop: 20,
+		// top: 50,
 		borderRadius: '50%',
 		// border: '2px solid black',
 		boxShadow: 'inset 0 0 10px 3px rgba(0, 0, 0, 0.25);',
@@ -18,8 +19,8 @@ const styles = {
 	circleLarge: {
 		position: 'fixed',
 		display: 'inline-block',
-		width: '20vw',
-		height: '20vw',
+		width: '22vw',
+		height: '22vw',
 		top: '50%',
 		margin: '-10vw 0 0 -10vw',
 		borderRadius: '50%',
@@ -36,8 +37,8 @@ class ImageCircle extends Component {
     }*/
 
     render() {
-		const { classes } = this.props;
-		
+		const { classes, gutterTop } = this.props;
+
         return (
 			<div>
 				{ /* Desktop */ }
@@ -47,7 +48,7 @@ class ImageCircle extends Component {
 				
 				{ /* Mobile */ }
 				<div className='hidden-lg hidden-md'>
-					<img className={ classes.circleSmall } src={ this.props.imageSource } alt='circle'/>
+					<img className={ classes.circleSmall } style={ gutterTop && { marginTop: 48 + 20  }} src={ this.props.imageSource } alt='circle'/>
 				</div>
 			</div>
         );

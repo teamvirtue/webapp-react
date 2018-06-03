@@ -27,13 +27,13 @@ import earthIcon from '../../assets/earth.svg';
 
 let worlds = [
     { id: '1' },
-    { id: '2' },
+    // { id: '2' },
 ];
 
 let sockets = [
     {   id: '1',
         title: 'Appliance Connected',
-        message: 'A new applicance is connected to the socket. Please specify what appliance this is.',
+        message: 'A new applicance is connected to a socket in the kitchen. Please specify what appliance this is.',
         // buttonIcon: 'schedule',
         // buttonText: 'schedule',
     },
@@ -174,7 +174,7 @@ class Home extends Component {
                                     {/*{ data.half && <img className={ classes.earthIcon } src={ halfEarthIcon } alt='icon'/> }*/}
 
                                     <Typography type='p'>
-                                        Your footprint [today]
+                                        Your footprint today
                                     </Typography>
                                 </div>
                             </div>
@@ -194,9 +194,9 @@ class Home extends Component {
                                 </div>
                             </div>
 
-                            <MediaQuery query='(max-width: 1200px)'>
+                            {/*<MediaQuery query='(max-width: 1200px)'>
                                 <Divider />
-                            </MediaQuery>
+                            </MediaQuery>*/}
 
                             <div className={ classes.cardContainer }>
                                 { sockets.map(data => {

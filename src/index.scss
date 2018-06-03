@@ -84,7 +84,8 @@ body {
   flex-direction: row;
   justify-content: center;
   width: 100%;
-  margin: 75px 0;
+  max-width: 820px;
+  margin: 75px auto;
   h1 {
     margin: 0;
     line-height: 35px;

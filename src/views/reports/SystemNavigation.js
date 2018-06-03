@@ -25,8 +25,8 @@ const styles = theme => ({
 		display: 'table',
     },
     subNavItemPaper: {
-        backgroundColor: grey[200],
-		height: 120,
+        backgroundColor: grey[100],
+		height: 140,
 		cursor: 'pointer',
 		display: 'table-cell',
 		verticalAlign: 'middle',

@@ -43,6 +43,11 @@ const styles = theme => ({
     root: {
         // backgroundColor: theme.palette.primary.main,
     },
+    pageTitle: {
+        paddingTop: 48,
+        paddingBottom: 16,
+        textAlign: 'center',
+    },
 });
 
 class Picker extends PureComponent {
@@ -65,10 +70,10 @@ class Picker extends PureComponent {
                 <TimePicker
                     keyboard
                     //label='Masked timepicker'
-                    mask={[/\d/, /\d/, ':', /\d/, /\d/, ' ', /a|p/i, 'M']}
+                    mask={ [/\d/, /\d/, ':', /\d/, /\d/, ' ', /a|p/i, 'M'] }
                     placeholder={ this.props.placeholder }
                     value={ selectedDate }
-                    onChange={this.handleDateChange}
+                    onChange={ this.handleDateChange }
                 />
             </div>
         );
@@ -145,7 +150,7 @@ class Settings extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            selectedDate: new Date('October 13, 2014 11:13:00'),
+            selectedDate: new Date('October 12, 1986 11:13:00'),
             selectedTime: new Date(),
             //selectedDateTime: new Date(),
 
@@ -177,16 +182,28 @@ class Settings extends Component {
         return (
             <div className={classes.root}>
 				<div className='col-md-5'>
-					<ImageCircle imageSource={ settingsImage }/>
+                    <div className='hidden-lg'>
+                        <ImageCircle gutterTop imageSource={ settingsImage }/>
+                    </div>
+
+                    <div className='hidden-md hidden-sm hidden-xs'>
+                        <ImageCircle imageSource={ settingsImage }/>
+                    </div>
 				</div>
 
-                <div className='col-md-7'>
+                <div className='col-md-6'>
                     {/*<div className='settingsContainer'>
                         <SelectItem />
                     </div>*/}
 
                     <div className='settingsContainer'> {/*TODO: remove settings/reportsContainer CSS?*/}
-                        <h1 style={{ textAlign: 'center' }}>{ currentUser }</h1>
+                        <div className='hidden-lg'>
+                            <h1 style={{ textAlign: 'center' }}>{ currentUser }</h1>
+                        </div>
+
+                        <div className='hidden-md hidden-sm hidden-xs'>
+                            <h1 className={ classes.pageTitle }>{ currentUser }</h1>
+                        </div>
 
                         <Typography className='settingsTitle' type='subheading'>
                             Profile
@@ -281,7 +298,7 @@ class Settings extends Component {
 						
                         <Divider />
 
-                        <Typography className='settingsTitle' type='subheading'>
+                        {/*<Typography className='settingsTitle' type='subheading'>
                             Clock
                         </Typography>
 
@@ -317,7 +334,7 @@ class Settings extends Component {
                             </ListItem>
 						</List>
 
-                        <Divider />
+                        <Divider />*/}
 
                         <Typography className='settingsTitle' type='subheading'>
                             Notifications

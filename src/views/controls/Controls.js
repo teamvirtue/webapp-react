@@ -13,12 +13,15 @@ const styles = theme => ({
     root: {
         //textAlign: 'left',
     },
+    imageCircle: {
+        marginTop: 48,
+    },
     pageTitle: {
         //textAlign: 'center',
-        paddingTop: 15,
+        paddingTop: 48,
         paddingBottom: 16,
     },
-    controlsTitle: {
+    /*controlsTitle: {
         paddingTop: 16,
         paddingLeft: 16,
     },
@@ -32,12 +35,12 @@ const styles = theme => ({
 		marginLeft: 5,
 		marginRight: 5,
 		minWidth: 120,
-	},
+	},*/
 });
 
 function TabContainer({ children, dir }) {
 	return (
-		<Typography component="div" dir={dir} style={{ padding: 8 * 3 }}>
+		<Typography component='div' dir={dir} style={{ padding: 8 * 3 }}>
 			{children}
 		</Typography>
 	);
@@ -56,11 +59,23 @@ class Controls extends Component {
         return (
             <div className={ classes.root }>
 				<div className='col-md-5'>
-					<ImageCircle imageSource={ controlsImage }/>
+                    <div className='hidden-lg'>
+                        <ImageCircle gutterTop imageSource={ controlsImage }/>
+                    </div>
+
+                    <div className='hidden-md hidden-sm hidden-xs'>
+                        <ImageCircle imageSource={ controlsImage }/>
+                    </div>
 				</div>
 
-				<div className='col-md-7'>
-					<h1>Control your room</h1>
+				<div className='col-md-6'>
+                    <div className='hidden-lg'>
+						<h1>Control your room</h1>
+					</div>
+
+                    <div className='hidden-md hidden-sm hidden-xs'>
+                        <h1 className={ classes.pageTitle }>Control your room</h1>
+                    </div>
 					
 					<RoomNavigation />
 				</div>

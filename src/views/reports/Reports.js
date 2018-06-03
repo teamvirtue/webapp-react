@@ -110,7 +110,7 @@ class Reports extends Component {
 					{ value === 2 && <ImageCircle imageSource={ SystemsImage }/> }
 				</div>
 
-                <div className='col-md-7'>
+                <div className='col-md-6'>
                     <SwipeableViews
                         className={ 'swipeableViews' }
                         axis={ theme.direction === 'rtl' ? 'x-reverse' : 'x' }
@@ -129,10 +129,26 @@ class Reports extends Component {
                         </TabContainer>
 
                         <TabContainer dir={ theme.direction }>
+                            <div className='hidden-lg'>
+                                <h1>Check appliance status</h1>
+                            </div>
+
+                            <div className='hidden-md hidden-sm hidden-xs'>
+                                <h1 className={ classes.pageTitle }>Check appliance status</h1>
+                            </div>
+
 							<ApplianceNavigation />
                         </TabContainer>
 
                         <TabContainer dir={ theme.direction }>
+                            <div className='hidden-lg'>
+                                <h1>Check system status</h1>
+                            </div>
+
+                            <div className='hidden-md hidden-sm hidden-xs'>
+                                <h1 className={ classes.pageTitle }>Check system status</h1>
+                            </div>
+
                             <SystemNavigation />
                         </TabContainer>
                     </SwipeableViews>

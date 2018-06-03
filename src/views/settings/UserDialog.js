@@ -95,7 +95,7 @@ class UserDialog extends Component {
 									<ListItemAvatar>
 										<Avatar 
 										  alt={ this.state.currentAccountName }
-										  // src={ accountPicture1 }
+										  src={ accounts.byId[accounts.currentUser].imgName }
 										  className={ classes.avatar }
 										/>
 									</ListItemAvatar>
@@ -104,7 +104,7 @@ class UserDialog extends Component {
 											defaultValue={ this.state.currentAccountName }
 											margin='dense'
 											id='newAccountName'
-											label='Your name'
+											label='You'
 											type='text'
 											inputRef={ (element) => { this.newAccountName = element }}
 											fullWidth
@@ -139,7 +139,7 @@ class UserDialog extends Component {
                                             <Icon>add</Icon>
                                         </Avatar>
                                     </ListItemAvatar>
-                                    <ListItemText primary='Add account' onClick={()=>{ alert('Not supported yet'); }} />
+                                    <ListItemText primary='Add account' />
                                 </ListItem>
 								{/*{ accountNames.map(data => (
 									<ListItem button key={ data.value }>

@@ -78,25 +78,27 @@ class ResponsiveDialog extends Component {
                     <DialogTitle id='responsive-dialog-title'>{ 'Choose from list of appliances' }</DialogTitle>
                     <DialogContent>
                         <DialogContentText>
-                            Did you plug in one of these devices?
+                            Did you plug in one of these devices in the kitchen?
                         </DialogContentText>
 
                         <FormControl component='fieldset' required className={ classes.formControl }>
                             {/*<FormLabel component='legend'>Devices</FormLabel>*/}
                             <RadioGroup
-                                aria-label='gender'
-                                name='gender1'
+                                aria-label='appliances'
+                                name='appliances1'
                                 className={ classes.group }
                                 value={ this.state.value }
                                 onChange={ this.handleChange }
                             >
                                 {/*TODO: implement data dynamically*/}
-                                <FormControlLabel value='laptop' control={ <Radio /> } label='Laptop' />
-                                <FormControlLabel value='phone' control={ <Radio /> } label='Phone' />
+                                <FormControlLabel value='blender' control={ <Radio /> } label='Blender' />
+                                <FormControlLabel value='coffee machine' control={ <Radio /> } label='Coffee machine' />
+                                <FormControlLabel value='toaster' control={ <Radio /> } label='Toaster' />
+                                <FormControlLabel value='cooker' control={ <Radio /> } label='Cooker' />
                                 <FormControlLabel value='other' control={ <Radio /> } label='Other' />
                             </RadioGroup>
 
-                            <FormHelperText>Lorem ipsum</FormHelperText>
+                            {/*<FormHelperText>Lorem ipsum</FormHelperText>*/}
                         </FormControl>
                     </DialogContent>
                     <DialogActions>
