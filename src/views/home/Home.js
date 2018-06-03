@@ -33,7 +33,7 @@ let worlds = [
 let sockets = [
     {   id: '1',
         title: 'Appliance Connected',
-        message: 'Lorem ipsum dolor sit amet.',
+        message: 'A new applicance is connected to the socket. Please specify what appliance this is.',
         // buttonIcon: 'schedule',
         // buttonText: 'schedule',
     },

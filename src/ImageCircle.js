@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
+import grey from '@material-ui/core/colors/grey';
 
 const styles = {
 	circleSmall: {
@@ -11,6 +12,8 @@ const styles = {
 		borderRadius: '50%',
 		// border: '2px solid black',
 		boxShadow: 'inset 0 0 10px 3px rgba(0, 0, 0, 0.25);',
+		border: '5px solid',
+		borderColor: grey[100],
 	},
 	circleLarge: {
 		position: 'fixed',
@@ -22,6 +25,8 @@ const styles = {
 		borderRadius: '50%',
         // border: '2px solid black',
 		boxShadow: 'inset 0 0 10px 3px rgba(0, 0, 0, 0.25);',
+		border: '5px solid',
+		borderColor: grey[100],
 	},
 };
 

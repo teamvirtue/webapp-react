@@ -95,6 +95,7 @@ class RoomNavigation extends Component {
 									<Paper
                                         className={classes.subNavItemPaper}
                                         elevation={1}
+										square={true}
                                         onClick={ () => {
                                             this.handleClick(data.id);
                                             this.handleDialogOpen();
