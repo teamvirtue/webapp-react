@@ -5,11 +5,11 @@ import RadioGroup  from '@material-ui/core/RadioGroup';
 import FormControlLabel  from '@material-ui/core/FormControlLabel';
 import { Line } from 'react-chartjs-2';
 
-let dataWeek = [10, 18, -20, 16, 105, 56,];
-let dataMonths = [100, 181, -200, 106, 105, 95, 56, 604, 150, 234, 11,];
-let dataYears = [1000, 1810, -2000, 1060,];
+let dataWeek = [10, 18, 20, 16, 105, 56,];
+let dataMonths = [100, 181, 200, 106, 105, 95, 56, 604, 150, 234, 11,];
+let dataYears = [1000, 1810, 2000, 1060,];
 
-let initialData = [10, 18, -20, 16, 105, 56, 78]; // TODO: find way to insert initial array more efficient
+let initialData = [10, 18, 20, 16, 105, 56, 78]; // TODO: find way to insert initial array more efficient
 
 const WEEK = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 // const WEEK = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
