@@ -74,8 +74,7 @@ class App extends Component {
 		 */
 		
 		// Current Weather
-		fetch('https://crossorigin.me/api.openweathermap.org/data/2.5/weather?id=2756252&APPID=1473962c711c59e516b01eb4065ce872&units=metric')
-		// fetch('http://api.openweathermap.org/data/2.5/weather?id=2756252&APPID=1473962c711c59e516b01eb4065ce872&units=metric')
+		fetch('https://api.openweathermap.org/data/2.5/weather?id=2756252&APPID=1473962c711c59e516b01eb4065ce872&units=metric')
 			.then(res => res.json())
 			.then(
 				(result) => {
