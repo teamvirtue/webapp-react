@@ -128,7 +128,7 @@ class LineChart extends Component{
     componentDidMount() { // TODO: replace with API call
         this.timer = setInterval(
             (value) => this.retrieve(this.state.value),
-            60000
+            30000
             //3000
         );
     };

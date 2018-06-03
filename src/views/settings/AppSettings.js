@@ -424,7 +424,7 @@ class Settings extends Component {
                                     <Icon>exit_to_app</Icon>
                                 </ListItemIcon>
 
-                                <ListItemText primary='Sign out' secondary='Signed in as Jane Doe. Apartment building 10AV LINQ Dubai' />
+                                <ListItemText primary='Sign out' secondary='Signed in as Jane Doe. Apartment building 70 LINQ Eindhoven' />
                             </ListItem>
                         </List>
 

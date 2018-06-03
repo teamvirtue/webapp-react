@@ -8,13 +8,14 @@ import 'chartjs-plugin-datalabels';
 
 // const Chart = require('chart.js');
 
-let dataWeek = [15, 45, 80, 81, 65, 59, 40, 81, 90, 13,];
-let dataMonths = [45, 45, 80, 81, 65, 59, 40, 81, 90, 13,];
-let dataYears = [50, 45, 80, 81, 65, 59, 40, 81, 90, 13,];
+let dataWeek = [81, 80, 79, 65, 59, 45, 40, 33,];
+let dataMonths = [150, 145, 123, 135, 111, 107, 97, 90,];
+let dataYears = [330, 340, 325, 321, 318, 311, 301, 290,];
 
-let initialData = [10, 18, -20, 16, 105, 56, 78, 133, 334, 20]; // TODO: find way to insert initial array more efficient
+let initialData = [81, 80, 79, 65, 59, 45, 40, 20, 15,]; // TODO: find way to insert initial array more efficient
 
-const labels = ['Washer dryer', 'Dishwasher', 'Oven', 'Fridge', 'Music system', 'TV', 'Laptop', 'Lights', 'Clock', 'Car'];
+const labels = ['Washer dryer', 'Dishwasher', 'Fridge', 'Lights', 'Oven', 'Car', 'Media system', 'Laptop'];
+// const labels = ['Washer dryer', 'Dishwasher', 'Oven', 'Fridge', 'Music system', 'TV', 'Laptop', 'Lights', 'Clock', 'Car'];
 
 const styles = {
     root: {
@@ -107,7 +108,7 @@ class BarChart extends Component{
     componentDidMount() { // TODO: replace with API call
         this.timer = setInterval(
             (value) => this.retrieve(this.state.value),
-            60000
+            30000
             //3000
         );
     };
