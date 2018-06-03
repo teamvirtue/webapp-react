@@ -7,9 +7,9 @@ import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
+// import Divider from '@material-ui/core/Divider';
 import Icon from '@material-ui/core/Icon';
-import MediaQuery from 'react-responsive';
+// import MediaQuery from 'react-responsive';
 
 import { CSSTransitionGroup } from 'react-transition-group';
 import '../../animations.css';

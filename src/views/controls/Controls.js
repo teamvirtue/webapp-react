@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import grey from '@material-ui/core/colors/grey';
+// import grey from '@material-ui/core/colors/grey';
 
 // Local import
 import ImageCircle from '../../ImageCircle';
