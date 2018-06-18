@@ -29,7 +29,7 @@ const styles = {
         margin: 0,
     },
     water: {
-        color: '#0EA4D8',
+        // color: '#0EA4D8',
         '&$checked': {
             color: '#0EA4D8',
         },
