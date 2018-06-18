@@ -10,8 +10,8 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-    dispatch: (temperature, temperatureDescription) => {
-        dispatch(dismissCard(temperature, temperatureDescription));
+    dispatch: (id) => {
+        dispatch(dismissCard(id));
     }
 });
 

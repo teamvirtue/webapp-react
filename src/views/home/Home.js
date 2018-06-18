@@ -122,7 +122,7 @@ class Home extends Component {
     };*/
 
     render() {
-        const { classes, theme, advices, accounts, temperature } = this.props;
+        const { classes, theme, advices, accounts, temperature, articles } = this.props;
         const { value } = this.state;
 
         //console.log(temperature);
@@ -321,6 +321,10 @@ class Home extends Component {
                                     <p>Events near you</p>
                                 </div>
                             </div>
+							
+							News: 
+							Powered by News API
+							<h1>{ articles }</h1>
                         </TabContainer>
                     </SwipeableViews>
                 </div>

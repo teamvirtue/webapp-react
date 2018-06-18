@@ -74,7 +74,9 @@ class App extends Component {
 		 */
 		
 		// Current Weather
-		fetch('https://api.openweathermap.org/data/2.5/weather?id=2756252&APPID=1473962c711c59e516b01eb4065ce872&units=metric')
+		var weatherURL = 'https://api.openweathermap.org/data/2.5/weather?id=2756252&APPID=1473962c711c59e516b01eb4065ce872&units=metric';
+		weatherURL = '';//temporarily disable for dev
+		fetch(weatherURL)
 			.then(res => res.json())
 			.then(
 				(result) => {
@@ -86,6 +88,24 @@ class App extends Component {
 				},
 				(error) => {
 					console.log('Error fetching current temperature [OpenWeatherMap API]');
+				}
+			)
+			
+			
+		/* 
+		 * NEWS API
+		 *
+		 */
+		fetch('https://newsapi.org/v2/top-headlines?country=ae&apiKey=60c273fa41dc479cb51405ca65e3f0f5')
+			.then(res => res.json())
+			.then(
+				(result) => {
+					console.log(result);
+					let localNewsHeadlines = Math.ceil(result.articles);
+					this.props.dispatch(localNewsHeadlines);
+				},
+				(error) => {
+					console.log('Error fetching headline news [News API]');
 				}
 			)
 	}

@@ -10,6 +10,11 @@ export const updateAccountName = (name, id) => ({
     payload: { name, id },
 });
 
+export const updateLocalNewsHeadlines = (articles) => ({
+    type: 'UPDATE_LOCAL_NEWS_HEADLINES',
+    payload: { articles },
+});
+
 export const updateWeatherData = (celsius, description) => {
 	return {
 		type: 'UPDATE_WEATHER_DATA',
