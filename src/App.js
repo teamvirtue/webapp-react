@@ -37,12 +37,12 @@ const theme = createMuiTheme({
                     paddingTop: 8,
                 },
             },
-            /*label: {
+            label: {
+                fontSize: 12,
                 '&$selected': {
-                    color: 'red',
                     fontSize: 12, //theme.typography.pxToRem(12)
                 },
-            },*/
+            },
         },
     },
 });

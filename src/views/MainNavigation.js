@@ -22,7 +22,8 @@ import '../index.css';
 
 const styles = theme => ({
     root: {
-        backgroundColor: theme.palette.secondary.light,
+        // backgroundColor: 'blue',
+        // backgroundColor: theme.palette.secondary.light,
     },
     desktopNav: {
         position: 'fixed',
@@ -42,7 +43,7 @@ const styles = theme => ({
     mobileNav: {
         position: 'fixed',
         bottom: 0,
-        zIndex: 10,
+        zIndex: 50,
         width: '100%',
         boxShadow: '0px -3px 3px 0px rgba(0,0,0,0.15)',
     },
@@ -116,10 +117,10 @@ class MainNavigation extends Component {
 
                 <div className='hidden-lg'>
                     <BottomNavigation value={ value } onChange={ this.handleChange } className={ classes.mobileNav } showLabels>
-                        <BottomNavigationAction className={ classes.mobileNavItem } label='Home' href='#home' icon={ <Icon>home</Icon> } />
-                        <BottomNavigationAction className={ classes.mobileNavItem } label='Controls' href='#controls' icon={ <Icon>tune</Icon> } />
-                        <BottomNavigationAction className={ classes.mobileNavItem } label='Reports' href='#reports' icon={ <Icon>assessment</Icon> } />
-                        <BottomNavigationAction className={ classes.mobileNavItem } label='Settings' href='#settings' icon={ <Icon>settings</Icon> } />
+                        <BottomNavigationAction className={ classes.mobileNavItem } label='Home' icon={ <Icon>home</Icon> } />
+                        <BottomNavigationAction className={ classes.mobileNavItem } label='Controls' icon={ <Icon>tune</Icon> } />
+                        <BottomNavigationAction className={ classes.mobileNavItem } label='Reports' icon={ <Icon>assessment</Icon> } />
+                        <BottomNavigationAction className={ classes.mobileNavItem } label='Settings' icon={ <Icon>settings</Icon> } />
                     </BottomNavigation>
                 </div>
 				

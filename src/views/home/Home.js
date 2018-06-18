@@ -162,7 +162,7 @@ class Home extends Component {
                     >
                         <TabContainer dir={ theme.direction }>
                             <h1>Good morning { accounts.byId[accounts.currentUser].name }</h1>
-                            <div className = {classes.notification}>This is the 1st demo release of the VIRTUe LINQ app</div>
+                            {/*<div className = {classes.notification}>This is the 1st demo release of the VIRTUe LINQ app</div>*/}
 
                             <div className='statusBar'>
                                 <div className='statusItem'>
@@ -306,6 +306,7 @@ class Home extends Component {
 
                         <TabContainer dir={ theme.direction }>
                             <h1>City Activity</h1>
+                            <Typography variant='subheading'>Current location: Eindhoven</Typography>
 
                             <div className='infoBar'>
                                 <div className='infoItem1'>
