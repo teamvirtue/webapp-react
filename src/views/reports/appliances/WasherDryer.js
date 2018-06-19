@@ -54,7 +54,7 @@ class WasherDryer extends Component {
       //   return response.data;
       // });
       // })
-      Axios.post("http://localhost:8000/api/auth/token/", "username=matahara&password=katinar4e ")
+      Axios.post("http://localhost:8000/api/auth/token/", "username=martin&password=katinar4e ")
       .then((response) => {
           var data = response.data;
           token = data.token;
@@ -64,7 +64,7 @@ class WasherDryer extends Component {
             headers: {'Authorization': 'JWT ' + token},
           });
           console.log(instance.defaults);
-          instance.get('/users', {
+          instance.get('/users?ID=2', {
             timeout: 5000
           }).then((response) => {
             console.log(response.data);
