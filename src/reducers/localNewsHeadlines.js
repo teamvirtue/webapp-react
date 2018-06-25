@@ -3,15 +3,10 @@ const localNewsHeadlines = (state = {
 }, action) => {
 	switch (action.type) {
         case 'UPDATE_LOCAL_NEWS_HEADLINES':
+			//return state;
             return {
                 ...state,
-                byId: {
-                    ...state.byId,
-                    [action.payload]: {
-                        ...state.byId[action.payload],
-                        visible: false,
-                    },
-                },
+                byId: action.payload.sources,
             };
 		default:
 			return state;

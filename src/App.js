@@ -84,7 +84,7 @@ class App extends Component {
 					let weatherDescription = result.weather[0].description;
 					weatherDescription = weatherDescription.charAt(0).toUpperCase() + weatherDescription.slice(1);
 					
-					this.props.dispatch(currentTemperature, weatherDescription);
+					this.props.updateWeatherData(currentTemperature, weatherDescription);
 				},
 				(error) => {
 					console.log('Error fetching current temperature [OpenWeatherMap API]');
@@ -96,13 +96,13 @@ class App extends Component {
 		 * NEWS API
 		 *
 		 */
-		fetch('https://newsapi.org/v2/top-headlines?country=ae&apiKey=60c273fa41dc479cb51405ca65e3f0f5')
+		fetch('https://newsapi.org/v2/sources?apiKey=60c273fa41dc479cb51405ca65e3f0f5')
 			.then(res => res.json())
 			.then(
 				(result) => {
-					console.log(result);
-					let localNewsHeadlines = Math.ceil(result.articles);
-					this.props.dispatch(localNewsHeadlines);
+					let localNewsHeadlines = result.sources;
+					console.log(localNewsHeadlines);
+					//this.props.updateLocalNewsHeadlines(localNewsHeadlines);
 				},
 				(error) => {
 					console.log('Error fetching headline news [News API]');

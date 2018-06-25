@@ -122,10 +122,10 @@ class Home extends Component {
     };*/
 
     render() {
-        const { classes, theme, advices, accounts, temperature, articles } = this.props;
+        const { classes, theme, advices, accounts, temperature, localNewsHeadlines } = this.props;
         const { value } = this.state;
 
-        //console.log(temperature);
+        //console.log(localNewsHeadlines);
 
         return (
             <div className={ classes.root }> {/*TODO: reduce number of nameless divs*/}
@@ -325,7 +325,14 @@ class Home extends Component {
 							
 							News: 
 							Powered by News API
-							<h1>{ articles }</h1>
+							{ Object.keys(localNewsHeadlines.byId).map((id) => {
+									let card = localNewsHeadlines.byId[id];
+
+									return card.visible ?
+										<div key={id}>{card.description}</div>
+									: null;
+								}
+							) }
                         </TabContainer>
                     </SwipeableViews>
                 </div>
