@@ -74,7 +74,7 @@ class App extends Component {
 		 */
 		
 		// Current Weather
-		var weatherURL = 'https://api.openweathermap.org/data/2.5/weather?id=2756252&APPID=1473962c711c59e516b01eb4065ce872&units=metric';
+		let weatherURL = 'https://api.openweathermap.org/data/2.5/weather?id=2756252&APPID=1473962c711c59e516b01eb4065ce872&units=metric';
 		weatherURL = '';//temporarily disable for dev
 		fetch(weatherURL)
 			.then(res => res.json())
@@ -89,7 +89,7 @@ class App extends Component {
 				(error) => {
 					console.log('Error fetching current temperature [OpenWeatherMap API]');
 				}
-			)
+			);
 			
 			
 		/* 
