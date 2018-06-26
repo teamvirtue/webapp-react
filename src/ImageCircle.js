@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import grey from '@material-ui/core/colors/grey';
+import ThreeEntryPoint from './threejs/ThreeEntryPoint';
 
 const styles = {
 	circleSmall: {
@@ -12,8 +13,8 @@ const styles = {
 		// top: 50,
 		borderRadius: '50%',
 		// border: '2px solid black',
-		boxShadow: 'inset 0 0 10px 3px rgba(0, 0, 0, 0.25);',
-		border: '5px solid',
+		/*boxShadow: 'inset 0 0 10px 3px rgba(0, 0, 0, 0.25);',
+		border: '5px solid',*/
 		borderColor: grey[100],
 	},
 	circleLarge: {
@@ -23,11 +24,12 @@ const styles = {
 		height: '22vw',
 		top: '50%',
 		margin: '-10vw 0 0 -10vw',
-		borderRadius: '50%',
+		// borderRadius: '50%',
         // border: '2px solid black',
-		boxShadow: 'inset 0 0 10px 3px rgba(0, 0, 0, 0.25);',
+		/*boxShadow: 'inset 0 0 10px 3px rgba(0, 0, 0, 0.25);',
 		border: '5px solid',
-		borderColor: grey[100],
+		borderColor: grey[100],*/
+		// backgroundColor: 'red',
 	},
 };
 
@@ -36,6 +38,10 @@ class ImageCircle extends Component {
         super(props);
     }*/
 
+    componentDidMount() {
+        ThreeEntryPoint(this.threeRootElement);
+    }
+
     render() {
 		const { classes, gutterTop } = this.props;
 
@@ -43,7 +49,8 @@ class ImageCircle extends Component {
 			<div>
 				{ /* Desktop */ }
 				<div className='hidden-sm hidden-xs'>
-					<img className={ classes.circleLarge } src={ this.props.imageSource } alt='circle'/>
+                    <div className={ classes.circleLarge } ref={ element => this.threeRootElement = element } />
+					{/*<img className={ classes.circleLarge } src={ this.props.imageSource } alt='circle'/>*/}
 				</div>
 				
 				{ /* Mobile */ }

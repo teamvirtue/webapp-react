@@ -18,7 +18,8 @@
     "react-scripts": "^1.1.4",
     "react-swipeable-views": "^0.12.13",
     "react-transition-group": "^1.2.1",
-    "redux": "^4.0.0"
+    "redux": "^4.0.0",
+    "three": "^0.93.0"
   },
   "scripts": {
     "start": "react-scripts start",
