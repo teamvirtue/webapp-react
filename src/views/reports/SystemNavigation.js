@@ -124,7 +124,7 @@ class SystemNavigation extends Component {
 						}) }
 					</DialogContent>
 					<DialogActions>
-						<Button onClick={this.handleDialogClose} color="secondary">
+						<Button onClick={this.handleDialogClose} color="primary">
 							Close
 						</Button>
 					</DialogActions>

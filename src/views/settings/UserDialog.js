@@ -164,7 +164,7 @@ class UserDialog extends Component {
 							</List>
 						</DialogContent>
 						<DialogActions>
-							<Button onClick={this.handleNamePopupClose} color='secondary'>
+							<Button onClick={this.handleNamePopupClose} color='primary'>
 								Cancel
 							</Button>
 							<Button type='submit' onClick={this.handleNamePopupClose} color='primary'>

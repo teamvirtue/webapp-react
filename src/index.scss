@@ -144,3 +144,8 @@ body {
 }
 
 
+@media only screen and (max-width: 768px) {
+	.header-bg {
+		background: linear-gradient(175deg, #f15b27 65%, white 25%);
+	} 
+}

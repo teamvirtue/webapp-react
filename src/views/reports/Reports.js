@@ -21,7 +21,7 @@ const styles = theme => ({
     appBar: {
         position: 'static',
         boxShadow: 'none',
-        backgroundColor: 'white',
+		backgroundColor: 'transparent',
     },
     tabIndicator: {
         top: 0,
@@ -88,13 +88,13 @@ class Reports extends Component {
 
         return (
             <div className={ classes.root }>
-                <AppBar className={ classes.appBar }>
+                <AppBar className={ 'subNavBar' } position="static">
                     <Tabs
                         value={ value }
                         onChange={ this.handleChange }
-                        indicatorColor='primary'
+                        indicatorColor='secondary'
                         classes={{ indicator: classes.tabIndicator }}
-                        textColor='primary'
+                        textColor='secondary'
                         fullWidth
                         centered
                     >
@@ -104,7 +104,7 @@ class Reports extends Component {
                     </Tabs>
                 </AppBar>
 
-				<div className='col-md-5'>
+				<div className={ 'col-md-5 headerBg' }>
 					{ value === 0 && <ImageCircle imageSource={ OverviewImage }/> }
 					{ value === 1 && <ImageCircle imageSource={ AppliancesImage }/> }
 					{ value === 2 && <ImageCircle imageSource={ SystemsImage }/> }

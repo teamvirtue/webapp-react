@@ -54,7 +54,7 @@ function SocketCard(props) {
             <CardActions className={ classes.cardActions }>
                 <DialogResponsive />
 
-                <Button color='secondary'>
+                <Button color='primary'>
                     Ignore
                 </Button>
             </CardActions>

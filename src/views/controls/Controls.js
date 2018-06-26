@@ -58,14 +58,8 @@ class Controls extends Component {
 
         return (
             <div className={ classes.root }>
-				<div className='col-md-5'>
-                    <div className='hidden-lg'>
-                        <ImageCircle gutterTop imageSource={ controlsImage }/>
-                    </div>
-
-                    <div className='hidden-md hidden-sm hidden-xs'>
-                        <ImageCircle imageSource={ controlsImage }/>
-                    </div>
+				<div className={'col-md-5 headerBg' }>
+					<ImageCircle gutterTop imageSource={ controlsImage }/>
 				</div>
 
 				<div className='col-md-6'>

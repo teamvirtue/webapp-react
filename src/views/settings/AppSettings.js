@@ -181,14 +181,8 @@ class Settings extends Component {
 
         return (
             <div className={classes.root}>
-				<div className='col-md-5'>
-                    <div className='hidden-lg'>
-                        <ImageCircle gutterTop imageSource={ settingsImage }/>
-                    </div>
-
-                    <div className='hidden-md hidden-sm hidden-xs'>
-                        <ImageCircle imageSource={ settingsImage }/>
-                    </div>
+				<div className={'col-md-5 headerBg'}>
+                    <ImageCircle gutterTop imageSource={ settingsImage }/>
 				</div>
 
                 <div className='col-md-6'>

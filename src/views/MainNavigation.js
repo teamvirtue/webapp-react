@@ -23,14 +23,13 @@ import '../index.css';
 const styles = theme => ({
     root: {
         // backgroundColor: 'blue',
-        // backgroundColor: theme.palette.secondary.light,
     },
     desktopNav: {
         position: 'fixed',
         display: 'flex',
         height: '100%',
 		width: '200px',
-        backgroundColor: grey[100],
+        backgroundColor: theme.palette.primary.main,
     },
     desktopNavList: {
         alignSelf: 'center',
@@ -40,18 +39,22 @@ const styles = theme => ({
         paddingTop: '20px',
 		paddingBottom: '20px',
     },
+	desktopNavListItemContent: {
+		color: 'white',
+	},
     mobileNav: {
         position: 'fixed',
         bottom: 0,
         zIndex: 50,
         width: '100%',
-        boxShadow: '0px -3px 3px 0px rgba(0,0,0,0.15)',
+        boxShadow: '0px -3px 3px 0px rgba(0,0,0,0.10)',
+		backgroundColor: grey[100],
     },
     mobileNavItem: {
         minWidth: '60px',
     },
     checked: {
-        color: theme.palette.primary.main,
+		backgroundColor: 'rgba(255,255,255,0.3) !important',
     },
 });
 
@@ -87,29 +90,29 @@ class MainNavigation extends Component {
                 <div className='hidden-md hidden-sm hidden-xs'>
                     <div className={ classes.desktopNav }>
                         <List component='nav' className={ classes.desktopNavList }>
-                            <ListItem className={ classes.desktopNavListItem } button onClick={ () => this.handleClick(0) }>
+                            <ListItem className={classes.desktopNavListItem + " " + (value === 0 ? classes.checked : '')} button onClick={ () => this.handleClick(0) }>
                                 <ListItemIcon>
-                                    <Icon className={ value === 0 ? classes.checked : 'unchecked' }>home</Icon>
+                                    <Icon className={ classes.desktopNavListItemContent }>home</Icon>
                                 </ListItemIcon>
-                                <ListItemText primary='Home' classes={{ primary: value === 0 ? classes.checked : 'unchecked' }} />
+                                <ListItemText primary='Home' classes={{ primary: classes.desktopNavListItemContent }} />
                             </ListItem>
-                            <ListItem className={ classes.desktopNavListItem } button onClick={ () => this.handleClick(1) }>
+                            <ListItem className={classes.desktopNavListItem + " " + (value === 1 ? classes.checked : '')} button onClick={ () => this.handleClick(1) }>
                                 <ListItemIcon>
-                                    <Icon className={ value === 1 ? classes.checked : 'unchecked' }>tune</Icon>
+                                    <Icon className={ classes.desktopNavListItemContent }>tune</Icon>
                                 </ListItemIcon>
-                                <ListItemText primary='Controls' classes={{ primary: value === 1 ? classes.checked : 'unchecked' }} />
+                                <ListItemText primary='Controls' classes={{ primary: classes.desktopNavListItemContent }} />
                             </ListItem>
-                            <ListItem className={ classes.desktopNavListItem } button onClick={ () => this.handleClick(2) }>
+                            <ListItem className={classes.desktopNavListItem + " " + (value === 2 ? classes.checked : '')} button onClick={ () => this.handleClick(2) }>
                                 <ListItemIcon>
-                                    <Icon className={ value === 2 ? classes.checked : 'unchecked' }>assessment</Icon>
+                                    <Icon className={ classes.desktopNavListItemContent }>assessment</Icon>
                                 </ListItemIcon>
-                                <ListItemText primary='Reports' classes={{ primary: value === 2 ? classes.checked : 'unchecked' }} />
+                                <ListItemText primary='Reports' classes={{ primary: classes.desktopNavListItemContent }} />
                             </ListItem>
-                            <ListItem className={ classes.desktopNavListItem } button onClick={ () => this.handleClick(3) }>
+                            <ListItem className={classes.desktopNavListItem + " " + (value === 3 ? classes.checked : '')} button onClick={ () => this.handleClick(3) }>
                                 <ListItemIcon>
-                                    <Icon className={ value === 3 ? classes.checked : 'unchecked' }>settings</Icon>
+                                    <Icon className={ classes.desktopNavListItemContent }>settings</Icon>
                                 </ListItemIcon>
-                                <ListItemText primary='Settings' classes={{ primary: value === 3 ? classes.checked : 'unchecked' }} />
+                                <ListItemText primary='Settings' classes={{ primary: classes.desktopNavListItemContent }} />
                             </ListItem>
                         </List>
                     </div>

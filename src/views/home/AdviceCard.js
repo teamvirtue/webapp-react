@@ -87,7 +87,7 @@ class AdviceCard extends Component {
                         </Button>
                         <Button
                             onClick={ (event) => this.handleDismissCard(event, id) }
-                            color='secondary'
+                            color='primary'
                         >
                             Ignore
                         </Button>
