@@ -6,28 +6,17 @@ import Divider from 'material-ui/Divider';
 import List from 'material-ui/List';
 import LineChart from '../LineChart';
 import Axios from 'axios';
+import Request from '../../axios_requests/Request.js';
 
 
 class WasherDryer extends Component {
-    //http://localhost:8000/api-auth/login/?next=/appliance/auth/
+  //http://localhost:8000/api-auth/login/?next=/appliance/auth/
 
-    constructor() {
-      super();
-      this.state = {
-        id : [],
-        status : [],
-        type_id : [],
-        created : [],
-        flat_id : [],
-        energy_consumed : [],
-        reading_time : [],
-        water_reading : [],
-        modified : [],
-        room_id: [],
-        url : [],
-      }
-    }
-    componentDidMount() {
+  constructor() {
+    super();
+
+  }
+  componentDidMount() {
     // const configAuth = Axios.create({
     //     baseURL: 'http://localhost:8000/',
     //     url: 'appliance/1/',
@@ -47,94 +36,95 @@ class WasherDryer extends Component {
     //   .catch((error) => {
     //     console.log(error);
     //   });
-    var token = "";
-      // Axios.get("http://localhost:8000/users/")
-      // .then((response) => {
-      //   console.log(response);
-      //   return response.data;
-      // });
-      // })
-      Axios.post("http://localhost:8000/api/auth/token/", "username=martin&password=katinar4e ")
-      .then((response) => {
-          var data = response.data;
-          token = data.token;
-          console.log(token);
-          const instance = Axios.create({
-            baseURL: 'http://localhost:8000',
-            headers: {'Authorization': 'JWT ' + token},
-          });
-          console.log(instance.defaults);
-          instance.get('/users?ID=2', {
-            timeout: 5000
-          }).then((response) => {
-            console.log(response.data);
-            //return response.data;
-          });
-          instance.get('/appliance/1/', {
-            timeout: 5000
-          }).then((response) => {
-            console.log(response.data);
-            this.setState({
-               id : response.data.appliance_id,
-               status : response.data.appliance_status,
-               type_id : response.data.appliance_type_id,
-               created : response.data.created,
-               flat_id : response.data.flat_id,
-               energy_consumed : response.data.last_appliance_energy_consumed,
-               reading_time : response.data.last_reading_time,
-               water_reading : response.data.last_water_reading,
-               modified : response.data.modified,
-               room_id : response.data.room_id,
-               url : response.data.url,
-            })
-            console.log(this.state);
-            return this.state;
-          });
-      });
-    }
 
+    /*this.setState({
+      id: response.appliance_id,
+      status: response.appliance_status,
+      type_id: response.appliance_type_id,
+      created: response.created,
+      flat_id: response.flat_id,
+      energy_consumed: response.last_appliance_energy_consumed,
+      reading_time: response.last_reading_time,
+      water_reading: response.last_water_reading,
+      modified: response.modified,
+      room_id: response.room_id,
+      url: response.url,
+    })
+    */
+    // Axios.get("http://localhost:8000/users/")
+    // .then((response) => {
+    //   console.log(response);
+    //   return response.data;
+    // });
+    // })
+    //   Axios.post("http://localhost:8000/api/auth/token/", "username=martin&password=katinar4e ")
+    //     .then((response) => {
+    //       var data = response.data;
+    //       token = data.token;
+    //       console.log(token);
+    //       const instance = Axios.create({
+    //         baseURL: 'http://localhost:8000',
+    //         headers: { 'Authorization': 'JWT ' + token },
+    //       });
+    //       console.log(instance.defaults);
+    //       instance.get('/users?ID=2', {
+    //         timeout: 5000
+    //       }).then((response) => {
+    //         console.log(response.data);
+    //         //return response.data;
+    //       });
+    //       instance.get('/appliance/1/', {
+    //         timeout: 5000
+    //       }).then((response) => {
+    //         console.log(response.data);
 
+    //         console.log(this.state);
+    //         return this.state;
+    //       });
+    //     });
+  }
 
+  render() {
+    const classes = this.props;
+    const requesting = new Request();
+    const token = "BB";
+    console.log(token);
+    const title = "token";
+    console.log(requesting.getToken());
+    return (
+      <div>
+        <List>
+          <Request url={'/users/'}></Request>
+          <Typography className={classes.controlsTitle} type='subheading'>
 
-    render() {
-		const classes = this.props;
-
-        return (
-        <div>
-				<List>
-            <Typography className={ classes.controlsTitle } type='subheading'>
-            {this.state.id}
-            {this.state.status}
-            {this.state.type_id}
-  					{this.state.flat_id}
-  					</Typography>
-					<Typography className={ classes.controlsTitle } type='subheading'>
-						Chart
+          </Typography>
+          <Typography className={classes.controlsTitle} type='subheading'>
+            Chart
 					</Typography>
 
-					<LineChart />
+          <LineChart />
 
-					<Divider/>
+          <Divider />
 
-					<div className='statusBar'>
-						<div className='statusItem'>
-							<h3>Feb</h3><h1>18</h1>
-							<Typography type='subheading' gutterBottom>
-								Last maintenance
+          <div className='statusBar'>
+            <div className='statusItem'>
+              <h3>Feb</h3><h1>18</h1>
+              <Typography type='subheading' gutterBottom>
+                Last maintenance
 							</Typography>
-						</div>
-						<div className='statusItem'>
-							<Icon className={ classes.icon }>check_circle</Icon>
-							<Typography type='subheading' gutterBottom>
-								Operating normally
+            </div>
+            <div className='statusItem'>
+              <Icon className={classes.icon}>check_circle</Icon>
+              <Typography type='subheading' gutterBottom>
+                Operating normally
 							</Typography>
-						</div>
-					</div>
+            </div>
+          </div>
 
-				</List>
-			</div>
-        );
-    }
+        </List>
+      </div >
+    );
+  }
 }
 
 export default WasherDryer;
