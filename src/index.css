@@ -111,7 +111,5 @@ body {
 	.headerBg {
 		background: linear-gradient(175deg, #f15b27 65%, white 25%);
 	}
-	.subNavBar {
-		background-color: red;
-	} 
+	.appBarContainer{background-color:#f15b27;}
 }
