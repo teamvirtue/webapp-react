@@ -2,20 +2,21 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withTheme } from '@material-ui/core/styles';
 import { withStyles } from '@material-ui/core/styles';
-import SwipeableViews from 'react-swipeable-views';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
-// import Divider from '@material-ui/core/Divider';
 import Icon from '@material-ui/core/Icon';
-// import MediaQuery from 'react-responsive';
+
+import SwipeableViews from 'react-swipeable-views';
+import { virtualize, bindKeyboard } from 'react-swipeable-views-utils';
+import { mod } from 'react-swipeable-views-core';
+import SupportTouch from 'react-swipeable-views';
 
 import { CSSTransitionGroup } from 'react-transition-group';
 import '../../animations.css';
 
 // custom import
-// import './Home.css';
 import { CardContainer } from '../../containers/CardContainer';
 import SocketCard from './SocketCard';
 import ImageCircle from '../../ImageCircle';
@@ -24,6 +25,8 @@ import linqImage from '../../assets/linq.jpg';
 import communityImage from '../../assets/city.jpg';
 import earthIcon from '../../assets/earth.svg';
 // import halfEarthIcon from '../../assets/half_earth.svg';
+
+const VirtualizeSwipeableViews = bindKeyboard(virtualize(SwipeableViews));
 
 let worlds = [
     { id: '1' },
@@ -99,6 +102,28 @@ function TabContainer({ children, dir }) {
     );
 }
 
+function slideRenderer(params) {
+    const { index, key } = params;
+    let style;
+
+    switch (mod(index, 3)) {
+        case 0:
+            style = styles.slide1;
+            break;
+
+        case 1:
+            style = styles.slide2;
+            break;
+
+        case 2:
+            style = styles.slide3;
+            break;
+
+        default:
+            break;
+    }
+}
+
 class Home extends Component {
     constructor(props) {
         super(props);
@@ -131,7 +156,7 @@ class Home extends Component {
             <div className={ classes.root }> {/*TODO: reduce number of nameless divs*/}
                 <AppBar className={ classes.appBar }>
                     <Tabs
-                        value={ value }
+                        value={ 0 }
                         onChange={ this.handleChange }
                         indicatorColor='primary'
                         classes={{ indicator: classes.tabIndicator }}
@@ -146,10 +171,25 @@ class Home extends Component {
                 </AppBar>
 
                 <div className='col-md-5'>
+                    <ImageCircle imageSource={ myLinqImage }/>
+                </div>
+
+               {/* <SupportTouch>
+                    <VirtualizeSwipeableViews
+                        index={ value }
+                        onChangeIndex={ this.handleChangeIndex }
+                        slideRenderer={ slideRenderer }
+                    />
+                    <div className='col-md-5'>
+                        <ImageCircle imageSource={ myLinqImage }/>
+                    </div>
+                </SupportTouch>*/}
+
+                {/*<div className='col-md-5'>
                     { value === 0 && <ImageCircle imageSource={ myLinqImage }/> }
                     { value === 1 && <ImageCircle imageSource={ linqImage }/> }
                     { value === 2 && <ImageCircle imageSource={ communityImage }/> }
-                </div>
+                </div>*/}
 
                 <div className='col-md-7'>
                     {/*TODO: check https://react-swipeable-views.com/demos/demos/ & https://react-swipeable-views.com/demos/demos/*/}
@@ -160,6 +200,7 @@ class Home extends Component {
                         onChangeIndex={ this.handleChangeIndex }
                         animateHeight={ true }
                     >
+
                         <TabContainer dir={ theme.direction }>
                             <h1>Good morning { accounts.byId[accounts.currentUser].name }</h1>
                             {/*<div className = {classes.notification}>This is the 1st demo release of the VIRTUe LINQ app</div>*/}
