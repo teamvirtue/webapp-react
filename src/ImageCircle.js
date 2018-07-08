@@ -54,7 +54,7 @@ class ImageCircle extends Component {
 				
 				{ /* Mobile */ }
 				<div className='hidden-lg hidden-md'>
-                    /* <div className={ classes.circleSmall } style={ gutterTop && { marginTop: 48 + 20  }} ref={ element => this.threeRootElement = element } /> */
+                    {/*<div className={ classes.circleSmall } style={ gutterTop && { marginTop: 48 + 20  }} ref={ element => this.threeRootElement = element } />*/}
 				</div>
 			</div>
         );
