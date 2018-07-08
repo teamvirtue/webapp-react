@@ -50,13 +50,11 @@ class ImageCircle extends Component {
 				{ /* Desktop */ }
 				<div className='hidden-sm hidden-xs'>
                     <div className={ classes.circleLarge } ref={ element => this.threeRootElement = element } />
-					{/*<img className={ classes.circleLarge } src={ this.props.imageSource } alt='circle'/>*/}
 				</div>
 				
 				{ /* Mobile */ }
 				<div className='hidden-lg hidden-md'>
-                    <div className={ classes.circleSmall } style={ gutterTop && { marginTop: 48 + 20  }} ref={ element => this.threeRootElement = element } />
-					{/*<img className={ classes.circleSmall } style={ gutterTop && { marginTop: 48 + 20  }} src={ this.props.imageSource } alt='circle'/>*/}
+                    /* <div className={ classes.circleSmall } style={ gutterTop && { marginTop: 48 + 20  }} ref={ element => this.threeRootElement = element } /> */
 				</div>
 			</div>
         );
