@@ -38,8 +38,8 @@ body {
   top: 0;
   bottom: auto; }
 
-@media only screen and (min-width: 1140px) {
-  .content {
+@media only screen and (min-width: 1199px) {
+  .wrapper {
     margin-left: 200px; } }
 
 .statusBar {
@@ -105,11 +105,53 @@ body {
 
 .datePicker {
   padding-left: 16px; }
+  
 
-@media only screen and (max-width: 768px) {
+.linqStatusCircle {
+	position: fixed;
+	display: inline-block;
+	width: 22vw;
+	height: 22vw;
+	top: 50%;
+	margin: -11vw 0 0 -11vw;
+}
+
+@media only screen and (max-width: 991px) {
 	.headerBg {
 		background: linear-gradient(175deg, #f15b27 65%, white 25%);
 	}
-	.appBarContainer{background-color:#f15b27;}
+	.linqStatusCircle {
+		width: 30vw;
+		height: 30vw;
+		top: 0;
+        margin: 20px auto 0 auto;
+		position: relative;
+	}
 }
 
+/* Animations */
+@keyframes startProgress {
+	50% {
+		stroke:#03cea4;
+	}
+	100% {
+		stroke:#03cea4;
+		stroke-dasharray:0;
+		transform:rotate(320deg);
+	}
+}
+
+@keyframes borderGradient {
+	50% {
+		stroke:#03CE87;
+		-webkit-box-shadow: 0px 0px 30px 10px rgba(3,206,135,1);
+		-moz-box-shadow: 0px 0px 30px 10px rgba(3,206,135,1);
+		box-shadow: 0px 0px 30px 10px rgba(3,206,135,1);
+	}
+	100% {
+		stroke:#00a838;
+		-webkit-box-shadow: 0px 0px 30px 10px rgba(3,206,74,1);
+		-moz-box-shadow: 0px 0px 30px 10px rgba(3,206,74,1);
+		box-shadow: 0px 0px 30px 10px rgba(3,206,74,1);
+	}
+}

@@ -48,7 +48,7 @@ body {
   bottom: auto;
 }
 
-.content {
+.wrapper {
   @media only screen and (min-width: 1140px) {
     margin-left: 200px;
   }
@@ -148,4 +148,31 @@ body {
 	.header-bg {
 		background: linear-gradient(175deg, #f15b27 65%, white 25%);
 	} 
+}
+
+/* Animations */
+@keyframes startProgress {
+	50% {
+		stroke:#03cea4;
+	}
+	100% {
+		stroke:#03cea4;
+		stroke-dasharray:0;
+		transform:rotate(320deg);
+	}
+}
+
+@keyframes borderGradient {
+	50% {
+		stroke:#03CE87;
+		-webkit-box-shadow: 0px 0px 30px 10px rgba(3,206,135,1);
+		-moz-box-shadow: 0px 0px 30px 10px rgba(3,206,135,1);
+		box-shadow: 0px 0px 30px 10px rgba(3,206,135,1);
+	}
+	100% {
+		stroke:#00a838;
+		-webkit-box-shadow: 0px 0px 30px 10px rgba(3,206,74,1);
+		-moz-box-shadow: 0px 0px 30px 10px rgba(3,206,74,1);
+		box-shadow: 0px 0px 30px 10px rgba(3,206,74,1);
+	}
 }

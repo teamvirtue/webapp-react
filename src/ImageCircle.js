@@ -4,34 +4,46 @@ import { withStyles } from '@material-ui/core/styles';
 import grey from '@material-ui/core/colors/grey';
 import ThreeEntryPoint from './threejs/ThreeEntryPoint';
 
-const styles = {
-	circleSmall: {
-		display: 'inline-block',
-		width: '30vw',
-		height: '30vw',
-        marginTop: 20,
-		// top: 50,
-		borderRadius: '50%',
-		// border: '2px solid black',
-		/*boxShadow: 'inset 0 0 10px 3px rgba(0, 0, 0, 0.25);',
-		border: '5px solid',*/
-		borderColor: grey[100],
-	},
-	circleLarge: {
-		position: 'fixed',
+const styles = theme => ({
+	linqStatus: {
 		display: 'inline-block',
 		width: '22vw',
 		height: '22vw',
 		top: '50%',
-		margin: '-10vw 0 0 -10vw',
-		// borderRadius: '50%',
-        // border: '2px solid black',
-		/*boxShadow: 'inset 0 0 10px 3px rgba(0, 0, 0, 0.25);',
-		border: '5px solid',
-		borderColor: grey[100],*/
-		// backgroundColor: 'red',
+		margin: '-11vw 0 0 -11vw',
 	},
-};
+	linqStatusMobile: {
+		display: 'inline-block',
+		width: '30vw',
+		height: '30vw',
+        marginTop: 20,
+	},
+
+	circle: {
+		position: 'absolute',
+		height: '94%',
+		width: '94%',
+		top: '3%',
+		left: '3%',
+		animation: 'borderGradient 4s 3500ms infinite alternate',
+		borderRadius: '50%',
+	},
+	circleBorder: {
+		position: 'absolute',
+		height: '100%',
+		width: '100%',
+		left: '0',
+		top: '0',
+		fill: 'none',
+		stroke: theme.palette.primary.main,
+		strokeWidth: '3px',
+		strokeDasharray: '10',
+		strokeDashoffset: '0',
+		strokeLinecap: 'round',
+		animation: 'startProgress 3500ms ease-in-out',
+		animationFillMode: 'forwards',
+	},
+});
 
 class ImageCircle extends Component {
     /*constructor(props) {
@@ -47,15 +59,23 @@ class ImageCircle extends Component {
 
         return (
 			<div>
-				{ /* Desktop */ }
-				<div className='hidden-sm hidden-xs'>
-                    <div className={ classes.circleLarge } ref={ element => this.threeRootElement = element } />
+				<div className='linqStatusCircle'>
+					<div className={ classes.circle } ref={ element => this.threeRootElement = element } />
+					<svg className={ classes.circleBorder } version="1.1" id="L1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 100 100">
+						<circle cx="50" cy="50" r="48"/>
+					</svg>
 				</div>
 				
-				{ /* Mobile */ }
+				{ /* Mobile 
 				<div className='hidden-lg hidden-md'>
-                    {/*<div className={ classes.circleSmall } style={ gutterTop && { marginTop: 48 + 20  }} ref={ element => this.threeRootElement = element } />*/}
-				</div>
+					<div className={ classes.linqStatusMobile }>
+						<div className={ classes.circle } style={ gutterTop && { marginTop: 48 + 20  }} ref={ element => this.threeRootElement = element } />
+						<svg className={ classes.circleBorder } version="1.1" id="L1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 100 100">
+							<circle cx="50" cy="50" r="48"/>
+						</svg>
+					</div>
+				</div>*/ }
+					
 			</div>
         );
     }

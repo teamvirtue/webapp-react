@@ -47,9 +47,12 @@ const styles = theme => ({
         transition: 'all 1s ease-in-out',
     },
     appBar: {
-        position: 'static',
-        boxShadow: 'none',
-        backgroundColor: 'white',
+		backgroundColor: '#f5f5f5',
+		borderRadius: 5,
+		boxShadow: '0px 3px 3px 0px rgba(0,0,0,0.10)',
+		marginTop: 10,
+		marginBottom: 30,
+		overflow: 'hidden',
     },
     tabIndicator: {
         top: 0,
@@ -154,7 +157,7 @@ class Home extends Component {
 
         return (
             <div className={ classes.root }> {/*TODO: reduce number of nameless divs*/}
-                <AppBar className={ classes.appBar }>
+                <AppBar className={ classes.appBar } position="static">
                     <Tabs
                         value={ 0 }
                         onChange={ this.handleChange }
@@ -169,10 +172,6 @@ class Home extends Component {
                         <Tab label='City' />
                     </Tabs>
                 </AppBar>
-
-                <div className='col-md-5'>
-                    <ImageCircle imageSource={ myLinqImage }/>
-                </div>
 
                {/* <SupportTouch>
                     <VirtualizeSwipeableViews
@@ -191,7 +190,7 @@ class Home extends Component {
                     { value === 2 && <ImageCircle imageSource={ communityImage }/> }
                 </div>*/}
 
-                <div className='col-md-7'>
+                <div>
                     {/*TODO: check https://react-swipeable-views.com/demos/demos/ & https://react-swipeable-views.com/demos/demos/*/}
                     <SwipeableViews
                         className={ 'swipeableViews' }

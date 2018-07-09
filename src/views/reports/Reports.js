@@ -18,11 +18,14 @@ import AppliancesImage from '../../assets/reports.png';
 import SystemsImage from '../../assets/reports.png';
 
 const styles = theme => ({
-    appBar: {
-        position: 'static',
-        boxShadow: 'none',
-		backgroundColor: 'transparent',
-    },
+	appBar: {
+		backgroundColor: '#f5f5f5',
+		borderRadius: 5,
+		boxShadow: '0px 3px 3px 0px rgba(0,0,0,0.10)',
+		marginTop: 10,
+		marginBottom: 30,
+		overflow: 'hidden',
+	},
     tabIndicator: {
         top: 0,
         bottom: 'auto',
@@ -87,30 +90,24 @@ class Reports extends Component {
         const { value } = this.state;
 
         return (
-            <div className={ classes.root }>
-                <AppBar className={ 'subNavBar' } position="static">
-                    <Tabs
-                        value={ value }
-                        onChange={ this.handleChange }
-                        indicatorColor='secondary'
-                        classes={{ indicator: classes.tabIndicator }}
-                        textColor='secondary'
-                        fullWidth
-                        centered
-                    >
-                        <Tab label='Overview' />
-                        <Tab label='Appliances' />
-                        <Tab label='Systems' />
-                    </Tabs>
-                </AppBar>
+            <div>
+				<AppBar className={ classes.appBar } position="static">
+					<Tabs
+						value={ value }
+						onChange={ this.handleChange }
+						indicatorColor='primary'
+						classes={{ indicator: classes.tabIndicator }}
+						textColor='primary'
+						fullWidth
+						centered
+					>
+						<Tab label='Overview' />
+						<Tab label='Appliances' />
+						<Tab label='Systems' />
+					</Tabs>
+				</AppBar>
 
-				<div className={ 'col-md-5 headerBg' }>
-					{ value === 0 && <ImageCircle imageSource={ OverviewImage }/> }
-					{ value === 1 && <ImageCircle imageSource={ AppliancesImage }/> }
-					{ value === 2 && <ImageCircle imageSource={ SystemsImage }/> }
-				</div>
-
-                <div className='col-md-6'>
+                <div>
                     <SwipeableViews
                         className={ 'swipeableViews' }
                         axis={ theme.direction === 'rtl' ? 'x-reverse' : 'x' }

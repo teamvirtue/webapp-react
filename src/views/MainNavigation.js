@@ -9,6 +9,8 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Icon from '@material-ui/core/Icon';
+import Badge from '@material-ui/core/Badge';
+import ImageCircle from '../ImageCircle';
 
 // local import
 // import Home from './home/Home';
@@ -127,19 +129,25 @@ class MainNavigation extends Component {
                     </BottomNavigation>
                 </div>
 				
-				<div className='content'>
-                    {/*{ value === 0 && <CardContainer /> }*/}
-                    { value === 0 && <HomeContainer /> }
-                    { value === 1 && <Controls /> }
-                    { value === 2 && <Reports /> }
-                    { value === 3 && <AppSettingsContainer /> }
-                    {/*{ value === 3 && <Settings /> }*/}
-                    {/*<div className={ this.state.addContentNavMargin ? classes.contentNavMargin : '' }>
-						{ value === 0 && <Home/> }
+				<div className={ 'wrapper' }>
+					<div className={ 'col-md-5 headerBg' }>
+						<ImageCircle />
+					</div>
+					
+					<div className={ 'col-md-7 content' }>
+						{/*{ value === 0 && <CardContainer /> }*/}
+						{ value === 0 && <HomeContainer /> }
 						{ value === 1 && <Controls /> }
 						{ value === 2 && <Reports /> }
-						{ value === 3 && <Settings /> }
-					</div>*/}
+						{ value === 3 && <AppSettingsContainer /> }
+						{/*{ value === 3 && <Settings /> }*/}
+						{/*<div className={ this.state.addContentNavMargin ? classes.contentNavMargin : '' }>
+							{ value === 0 && <Home/> }
+							{ value === 1 && <Controls /> }
+							{ value === 2 && <Reports /> }
+							{ value === 3 && <Settings /> }
+						</div>*/}
+					</div>
 				</div>
             </div>
         );
