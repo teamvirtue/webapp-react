@@ -11,6 +11,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Icon from '@material-ui/core/Icon';
 import Badge from '@material-ui/core/Badge';
 import ImageCircle from '../ImageCircle';
+import Divider from '@material-ui/core/Divider';
 
 // local import
 // import Home from './home/Home';
@@ -58,6 +59,14 @@ const styles = theme => ({
     checked: {
 		backgroundColor: 'rgba(255,255,255,0.3) !important',
     },
+	notifications: {
+		display: 'inline-block',
+		backgroundColor: 'white',
+		borderRadius: '50%',
+		width: 50,
+		height: 50,
+		paddingTop: 12,
+	}
 });
 
 
@@ -91,32 +100,42 @@ class MainNavigation extends Component {
             <div className={ classes.root }>
                 <div className='hidden-md hidden-sm hidden-xs'>
                     <div className={ classes.desktopNav }>
-                        <List component='nav' className={ classes.desktopNavList }>
-                            <ListItem className={classes.desktopNavListItem + " " + (value === 0 ? classes.checked : '')} button onClick={ () => this.handleClick(0) }>
-                                <ListItemIcon>
-                                    <Icon className={ classes.desktopNavListItemContent }>home</Icon>
-                                </ListItemIcon>
-                                <ListItemText primary='Home' classes={{ primary: classes.desktopNavListItemContent }} />
-                            </ListItem>
-                            <ListItem className={classes.desktopNavListItem + " " + (value === 1 ? classes.checked : '')} button onClick={ () => this.handleClick(1) }>
-                                <ListItemIcon>
-                                    <Icon className={ classes.desktopNavListItemContent }>tune</Icon>
-                                </ListItemIcon>
-                                <ListItemText primary='Controls' classes={{ primary: classes.desktopNavListItemContent }} />
-                            </ListItem>
-                            <ListItem className={classes.desktopNavListItem + " " + (value === 2 ? classes.checked : '')} button onClick={ () => this.handleClick(2) }>
-                                <ListItemIcon>
-                                    <Icon className={ classes.desktopNavListItemContent }>assessment</Icon>
-                                </ListItemIcon>
-                                <ListItemText primary='Reports' classes={{ primary: classes.desktopNavListItemContent }} />
-                            </ListItem>
-                            <ListItem className={classes.desktopNavListItem + " " + (value === 3 ? classes.checked : '')} button onClick={ () => this.handleClick(3) }>
-                                <ListItemIcon>
-                                    <Icon className={ classes.desktopNavListItemContent }>settings</Icon>
-                                </ListItemIcon>
-                                <ListItemText primary='Settings' classes={{ primary: classes.desktopNavListItemContent }} />
-                            </ListItem>
-                        </List>
+						<div className={ classes.desktopNavList }>
+							<List component='nav'>
+								<ListItem className={classes.desktopNavListItem + " " + (value === 0 ? classes.checked : '')} button onClick={ () => this.handleClick(0) }>
+									<ListItemIcon>
+										<Icon className={ classes.desktopNavListItemContent }>home</Icon>
+									</ListItemIcon>
+									<ListItemText primary='Home' classes={{ primary: classes.desktopNavListItemContent }} />
+								</ListItem>
+								<ListItem className={classes.desktopNavListItem + " " + (value === 1 ? classes.checked : '')} button onClick={ () => this.handleClick(1) }>
+									<ListItemIcon>
+										<Icon className={ classes.desktopNavListItemContent }>tune</Icon>
+									</ListItemIcon>
+									<ListItemText primary='Controls' classes={{ primary: classes.desktopNavListItemContent }} />
+								</ListItem>
+								<ListItem className={classes.desktopNavListItem + " " + (value === 2 ? classes.checked : '')} button onClick={ () => this.handleClick(2) }>
+									<ListItemIcon>
+										<Icon className={ classes.desktopNavListItemContent }>assessment</Icon>
+									</ListItemIcon>
+									<ListItemText primary='Reports' classes={{ primary: classes.desktopNavListItemContent }} />
+								</ListItem>
+								<ListItem className={classes.desktopNavListItem + " " + (value === 3 ? classes.checked : '')} button onClick={ () => this.handleClick(3) }>
+									<ListItemIcon>
+										<Icon className={ classes.desktopNavListItemContent }>settings</Icon>
+									</ListItemIcon>
+									<ListItemText primary='Settings' classes={{ primary: classes.desktopNavListItemContent }} />
+								</ListItem>
+							</List>
+							
+							<div>
+								<span className={ classes.notifications }>
+									<Badge badgeContent={4} color="secondary">
+										<Icon color="primary">notifications</Icon>
+									</Badge>
+								</span>
+							</div>
+						</div>
                     </div>
                 </div>
 

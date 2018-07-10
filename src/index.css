@@ -118,7 +118,7 @@ body {
 
 @media only screen and (max-width: 991px) {
 	.headerBg {
-		background: linear-gradient(175deg, #f15b27 65%, white 25%);
+		background: linear-gradient(175deg, #ee742e 25%, #f15b27 65%, transparent 25%);
 	}
 	.linqStatusCircle {
 		width: 30vw;
@@ -155,3 +155,4 @@ body {
 		box-shadow: 0px 0px 30px 10px rgba(3,206,74,1);
 	}
 }
+.wrapper{background-color:#f15b28;}
