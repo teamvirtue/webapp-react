@@ -1,30 +1,27 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-// import { withTheme } from 'material-ui/styles';
-import { withStyles } from 'material-ui/styles';
-import RoomNavigation from './RoomNavigation';
-// import SwipeableViews from 'react-swipeable-views';
-import Typography from 'material-ui/Typography';
-/*import AppBar from 'material-ui/AppBar';
-import List from 'material-ui/List';
-import Tabs, { Tab } from 'material-ui/Tabs';*/
-import grey from 'material-ui/colors/grey';
+import { withStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+// import grey from '@material-ui/core/colors/grey';
 
-//import './Controls.css';
-import ImageCircle from '../ImageCircle';
-import myLinqImage from '../../assets/controls.svg';
+// Local import
+import ImageCircle from '../../ImageCircle';
+import RoomNavigation from './RoomNavigation';
+import controlsImage from '../../assets/controls.jpg';
 
 const styles = theme => ({
     root: {
-        marginBottom: 100,
         //textAlign: 'left',
+    },
+    imageCircle: {
+        marginTop: 48,
     },
     pageTitle: {
         //textAlign: 'center',
-        paddingTop: 15,
+        paddingTop: 48,
         paddingBottom: 16,
     },
-    controlsTitle: {
+    /*controlsTitle: {
         paddingTop: 16,
         paddingLeft: 16,
     },
@@ -34,20 +31,19 @@ const styles = theme => ({
 	roomsBarTab: {
 		borderWidth: 3,
 		borderStyle: 'solid',
-		borderColor: grey[200],
+		borderColor: grey[100],
 		marginLeft: 5,
 		marginRight: 5,
-		borderRadius: 5,
 		minWidth: 120,
-	},
+	},*/
 });
 
 function TabContainer({ children, dir }) {
-  return (
-    <Typography component="div" dir={dir} style={{ padding: 8 * 3 }}>
-      {children}
-    </Typography>
-  );
+	return (
+		<Typography component='div' dir={dir} style={{ padding: 8 * 3 }}>
+			{children}
+		</Typography>
+	);
 }
 
 TabContainer.propTypes = {
@@ -62,15 +58,27 @@ class Controls extends Component {
 
         return (
             <div className={ classes.root }>
-                <Typography variant="headline" gutterBottom className={ classes.pageTitle }>
-                    Controls
-                </Typography>
+				<div className='col-md-5'>
+                    <div className='hidden-lg'>
+                        <ImageCircle gutterTop imageSource={ controlsImage }/>
+                    </div>
 
-                <ImageCircle imageSource={ myLinqImage }/>
+                    <div className='hidden-md hidden-sm hidden-xs'>
+                        <ImageCircle imageSource={ controlsImage }/>
+                    </div>
+				</div>
 
-                <div className='panelView'>
+				<div className='col-md-6'>
+                    <div className='hidden-lg'>
+						<h1>Control your room</h1>
+					</div>
+
+                    <div className='hidden-md hidden-sm hidden-xs'>
+                        <h1 className={ classes.pageTitle }>Control your room</h1>
+                    </div>
+					
 					<RoomNavigation />
-                </div>
+				</div>
             </div>
         );
     }

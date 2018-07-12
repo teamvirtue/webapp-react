@@ -1,67 +1,61 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withTheme } from 'material-ui/styles';
-import { withStyles } from 'material-ui/styles';
+import { withTheme } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import SwipeableViews from 'react-swipeable-views';
-import AppBar from 'material-ui/AppBar';
-import Tabs, { Tab } from 'material-ui/Tabs';
-import Typography from 'material-ui/Typography';
-import MediaQuery from 'react-responsive';
-import Divider from 'material-ui/Divider';
-import Icon from 'material-ui/Icon';
+import AppBar from '@material-ui/core/AppBar';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import Typography from '@material-ui/core/Typography';
+// import Divider from '@material-ui/core/Divider';
+import Icon from '@material-ui/core/Icon';
+// import MediaQuery from 'react-responsive';
 
-import './Home.css';
-import AdviceCard from '../AdviceCard';
-import ImageCircle from '../ImageCircle';
-import myLinqImage from '../../assets/my_linq.svg';
-import linqImage from '../../assets/linq.svg';
-import communityImage from '../../assets/city.svg';
+import { CSSTransitionGroup } from 'react-transition-group';
+import '../../animations.css';
+
+// custom import
+// import './Home.css';
+import { CardContainer } from '../../containers/CardContainer';
+import SocketCard from './SocketCard';
+import ImageCircle from '../../ImageCircle';
+import myLinqImage from '../../assets/my_linq.jpg';
+import linqImage from '../../assets/linq.jpg';
+import communityImage from '../../assets/city.jpg';
 import earthIcon from '../../assets/earth.svg';
 // import halfEarthIcon from '../../assets/half_earth.svg';
 
 let worlds = [
-    { key: '1' },
-    { key: '2' },
+    { id: '1' },
+    // { id: '2' },
 ];
 
-let advices = [ // use fetch in future https://blog.hellojs.org/fetching-api-data-with-react-js-460fe8bbf8f2
-    {   key: '1',
-        title: 'Washer-dryer',
-        message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do ut labore et dolore magna aliqua.',
-        buttonIcon: 'schedule',
-		buttonText: 'schedule',
-    },
-    {   key: '2',
-        title: 'Dishwasher',
-        message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-        buttonIcon: 'done',
-		buttonText: 'Agree',
-    },
-    {   key: '3',
-        title: 'TV',
-        message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-        buttonIcon: 'done',
-		buttonText: 'Agree',
+let sockets = [
+    {   id: '1',
+        title: 'Appliance Connected',
+        message: 'A new applicance is connected to a socket in the kitchen. Please specify what appliance this is.',
+        // buttonIcon: 'schedule',
+        // buttonText: 'schedule',
     },
 ];
 
 const styles = theme => ({
-    /*root: {
-    },*/
+    root: {
+        transition: 'all 1s ease-in-out',
+    },
     appBar: {
         position: 'static',
         boxShadow: 'none',
         backgroundColor: 'white',
     },
-    /*pageContainer: {
-        position: 'relative',
-        width: '100%',
-        marginBottom: 100,
-    },*/
+    tabIndicator: {
+        top: 0,
+        bottom: 'auto',
+    },
     energyIcon: {
         fontSize: '3.5em',
         lineHeight: '50px',
-        color: '#f15b27', // TODO: create global theme
+        color: theme.palette.primary.main,
     },
     checkIcon: {
         fontSize: '2em',
@@ -71,13 +65,33 @@ const styles = theme => ({
         margin: 2,
     },
     cardContainer: {
-        //minWidth: 275,
-        margin: '25px 15px',
+        // minWidth: 275,
+        minWidth: 275,
+        maxWidth: 600,
+       /* display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',*/
+        margin: '0 auto',
+        // backgroundColor: 'lightblue',
+    },
+    title: {
+        marginBottom: 16,
+        fontSize: 20,
+    },
+    iconSmall: {
+        fontSize: 25,
+    },
+    notification: {
+        outline: '2px dashed #f15b27',
+        backgroundColor: '#f15b27',
+        padding:10,
+        maxWidth: 400,
+        margin: '0 auto',
+        color: 'white',
     },
 });
 
 function TabContainer({ children, dir }) {
-
     return (
         <div className='pageContainer' dir={ dir }>
             { children }
@@ -90,6 +104,7 @@ class Home extends Component {
         super(props);
         this.state = {
             value: 0,
+            ignored: false,
         };
     }
 
@@ -101,9 +116,16 @@ class Home extends Component {
         this.setState({ value: index });
     };
 
+    /*dismissCard = (id) => {
+		//alert(advices);
+        //delete advices[0];
+    };*/
+
     render() {
-        const { classes, theme } = this.props;
+        const { classes, theme, advices, accounts, temperature } = this.props;
         const { value } = this.state;
+
+        //console.log(temperature);
 
         return (
             <div className={ classes.root }> {/*TODO: reduce number of nameless divs*/}
@@ -112,7 +134,7 @@ class Home extends Component {
                         value={ value }
                         onChange={ this.handleChange }
                         indicatorColor='primary'
-                        //indicatorClassName='tabIndicator'
+                        classes={{ indicator: classes.tabIndicator }}
                         textColor='primary'
                         fullWidth
                         centered
@@ -123,12 +145,14 @@ class Home extends Component {
                     </Tabs>
                 </AppBar>
 
-                { value === 0 && <ImageCircle imageSource={ myLinqImage }/> }
-                { value === 1 && <ImageCircle imageSource={ linqImage }/> }
-                { value === 2 && <ImageCircle imageSource={ communityImage }/> }
+                <div className='col-md-5'>
+                    { value === 0 && <ImageCircle imageSource={ myLinqImage }/> }
+                    { value === 1 && <ImageCircle imageSource={ linqImage }/> }
+                    { value === 2 && <ImageCircle imageSource={ communityImage }/> }
+                </div>
 
-                {/*TODO: check https://react-swipeable-views.com/demos/demos/ & https://react-swipeable-views.com/demos/demos/*/}
-                <div className='panelView'>
+                <div className='col-md-7'>
+                    {/*TODO: check https://react-swipeable-views.com/demos/demos/ & https://react-swipeable-views.com/demos/demos/*/}
                     <SwipeableViews
                         className={ 'swipeableViews' }
                         axis={ theme.direction === 'rtl' ? 'x-reverse' : 'x' }
@@ -137,27 +161,22 @@ class Home extends Component {
                         animateHeight={ true }
                     >
                         <TabContainer dir={ theme.direction }>
-                            <h1>Good morning Jane</h1>
+                            <h1>Good morning { accounts.byId[accounts.currentUser].name }</h1>
+                            <div className = {classes.notification}>This is the 1st demo release of the VIRTUe LINQ app</div>
 
                             <div className='statusBar'>
                                 <div className='statusItem'>
                                     { worlds.map(data => {
                                         return (
-                                            <img key={ data.key } className={ classes.earthIcon } src={ earthIcon } alt='icon'/>
+                                            <img key={ data.id } className={ classes.earthIcon } src={ earthIcon } alt='icon'/>
                                         );
                                     })}
                                     {/*{ data.half && <img className={ classes.earthIcon } src={ halfEarthIcon } alt='icon'/> }*/}
 
-                                    <Typography type='subheading'>
-                                        Use of resources
+                                    <Typography type='p'>
+                                        Your footprint today
                                     </Typography>
                                 </div>
-                                {/*<div className='statusItem'>
-                                    <Icon className={ classes.energyIcon }>swap_vert</Icon>
-                                    <Typography type='subheading'>
-                                        Generating
-                                    </Typography>
-                                </div>*/}
                             </div>
 
                             <div className='infoBar'>
@@ -175,18 +194,79 @@ class Home extends Component {
                                 </div>
                             </div>
 
-                            <MediaQuery query='(max-width: 1200px)'>
+                            {/*<MediaQuery query='(max-width: 1200px)'>
                                 <Divider />
-                            </MediaQuery>
+                            </MediaQuery>*/}
 
                             <div className={ classes.cardContainer }>
-                                { advices.map(data => {
+                                { sockets.map(data => {
                                     return (
-                                        <AdviceCard key={ data.key } title={ data.title } buttonIcon={ data.buttonIcon } buttonText={ data.buttonText }>
+                                        <SocketCard
+                                            key={ data.id }
+                                            title={ data.title }
+                                        >
                                             { data.message }
-                                        </AdviceCard>
+                                        </SocketCard>
                                     );
                                 })}
+
+                                {/*<Divider />*/}
+
+                                <CSSTransitionGroup
+                                    transitionName='cardAnimation'
+                                    transitionAppear={ true }
+                                    transitionAppearTimeout={ 500 }
+                                    transitionEnterTimeout={ 350 }
+                                    transitionLeaveTimeout={ 350 }
+                                >
+                                    { Object.keys(advices.byId).map((id) => {
+                                            let card = advices.byId[id];
+                                            // let lastMessage = messageArray[messageArray.length - 1];
+
+                                            return card.visible ?
+                                                <CardContainer
+                                                    key={ id }
+                                                    id={ id }
+                                                    title={ card.title }
+                                                    buttonIcon={ card.buttonIcon }
+                                                    buttonText={ card.buttonText }
+                                                    // onDismissCard={this.dismissCard}
+                                                >
+                                                    { card.message }
+                                                </CardContainer> : null
+                                        }
+                                    ) }
+                                </CSSTransitionGroup>
+
+                                {/*{ advices.map(data => {
+                                    return (
+                                        <CardContainer
+                                            key={ data.id }
+                                            id={ data.id }
+                                            title={ data.title }
+                                            buttonIcon={ data.buttonIcon }
+                                            buttonText={ data.buttonText }
+                                            // onDismissCard={this.dismissCard}
+                                        >
+                                            { data.message }
+                                        </CardContainer>
+                                    );
+                                })}*/}
+
+                                {/*{ advices.map(data => {
+									return (
+										<AdviceCard
+											key={ data.id }
+											id={ data.id }
+											title={ data.title }
+											buttonIcon={ data.buttonIcon }
+											buttonText={ data.buttonText }
+											onDismissCard={this.dismissCard}
+										>
+											{ data.message }
+										</AdviceCard>
+									);
+								})}*/}
                             </div>
                         </TabContainer>
 
@@ -229,8 +309,8 @@ class Home extends Component {
 
                             <div className='infoBar'>
                                 <div className='infoItem1'>
-                                    <h1>25°</h1>
-                                    <p>Shade temperature</p>
+                                    <h1>{ temperature.outside.celsius }°</h1>
+                                    <p>{ temperature.outside.description }</p>
                                 </div>
                                 <div className='infoItem2'>
                                     <h1>10</h1>

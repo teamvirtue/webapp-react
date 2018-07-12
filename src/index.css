@@ -1,3 +1,47 @@
+body {
+  font-family: 'Roboto', Arial, Helvetica, sans-serif;
+  margin: 0; }
+
+/* width */
+::-webkit-scrollbar {
+  width: 5px; }
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; }
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #A0A0A0; }
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #808080; }
+
+/* Make selected text gold on a red background */
+::-moz-selection {
+  color: white;
+  background: #f15b27; }
+
+::selection {
+  color: white;
+  background: #f15b27; }
+
+.App {
+  text-align: center; }
+
+.pageContainer {
+  width: 100%;
+  padding-bottom: 150px; }
+
+.tabIndicator {
+  top: 0;
+  bottom: auto; }
+
+@media only screen and (min-width: 1140px) {
+  .content {
+    margin-left: 200px; } }
+
 .statusBar {
   display: flex;
   flex-direction: row;
@@ -20,7 +64,8 @@
   flex-direction: row;
   justify-content: center;
   width: 100%;
-  margin: 50px 0; }
+  max-width: 820px;
+  margin: 75px auto; }
   .infoBar h1 {
     margin: 0;
     line-height: 35px; }
@@ -46,3 +91,17 @@
     bottom: 30px;
     right: 0;
     border-left: 1px solid lightgray; }
+
+.settingsContainer {
+  height: 1400px;
+  text-align: left; }
+
+.pageTitle {
+  line-height: 48px; }
+
+.settingsTitle {
+  padding-top: 16px;
+  padding-left: 16px; }
+
+.datePicker {
+  padding-left: 16px; }

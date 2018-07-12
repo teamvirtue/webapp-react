@@ -1,27 +1,29 @@
 import React, { Component, PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import Typography from 'material-ui/Typography';
-import { withStyles } from 'material-ui/styles'
-import { withTheme } from 'material-ui/styles';
-import Divider from 'material-ui/Divider';
-import List, {
-    ListItem,
-    ListItemIcon,
-    ListItemSecondaryAction,
-    ListItemText,
-} from 'material-ui/List';
+import Typography from '@material-ui/core/Typography';
+import { withStyles } from '@material-ui/core/styles'
+import { withTheme } from '@material-ui/core/styles';
+import Divider from '@material-ui/core/Divider';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import ListItemText from '@material-ui/core/ListItemText';
 import Slider from 'rc-slider';
-import Switch from 'material-ui/Switch';
-import Menu, { MenuItem } from 'material-ui/Menu';
+import Switch from '@material-ui/core/Switch';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 import { TimePicker, DatePicker } from 'material-ui-pickers';
-// import { withStyles } from 'material-ui/styles';
-import Icon from 'material-ui/Icon';
+import Icon from '@material-ui/core/Icon';
 
-import './AppSettings.css';
-import ImageCircle from '../ImageCircle';
-import settingsImage from '../../assets/settings.svg';
+// Local import
+import { UserDialogContainer } from '../../containers/UserDialogContainer';
+// import UserDialog from './setting/UserDialog';
+// import './AppSettings.css';
+import ImageCircle from '../../ImageCircle';
+import settingsImage from '../../assets/settings.png';
 
-const options = [];
+// const options = [];
 
 const optionsFood = [ // TODO: add allergy option as well?
     'Not applicable',
@@ -40,6 +42,11 @@ const optionsNightmode = [
 const styles = theme => ({
     root: {
         // backgroundColor: theme.palette.primary.main,
+    },
+    pageTitle: {
+        paddingTop: 48,
+        paddingBottom: 16,
+        textAlign: 'center',
     },
 });
 
@@ -63,10 +70,10 @@ class Picker extends PureComponent {
                 <TimePicker
                     keyboard
                     //label='Masked timepicker'
-                    mask={[/\d/, /\d/, ':', /\d/, /\d/, ' ', /a|p/i, 'M']}
+                    mask={ [/\d/, /\d/, ':', /\d/, /\d/, ' ', /a|p/i, 'M'] }
                     placeholder={ this.props.placeholder }
                     value={ selectedDate }
-                    onChange={this.handleDateChange}
+                    onChange={ this.handleDateChange }
                 />
             </div>
         );
@@ -143,7 +150,7 @@ class Settings extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            selectedDate: new Date('October 13, 2014 11:13:00'),
+            selectedDate: new Date('October 12, 1986 11:13:00'),
             selectedTime: new Date(),
             //selectedDateTime: new Date(),
 
@@ -166,30 +173,49 @@ class Settings extends Component {
     };
 
     render() {
-		const { classes, theme } = this.props;
+		const { classes, theme, accounts } = this.props;
         const { selectedDate, checkedSleepCycleMode } = this.state;
+        // const currentUserId = accounts.byId[accounts.currentUser].id;
+        const currentUser = accounts.byId[accounts.currentUser].name;
+        // const currentUser = accounts.currentUser;
 
         return (
             <div className={classes.root}>
-                <Typography variant='headline' gutterBottom className='pageTitle'>
-                    Settings
-                </Typography>
+				<div className='col-md-5'>
+                    <div className='hidden-lg'>
+                        <ImageCircle gutterTop imageSource={ settingsImage }/>
+                    </div>
 
-                <ImageCircle imageSource={ settingsImage }/>
+                    <div className='hidden-md hidden-sm hidden-xs'>
+                        <ImageCircle imageSource={ settingsImage }/>
+                    </div>
+				</div>
 
-                <div className='panelView'>
+                <div className='col-md-6'>
                     {/*<div className='settingsContainer'>
                         <SelectItem />
                     </div>*/}
 
-                    <div className='settingsContainer'> {/*TODO: remove settings/reportsContainer?*/}
-                        <h1 style={{ textAlign: 'center' }}>Jane Doe</h1> {/*// TODO: make editable*/}
+                    <div className='settingsContainer'> {/*TODO: remove settings/reportsContainer CSS?*/}
+                        <div className='hidden-lg'>
+                            <h1 style={{ textAlign: 'center' }}>{ currentUser }</h1>
+                        </div>
+
+                        <div className='hidden-md hidden-sm hidden-xs'>
+                            <h1 className={ classes.pageTitle }>{ currentUser }</h1>
+                        </div>
 
                         <Typography className='settingsTitle' type='subheading'>
                             Profile
                         </Typography>
 
                         <List>
+							<UserDialogContainer
+                                // user={{ id: currentUserId, name: currentUser }}
+                                // family={ accounts.byId }
+                                // onSubmit={ (event) => this.handleNameChangeSubmit(event) }
+                            />
+                            
                             <ListItem>
                                 <ListItemIcon>
                                     <Icon>cake</Icon>
@@ -198,11 +224,11 @@ class Settings extends Component {
                                 <ListItemText primary='Birthdate' />
 
                                 <DatePicker className='datePicker'
-                                            keyboard
-                                            format='MMMM Do, YYYY'
-                                            value={ selectedDate }
-                                            onChange={ this.handleDateChange }
-                                            animateYearScrolling={ false }
+									keyboard
+									format='MMMM Do, YYYY'
+									value={ selectedDate }
+									onChange={ this.handleDateChange }
+									animateYearScrolling={ false }
                                 />
                             </ListItem>
                             <ListItem>
@@ -216,7 +242,7 @@ class Settings extends Component {
 
                                 <ListItemSecondaryAction>
                                     <Switch
-                                        checked={ this.state.checkedSleepCycleMode }
+                                        checked={ checkedSleepCycleMode }
                                         onChange={ this.handleChange('checkedSleepCycleMode') }
                                         value='checkedSleepCycleMode'
                                     />
@@ -269,8 +295,46 @@ class Settings extends Component {
 
                             <ListMenu label='Night mode' title='Turn on automatically' options={ optionsNightmode } />
                         </List>
-
+						
                         <Divider />
+
+                        {/*<Typography className='settingsTitle' type='subheading'>
+                            Clock
+                        </Typography>
+
+                        <List>
+                            <ListItem>
+                                <ListItemIcon>
+                                    <Icon>av_timer</Icon>
+                                </ListItemIcon>
+
+                                <ListItemText disableTypography	primary='Clock Budget' secondary={
+                                    <Slider
+                                        min={ 0 }
+                                        defaultValue={ 25 }
+                                        trackStyle={{ backgroundColor: theme.palette.primary.main }}
+										dotStyle={{ backgroundColor: 'lightgray', borderColor: 'lightgray' }}
+										activeDotStyle={{ backgroundColor: theme.palette.primary.main, borderColor: theme.palette.primary.main }}
+                                        handleStyle={{
+                                            borderColor: theme.palette.primary.main,
+                                            backgroundColor: theme.palette.primary.main,
+                                        }}
+										marks = {{
+											0: '€1',
+											25: '€5',
+											50: '€10',
+											75: '€15',
+											100: '€20',
+										}}
+                                        railStyle={{ backgroundColor: 'lightgray' }}
+                                    />
+                                }
+                                />
+
+                            </ListItem>
+						</List>
+
+                        <Divider />*/}
 
                         <Typography className='settingsTitle' type='subheading'>
                             Notifications
@@ -360,7 +424,7 @@ class Settings extends Component {
                                     <Icon>exit_to_app</Icon>
                                 </ListItemIcon>
 
-                                <ListItemText primary='Sign out' secondary='Signed in as Jane Doe. Apartment building 10AV LINQ Dubai' />
+                                <ListItemText primary='Sign out' secondary='Signed in as Jane Doe. Apartment building 70 LINQ Eindhoven' />
                             </ListItem>
                         </List>
 
@@ -410,4 +474,4 @@ ListMenu.propTypes = {
     theme: PropTypes.object.isRequired,
 };*/
 
-export default withTheme() (withStyles(styles)(Settings));
+export default withTheme()(withStyles(styles)(Settings));

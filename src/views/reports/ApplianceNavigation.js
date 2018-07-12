@@ -1,87 +1,144 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from 'material-ui/styles';
-import grey from 'material-ui/colors/grey';
-import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
+import { withStyles } from '@material-ui/core/styles';
+import grey from '@material-ui/core/colors/grey';
+import Icon from '@material-ui/core/Icon';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import withMobileDialog from '@material-ui/core/withMobileDialog';
+import Button from '@material-ui/core/Button';
+import Grow from '@material-ui/core/Grow';
 
 import WasherDryer from './appliances/WasherDryer';
 
 const styles = theme => ({
-    navWrapper: {
-		maxWidth: 165,
+    subNavContainer: {
+		whiteSpace: 'nowrap',
     },
-    navContainer: {
-        backgroundColor: grey[200],
+    subNavItem: {
+		marginTop: 10,
+		marginBottom: 10,
+		display: 'table',
     },
-    checked: {
-        color: theme.palette.primary.main,
-    },
-	listItemGutters: {
-		paddingLeft: 15,
-		paddingRight: 15,
+    subNavItemPaper: {
+        backgroundColor: grey[100],
+		height: 140,
+		cursor: 'pointer',
+		display: 'table-cell',
+		verticalAlign: 'middle',
+	},
+	dialogSmall: {
+		minWidth: 450,
+	},
+	dialogFull: {
+		minWidth: 0,
 	},
 });
 
 let appliances = [
-    { value: 'Washer-dryer', component: <WasherDryer />, key: 1 },
-    { value: 'Dishwasher', component: '', key: 2 },
-    { value: 'Oven', component: '', key: 3 },
-    { value: 'Kitchen', component: '', key: 4 },
-    { value: 'Music System', component: '', key: 5 },
-    { value: 'TV', component: '', key: 6 },
-    { value: 'Laptop', component: '', key: 7 },
-    { value: 'Lights', component: '', key: 8 },
-    { value: 'Clock', component: '', key: 9 },
-    { value: 'Car', component: '', key: 10 },
+    { id: 1, value: 'Washer-dryer', icon: 'local_laundry_service', component: <WasherDryer />},
+    { id: 2, value: 'Dishwasher', icon: 'local_drink', component: <WasherDryer /> },
+    { id: 3, value: 'Oven', icon: 'room_service', component: <WasherDryer /> },
+	{ id: 4, value: 'Refrigerator', icon: 'kitchen', component: <WasherDryer /> },
+    { id: 5, value: 'Music System', icon: 'queue_music', component: <WasherDryer /> },
+    { id: 6, value: 'TV', icon: 'tv', component: <WasherDryer /> },
+    { id: 7, value: 'Personal devices', icon: 'important_devices', component: <WasherDryer /> },
+    { id: 8, value: 'Lights', icon: 'lightbulb_outline', component: <WasherDryer /> },
+    { id: 9, value: 'Clock', icon: 'access_time', component: <WasherDryer /> },
+    { id: 10, value: 'Car', icon: 'directions_car', component: <WasherDryer /> },
 ];
+
+function Transition(props) {
+	return <Grow {...props} />;
+}
 
 class ApplianceNavigation extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            value: 1,
+            currentId: 1,
+			openDialog: false,
         };
     }
 
     handleClick = (id, event) => {
         this.setState({
-            value: id,
+            currentId: id,
         });
     };
+	
+	handleDialogOpen = () => {
+		this.setState({ openDialog: true });
+	};
+
+	handleDialogClose = () => {
+		this.setState({ openDialog: false });
+	};
 
     render() {
+		const { fullScreen } = this.props;
         const { classes } = this.props;
-        const { value } = this.state;
+        const { currentId } = this.state;
 
         return (
-			<div className='row'>
-				<div className={["col-xs-5", classes.navWrapper].join(' ')}>
-					<List component='nav' className={ classes.navContainer }>
+			<div>
+				<div className="row">
+					<div className={ classes.subNavContainer }>
 						{ appliances.map(data => {
 							return (
-								<ListItem classes={{
-										gutters: classes.listItemGutters,
-									}} button onClick={ () => this.handleClick(data.key) }>
-									<ListItemText primary={data.value} classes={{ primary: value === data.key ? classes.checked : 'unchecked' }} />
-								</ListItem>
+								<div key={ data.id } className={[classes.subNavItem, "col-xs-4"].join(' ')}>
+									<Paper className={classes.subNavItemPaper} elevation={1} square={true} onClick={ () => { this.handleClick(data.id);this.handleDialogOpen(); } }>
+										<Icon color="primary" style={{ fontSize: 30 }}>{ data.icon }</Icon>
+										<Typography component="p">
+											{ data.value }
+										</Typography>
+									</Paper>
+								</div>
 							);
 						}) }
-					</List>
+					</div>
 				</div>
-				<div className='col-xs-7'>
-					{ appliances.map(data => {
-						return (
-							value === data.key && data.component
-						);
-					}) }
-				</div>
+				
+				
+				<Dialog
+					fullScreen={ fullScreen }
+					open={this.state.openDialog}
+					TransitionComponent={Transition}
+					onClose={this.handleDialogClose}
+					classes={{
+						paperWidthSm: classes.dialogSmall,
+						paperFullScreen: classes.dialogFull,
+					}}
+				>
+					<DialogContent>
+						{ appliances.map(data => {
+							if(currentId === data.id){
+								return (
+									<div key={ data.id }>
+										{ data.component }
+									</div>
+								);
+							}
+							return false;
+						}) }
+					</DialogContent>
+					<DialogActions>
+						<Button onClick={this.handleDialogClose} color="secondary">
+							Close
+						</Button>
+					</DialogActions>
+				</Dialog>
             </div>
         );
     }
 }
 
 ApplianceNavigation.propTypes = {
+	fullScreen: PropTypes.bool.isRequired,
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(ApplianceNavigation);
+export default withStyles(styles)(withMobileDialog()(ApplianceNavigation));

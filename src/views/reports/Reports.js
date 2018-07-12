@@ -1,63 +1,31 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withTheme } from 'material-ui/styles';
-import { withStyles } from 'material-ui/styles';
+import { withTheme } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import SwipeableViews from 'react-swipeable-views';
 import ApplianceNavigation from './ApplianceNavigation';
 import SystemNavigation from './SystemNavigation';
-import AppBar from 'material-ui/AppBar';
-import Tabs, { Tab } from 'material-ui/Tabs';
-import Divider from 'material-ui/Divider';
-/* import Table, {
-    TableBody,
-    TableCell,
-    TableFooter,
-    TableRow,
-} from 'material-ui/Table'; */
-import Icon from 'material-ui/Icon';
-import ExpansionPanel, {
-    ExpansionPanelSummary,
-    ExpansionPanelDetails,
-} from 'material-ui/ExpansionPanel';
-import Typography from 'material-ui/Typography';
+import AppBar from '@material-ui/core/AppBar';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
 
-// import RadioButtonGroup from '../../selection-controls/RadioButtonGroup';
+// Local import
 import LineChart from './LineChart';
 import BarChart from './BarChart';
-// import Checkboxes from '../../selection-controls/Checkboxes';
-import ImageCircle from '../ImageCircle';
-import './Reports.css';
-
-import OverviewImage from '../../assets/reports.svg';
-import AppliancesImage from '../../assets/reports.svg';
-import SystemsImage from '../../assets/reports.svg';
+import ImageCircle from '../../ImageCircle';
+import OverviewImage from '../../assets/reports.png';
+import AppliancesImage from '../../assets/reports.png';
+import SystemsImage from '../../assets/reports.png';
 
 const styles = theme => ({
-    /*theme => root: {
-        backgroundColor: theme.palette.background.paper,
-    },*/
     appBar: {
         position: 'static',
         boxShadow: 'none',
         backgroundColor: 'white',
     },
-    tableCell: {
-        border: 'none', // TODO: combine tableCellName & tableCell
-        textAlign: 'center',
-    },
-    tableCellName: {
-        border: 'none',
-    },
-    tableIcon: {
-        color: theme.palette.primary.main,
-    },
-    ExpansionPanelDetails: {
-        display: 'block',
-        padding: 0,
-    },
-    expandIconExpanded: {
-        color: theme.palette.primary.main,
-        transform: 'translateY(-50%)',
+    tabIndicator: {
+        top: 0,
+        bottom: 'auto',
     },
     icon: {
         fontSize: '2em',
@@ -66,7 +34,7 @@ const styles = theme => ({
     },
 });
 
-let systems = [ // Use https://github.com/github/fetch for loading data?
+/*let systems = [ // Use https://github.com/github/fetch for loading data?
     { value: 'HVAC', icon: 'toys', status: 'check_circle', key: '1' },
     { value: 'Water System', icon: 'info', status: 'highlight_off', key: '2' },
     { value: 'Battery', icon: 'battery_full', status: 'warning', key: '3' },
@@ -74,7 +42,7 @@ let systems = [ // Use https://github.com/github/fetch for loading data?
     { value: 'Solar Panels', icon: 'check_circle', status: 'check_circle', key: '5' },
     { value: 'Smart System', icon: 'developer_board', status: 'check_circle', key: '6' },
     { value: 'Wi-Fi', icon: 'wifi', status: 'check_circle', key: '7' },
-];
+];*/
 
 function TabContainer({ children, dir }) {
     return (
@@ -125,7 +93,7 @@ class Reports extends Component {
                         value={ value }
                         onChange={ this.handleChange }
                         indicatorColor='primary'
-                        //indicatorClassName='tabIndicator'
+                        classes={{ indicator: classes.tabIndicator }}
                         textColor='primary'
                         fullWidth
                         centered
@@ -136,12 +104,13 @@ class Reports extends Component {
                     </Tabs>
                 </AppBar>
 
-                { value === 0 && <ImageCircle imageSource={ OverviewImage }/> }
-                { value === 1 && <ImageCircle imageSource={ AppliancesImage }/> }
-                { value === 2 && <ImageCircle imageSource={ SystemsImage }/> }
+				<div className='col-md-5'>
+					{ value === 0 && <ImageCircle imageSource={ OverviewImage }/> }
+					{ value === 1 && <ImageCircle imageSource={ AppliancesImage }/> }
+					{ value === 2 && <ImageCircle imageSource={ SystemsImage }/> }
+				</div>
 
-                <div className='panelView'>
-					
+                <div className='col-md-6'>
                     <SwipeableViews
                         className={ 'swipeableViews' }
                         axis={ theme.direction === 'rtl' ? 'x-reverse' : 'x' }
@@ -149,65 +118,37 @@ class Reports extends Component {
                         onChangeIndex={ this.handleChangeIndex }
                     >
                         <TabContainer dir={ theme.direction }>
-                            {/*TODO: fix titles layout*/}
+                            <h1>Net Energy (kWh)</h1>
+                            <LineChart type='energy' />
 
-                            <h1>On Average</h1>
+                            <h1>Water Usage (L)</h1>
+                            <LineChart type='water' />
 
-                            <div className='reportsInfoBar'>
-                                <div className='infoItem1'>
-                                    <h1>15</h1><h3>kwh</h3>
-                                    <p>Weekly</p>
-                                </div>
-                                <div className='infoItem2'>
-                                    <h1>60</h1><h3>kwh</h3>
-                                    <p>Monthly</p>
-                                </div>
-                                <div className='infoItem3'>
-                                    <h1>720</h1><h3>kwh</h3>
-                                    <p>Yearly</p>
-                                </div>
-                            </div>
-
-                            <Divider/>
-
-                            <h1>Estimated Figures</h1>
-
-                            <div className='reportsInfoBar'>
-                                <div className='infoItem1'>
-                                    <Icon style={{ display: 'block' }}>local_atm</Icon>
-                                    <h1>5500</h1><h3>$</h3>
-                                    <p>Money saved</p>
-                                </div>
-                                <div className='infoItem2'>
-                                    <Icon style={{ display: 'block' }}>bubble_chart</Icon>
-                                    <h1>2</h1><h3>T</h3>
-                                    <p>CO<sub>2</sub> reduced</p>
-                                </div>
-                                <div className='infoItem3'>
-                                    <Icon>nature</Icon>
-                                    <h1>100</h1>
-                                    <p>Trees saved</p>
-                                </div>
-                            </div>
-
-                            <Divider/>
-
-                            {/*<RadioButtonGroup />*/}
-
-                            <h1>Total Energy</h1>
-
-                            <LineChart />
-                            {/*<Checkboxes />*/}
-
-                            <h1>Per Appliance</h1>
+                            <h1>Appliance Energy (kWh)</h1>
                             <BarChart />
                         </TabContainer>
 
                         <TabContainer dir={ theme.direction }>
+                            <div className='hidden-lg'>
+                                <h1>Check appliance status</h1>
+                            </div>
+
+                            <div className='hidden-md hidden-sm hidden-xs'>
+                                <h1 className={ classes.pageTitle }>Check appliance status</h1>
+                            </div>
+
 							<ApplianceNavigation />
                         </TabContainer>
 
                         <TabContainer dir={ theme.direction }>
+                            <div className='hidden-lg'>
+                                <h1>Check system status</h1>
+                            </div>
+
+                            <div className='hidden-md hidden-sm hidden-xs'>
+                                <h1 className={ classes.pageTitle }>Check system status</h1>
+                            </div>
+
                             <SystemNavigation />
                         </TabContainer>
                     </SwipeableViews>

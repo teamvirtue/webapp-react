@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
-import Typography from 'material-ui/Typography';
-import { withTheme } from 'material-ui/styles';
-import { withStyles } from 'material-ui/styles';
-import List, {
-    ListItem,
-    ListItemIcon,
-    ListItemSecondaryAction,
-    ListItemText,
-} from 'material-ui/List';
-import Icon from 'material-ui/Icon';
-import Switch from 'material-ui/Switch';
+import { withTheme } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import Icon from '@material-ui/core/Icon';
+import Switch from '@material-ui/core/Switch';
+import Typography from '@material-ui/core/Typography';
 import 'rc-slider/assets/index.css';
 import Slider from 'rc-slider';
 
@@ -30,12 +28,12 @@ class Light extends Component {
     };
 	
 	render() {
-		const { classes, theme } = this.props;
+		const { theme } = this.props;
 		
 		return (
 			<div>
-				<Typography className={ classes.controlsTitle } type='subheading'>
-					Lights for {this.props.room}
+				<Typography variant="title" gutterBottom>
+					Lights
 				</Typography>
 				
 				<ListItem>
@@ -57,7 +55,7 @@ class Light extends Component {
 						<Icon>lightbulb_outline</Icon>
 					</ListItemIcon>
 
-					<ListItemText primary='Brightness' secondary={
+					<ListItemText disableTypography primary='Brightness' secondary={
 						<Slider
 							min={ 0 }
 							max={ 20 }

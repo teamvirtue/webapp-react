@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
-import Typography from 'material-ui/Typography';
-import List, {
-    ListItem,
-    ListItemIcon,
-    ListItemSecondaryAction,
-    ListItemText,
-} from 'material-ui/List';
-import Icon from 'material-ui/Icon';
-import Switch from 'material-ui/Switch';
+import Typography from '@material-ui/core/Typography';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import Icon from '@material-ui/core/Icon';
+import Switch from '@material-ui/core/Switch';
 
 class NightMode extends Component {
     constructor(props) {
@@ -22,11 +20,9 @@ class NightMode extends Component {
     };
 	
 	render() {
-		const classes = this.props;
-		
 		return (
 			<div>
-				<Typography className={ classes.controlsTitle } type='subheading'>
+				<Typography variant="title" gutterBottom>
 					Night Mode
 				</Typography>
 

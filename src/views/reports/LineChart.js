@@ -1,99 +1,175 @@
 import React, { Component } from 'react';
-import { withStyles } from 'material-ui/styles';
+import { withStyles } from '@material-ui/core/styles';
+import Radio  from '@material-ui/core/Radio';
+import RadioGroup  from '@material-ui/core/RadioGroup';
+import FormControlLabel  from '@material-ui/core/FormControlLabel';
 import { Line } from 'react-chartjs-2';
-import Radio, { RadioGroup } from 'material-ui/Radio';
-import { FormControlLabel } from 'material-ui/Form';
 
-let data = [1000, 181, -1200, 106, 105, 95, 56, 604, 150, 234, 76, 86,];
+let dataWeek = [10, 18, 20, 16, 105, 56,];
+let dataMonths = [100, 181, 200, 106, 105, 95, 56, 604, 150, 234, 11,];
+let dataYears = [1000, 1810, 2000, 1060,];
 
-const WEEK = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+let initialData = [10, 18, 20, 16, 105, 56, 78]; // TODO: find way to insert initial array more efficient
+
+const WEEK = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+// const WEEK = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 const MONTHS = ['Jan', 'Feb', 'Mrt', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 const YEARS = ['2014', '2015', '2016', '2017', '2018'];
 
-const initialState = {
-    labels: MONTHS,
-    datasets: [
-        {
-            label: 'Difference Graph',
-            fill: false,
-            lineTension: 0.1,
-            borderCapStyle: 'butt',
-            borderDash: [],
-            borderDashOffset: 0.0,
-            borderJoinStyle: 'miter',
-            borderWidth: 3,
-            pointBorderWidth: 1,
-            pointHoverRadius: 5,
-            pointHoverBorderWidth: 2,
-            pointRadius: 1,
-            pointHitRadius: 10,
-            data: data,
-        }
-    ]
-};
-
-const styles = theme => ({
+const styles = {
     root: {
         //backgroundColor: 'firebrick'
     },
     radioGroup: {
         justifyContent: 'center',
         marginBottom: 50,
-    }
-});
+    },
+    radioButton: {
+        display: 'inline',
+        margin: 0,
+    },
+    water: {
+        color: '#0EA4D8',
+        '&$checked': {
+            color: '#0EA4D8',
+        },
+    },
+    checked: {},
+};
 
 class LineChart extends Component{
     constructor(props){
         super(props);
         this.state = {
-            chartData: initialState,
-            value: 'week'
+            value: 'week',
+            type: props.type,
         };
+        // const { theme } = props;
     }
 
     handleChange = (event, value) => {
         this.setState({ value });
-
         let selectedLabel;
+        const oldDataSet = this.state.datasets[0];
+        let newData = [];
 
-        switch (value) {
+        switch(value) {
             case 'week':
                 selectedLabel = WEEK;
+                newData.push(...dataWeek);
+                /*for (let x = 0; x < selectedLabel.length; x++) {
+                    newData.push(dataWeek[x]);
+                }*/
                 break;
             case 'month':
                 selectedLabel = MONTHS;
+                newData.push(...dataMonths);
                 break;
             case 'year':
                 selectedLabel = YEARS;
+                newData.push(...dataYears);
                 break;
             default:
                 selectedLabel = WEEK;
-        }
-
-        let oldDataSet = this.state.datasets[0]; //myBarChart.data.datasets[0].data[12] = 500;
-        let newData = [];
-
-        for (let x = 0; x < selectedLabel.length; x++) {
-            newData.push(Math.floor(Math.random() * 1000));
+                newData.push(...dataWeek);
         }
 
         let newDataSet = { ...oldDataSet };
 
         newDataSet.data = newData;
 
-        let newState = {
-            ...initialState,
+        this.setState({
             labels: selectedLabel,
             datasets: [newDataSet]
-        };
-
-        this.setState(newState);
+        });
     };
 
-    //displayName: 'LineChart';
     componentWillMount() {
-        this.setState(initialState);
+        if (this.state.type === 'water') {
+            this.setState({
+                labels: WEEK,
+                datasets: [
+                    {
+                        label: 'Water Graph',
+                        fill: true,
+                        data: initialData,
+                        backgroundColor: '#AFE4F5',
+                        borderColor: '#0EA4D8', // TODO: get color from theme
+                    }
+                ]
+            });
+        } else {
+            this.setState({
+                labels: WEEK,
+                datasets: [
+                    {
+                        label: 'Difference Energy Graph',
+                        fill: false,
+                        lineTension: 0.15, //0.1
+                        borderCapStyle: 'butt',
+                        borderDash: [],
+                        borderDashOffset: 0.0,
+                        borderJoinStyle: 'miter',
+                        borderWidth: 3,
+                        pointBorderWidth: 1,
+                        pointHoverRadius: 5,
+                        pointHoverBorderWidth: 2,
+                        pointRadius: 1,
+                        pointHitRadius: 10,
+                        data: initialData,
+                        borderColor: '#f15b27',
+                    }
+                ]
+            });
+        }
+        // this.setState(initialState);
     };
+
+    componentDidMount() { // TODO: replace with API call
+        this.timer = setInterval(
+            (value) => this.retrieve(this.state.value),
+            30000
+            //3000
+        );
+    };
+
+    componentWillUnmount() {
+        clearInterval(this.timer);
+    }
+
+    retrieve(value) {
+        const datasetsCopy = this.state.datasets.slice(0);
+        let dataCopy = datasetsCopy[0].data.slice(0);
+        let dataPoint = Math.floor(Math.random() * 100);
+
+        if (dataCopy.length < this.state.labels.length) {
+            dataCopy[dataCopy.length] = dataPoint;
+        } else {
+            dataCopy = [dataPoint];
+        }
+
+        switch (value) {
+            case 'week':
+                dataWeek = dataCopy;
+                break;
+            case 'month':
+                dataMonths = dataCopy;
+                break;
+            case 'year':
+                dataYears = dataCopy;
+                break;
+            default:
+                dataWeek = dataCopy;
+                console.log('default');
+        }
+
+        datasetsCopy[0].data = dataCopy;
+
+        this.setState({
+            //...initialState,
+            datasets: datasetsCopy
+        });
+    }
 
     render(){
         const { classes } = this.props;
@@ -103,27 +179,46 @@ class LineChart extends Component{
                 <RadioGroup
                     aria-label='time'
                     name='time'
-                    className={ classes.radioGroup } /*RadioGroup*/
+                    className={ classes.radioGroup }
                     value={ this.state.value }
                     onChange={ this.handleChange }
                     row
                 >
-                    <FormControlLabel style={{ display: 'inline', margin: 0 }} value='week' control={ <Radio /> } label='Week' />
-                    <FormControlLabel style={{ display: 'inline', margin: 0 }} value='month' control={ <Radio /> } label='Month' />
-                    <FormControlLabel style={{ display: 'inline', margin: 0 }} value='year' control={ <Radio /> } label='Year' />
+                    <FormControlLabel className={ classes.radioButton } value='week' control={
+                        <Radio classes={{
+                            root: this.state.type === 'water' && classes.water,
+                            checked: this.state.type === 'water' && classes.checked,
+                        }}/>
+                    } label='Week'/>
+                    <FormControlLabel className={ classes.radioButton } value='month' control={
+                        <Radio classes={{
+                            root: this.state.type === 'water' && classes.water,
+                            checked: this.state.type === 'water' && classes.checked,
+                        }}/>
+                    } label='Month'/>
+                    <FormControlLabel className={ classes.radioButton } value='year' control={
+                        <Radio classes={{
+                            root: this.state.type === 'water' && classes.water,
+                            checked: this.state.type === 'water' && classes.checked,
+                        }}/>
+                    } label='Year'/>
                 </RadioGroup>
 
                 <Line
-                    data={ this.state } /*this.state.chartData, this.state.data*/
-                    /*width={75}
-                    height={100}*/
+                    data={ this.state } // TODO: chart is cut off sometimes (https://github.com/chartjs/Chart.js/issues/2872), fixed it with setting the padding for now (mobile)
+                    /*width={75}*/
+                    /*height={ 175 }*/
                     options={{
+                        tooltips: {
+                            enabled: false,
+                            // mode: 'nearest'
+                        },
                         layout: {
                             padding: {
-                                left: 15,
+                                left: 30,
                                 right: 35,
-                                top: 0,
-                                bottom: 0
+                                top: 15, //10
+                                bottom: 15 //10
                             }
                         },
                         legend:{
@@ -141,22 +236,25 @@ class LineChart extends Component{
                                 ticks: {
                                     minRotation: 90,
                                     fontFamily: "'Roboto'",
-                                    fontColor: 'gray'
+                                    fontColor: 'gray',
                                 },
                             }],
                             yAxes: [{
+                                // display: false,
                                 gridLines: {
                                     display: true,
                                     color: 'white',
                                     drawBorder: false,
                                     lineWidth: 0,
-                                    zeroLineColor: '#e3e3e3',
+                                    zeroLineColor: '#e3e3e3', //'#e3e3e3',
                                     zeroLineWidth: 2,
+                                    //tickMarkLength: 0
                                 },
                                 ticks: {
-                                    suggestedMin: 0,    // minimum will be 0, unless there is a lower value
+                                    display: false,
+                                    /*suggestedMin: 0,    // minimum will be 0, unless there is a lower value
                                     fontFamily: "'Roboto'",
-                                    fontColor: 'gray',
+                                    fontColor: 'gray',*/
                                 },
                             }],
                         },
@@ -168,12 +266,22 @@ class LineChart extends Component{
                         animation: {
                             duration: 500,
                         },
-                        tooltips: {
-                            mode: 'nearest'
-                        },
                         responsive: true,
                         responsiveAnimationDuration: 0, // animation duration after a resize
                         //maintainAspectRatio: false,
+                        plugins: {
+                            datalabels: {
+                                backgroundColor: function(context) {
+                                    return context.dataset.borderColor;
+                                },
+                                borderRadius: 100, //4,
+                                color: 'white',
+                                font: {
+                                    weight: 'bold'
+                                },
+                                formatter: Math.round
+                            },
+                        },
                     }}
                 />
             </div>
@@ -181,4 +289,4 @@ class LineChart extends Component{
     }
 }
 
-export default (withStyles(styles)(LineChart));
+export default withStyles(styles)(LineChart);

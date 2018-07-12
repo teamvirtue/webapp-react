@@ -1,85 +1,142 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from 'material-ui/styles';
-import grey from 'material-ui/colors/grey';
-import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
+import { withStyles } from '@material-ui/core/styles';
+import grey from '@material-ui/core/colors/grey';
+import Icon from '@material-ui/core/Icon';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogActions from '@material-ui/core/DialogActions';
+import withMobileDialog from '@material-ui/core/withMobileDialog';
+import Button from '@material-ui/core/Button';
+import Grow from '@material-ui/core/Grow';
 
+// Local import
 import HVAC from './systems/HVAC';
 
 const styles = theme => ({
-    navWrapper: {
-		maxWidth: 175,
+    subNavContainer: {
+		whiteSpace: 'nowrap',
     },
-    navContainer: {
-        backgroundColor: grey[200],
+    subNavItem: {
+		marginTop: 10,
+		marginBottom: 10,
+		display: 'table',
     },
-    checked: {
-        color: theme.palette.primary.main,
-    },
-	listItemGutters: {
-		paddingLeft: 15,
-		paddingRight: 15,
+    subNavItemPaper: {
+        backgroundColor: grey[100],
+		height: 140,
+		cursor: 'pointer',
+		display: 'table-cell',
+		verticalAlign: 'middle',
+	},
+	dialogSmall: {
+		minWidth: 450,
+	},
+	dialogFull: {
+		minWidth: 0,
 	},
 });
 
 let systems = [
-    { value: 'HVAC', component: <HVAC />, key: 1 },
-    { value: 'Water System', component: '', key: 2 },
-    { value: 'Battery', component: '', key: 3 },
-    { value: 'Grid', component: '', key: 4 },
-    { value: 'Solar Panels', component: '', key: 5 },
-    { value: 'Smart System', component: '', key: 6 },
-    { value: 'Wi-Fi', component: '', key: 7 },
+    { id: 1, value: 'HVAC', icon: 'toys', component: <HVAC /> },
+    { id: 2, value: 'Water System', icon: 'invert_colors', component: <HVAC /> },
+    { id: 3, value: 'Battery', icon: 'battery_full', component: <HVAC /> },
+    { id: 4, value: 'Grid', icon: 'power', component: <HVAC /> },
+    { id: 5, value: 'Solar Panels', icon: 'view_column', component: <HVAC /> },
+    { id: 6, value: 'Smart System', icon: 'developer_board', component: <HVAC /> },
+    { id: 7, value: 'Wi-Fi', icon: 'wifi', component: <HVAC /> },
 ];
+
+function Transition(props) {
+	return <Grow {...props} />;
+}
 
 class SystemNavigation extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            value: 1,
+            currentId: 1,
+			openDialog: false,
         };
     }
 
     handleClick = (id, event) => {
         this.setState({
-            value: id,
+            currentId: id,
         });
     };
+	
+	handleDialogOpen = () => {
+		this.setState({ openDialog: true });
+	};
+
+	handleDialogClose = () => {
+		this.setState({ openDialog: false });
+	};
 
     render() {
+		const { fullScreen } = this.props;
         const { classes } = this.props;
-        const { value } = this.state;
+        const { currentId } = this.state;
 
         return (
-			<div className='row'>
-				<div className={["col-xs-5", classes.navWrapper].join(' ')}>
-					<List component='nav' className={ classes.navContainer }>
+			<div>
+				<div className="row">
+					<div className={ classes.subNavContainer }>
 						{ systems.map(data => {
 							return (
-								<ListItem classes={{
-										gutters: classes.listItemGutters,
-									}}
-									button onClick={ () => this.handleClick(data.key) }>
-									<ListItemText primary={data.value} classes={{ primary: value === data.key ? classes.checked : 'unchecked' }} />
-								</ListItem>
+								<div key={ data.id } className={[classes.subNavItem, "col-xs-4"].join(' ')}>
+									<Paper className={classes.subNavItemPaper} elevation={1} square={true} onClick={ () => { this.handleClick(data.id);this.handleDialogOpen(); } }>
+										<Icon color="primary" style={{ fontSize: 30 }}>{ data.icon }</Icon>
+										<Typography component="p">
+											{ data.value }
+										</Typography>
+									</Paper>
+								</div>
 							);
 						}) }
-					</List>
+					</div>
 				</div>
-				<div className='col-xs-7'>
-					{ systems.map(data => {
-						return (
-							value === data.key && data.component
-						);
-					}) }
-				</div>
+				
+				
+				<Dialog
+					fullScreen={ fullScreen }
+					open={this.state.openDialog}
+					TransitionComponent={Transition}
+					onClose={this.handleDialogClose}
+					classes={{
+						paperWidthSm: classes.dialogSmall,
+						paperFullScreen: classes.dialogFull,
+					}}
+				>
+					<DialogContent>
+						{ systems.map(data => {
+							if(currentId === data.id){
+								return (
+									<div key={ data.id }>
+										{ data.component }
+									</div>
+								);
+							}
+							return false;
+						}) }
+					</DialogContent>
+					<DialogActions>
+						<Button onClick={this.handleDialogClose} color="secondary">
+							Close
+						</Button>
+					</DialogActions>
+				</Dialog>
             </div>
         );
     }
 }
 
 SystemNavigation.propTypes = {
+	fullScreen: PropTypes.bool.isRequired,
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(SystemNavigation);
+export default withStyles(styles)(withMobileDialog()(SystemNavigation));
