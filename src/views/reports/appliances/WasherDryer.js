@@ -14,7 +14,9 @@ class WasherDryer extends Component {
 
   constructor() {
     super();
-
+    state: {
+      array: []
+    }
   }
   componentDidMount() {
     // const configAuth = Axios.create({
@@ -83,47 +85,46 @@ class WasherDryer extends Component {
     //       });
     //     });
   }
+  handleData = (data) => {
+        this.setState({array: data});
+        console.log(this.state.array);
+  }
+
 
   render() {
     const classes = this.props;
-    const requesting = new Request();
-    const token = "BB";
-    console.log(token);
-    const title = "token";
-    console.log(requesting.getToken());
-    return (
-      <div>
+      return (
+        <div>
         <List>
-          <Request url={'/users/'}></Request>
-          <Typography className={classes.controlsTitle} type='subheading'>
+        <Request onDataChange={this.handleData} url={'/users/'}></Request>
+        <Typography className={classes.controlsTitle} type='subheading'>
 
-          </Typography>
-          <Typography className={classes.controlsTitle} type='subheading'>
-            Chart
-					</Typography>
+        </Typography>
+        <Typography className={classes.controlsTitle} type='subheading'>
+        Chart
+        </Typography>
 
-          <LineChart />
+        <LineChart></LineChart>
 
-          <Divider />
+        <Divider />
 
-          <div className='statusBar'>
-            <div className='statusItem'>
-              <h3>Feb</h3><h1>18</h1>
-              <Typography type='subheading' gutterBottom>
-                Last maintenance
-							</Typography>
-            </div>
-            <div className='statusItem'>
-              <Icon className={classes.icon}>check_circle</Icon>
-              <Typography type='subheading' gutterBottom>
-                Operating normally
-							</Typography>
-            </div>
-          </div>
-
+        <div className='statusBar'>
+        <div className='statusItem'>
+        <h3>Feb</h3><h1>18</h1>
+        <Typography type='subheading' gutterBottom>
+        Last maintenance
+        </Typography>
+        </div>
+        <div className='statusItem'>
+        <Icon className={classes.icon}>check_circle</Icon>
+        <Typography type='subheading' gutterBottom>
+        Operating normally
+        </Typography>
+        </div>
+        </div>
         </List>
-      </div >
-    );
+        </div >
+      );
   }
 }
 

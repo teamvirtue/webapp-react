@@ -28,25 +28,33 @@ class Request extends React.Component {
         this.setState({ token: data.token });
       });
   }
-
-  getAxios() {
-    return this.request_axios;
-  }
-  getRequest(url, token) {
-    //console.log(this.request_axios);
-    console.log(token);
-    const instance = Axios.create({
-      baseURL: 'http://localhost:8000',
-      headers: { 'Authorization': 'JWT ' + this.state.token },
-    });
-    console.log(instance);
+  update(url, instance){
+    console.log("this is IN");
     instance.get(url, {
       timeout: 5000
     }).then((response) => {
       this.state.array.push(response.data);
-      console.log(this.state.array);
+      this.props.onDataChange(this.state.array);
     });
   }
+  getDataArray() {
+    return this.state.array;
+  }
+  getAxios() {
+    return this.request_axios;
+  }
+
+  getRequest(url, token) {
+    //console.log(this.request_axios);
+    console.log(token);
+
+    const instance = Axios.create({
+      baseURL: 'http://localhost:8000',
+      headers: { 'Authorization': 'JWT ' + this.state.token },
+    });
+    this.interval = setInterval(() => this.update(url,instance), 5000);
+  }
+
 
   getLines() {
     const line = this.state.array.map((index) => {
@@ -59,22 +67,15 @@ class Request extends React.Component {
       </ul>
     );
   }
+  stop() {
+    clearInterval(this.interval);
+  }
   render() {
 
     return (
-      this.state.array.map(item => {
-        <div key={item.url} >
-          <h1>{item.username.toString()}</h1>
-          <h1>{item.email}</h1>
-          <h1>{item.is_staff}</h1>
-          <hr></hr>
-        </div>
-      }),
-      < div >
-        <getLines>dsadsada</getLines>
-        {/* <button onClick={() => this.getLines(this.state.array)}>GetLines</button> */}
-        {/* <Line data={this.state.array}></Line> */}
-        <button onClick={() => this.getRequest(this.props.url, this.state.token)}>Refresh</button>
+      <div>
+        <button onClick={() => this.getRequest(this.props.url, this.state.token)}>Start</button>
+        <button onClick={() => this.stop()}>stop</button>
       </div >
 
 
