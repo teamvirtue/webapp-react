@@ -5,7 +5,6 @@ const mapStateToProps = (state) => {
     // console.log(state);
     return {
         accounts: state.accounts,
-        advices: state.advices,
 		temperature: state.temperature,
 		localNewsHeadlines: state.localNewsHeadlines,
     }

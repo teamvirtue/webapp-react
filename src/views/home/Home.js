@@ -13,9 +13,6 @@ import { virtualize, bindKeyboard } from 'react-swipeable-views-utils';
 import { mod } from 'react-swipeable-views-core';
 import SupportTouch from 'react-swipeable-views';
 
-import { CSSTransitionGroup } from 'react-transition-group';
-import '../../animations.css';
-
 // custom import
 import { CardContainer } from '../../containers/CardContainer';
 import SocketCard from './SocketCard';
@@ -144,13 +141,8 @@ class Home extends Component {
         this.setState({ value: index });
     };
 
-    /*dismissCard = (id) => {
-		//alert(advices);
-        //delete advices[0];
-    };*/
-
     render() {
-        const { classes, theme, advices, accounts, temperature, localNewsHeadlines } = this.props;
+        const { classes, theme, accounts, temperature, localNewsHeadlines } = this.props;
         const { value } = this.state;
 
         //console.log(localNewsHeadlines);
@@ -234,10 +226,6 @@ class Home extends Component {
                                 </div>
                             </div>
 
-                            {/*<MediaQuery query='(max-width: 1200px)'>
-                                <Divider />
-                            </MediaQuery>*/}
-
                             <div className={ classes.cardContainer }>
                                 { sockets.map(data => {
                                     return (
@@ -249,64 +237,6 @@ class Home extends Component {
                                         </SocketCard>
                                     );
                                 })}
-
-                                {/*<Divider />*/}
-
-                                <CSSTransitionGroup
-                                    transitionName='cardAnimation'
-                                    transitionAppear={ true }
-                                    transitionAppearTimeout={ 500 }
-                                    transitionEnterTimeout={ 350 }
-                                    transitionLeaveTimeout={ 350 }
-                                >
-                                    { Object.keys(advices.byId).map((id) => {
-                                            let card = advices.byId[id];
-                                            // let lastMessage = messageArray[messageArray.length - 1];
-
-                                            return card.visible ?
-                                                <CardContainer
-                                                    key={ id }
-                                                    id={ id }
-                                                    title={ card.title }
-                                                    buttonIcon={ card.buttonIcon }
-                                                    buttonText={ card.buttonText }
-                                                    // onDismissCard={this.dismissCard}
-                                                >
-                                                    { card.message }
-                                                </CardContainer> : null
-                                        }
-                                    ) }
-                                </CSSTransitionGroup>
-
-                                {/*{ advices.map(data => {
-                                    return (
-                                        <CardContainer
-                                            key={ data.id }
-                                            id={ data.id }
-                                            title={ data.title }
-                                            buttonIcon={ data.buttonIcon }
-                                            buttonText={ data.buttonText }
-                                            // onDismissCard={this.dismissCard}
-                                        >
-                                            { data.message }
-                                        </CardContainer>
-                                    );
-                                })}*/}
-
-                                {/*{ advices.map(data => {
-									return (
-										<AdviceCard
-											key={ data.id }
-											id={ data.id }
-											title={ data.title }
-											buttonIcon={ data.buttonIcon }
-											buttonText={ data.buttonText }
-											onDismissCard={this.dismissCard}
-										>
-											{ data.message }
-										</AdviceCard>
-									);
-								})}*/}
                             </div>
                         </TabContainer>
 

@@ -17,9 +17,10 @@ import Divider from '@material-ui/core/Divider';
 // import Home from './home/Home';
 import { HomeContainer } from '../containers/HomeContainer';
 import { AppSettingsContainer } from '../containers/AppSettingsContainer';
+// import Settings from './settings/AppSettings';
 import Controls from './controls/Controls';
 import Reports from './reports/Reports';
-// import Settings from './settings/AppSettings';
+import { NotificationsDialogContainer } from '../containers/NotificationsDialogContainer';
 
 import '../index.css';
 
@@ -59,14 +60,6 @@ const styles = theme => ({
     checked: {
 		backgroundColor: 'rgba(255,255,255,0.3) !important',
     },
-	notifications: {
-		display: 'inline-block',
-		backgroundColor: 'white',
-		borderRadius: '50%',
-		width: 50,
-		height: 50,
-		paddingTop: 12,
-	}
 });
 
 
@@ -127,17 +120,11 @@ class MainNavigation extends Component {
 									<ListItemText primary='Settings' classes={{ primary: classes.desktopNavListItemContent }} />
 								</ListItem>
 							</List>
-							
-							<div>
-								<span className={ classes.notifications }>
-									<Badge badgeContent={4} color="secondary">
-										<Icon color="primary">notifications</Icon>
-									</Badge>
-								</span>
-							</div>
 						</div>
                     </div>
                 </div>
+				
+				<NotificationsDialogContainer />
 
                 <div className='hidden-lg'>
                     <BottomNavigation value={ value } onChange={ this.handleChange } className={ classes.mobileNav } showLabels>

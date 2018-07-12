@@ -12,12 +12,6 @@ const styles = theme => ({
 		top: '50%',
 		margin: '-11vw 0 0 -11vw',
 	},
-	linqStatusMobile: {
-		display: 'inline-block',
-		width: '30vw',
-		height: '30vw',
-        marginTop: 20,
-	},
 
 	circle: {
 		position: 'absolute',
@@ -65,17 +59,6 @@ class ImageCircle extends Component {
 						<circle cx="50" cy="50" r="48"/>
 					</svg>
 				</div>
-				
-				{ /* Mobile 
-				<div className='hidden-lg hidden-md'>
-					<div className={ classes.linqStatusMobile }>
-						<div className={ classes.circle } style={ gutterTop && { marginTop: 48 + 20  }} ref={ element => this.threeRootElement = element } />
-						<svg className={ classes.circleBorder } version="1.1" id="L1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 100 100">
-							<circle cx="50" cy="50" r="48"/>
-						</svg>
-					</div>
-				</div>*/ }
-					
 			</div>
         );
     }
