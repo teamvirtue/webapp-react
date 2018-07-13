@@ -40,3 +40,49 @@ the operational status of the building systems are included in the web app as we
 
 Finally, in the settings tab the resident can individually change their account info and preferences, set work or home
 schedules and sign out of their account.
+## Connection with API
+### Setup
+**Installing axios**
+```java
+  npm install axios
+```
+### Creating instance of the communication object
+#### Parent Component ####
+**Import request component**
+```ruby
+  import Request from '../../axios_requests/Request.js';
+```
+**Rendering view**
+~~~html
+   <Request onDataChange={this.handleData} url={'/users/'}></Request>
+~~~
+1. props
+  * url > specific partial of the url to which it is corresponding to the API!
+   >> * Possible url calls 
+   ~~~~/building/
+      /flat/
+      /room/
+      /sensor/
+      /grid/
+      /appliance_brightness/
+      /appliance_water_meter/
+      /battery/
+      /family/
+      /light/
+      /list_of_all_possible_appliance/
+      /person_activity/
+      /personal_detail/
+      /room_water_meter_reading/
+      /socket_reading/
+      /solar_panel/
+      /solar_panel_reading/
+      /type_of_activity/
+      /weekdays/
+      /sockets/
+   ~~~~
+#### Child Component ####
+**Reatreaving token**
+1. use of getToken() function
+```ruby
+
+```
