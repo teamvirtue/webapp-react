@@ -135,4 +135,5 @@ getRequest(url, instance){
 ~~~~ruby
   this.props.onDataChange(this.state.array);
 ~~~~
+More Coming soon!
 
