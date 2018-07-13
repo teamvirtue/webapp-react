@@ -111,7 +111,7 @@ this.setState({ token: data.token });
 ```
 **Requests**
 1. Create Request instance 
-~~~~
+~~~~ruby
   createGetRequest(url, token) {
     const instance = Axios.create({
       baseURL: 'http://localhost:8000',
@@ -120,3 +120,19 @@ this.setState({ token: data.token });
     this.interval = setInterval(() => this.getRequest(url,instance), 5000);
   }
 ~~~~
+2. Get Request function
+~~~~ruby
+getRequest(url, instance){
+    instance.get(url, {
+      timeout: 5000
+    }).then((response) => {
+      this.state.array.push(response.data);
+      this.props.onDataChange(this.state.array);
+    });
+  }
+~~~~
+3. Passing data to Parent Component
+~~~~ruby
+  this.props.onDataChange(this.state.array);
+~~~~
+
