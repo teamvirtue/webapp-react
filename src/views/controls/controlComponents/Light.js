@@ -10,32 +10,28 @@ import Switch from '@material-ui/core/Switch';
 import Typography from '@material-ui/core/Typography';
 import 'rc-slider/assets/index.css';
 import Slider from 'rc-slider';
+import SwichRequest from '../../axios_requests/SwichRequest.js';
+import SliderRequest from '../../axios_requests/SliderRequest.js';
 
-const styles = theme => ({
 
-});
 
 class Light extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            checkedLightOnOff: false,
-        };
     }
-	
+
     handleChange = name => (event, checked) => {
         this.setState({ [name]: checked });
     };
-	
+
 	render() {
 		const { theme } = this.props;
-		
 		return (
 			<div>
 				<Typography variant="title" gutterBottom>
 					Lights
 				</Typography>
-				
+
 				<ListItem>
 					<ListItemIcon>
 						<Icon>power_settings_new</Icon>
@@ -44,31 +40,15 @@ class Light extends Component {
 					<ListItemText primary='Power' />
 
 					<ListItemSecondaryAction>
-						<Switch
-							checked={ this.state.checkedLightOnOff }
-							onChange={ this.handleChange('checkedLightOnOff') }
-						/>
+						<SwichRequest url={this.props.url} ></SwichRequest>
 					</ListItemSecondaryAction>
 				</ListItem>
 				<ListItem>
 					<ListItemIcon>
 						<Icon>lightbulb_outline</Icon>
 					</ListItemIcon>
+          <SliderRequest url={this.props.url} ></SliderRequest>
 
-					<ListItemText disableTypography primary='Brightness' secondary={
-						<Slider
-							min={ 0 }
-							max={ 20 }
-							defaultValue={ 5 }
-							trackStyle={{ backgroundColor: theme.palette.primary.main }}
-							handleStyle={{
-								borderColor: theme.palette.primary.main,
-								backgroundColor: theme.palette.primary.main,
-							}}
-							railStyle={{ backgroundColor: 'lightgray' }}
-						/>
-					}
-					/>
 
 				</ListItem>
 				<ListItem
@@ -89,4 +69,4 @@ class Light extends Component {
 	}
 }
 
-export default withTheme()(withStyles(styles)(Light));
+export default Light;

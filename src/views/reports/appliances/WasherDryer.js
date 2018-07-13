@@ -7,7 +7,6 @@ import List from '@material-ui/core/List';
 
 // Local import
 import LineChart from '../LineChart';
-import Axios from 'axios';
 import Request from '../../axios_requests/Request.js';
 
 
