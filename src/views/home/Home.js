@@ -14,8 +14,6 @@ import { mod } from 'react-swipeable-views-core';
 import SupportTouch from 'react-swipeable-views';
 
 // custom import
-import { CardContainer } from '../../containers/CardContainer';
-import SocketCard from './SocketCard';
 import ImageCircle from '../../ImageCircle';
 import myLinqImage from '../../assets/my_linq.jpg';
 import linqImage from '../../assets/linq.jpg';
@@ -28,15 +26,6 @@ const VirtualizeSwipeableViews = bindKeyboard(virtualize(SwipeableViews));
 let worlds = [
     { id: '1' },
     // { id: '2' },
-];
-
-let sockets = [
-    {   id: '1',
-        title: 'Appliance Connected',
-        message: 'A new applicance is connected to a socket in the kitchen. Please specify what appliance this is.',
-        // buttonIcon: 'schedule',
-        // buttonText: 'schedule',
-    },
 ];
 
 const styles = theme => ({
@@ -224,19 +213,6 @@ class Home extends Component {
                                     <Icon className={ classes.checkIcon }>check_circle</Icon>
                                     <p>System</p>
                                 </div>
-                            </div>
-
-                            <div className={ classes.cardContainer }>
-                                { sockets.map(data => {
-                                    return (
-                                        <SocketCard
-                                            key={ data.id }
-                                            title={ data.title }
-                                        >
-                                            { data.message }
-                                        </SocketCard>
-                                    );
-                                })}
                             </div>
                         </TabContainer>
 

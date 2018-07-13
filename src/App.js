@@ -116,11 +116,13 @@ class App extends Component {
             <div className='App'>
 				<div className='container-fluid'>
 					<div className='row'>
-						<MuiThemeProvider theme={ theme }>
-                            <MuiPickersUtilsProvider utils={ MomentUtils }>
-							    <MainNavigation />
-                            </MuiPickersUtilsProvider>
-						</MuiThemeProvider>
+						<div className='col-12'>
+							<MuiThemeProvider theme={ theme }>
+								<MuiPickersUtilsProvider utils={ MomentUtils }>
+									<MainNavigation />
+								</MuiPickersUtilsProvider>
+							</MuiThemeProvider>
+						</div>
 					</div>
 				</div>
             </div>

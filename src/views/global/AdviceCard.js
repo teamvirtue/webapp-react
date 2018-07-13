@@ -10,7 +10,7 @@ import Icon from '@material-ui/core/Icon';
 
 const styles = theme => ({
 	root: {
-		marginBottom:20,
+		marginBottom:10,
 	},
     card: {
         /*minWidth: 275,

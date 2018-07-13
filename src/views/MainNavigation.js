@@ -33,6 +33,7 @@ const styles = theme => ({
         display: 'flex',
         height: '100%',
 		width: '200px',
+		marginLeft: '-15px',
         backgroundColor: theme.palette.primary.main,
     },
     desktopNavList: {
@@ -49,6 +50,7 @@ const styles = theme => ({
     mobileNav: {
         position: 'fixed',
         bottom: 0,
+		marginLeft: '-15px',
         zIndex: 50,
         width: '100%',
         boxShadow: '0px -3px 3px 0px rgba(0,0,0,0.10)',
@@ -91,7 +93,7 @@ class MainNavigation extends Component {
 
         return (
             <div className={ classes.root }>
-                <div className='hidden-md hidden-sm hidden-xs'>
+                <div className='d-none d-lg-block'>
                     <div className={ classes.desktopNav }>
 						<div className={ classes.desktopNavList }>
 							<List component='nav'>
@@ -126,7 +128,7 @@ class MainNavigation extends Component {
 				
 				<NotificationsDialogContainer />
 
-                <div className='hidden-lg'>
+                <div className='d-lg-none'>
                     <BottomNavigation value={ value } onChange={ this.handleChange } className={ classes.mobileNav } showLabels>
                         <BottomNavigationAction className={ classes.mobileNavItem } label='Home' icon={ <Icon>home</Icon> } />
                         <BottomNavigationAction className={ classes.mobileNavItem } label='Controls' icon={ <Icon>tune</Icon> } />
@@ -136,23 +138,25 @@ class MainNavigation extends Component {
                 </div>
 				
 				<div className={ 'wrapper' }>
-					<div className={ 'col-md-5 headerBg' }>
-						<ImageCircle />
-					</div>
-					
-					<div className={ 'col-md-7 content' }>
-						{/*{ value === 0 && <CardContainer /> }*/}
-						{ value === 0 && <HomeContainer /> }
-						{ value === 1 && <Controls /> }
-						{ value === 2 && <Reports /> }
-						{ value === 3 && <AppSettingsContainer /> }
-						{/*{ value === 3 && <Settings /> }*/}
-						{/*<div className={ this.state.addContentNavMargin ? classes.contentNavMargin : '' }>
-							{ value === 0 && <Home/> }
+					<div className={ 'row' }>
+						<div className={ 'col-lg-5 headerBg' }>
+							<ImageCircle />
+						</div>
+						
+						<div className={ 'col-lg-7' }>
+							{/*{ value === 0 && <CardContainer /> }*/}
+							{ value === 0 && <HomeContainer /> }
 							{ value === 1 && <Controls /> }
 							{ value === 2 && <Reports /> }
-							{ value === 3 && <Settings /> }
-						</div>*/}
+							{ value === 3 && <AppSettingsContainer /> }
+							{/*{ value === 3 && <Settings /> }*/}
+							{/*<div className={ this.state.addContentNavMargin ? classes.contentNavMargin : '' }>
+								{ value === 0 && <Home/> }
+								{ value === 1 && <Controls /> }
+								{ value === 2 && <Reports /> }
+								{ value === 3 && <Settings /> }
+							</div>*/}
+						</div>
 					</div>
 				</div>
             </div>

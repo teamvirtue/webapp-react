@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import AdviceCard from '../views/home/AdviceCard';
+import AdviceCard from '../views/global/AdviceCard';
 import { dismissCard } from '../actions';
 
 const mapStateToProps = (state) => {

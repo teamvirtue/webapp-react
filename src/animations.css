@@ -5,26 +5,27 @@
 
 .cardAnimation-enter.cardAnimation-enter-active {
 	opacity: 1;
-	transition: 350ms;
+	transition: 300ms;
 }
 
 .cardAnimation-leave {
 	opacity: 1;
-	transition: opacity 300ms ease, height 400ms ease 300ms;
+	transition: opacity 300ms ease, translateX 350ms ease;
 }
 
 .cardAnimation-leave.cardAnimation-leave-active {
 	opacity: 0.01;
-	transition: 350ms;
-	height:0;
-
+	transition: 300ms;
+	transform: translateX(500px);
 }
 
 .cardAnimation-appear {
 	opacity: 0.01;
+	transform: translateY(50px);
 }
 
 .cardAnimation-appear.cardAnimation-appear-active {
 	opacity: 1;
-	transition: opacity .5s ease-in;
+	transform: translateY(0);
+	transition: all 300ms ease-out;
 }

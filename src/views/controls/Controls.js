@@ -59,12 +59,12 @@ class Controls extends Component {
         return (
             <div className={ classes.root }>
 				<div>
-                    <div className='hidden-lg'>
-						<h1>Control your room</h1>
+                    <div className='d-none d-lg-block'>
+						<h1 className={ classes.pageTitle }>Control your room</h1>
 					</div>
 
-                    <div className='hidden-md hidden-sm hidden-xs'>
-                        <h1 className={ classes.pageTitle }>Control your room</h1>
+                    <div className='d-lg-none'>
+                        <h1>Control your room</h1>
                     </div>
 					
 					<RoomNavigation />

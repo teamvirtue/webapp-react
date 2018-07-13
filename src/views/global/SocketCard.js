@@ -10,7 +10,7 @@ import Typography from '@material-ui/core/Typography';
 
 // local import
 import SocketPlan from '../../assets/kitchen.jpg';
-import DialogResponsive from './DialogResponsive';
+import DialogResponsive from './../global/DialogResponsive';
 
 const styles = { //theme
     card: {

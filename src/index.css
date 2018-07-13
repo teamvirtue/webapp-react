@@ -1,6 +1,7 @@
 body {
   font-family: 'Roboto', Arial, Helvetica, sans-serif;
-  margin: 0; }
+  margin: 0;
+  }
 
 /* width */
 ::-webkit-scrollbar {
@@ -38,7 +39,7 @@ body {
   top: 0;
   bottom: auto; }
 
-@media only screen and (min-width: 1199px) {
+@media only screen and (min-width: 991px) {
   .wrapper {
     margin-left: 200px; } }
 
@@ -116,9 +117,10 @@ body {
 	margin: -11vw 0 0 -11vw;
 }
 
+
 @media only screen and (max-width: 991px) {
 	.headerBg {
-		background: linear-gradient(175deg, #ee742e 25%, #f15b27 65%, transparent 25%);
+		background: linear-gradient(175deg, #ee742e 25%, #f15b27 60%, transparent 25%);
 	}
 	.linqStatusCircle {
 		width: 30vw;
@@ -126,6 +128,16 @@ body {
 		top: 0;
         margin: 20px auto 0 auto;
 		position: relative;
+	}
+	.openNotificationsIcon{
+		color:white !important;
+	}
+}
+
+@media only screen and (max-width: 500px) {
+	.reduceDialogMarginMobile{
+		margin-left: 10px !important;
+		margin-right: 10px !important;
 	}
 }
 
@@ -137,7 +149,7 @@ body {
 	100% {
 		stroke:#03cea4;
 		stroke-dasharray:0;
-		transform:rotate(320deg);
+		transform:rotate(380deg);
 	}
 }
 
@@ -155,4 +167,3 @@ body {
 		box-shadow: 0px 0px 30px 10px rgba(3,206,74,1);
 	}
 }
-.wrapper{background-color:#f15b28;}

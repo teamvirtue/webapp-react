@@ -187,13 +187,13 @@ class Settings extends Component {
                     </div>*/}
 
                     <div className='settingsContainer'> {/*TODO: remove settings/reportsContainer CSS?*/}
-                        <div className='hidden-lg'>
-                            <h1 style={{ textAlign: 'center' }}>{ currentUser }</h1>
-                        </div>
+						<div className='d-none d-lg-block'>
+							<h1 className={ classes.pageTitle }>{ currentUser }</h1>
+						</div>
 
-                        <div className='hidden-md hidden-sm hidden-xs'>
-                            <h1 className={ classes.pageTitle }>{ currentUser }</h1>
-                        </div>
+						<div className='d-lg-none'>
+							<h1 style={{ textAlign: 'center' }}>{ currentUser }</h1>
+						</div>
 
                         <Typography className='settingsTitle' type='subheading'>
                             Profile
