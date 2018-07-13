@@ -80,9 +80,43 @@ schedules and sign out of their account.
       /weekdays/
       /sockets/
    ~~~~
+  * Getting data from response 
+   >> * onDataChange={this.handleData}
+   ~~~~
+      handleData = (data) => {
+        this.setState({array: data});
+      }
+   ~~~~
 #### Child Component ####
 **Reatreaving token**
-1. use of getToken() function
+1. content of `getToken` function
 ```ruby
-
+  Axios.post("http://localhost:8000/api/auth/token/", "username=delta&password=deltadelta")
+      .then((response) => {
+        var data = response.data;
+        this.setState({ token: data.token });
+      });
 ```
+2. Save token in state
+```
+this.state = {
+      array: [],
+      token: [],
+
+    }
+    
+    
+    
+this.setState({ token: data.token });
+```
+**Requests**
+1. Create Request instance 
+~~~~
+  createGetRequest(url, token) {
+    const instance = Axios.create({
+      baseURL: 'http://localhost:8000',
+      headers: { 'Authorization': 'JWT ' + this.state.token },
+    });
+    this.interval = setInterval(() => this.getRequest(url,instance), 5000);
+  }
+~~~~
