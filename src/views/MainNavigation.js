@@ -69,7 +69,7 @@ class MainNavigation extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            value: 0,
+            value: 'home',
             selectedValue: 0,
 			addContentNavMargin: false,
         };
@@ -80,10 +80,10 @@ class MainNavigation extends Component {
         // console.log(value);
     };
 
-    handleClick = (id, event) => {
+    handleClick = (name, event) => {
         this.setState({
             //id: !this.state.selectedValue,
-            value: id,
+            value: name,
         });
     };
 
@@ -97,25 +97,25 @@ class MainNavigation extends Component {
                     <div className={ classes.desktopNav }>
 						<div className={ classes.desktopNavList }>
 							<List component='nav'>
-								<ListItem className={classes.desktopNavListItem + " " + (value === 0 ? classes.checked : '')} button onClick={ () => this.handleClick(0) }>
+								<ListItem className={classes.desktopNavListItem + " " + (value === 'home' ? classes.checked : '')} button onClick={ () => this.handleClick('home') }>
 									<ListItemIcon>
 										<Icon className={ classes.desktopNavListItemContent }>home</Icon>
 									</ListItemIcon>
 									<ListItemText primary='Home' classes={{ primary: classes.desktopNavListItemContent }} />
 								</ListItem>
-								<ListItem className={classes.desktopNavListItem + " " + (value === 1 ? classes.checked : '')} button onClick={ () => this.handleClick(1) }>
+								<ListItem className={classes.desktopNavListItem + " " + (value === 'controls' ? classes.checked : '')} button onClick={ () => this.handleClick('controls') }>
 									<ListItemIcon>
 										<Icon className={ classes.desktopNavListItemContent }>tune</Icon>
 									</ListItemIcon>
 									<ListItemText primary='Controls' classes={{ primary: classes.desktopNavListItemContent }} />
 								</ListItem>
-								<ListItem className={classes.desktopNavListItem + " " + (value === 2 ? classes.checked : '')} button onClick={ () => this.handleClick(2) }>
+								<ListItem className={classes.desktopNavListItem + " " + (value === 'reports' ? classes.checked : '')} button onClick={ () => this.handleClick('reports') }>
 									<ListItemIcon>
 										<Icon className={ classes.desktopNavListItemContent }>assessment</Icon>
 									</ListItemIcon>
 									<ListItemText primary='Reports' classes={{ primary: classes.desktopNavListItemContent }} />
 								</ListItem>
-								<ListItem className={classes.desktopNavListItem + " " + (value === 3 ? classes.checked : '')} button onClick={ () => this.handleClick(3) }>
+								<ListItem className={classes.desktopNavListItem + " " + (value === 'settings' ? classes.checked : '')} button onClick={ () => this.handleClick('settings') }>
 									<ListItemIcon>
 										<Icon className={ classes.desktopNavListItemContent }>settings</Icon>
 									</ListItemIcon>
@@ -130,14 +130,14 @@ class MainNavigation extends Component {
 
                 <div className='d-lg-none'>
                     <BottomNavigation value={ value } onChange={ this.handleChange } className={ classes.mobileNav } showLabels>
-                        <BottomNavigationAction className={ classes.mobileNavItem } label='Home' icon={ <Icon>home</Icon> } />
-                        <BottomNavigationAction className={ classes.mobileNavItem } label='Controls' icon={ <Icon>tune</Icon> } />
-                        <BottomNavigationAction className={ classes.mobileNavItem } label='Reports' icon={ <Icon>assessment</Icon> } />
-                        <BottomNavigationAction className={ classes.mobileNavItem } label='Settings' icon={ <Icon>settings</Icon> } />
+                        <BottomNavigationAction className={ classes.mobileNavItem } label='Home' value='home' icon={ <Icon>home</Icon> } />
+                        <BottomNavigationAction className={ classes.mobileNavItem } label='Controls' value='controls' icon={ <Icon>tune</Icon> } />
+                        <BottomNavigationAction className={ classes.mobileNavItem } label='Reports' value='reports' icon={ <Icon>assessment</Icon> } />
+                        <BottomNavigationAction className={ classes.mobileNavItem } label='Settings' value='settings' icon={ <Icon>settings</Icon> } />
                     </BottomNavigation>
                 </div>
 				
-				<div className={ 'wrapper' }>
+				<div className={ 'wrapper' + ' ' + (value === 'home' && 'dubaibg') }>
 					<div className={ 'row' }>
 						<div className={ 'col-lg-5 headerBg' }>
 							<ImageCircle />
@@ -145,16 +145,16 @@ class MainNavigation extends Component {
 						
 						<div className={ 'col-lg-7' }>
 							{/*{ value === 0 && <CardContainer /> }*/}
-							{ value === 0 && <HomeContainer /> }
-							{ value === 1 && <Controls /> }
-							{ value === 2 && <Reports /> }
-							{ value === 3 && <AppSettingsContainer /> }
+							{ value === 'home' && <HomeContainer /> }
+							{ value === 'controls' && <Controls /> }
+							{ value === 'reports' && <Reports /> }
+							{ value === 'settings' && <AppSettingsContainer /> }
 							{/*{ value === 3 && <Settings /> }*/}
 							{/*<div className={ this.state.addContentNavMargin ? classes.contentNavMargin : '' }>
-								{ value === 0 && <Home/> }
-								{ value === 1 && <Controls /> }
-								{ value === 2 && <Reports /> }
-								{ value === 3 && <Settings /> }
+								{ value === 'home' && <Home/> }
+								{ value === 'controls' && <Controls /> }
+								{ value === 'reports' && <Reports /> }
+								{ value === 'settings' && <Settings /> }
 							</div>*/}
 						</div>
 					</div>

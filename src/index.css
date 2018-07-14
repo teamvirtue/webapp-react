@@ -117,6 +117,10 @@ body {
 	margin: -11vw 0 0 -11vw;
 }
 
+.dubaibg{
+	background-color:#f15b27;
+}
+
 
 @media only screen and (max-width: 991px) {
 	.headerBg {
