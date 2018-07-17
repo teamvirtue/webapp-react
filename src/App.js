@@ -7,8 +7,8 @@ import { defaults } from 'react-chartjs-2';
 // Local import
 // import { MainNavigationContainer } from './containers/MainNavigationContainer';
 import MainNavigation from './views/MainNavigation';
-import './index.css';
 import './assets/bootstrap-grid.min.css';
+import './index.css';
 
 const theme = createMuiTheme({
     palette: {

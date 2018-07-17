@@ -22,7 +22,7 @@ import orange from '@material-ui/core/colors/orange';
 import { CSSTransitionGroup } from 'react-transition-group';
 import '../animations.css';
 import { CardContainer } from '../containers/CardContainer';
-import SocketCard from './global/SocketCard';
+import SocketCard from './../globalcomponents/SocketCard';
 
 let sockets = [
     {   id: '1',
@@ -89,7 +89,7 @@ class NotificationsDialog extends Component {
 						paper: classes.dialogContainer + ' reduceDialogMarginMobile'
 					}}
 				>
-					<Typography variant="title" className={classes.dialogTitle} gutterBottom>
+					<Typography variant="headline" className={classes.dialogTitle} gutterBottom>
 						Notifications
 					</Typography>
 						

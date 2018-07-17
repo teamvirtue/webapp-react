@@ -12,14 +12,14 @@ import Tab from '@material-ui/core/Tab';
 // Local import
 import LineChart from './LineChart';
 import BarChart from './BarChart';
-import ImageCircle from '../../ImageCircle';
+import LinqStatus from '../LinqStatus';
 import OverviewImage from '../../assets/reports.png';
 import AppliancesImage from '../../assets/reports.png';
 import SystemsImage from '../../assets/reports.png';
 
 const styles = theme => ({
 	appBar: {
-		backgroundColor: '#f5f5f5',
+		backgroundColor: '#fff',
 		borderRadius: 5,
 		boxShadow: '0px 3px 3px 0px rgba(0,0,0,0.10)',
 		marginTop: 10,

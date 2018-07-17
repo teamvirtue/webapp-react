@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import grey from '@material-ui/core/colors/grey';
 import BottomNavigation  from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction  from '@material-ui/core/BottomNavigationAction';
 import List from '@material-ui/core/List';
@@ -10,7 +9,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Icon from '@material-ui/core/Icon';
 import Badge from '@material-ui/core/Badge';
-import ImageCircle from '../ImageCircle';
+import LinqStatus from './LinqStatus';
 import Divider from '@material-ui/core/Divider';
 
 // local import
@@ -55,7 +54,7 @@ const styles = theme => ({
         zIndex: 50,
         width: '100%',
         boxShadow: '0px -3px 3px 0px rgba(0,0,0,0.10)',
-		backgroundColor: grey[100],
+		backgroundColor: 'white',
     },
     mobileNavItem: {
         minWidth: '60px',
@@ -142,7 +141,7 @@ class MainNavigation extends Component {
 					<div className={ 'row' }>
 						<div className={ 'col-lg-5 headerBg' }>
 							<div className='d-lg-none dubaiBg' style={ { backgroundImage: "url("+dubaiSkyline+")" } }></div>
-							<ImageCircle />
+							<LinqStatus />
 						</div>
 						
 						<div className={ 'col-lg-7' }>

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';	
 import Dialog from '@material-ui/core/Dialog';
-import ThreeEntryPoint from './threejs/ThreeEntryPoint';
+import ThreeEntryPoint from '../threejs/ThreeEntryPoint';
 
 const styles = theme => ({
 	circle: {
@@ -31,7 +31,7 @@ const styles = theme => ({
 	},
 });
 
-class ImageCircle extends Component {
+class LinqStatus extends Component {
     /*constructor(props) {
         super(props);
     }*/
@@ -75,9 +75,9 @@ class ImageCircle extends Component {
     }
 }
 
-ImageCircle.propTypes = {
+LinqStatus.propTypes = {
     classes: PropTypes.object.isRequired,
     //src: PropTypes.string.isRequired,
 };
 
-export default withStyles(styles)(ImageCircle);
+export default withStyles(styles)(LinqStatus);

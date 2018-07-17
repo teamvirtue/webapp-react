@@ -9,8 +9,8 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
 // local import
-import SocketPlan from '../../assets/kitchen.jpg';
-import DialogResponsive from './../global/DialogResponsive';
+import SocketPlan from '../assets/kitchen.jpg';
+import DialogResponsive from './DialogResponsive';
 
 const styles = { //theme
     card: {

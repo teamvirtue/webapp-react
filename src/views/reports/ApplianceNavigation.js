@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import grey from '@material-ui/core/colors/grey';
 import Icon from '@material-ui/core/Icon';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
@@ -22,7 +21,7 @@ const styles = theme => ({
 		whiteSpace: 'nowrap',
     },
     subNavItemPaper: {
-        backgroundColor: grey[100],
+        backgroundColor: 'white',
 		height: 140,
 		cursor: 'pointer',
 		display: 'table-cell',

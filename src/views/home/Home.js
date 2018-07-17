@@ -14,7 +14,7 @@ import { mod } from 'react-swipeable-views-core';
 import SupportTouch from 'react-swipeable-views';
 
 // custom import
-import ImageCircle from '../../ImageCircle';
+import LinqStatus from '../LinqStatus';
 import myLinqImage from '../../assets/my_linq.jpg';
 import linqImage from '../../assets/linq.jpg';
 import communityImage from '../../assets/city.jpg';
@@ -33,7 +33,7 @@ const styles = theme => ({
         transition: 'all 1s ease-in-out',
     },
     appBar: {
-		backgroundColor: '#f5f5f5',
+		backgroundColor: '#fff',
 		borderRadius: 5,
 		boxShadow: '0px 3px 3px 0px rgba(0,0,0,0.10)',
 		marginTop: 10,
@@ -161,14 +161,14 @@ class Home extends Component {
                         slideRenderer={ slideRenderer }
                     />
                     <div className='col-md-5'>
-                        <ImageCircle imageSource={ myLinqImage }/>
+                        <LinqStatus imageSource={ myLinqImage }/>
                     </div>
                 </SupportTouch>*/}
 
                 {/*<div className='col-md-5'>
-                    { value === 0 && <ImageCircle imageSource={ myLinqImage }/> }
-                    { value === 1 && <ImageCircle imageSource={ linqImage }/> }
-                    { value === 2 && <ImageCircle imageSource={ communityImage }/> }
+                    { value === 0 && <LinqStatus imageSource={ myLinqImage }/> }
+                    { value === 1 && <LinqStatus imageSource={ linqImage }/> }
+                    { value === 2 && <LinqStatus imageSource={ communityImage }/> }
                 </div>*/}
 
                 <div>

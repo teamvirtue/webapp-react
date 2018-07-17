@@ -5,7 +5,7 @@ import Typography from '@material-ui/core/Typography';
 // import grey from '@material-ui/core/colors/grey';
 
 // Local import
-import ImageCircle from '../../ImageCircle';
+import LinqStatus from '../LinqStatus';
 import RoomNavigation from './RoomNavigation';
 import controlsImage from '../../assets/controls.jpg';
 
@@ -13,7 +13,7 @@ const styles = theme => ({
     root: {
         //textAlign: 'left',
     },
-    imageCircle: {
+    LinqStatus: {
         marginTop: 48,
     },
     pageTitle: {

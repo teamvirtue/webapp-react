@@ -20,7 +20,7 @@ import Icon from '@material-ui/core/Icon';
 import { UserDialogContainer } from '../../containers/UserDialogContainer';
 // import UserDialog from './setting/UserDialog';
 // import './AppSettings.css';
-import ImageCircle from '../../ImageCircle';
+import LinqStatus from '../LinqStatus';
 import settingsImage from '../../assets/settings.png';
 
 // const options = [];
