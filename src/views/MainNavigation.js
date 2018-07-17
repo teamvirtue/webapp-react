@@ -137,7 +137,7 @@ class MainNavigation extends Component {
                     </BottomNavigation>
                 </div>
 				
-				<div className={ 'wrapper' + ' ' + (value === 'home' && 'dubaibg') }>
+				<div className={ 'wrapper' + ' ' + value }> { /*  + ' ' + (value === 'home' && 'blabla') */ }
 					<div className={ 'row' }>
 						<div className={ 'col-lg-5 headerBg' }>
 							<ImageCircle />

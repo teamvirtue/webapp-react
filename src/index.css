@@ -115,6 +115,7 @@ body {
 	height: 22vw;
 	top: 50%;
 	margin: -11vw 0 0 -11vw;
+	transition: all 200ms ease-out;
 }
 
 .dubaibg{
@@ -135,6 +136,18 @@ body {
 	}
 	.openNotificationsIcon{
 		color:white !important;
+	}
+	
+	/* Home Screen */
+	.home .linqStatusCircle{
+		width: 40vh;
+		height: 40vh;
+		margin-top: 30vh;
+		margin-bottom: 30vh;
+	}
+	
+	.home .headerBg {
+		background: linear-gradient(175deg, #ee742e 25%, #f15b27 60%, #f15b27 100%);
 	}
 }
 

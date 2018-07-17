@@ -1,4 +1,5 @@
 import SceneManager from './SceneManager';
+import elementResizeDetectorMaker from 'element-resize-detector';
 
 export default container => {
     const canvas = createCanvas(document, container);
@@ -21,6 +22,12 @@ export default container => {
         window.onmousemove = mouseMove;
         resizeCanvas();
     }
+	
+	/* Resize canvas when parent div changes in width or height (for instance during resize animations */
+	var erd = elementResizeDetectorMaker();
+	erd.listenTo(document.getElementsByClassName("linqStatusCircle"), function(element) {
+		resizeCanvas();
+	});
 
     function resizeCanvas() {
         canvas.style.width = '100%';
