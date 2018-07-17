@@ -21,6 +21,7 @@ const styles = theme => ({
 		marginTop: 10,
 		marginBottom: 10,
 		display: 'table',
+		whiteSpace: 'nowrap',
     },
     subNavItemPaper: {
         backgroundColor: grey[100],

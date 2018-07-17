@@ -15,13 +15,11 @@ import Grow from '@material-ui/core/Grow';
 import WasherDryer from './appliances/WasherDryer';
 
 const styles = theme => ({
-    subNavContainer: {
-		whiteSpace: 'nowrap',
-    },
     subNavItem: {
 		marginTop: 10,
 		marginBottom: 10,
 		display: 'table',
+		whiteSpace: 'nowrap',
     },
     subNavItemPaper: {
         backgroundColor: grey[100],
@@ -86,20 +84,18 @@ class ApplianceNavigation extends Component {
         return (
 			<div>
 				<div className="row">
-					<div className={ classes.subNavContainer }>
-						{ appliances.map(data => {
-							return (
-								<div key={ data.id } className={[classes.subNavItem, "col-xs-4"].join(' ')}>
-									<Paper className={classes.subNavItemPaper} elevation={1} square={true} onClick={ () => { this.handleClick(data.id);this.handleDialogOpen(); } }>
-										<Icon color="primary" style={{ fontSize: 30 }}>{ data.icon }</Icon>
-										<Typography component="p">
-											{ data.value }
-										</Typography>
-									</Paper>
-								</div>
-							);
-						}) }
-					</div>
+					{ appliances.map(data => {
+						return (
+							<div key={ data.id } className={ classes.subNavItem + ' col-4' }>
+								<Paper className={classes.subNavItemPaper} elevation={1} square={true} onClick={ () => { this.handleClick(data.id);this.handleDialogOpen(); } }>
+									<Icon color="primary" style={{ fontSize: 30 }}>{ data.icon }</Icon>
+									<Typography component="p">
+										{ data.value }
+									</Typography>
+								</Paper>
+							</div>
+						);
+					}) }
 				</div>
 				
 				

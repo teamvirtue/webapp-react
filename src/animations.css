@@ -10,13 +10,14 @@
 
 .cardAnimation-leave {
 	opacity: 1;
-	transition: opacity 300ms ease, translateX 350ms ease;
+	transition: opacity 300ms ease, all 350ms ease;
 }
 
 .cardAnimation-leave.cardAnimation-leave-active {
 	opacity: 0.01;
 	transition: 300ms;
 	transform: translateX(500px);
+	height: 0 !important;
 }
 
 .cardAnimation-appear {

@@ -19,7 +19,7 @@ const styles = theme => ({
 		width: '94%',
 		top: '3%',
 		left: '3%',
-		animation: 'borderGradient 4s 3500ms infinite alternate',
+		animation: 'borderGradient 3s 1000ms infinite alternate',
 		borderRadius: '50%',
 	},
 	circleBorder: {
@@ -30,11 +30,11 @@ const styles = theme => ({
 		top: '0',
 		fill: 'none',
 		stroke: theme.palette.primary.main,
-		strokeWidth: '3px',
+		strokeWidth: '0',
 		strokeDasharray: '10',
 		strokeDashoffset: '0',
 		strokeLinecap: 'round',
-		animation: 'startProgress 3500ms ease-in-out',
+		animation: 'startProgress 1500ms linear',
 		animationFillMode: 'forwards',
 	},
 });
