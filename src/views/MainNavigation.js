@@ -23,6 +23,7 @@ import Reports from './reports/Reports';
 import { NotificationsDialogContainer } from '../containers/NotificationsDialogContainer';
 
 import '../index.css';
+import dubaiSkyline from '../assets/dubai-skyline.svg';
 
 const styles = theme => ({
     root: {
@@ -140,6 +141,7 @@ class MainNavigation extends Component {
 				<div className={ 'wrapper' + ' ' + value }> { /*  + ' ' + (value === 'home' && 'blabla') */ }
 					<div className={ 'row' }>
 						<div className={ 'col-lg-5 headerBg' }>
+							<div className='d-lg-none dubaiBg' style={ { backgroundImage: "url("+dubaiSkyline+")" } }></div>
 							<ImageCircle />
 						</div>
 						
