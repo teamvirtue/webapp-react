@@ -53,7 +53,7 @@ class LinqStatus extends Component {
 	};
 
     render() {
-		const { classes, gutterTop } = this.props;
+		const { classes } = this.props;
 
         return (
 			<div>

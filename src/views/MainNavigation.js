@@ -8,9 +8,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Icon from '@material-ui/core/Icon';
-import Badge from '@material-ui/core/Badge';
 import LinqStatus from './LinqStatus';
-import Divider from '@material-ui/core/Divider';
 
 // local import
 // import Home from './home/Home';
@@ -137,7 +135,7 @@ class MainNavigation extends Component {
                     </BottomNavigation>
                 </div>
 				
-				<div className={ 'wrapper' + ' ' + value }> { /*  + ' ' + (value === 'home' && 'blabla') */ }
+				<div className={ 'wrapper ' + value }> { /*  + ' ' + (value === 'home' && 'blabla') */ }
 					<div className={ 'row' }>
 						<div className={ 'col-lg-5 headerBg' }>
 							<div className='d-lg-none dubaiBg' style={ { backgroundImage: "url("+dubaiSkyline+")" } }></div>

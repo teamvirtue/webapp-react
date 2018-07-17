@@ -33,7 +33,7 @@ const styles = theme => ({
         transition: 'all 1s ease-in-out',
     },
     appBar: {
-		backgroundColor: '#fff',
+		backgroundColor: 'white',
 		borderRadius: 5,
 		boxShadow: '0px 3px 3px 0px rgba(0,0,0,0.10)',
 		marginTop: 10,

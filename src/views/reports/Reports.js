@@ -12,10 +12,6 @@ import Tab from '@material-ui/core/Tab';
 // Local import
 import LineChart from './LineChart';
 import BarChart from './BarChart';
-import LinqStatus from '../LinqStatus';
-import OverviewImage from '../../assets/reports.png';
-import AppliancesImage from '../../assets/reports.png';
-import SystemsImage from '../../assets/reports.png';
 
 const styles = theme => ({
 	appBar: {
