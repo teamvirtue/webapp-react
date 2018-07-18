@@ -7,12 +7,12 @@ const accounts = (state = {
     byId: {
         'user1': {
             id: 'user1',
-            name: 'Jane Doe',
+            name: 'Jane',
 			imgName: accountPicture2,
         },
         'user2': {
             id: 'user2',
-            name: 'John Doe',
+            name: 'John',
             // name: 'Manar Bishara',
             imgName: accountPicture1,
         },
