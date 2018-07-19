@@ -19,7 +19,7 @@ class Light extends Component {
     constructor(props) {
         super(props);
     }
-
+    
     handleChange = name => (event, checked) => {
         this.setState({ [name]: checked });
     };

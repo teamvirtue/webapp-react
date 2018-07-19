@@ -7,9 +7,6 @@ class Request extends React.Component {
 
   constructor() {
     super()
-    this.request_url = "http://localhost:8000";
-    this.request_username = "delta";
-    this.request_password = "deltadelta";
     this.state = {
       array: [],
       token: [],
@@ -21,7 +18,6 @@ class Request extends React.Component {
     this.getToken();
   }
   getToken() {
-
     Axios.post("http://localhost:8000/api/auth/token/", "username=delta&password=deltadelta")
       .then((response) => {
         var data = response.data;

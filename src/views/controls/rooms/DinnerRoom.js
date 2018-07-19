@@ -11,12 +11,12 @@ class DinnerRoom extends Component {
 
     render() {
 		const classes = this.props;
-		
+
         return (
             <div>
 				<List>
-					<Light />
-					
+					<Light url={'/light/2/'}  />
+
 					<Typography className={ classes.controlsTitle } type='subheading'>
 						Appliances
 					</Typography>

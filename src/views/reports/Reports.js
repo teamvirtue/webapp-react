@@ -11,6 +11,7 @@ import Tab from '@material-ui/core/Tab';
 
 // Local import
 import LineChart from './LineChart';
+import LineChartWater from './LineChartWater';
 import BarChart from './BarChart';
 import ImageCircle from '../../ImageCircle';
 import OverviewImage from '../../assets/reports.png';
@@ -119,12 +120,12 @@ class Reports extends Component {
                     >
                         <TabContainer dir={ theme.direction }>
                             <h1>Net Energy (kWh)</h1>
-                            <LineChart type='energy' />
+                            <LineChart url="/battery/" type='energy' />
 
                             <h1>Water Usage (L)</h1>
-                            <LineChart type='water' />
+                            <LineChartWater url="/appliance_water_meter/" type='water' />
 
-                            <h1>Appliance Energy (kWh)</h1>
+                            <h1>Appliance url="/sockets/" Energy (kWh)</h1>
                             <BarChart />
                         </TabContainer>
 

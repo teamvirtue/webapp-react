@@ -67,7 +67,7 @@ class LineChart extends Component{
       }).then((response) => {
         var dataArray = [];
         for (var i = 0; i < response.data.length; i++) {
-          dataArray.push(response.data[i].percentage_charged);
+          dataArray.push(response.data[i].avg_water_consumed);
         }
         switch (value) {
             case 'week':

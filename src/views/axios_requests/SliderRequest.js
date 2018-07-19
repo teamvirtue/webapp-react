@@ -35,7 +35,7 @@ class SliderRequest extends React.Component {
     this.getToken();
   }
   getToken() {
-    Axios.post("http://localhost:8000/api/auth/token/", "username=delta&password=deltadelta")
+    Axios.post("http://localhost:8000/api/auth/token/", "username=matahara&password=katinar4e")
       .then((response) => {
         var data = response.data;
         this.setState({ token: data.token });
@@ -56,7 +56,7 @@ class SliderRequest extends React.Component {
     });
     instance.patch(url, {
         "brightness": this.state.brightness,
-    });
+    }).catch(this.getToken());
   }
 
   handleChange = name => (event) => {
@@ -70,7 +70,6 @@ class SliderRequest extends React.Component {
     const { theme } = this.props;
 
     return (
-      <div>
         <ListItemText disableTypography primary='Brightness' secondary={
           <Slider
             min={ 0 }
@@ -86,7 +85,6 @@ class SliderRequest extends React.Component {
           />
         }
         />
-      </div >
     );
   }
 }
