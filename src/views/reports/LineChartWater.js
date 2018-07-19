@@ -94,6 +94,7 @@ class LineChart extends Component{
         });
       }).catch(this.getToken());
     }
+    
     getDataArray() {
       return this.state.array;
     }

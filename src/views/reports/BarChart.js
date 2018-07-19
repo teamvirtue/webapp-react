@@ -5,6 +5,7 @@ import RadioGroup  from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { HorizontalBar } from 'react-chartjs-2';
 import 'chartjs-plugin-datalabels';
+import Axios from 'axios';
 
 // const Chart = require('chart.js');
 
@@ -40,7 +41,69 @@ class BarChart extends Component{
         // Chart.defaults.global.defaultFontColor = 'red';
         this.state = {
             value: 'week',
+            token: [],
+            url: props.url,
         };
+    }
+
+    getToken() {
+
+      Axios.post("http://localhost:8000/api/auth/token/", "username=delta&password=deltadelta")
+        .then((response) => {
+          var data = response.data;
+          this.setState({ token: data.token });
+        });
+    }
+    update(value,url, instance){
+      const datasetsCopy = this.state.datasets.slice(0);
+      instance.get(url, {
+        timeout: 5000
+      }).then((response) => {
+        var dataArray = [];
+        for (var i = 0; i < response.data.length; i++) {
+          dataArray.push(response.data[i].maximum_kwh);
+          dataArray.push(response.data[i].minimum_kwh);
+          dataArray.push(response.data[i].last_brightness);
+        }
+        switch (value) {
+            case 'week':
+                dataWeek = dataArray;
+                console.log(dataWeek);
+                break;
+            case 'month':
+                dataMonths = dataArray;
+                console.log(dataMonths);
+                break;
+            case 'year':
+                dataYears = dataArray;
+                console.log(dataYears);
+
+                break;
+            default:
+                 dataWeek = dataArray;
+                console.log('default');
+        }
+        datasetsCopy[0].data = dataArray;
+        this.setState({
+            //...initialState,
+            datasets: datasetsCopy
+        });
+      }).catch(this.getToken());
+    }
+
+    getDataArray() {
+      return this.state.array;
+    }
+    getAxios() {
+      return this.request_axios;
+    }
+    getRequest(value,url) {
+      console.log(value);
+      const instance = Axios.create({
+        baseURL: 'http://localhost:8000',
+        headers: { 'Authorization': 'JWT ' + this.state.token },
+      });
+      this.interval = setInterval(() => this.update(value,url,instance), 5000);
     }
 
     handleChange = (event, value) => {
@@ -85,6 +148,7 @@ class BarChart extends Component{
                 }
             }]
         });
+        this.getToken();
     };
 
     /*componentWillMount() {
@@ -106,10 +170,9 @@ class BarChart extends Component{
     }*/
 
     componentDidMount() { // TODO: replace with API call
-        this.timer = setInterval(
-            (value) => this.retrieve(this.state.value),
-            30000
-            //3000
+        this.timer = setTimeout(
+            (value,url) => this.getRequest(this.state.value,this.state.url),
+            5000
         );
     };
 

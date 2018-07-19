@@ -125,8 +125,8 @@ class Reports extends Component {
                             <h1>Water Usage (L)</h1>
                             <LineChartWater url="/appliance_water_meter/" type='water' />
 
-                            <h1>Appliance url="/sockets/" Energy (kWh)</h1>
-                            <BarChart />
+                            <h1>Appliance Energy (kWh)</h1>
+                            <BarChart  url="/list_of_all_possible_appliance/" />
                         </TabContainer>
 
                         <TabContainer dir={ theme.direction }>
