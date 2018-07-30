@@ -22,13 +22,12 @@ class Scene extends Component { // code from https://stackoverflow.com/questions
 
     componentDidMount() {
         window.addEventListener('resize', this.resizeCanvas);
+
         /* Resize canvas when parent div changes in width or height (for instance during resize animations */
         /*let erd = elementResizeDetectorMaker();
         erd.listenTo(document.getElementsByClassName('linqStatusCircle'), function(element) {
             this.resizeCanvas();
         });*/
-
-        console.log(this.mount);
 
         const width = this.mount.clientWidth;
         const height = this.mount.clientHeight;
@@ -47,7 +46,7 @@ class Scene extends Component { // code from https://stackoverflow.com/questions
         let pointLight = new THREE.PointLight(0xffef89, 0.8);
         camera.add(pointLight);
 
-        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        const renderer = new THREE.WebGLRenderer({ canvas: this.mount, antialias: true });
         /*const geometry = new THREE.BoxGeometry(1, 1, 1);
         const material = new THREE.MeshBasicMaterial({ color: '#f15b27' });
         const cube = new THREE.Mesh(geometry, material);*/
@@ -122,14 +121,15 @@ class Scene extends Component { // code from https://stackoverflow.com/questions
         // this.cube = cube;
         // this.loadedObject = loadedObject;
 
-        this.mount.appendChild(this.renderer.domElement);
+        console.log(this.renderer.domElement);
+        // this.mount.appendChild(this.renderer.domElement); // TODO: check purpose
         this.start();
     }
 
     componentWillUnmount() {
         window.removeEventListener('resize', this.resizeCanvas);
         this.stop();
-        this.mount.removeChild(this.renderer.domElement);
+        // this.mount.removeChild(this.renderer.domElement);
     }
 
     start = () => {
@@ -159,26 +159,18 @@ class Scene extends Component { // code from https://stackoverflow.com/questions
     }
 
     resizeCanvas = () => {
-        /*this.mount.style.width = '100%';
-        this.mount.height= '100%';
-        this.mount.borderRadius = '50%';
+        this.mount.style.width = '100%';
+        this.mount.style.height= '100%';
+        // this.mount.style.borderRadius = '50%';
 
-        this.mount.clientWidth  = this.mount.offsetWidth;
-        this.mount.clientHeight = this.mount.offsetHeight;
-
-        canvasHalfWidth = Math.round(this.mount.offsetWidth/2);
-        canvasHalfHeight = Math.round(this.mount.offsetHeight/2);*/
-
-        console.log('hi')
-
-        // sceneManager.onWindowResize()
+        console.log('resize', this.mount);
     };
 
     render() { // TODO: move style to LinqStatus?
-        return (
-            <div
+        return ( //<div
+            <canvas
                 // className={ classes.circle }
-                style={{ width: '100%', height: '100%' }}
+                style={{ width: '100%', height: '100%', borderRadius: '50%' }}
                 ref={ (mount) => { this.mount = mount }}
             />
         )
