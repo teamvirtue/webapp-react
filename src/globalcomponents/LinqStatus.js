@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';	
 import Dialog from '@material-ui/core/Dialog';
-import ThreeEntryPoint from '../threejs/ThreeEntryPoint';
+import Scene from '../threejs/Scene';
+// import ThreeEntryPoint from '../threejs/ThreeEntryPoint';
 
 const styles = theme => ({
 	circle: {
@@ -39,7 +40,7 @@ class LinqStatus extends Component {
     }*/
 
     componentDidMount() {
-        ThreeEntryPoint(this.threeRootElement);
+        // ThreeEntryPoint(this.threeRootElement);
     }
 	
 	state = {
@@ -60,15 +61,18 @@ class LinqStatus extends Component {
         return (
 			<div>
 				<div className='linqStatusCircle' onClick={this.handleClickOpen}>
-					<div className={ classes.circle } ref={ element => this.threeRootElement = element } />
-					<svg className={ classes.circleBorder } version="1.1" id="L1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 100 100">
-						<circle cx="50" cy="50" r="48"/>
-					</svg>
+					{/*<div className={ classes.circle } ref={ element => this.threeRootElement = element } />*/}
+					<div className={ classes.circle }>
+                        <Scene />
+                    </div>
+					{/*<svg className={ classes.circleBorder } version='1.1' id='L1' xmlns='http://www.w3.org/2000/svg' x='0px' y='0px' viewBox='0 0 100 100'>
+						<circle cx='50' cy='50' r='46'/>
+					</svg>*/}
 				</div>
 				
 				<Dialog
-					open={this.state.open}
-					onClose={this.handleClose}
+					open={ this.state.open }
+					onClose={ this.handleClose }
 				>
 					<div>Tips about LINQ</div>
 				</Dialog>

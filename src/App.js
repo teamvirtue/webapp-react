@@ -101,7 +101,7 @@ class App extends Component {
 			.then(
 				(result) => {
 					let localNewsHeadlines = result.sources;
-					console.log(localNewsHeadlines);
+					// console.log(localNewsHeadlines);
 					//this.props.updateLocalNewsHeadlines(localNewsHeadlines);
 				},
 				(error) => {

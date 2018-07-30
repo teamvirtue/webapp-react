@@ -14,7 +14,7 @@ import { mod } from 'react-swipeable-views-core';
 import SupportTouch from 'react-swipeable-views';
 
 // custom import
-import LinqStatus from '../LinqStatus';
+import LinqStatus from '../../globalcomponents/LinqStatus';
 import myLinqImage from '../../assets/my_linq.jpg';
 import linqImage from '../../assets/linq.jpg';
 import communityImage from '../../assets/city.jpg';

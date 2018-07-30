@@ -3,7 +3,6 @@ import SceneSubject from './SceneSubject';
 import GeneralLights from './GeneralLights';
 
 export default canvas => {
-
     const clock = new THREE.Clock();
     const origin = new THREE.Vector3(0, 0, 0);
 
@@ -24,7 +23,7 @@ export default canvas => {
 
     function buildScene() {
         const scene = new THREE.Scene();
-        scene.background = new THREE.Color("#f1f1f1");
+        scene.background = new THREE.Color('#f1f1f1');
 
         return scene;
     }
@@ -48,7 +47,8 @@ export default canvas => {
         const farPlane = 100;
         const camera = new THREE.PerspectiveCamera(fieldOfView, aspectRatio, nearPlane, farPlane);
 
-        camera.position.z = 20; //40
+        camera.position.set(0, 0, 20);
+        // camera.position.z = 20; //40
 
         return camera;
     }
@@ -65,7 +65,7 @@ export default canvas => {
     function update() {
         const elapsedTime = clock.getElapsedTime();
 
-        for(let i=0; i<sceneSubjects.length; i++)
+        for(let i=0; i < sceneSubjects.length; i++)
             sceneSubjects[i].update(elapsedTime);
 
         updateCameraPositionRelativeToMouse();

@@ -19,13 +19,13 @@ export default container => {
 
     function bindEventListeners() {
         window.onresize = resizeCanvas;
-        window.onmousemove = mouseMove;
+        // window.onmousemove = mouseMove;
         resizeCanvas();
     }
 	
 	/* Resize canvas when parent div changes in width or height (for instance during resize animations */
-	var erd = elementResizeDetectorMaker();
-	erd.listenTo(document.getElementsByClassName("linqStatusCircle"), function(element) {
+	let erd = elementResizeDetectorMaker();
+	erd.listenTo(document.getElementsByClassName('linqStatusCircle'), function(element) {
 		resizeCanvas();
 	});
 
@@ -43,9 +43,9 @@ export default container => {
         sceneManager.onWindowResize()
     }
 
-    function mouseMove({screenX, screenY}) {
-        sceneManager.onMouseMove(screenX-canvasHalfWidth, screenY-canvasHalfHeight);
-    }
+    /*function mouseMove({screenX, screenY}) {
+        sceneManager.onMouseMove(screenX - canvasHalfWidth, screenY - canvasHalfHeight);
+    }*/
 
     function render(time) {
         requestAnimationFrame(render);
