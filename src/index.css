@@ -154,7 +154,7 @@ body {
 		margin-top: 30vh;
 		margin-bottom: 30vh;
 	}
-	.home .headerBg {
+	.home .headerBg { /*TODO: implement cubic-bezier*/
 		background: linear-gradient(175deg, #ee742e 25%, #f15b27 60%, #f15b27 100%);
 	}
 	.home .dubaiBg {

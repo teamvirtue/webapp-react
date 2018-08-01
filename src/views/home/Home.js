@@ -126,7 +126,7 @@ class Home extends Component {
         this.setState({ value });
     };
 
-    handleChangeIndex = (index) => {
+    handleChangeIndex = (index) => { // TODO: does not seem to work
         this.setState({ value: index });
     };
 
@@ -140,7 +140,7 @@ class Home extends Component {
             <div className={ classes.root }> {/*TODO: reduce number of nameless divs*/}
                 <AppBar className={ classes.appBar } position="static">
                     <Tabs
-                        value={ 0 }
+                        value={ value }
                         onChange={ this.handleChange }
                         indicatorColor='primary'
                         classes={{ indicator: classes.tabIndicator }}
@@ -171,117 +171,115 @@ class Home extends Component {
                     { value === 2 && <LinqStatus imageSource={ communityImage }/> }
                 </div>*/}
 
-                <div>
-                    {/*TODO: check https://react-swipeable-views.com/demos/demos/ & https://react-swipeable-views.com/demos/demos/*/}
-                    <SwipeableViews
-                        className={ 'swipeableViews' }
-                        axis={ theme.direction === 'rtl' ? 'x-reverse' : 'x' }
-                        index={ value }
-                        onChangeIndex={ this.handleChangeIndex }
-                        animateHeight={ true }
-                    >
+                {/*TODO: check https://react-swipeable-views.com/demos/demos/ & https://react-swipeable-views.com/demos/demos/*/}
+                <SwipeableViews
+                    // className={ 'swipeableViews' }
+                    axis={ theme.direction === 'rtl' ? 'x-reverse' : 'x' }
+                    index={ value }
+                    onChangeIndex={ this.handleChangeIndex }
+                    animateHeight={ true }
+                >
 
-                        <TabContainer dir={ theme.direction }>
-                            <h1>Everything looks great, { accounts.byId[accounts.currentUser].name }!</h1>
-                            {/*<div className = {classes.notification}>This is the 1st demo release of the VIRTUe LINQ app</div>*/}
+                    <TabContainer dir={ theme.direction }>
+                        <h1>Everything looks great, { accounts.byId[accounts.currentUser].name }!</h1>
+                        {/*<div className = {classes.notification}>This is the 1st demo release of the VIRTUe LINQ app</div>*/}
 
-                            <div className='statusBar'>
-                                <div className='statusItem'>
-                                    { worlds.map(data => {
-                                        return (
-                                            <img key={ data.id } className={ classes.earthIcon } src={ earthIcon } alt='icon'/>
-                                        );
-                                    })}
-                                    {/*{ data.half && <img className={ classes.earthIcon } src={ halfEarthIcon } alt='icon'/> }*/}
+                        <div className='statusBar'>
+                            <div className='statusItem'>
+                                { worlds.map(data => {
+                                    return (
+                                        <img key={ data.id } className={ classes.earthIcon } src={ earthIcon } alt='icon'/>
+                                    );
+                                })}
+                                {/*{ data.half && <img className={ classes.earthIcon } src={ halfEarthIcon } alt='icon'/> }*/}
 
-                                    <Typography type='p'>
-                                        Your footprint today
-                                    </Typography>
-                                </div>
+                                <Typography type='p'>
+                                    Your footprint today
+                                </Typography>
                             </div>
+                        </div>
 
-                            <div className='infoBar'>
-                                <div className='infoItem1'>
-                                    <h1>16°</h1>
-                                    <p>Indoors</p>
-                                </div>
-                                <div className='infoItem2'>
-                                    <Icon className={ classes.checkIcon }>swap_vert</Icon>
-                                    <p>Generating energy</p>
-                                </div>
-                                <div className='infoItem3'>
-                                    <Icon className={ classes.checkIcon }>check_circle</Icon>
-                                    <p>System</p>
-                                </div>
+                        <div className='infoBar'>
+                            <div className='infoItem1'>
+                                <h1>16°</h1>
+                                <p>Indoors</p>
                             </div>
-                        </TabContainer>
-
-                        <TabContainer dir={ theme.direction }>
-                            <h1>LINQ Activity</h1>
-
-                            <div className='statusBar'>
-                                <div className='statusItem'>
-                                    <h1>30%</h1>
-                                    <Typography type='subheading'>
-                                        Greener than average
-                                    </Typography>
-                                </div>
-                                <div className='statusItem'>
-                                    <h1>3</h1>
-                                    <Typography type='subheading'>
-                                        Spaces available
-                                    </Typography>
-                                </div>
+                            <div className='infoItem2'>
+                                <Icon className={ classes.checkIcon }>swap_vert</Icon>
+                                <p>Generating energy</p>
                             </div>
-
-                            <div className='infoBar'>
-                                <div className='infoItem1'>
-                                    <h1>18°</h1>
-                                    <p>Indoors</p>
-                                </div>
-                                <div className='infoItem2'>
-                                    <Icon className={ classes.checkIcon }>swap_vert</Icon>
-                                    <p>Generating & using energy</p>
-                                </div>
-                                <div className='infoItem3'>
-                                    <h1>1</h1>
-                                    <p>Planned activity</p>
-                                </div>
+                            <div className='infoItem3'>
+                                <Icon className={ classes.checkIcon }>check_circle</Icon>
+                                <p>System</p>
                             </div>
-                        </TabContainer>
+                        </div>
+                    </TabContainer>
 
-                        <TabContainer dir={ theme.direction }>
-                            <h1>City Activity</h1>
-                            <Typography variant='subheading'>Current location: Eindhoven</Typography>
+                    <TabContainer dir={ theme.direction }>
+                        <h1>LINQ Activity</h1>
 
-                            <div className='infoBar'>
-                                <div className='infoItem1'>
-                                    <h1>{ temperature.outside.celsius }°</h1>
-                                    <p>{ temperature.outside.description }</p>
-                                </div>
-                                <div className='infoItem2'>
-                                    <h1>10</h1>
-                                    <p>Spaces free in other LINQs</p>
-                                </div>
-                                <div className='infoItem3'>
-                                    <h1>5</h1>
-                                    <p>Events near you</p>
-                                </div>
+                        <div className='statusBar'>
+                            <div className='statusItem'>
+                                <h1>30%</h1>
+                                <Typography type='subheading'>
+                                    Greener than average
+                                </Typography>
                             </div>
-							
-							News: 
-							Powered by News API
-							{ Object.keys(localNewsHeadlines.byId).map((id) => {
-									let card = localNewsHeadlines.byId[id];
+                            <div className='statusItem'>
+                                <h1>3</h1>
+                                <Typography type='subheading'>
+                                    Spaces available
+                                </Typography>
+                            </div>
+                        </div>
 
-									return card.visible ?
-										<div key={id}>{card.description}</div>
-									: null;
-								}
-							) }
-                        </TabContainer>
-                    </SwipeableViews>
-                </div>
+                        <div className='infoBar'>
+                            <div className='infoItem1'>
+                                <h1>18°</h1>
+                                <p>Indoors</p>
+                            </div>
+                            <div className='infoItem2'>
+                                <Icon className={ classes.checkIcon }>swap_vert</Icon>
+                                <p>Generating & using energy</p>
+                            </div>
+                            <div className='infoItem3'>
+                                <h1>1</h1>
+                                <p>Planned activity</p>
+                            </div>
+                        </div>
+                    </TabContainer>
+
+                    <TabContainer dir={ theme.direction }>
+                        <h1>City Activity</h1>
+                        <Typography variant='subheading'>Current location: Eindhoven</Typography>
+
+                        <div className='infoBar'>
+                            <div className='infoItem1'>
+                                <h1>{ temperature.outside.celsius }°</h1>
+                                <p>{ temperature.outside.description }</p>
+                            </div>
+                            <div className='infoItem2'>
+                                <h1>10</h1>
+                                <p>Spaces free in other LINQs</p>
+                            </div>
+                            <div className='infoItem3'>
+                                <h1>5</h1>
+                                <p>Events near you</p>
+                            </div>
+                        </div>
+
+                        News:
+                        Powered by News API
+                        { Object.keys(localNewsHeadlines.byId).map((id) => {
+                                let card = localNewsHeadlines.byId[id];
+
+                                return card.visible ?
+                                    <div key={id}>{card.description}</div>
+                                    : null;
+                            }
+                        ) }
+                    </TabContainer>
+                </SwipeableViews>
             </div>
         );
     }

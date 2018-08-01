@@ -6,12 +6,26 @@ import Scene from '../threejs/Scene';
 // import ThreeEntryPoint from '../threejs/ThreeEntryPoint';
 
 const styles = theme => ({
+	root: {
+        /*height: '100%',
+        width: '100%',
+		backgroundColor: 'blue',*/
+	},
+    /*linqStatusCircle: { // TODO: combine with 'circle'
+        position: 'fixed',
+        display: 'inline-block',
+        width: '22vw',
+        height: '22vw',
+        top: '50%',
+        margin: '-11vw 0 0 -11vw',
+        transition: 'all 200ms ease-out',
+    },*/
 	circle: {
 		position: 'absolute',
-		height: '96%',
-		width: '96%',
-		top: '2%',
-		left: '2%',
+		height: '100%',
+		width: '100%',
+		/*top: '2%',
+		left: '2%',*/
 		overflow: 'hidden',
 		animation: 'borderGradient 2s 100ms infinite alternate',
 		borderRadius: '50%',
@@ -59,8 +73,9 @@ class LinqStatus extends Component {
 		const { classes } = this.props;
 
         return (
-			<div>
-				<div className='linqStatusCircle' onClick={this.handleClickOpen}>
+			<div className={ classes.root }>
+				<div className='linqStatusCircle' onClick={ this.handleClickOpen }>
+				{/*<div className={ classes.linqStatusCircle } onClick={ this.handleClickOpen }>*/}
 					{/*<div className={ classes.circle } ref={ element => this.threeRootElement = element } />*/}
 					<div className={ classes.circle }>
                         <Scene />

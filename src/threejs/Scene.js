@@ -8,8 +8,8 @@ import mtlUrl from '../assets/models/linq_low_poly.mtl';
 // OrbitControls(THREE);
 // OBJLoader(THREE);
 // MTLLoader(THREE);
-// TODO: check https://www.youtube.com/watch?v=DJ-oSy0tN_U
-// TODO: npm module third libary import approached https://stackoverflow.com/questions/28068038/how-do-i-import-additional-plugins-for-an-already-imported-library-using-jspm
+
+// TODO: implement ambient occlusion using postprocessing library or baking it into the mesh in Blender
 
 let radius = 4;
 let alpha = 0;
@@ -66,7 +66,7 @@ class Scene extends Component { // code from https://stackoverflow.com/questions
                     this.loadedObject = loadedObject;
 
                     // console.log(this.loadedObject.children[0].material);
-                    this.loadedObject.children[0].material[0].transparent = true;
+                    // this.loadedObject.children[0].material[0].transparent = true;
                     this.loadedObject.children[0].material[1].transparent = true;
 
                     /*object.traverse(function(child) {
