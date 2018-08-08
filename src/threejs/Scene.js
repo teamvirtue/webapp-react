@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import * as THREE from 'three';
-// import OrbitControls  from 'three-orbitcontrols';
+import OrbitControls  from 'three-orbitcontrols';
 import { MTLLoader, OBJLoader } from 'three-obj-mtl-loader';
-import objUrl from '../assets/models/linq_low_poly.obj';
-import mtlUrl from '../assets/models/linq_low_poly.mtl';
+// import objUrl from '../assets/models/linq_scene_low_poly_optimised.obj';
+// import mtlUrl from '../assets/models/linq_scene_low_poly_optimised.mtl';
+import objUrl from '../assets/models/linq_low_poly_complex.obj';
+import mtlUrl from '../assets/models/linq_low_poly_complex.mtl';
 
 // OrbitControls(THREE);
 // OBJLoader(THREE);
@@ -27,10 +29,16 @@ class Scene extends Component { // code from https://stackoverflow.com/questions
         const width = this.canvas.clientWidth;
         const height = this.canvas.clientHeight;
 
-        const renderer = new THREE.WebGLRenderer({ canvas: this.canvas, antialias: true });
+        const renderer = new THREE.WebGLRenderer({ canvas: this.canvas, antialias: true, alpha: true });
+        const DPR = window.devicePixelRatio ? window.devicePixelRatio : 1;
+        renderer.setPixelRatio(DPR);
+        // renderer.setSize(width, height);
+
+        renderer.gammaInput = true;
+        renderer.gammaOutput = true;
 
         const scene = new THREE.Scene();
-        scene.background = new THREE.Color(0xfdeee9);
+        scene.background = new THREE.Color(0x97D6EA);
         const camera = new THREE.PerspectiveCamera(
             40, //75
             width / height,
@@ -38,15 +46,29 @@ class Scene extends Component { // code from https://stackoverflow.com/questions
             1000
         );
         scene.add(camera);
-       /* let controls = new OrbitControls(camera, renderer.domElement);
+
+        /* for debugging */
+        let controls = new OrbitControls(camera, renderer.domElement);
         controls.enableDamping = true;
         controls.dampingFactor = 0.25;
-        controls.enableZoom = false;*/
+        controls.enableZoom = true;
 
-        let ambientLight = new THREE.AmbientLight(0x8efff9, 0.4);
-        scene.add( ambientLight );
-        let pointLight = new THREE.PointLight(0xffef89, 0.8);
-        camera.add(pointLight);
+        let ambientLight = new THREE.AmbientLight(0x999999, 0.5);
+        scene.add(ambientLight);
+
+        let lights = [];
+        lights[0] = new THREE.DirectionalLight(0xefefff, 1);
+        lights[0].position.set(1, 1, 1);
+        lights[0].castShadow = true;
+        scene.add(lights[0]);
+
+        lights[1] = new THREE.DirectionalLight(0xefefff, 1);
+        lights[1].position.set(-1, -1, -1);
+        scene.add(lights[1]);
+
+        // TODO: Ambient occlusion bake: https://blender.stackexchange.com/questions/13956/how-do-you-bake-ambient-occlusion-for-a-model
+        // let pointLight = new THREE.PointLight(0xffef89, 0.8);
+        // camera.add(pointLight);
 
         let loadedObject = null;
         this.THREE = THREE;
@@ -64,10 +86,12 @@ class Scene extends Component { // code from https://stackoverflow.com/questions
                 (object) => {
                     loadedObject = object;
                     this.loadedObject = loadedObject;
+                    console.log(object);
 
                     // console.log(this.loadedObject.children[0].material);
-                    // this.loadedObject.children[0].material[0].transparent = true;
                     this.loadedObject.children[0].material[1].transparent = true;
+                    this.loadedObject.children[0].material[1].opacity = 0;
+                    // this.loadedObject.children[0].material[1].transparent = true;
 
                     /*object.traverse(function(child) {
                         if (child instanceof THREE.Mesh) {
@@ -115,6 +139,7 @@ class Scene extends Component { // code from https://stackoverflow.com/questions
 
     start = () => {
         if (!this.frameId) {
+            this.resizeCanvas();
             this.frameId = requestAnimationFrame(this.animate);
         }
     };
@@ -128,7 +153,7 @@ class Scene extends Component { // code from https://stackoverflow.com/questions
 
         theta += 0.4;
 
-        if (this.loadedObject) { // Check if the object is present
+        /*if (this.loadedObject) { // Check if the object is present
             alpha += 1.2;
 
             // console.log(this.loadedObject.children[0].material[0]);
@@ -136,16 +161,16 @@ class Scene extends Component { // code from https://stackoverflow.com/questions
             this.loadedObject.children[0].material[1].opacity = (1 - Math.sin(THREE.Math.degToRad(alpha)));
             // this.loadedObject.children[0].material[1].opacity = (1 - alpha / 100);
 
-            /*this.loadedObject.rotation.x += 0.01;
-            this.loadedObject.rotation.y += 0.01;
-            this.loadedObject.rotation.z += 0.01;*/
+            // this.loadedObject.rotation.x += 0.01;
+            // this.loadedObject.rotation.y += 0.01;
+            // this.loadedObject.rotation.z += 0.01;
         }
 
         this.camera.position.x = radius * Math.sin(THREE.Math.degToRad(theta));
         this.camera.position.y = radius * Math.sin(THREE.Math.degToRad(theta));
         this.camera.position.z = radius * Math.cos(THREE.Math.degToRad(theta));
 
-        this.camera.lookAt(this.scene.position);
+        this.camera.lookAt(this.scene.position);*/
 
         this.camera.updateMatrixWorld();
 

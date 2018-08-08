@@ -61,9 +61,9 @@ class LinqStatus extends Component {
 		open: false,
 	};
 
-	handleClickOpen = () => {
+	/*handleClickOpen = () => {
 		this.setState({ open: true });
-	};
+	};*/
 
 	handleClose = () => {
 		this.setState({ open: false });
