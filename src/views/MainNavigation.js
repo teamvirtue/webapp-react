@@ -20,22 +20,34 @@ import Reports from './reports/Reports';
 import { NotificationsDialogContainer } from '../containers/NotificationsDialogContainer';
 
 import '../index.css';
+import logo from '../assets/linq_logo_white.png';
 import dubaiSkyline from '../assets/dubai-skyline.svg';
 
 const styles = theme => ({
     root: {
         // backgroundColor: 'blue',
     },
+	logo: {
+		margin: '23px 27px',
+		'&:hover': {
+			cursor: 'pointer',
+		}
+	},
     desktopNav: {
         position: 'fixed',
         display: 'flex',
+		flexDirection: 'column',
+		textAlign: 'center',
         height: '100%',
 		width: '200px',
 		marginLeft: '-15px',
         backgroundColor: theme.palette.primary.main,
     },
     desktopNavList: {
-        alignSelf: 'center',
+		flex: 1,
+		display: 'flex',
+		flexDirection: 'column',
+		justifyContent: 'center',
     },
     desktopNavListItem: {
 		width: '200px',
@@ -93,6 +105,7 @@ class MainNavigation extends Component {
             <div className={ classes.root }>
                 <div className='d-none d-lg-block'>
                     <div className={ classes.desktopNav }>
+						<img className={ classes.logo } src={logo} width="80" button onClick={ () => this.handleClick('home') } />
 						<div className={ classes.desktopNavList }>
 							<List component='nav'>
 								<ListItem className={classes.desktopNavListItem + " " + (value === 'home' ? classes.checked : '')} button onClick={ () => this.handleClick('home') }>
@@ -125,15 +138,6 @@ class MainNavigation extends Component {
                 </div>
 				
 				<NotificationsDialogContainer />
-
-                <div className='d-lg-none'>
-                    <BottomNavigation value={ value } onChange={ this.handleChange } className={ classes.mobileNav } showLabels>
-                        <BottomNavigationAction className={ classes.mobileNavItem } label='Home' value='home' icon={ <Icon>home</Icon> } />
-                        <BottomNavigationAction className={ classes.mobileNavItem } label='Controls' value='controls' icon={ <Icon>tune</Icon> } />
-                        <BottomNavigationAction className={ classes.mobileNavItem } label='Reports' value='reports' icon={ <Icon>assessment</Icon> } />
-                        <BottomNavigationAction className={ classes.mobileNavItem } label='Settings' value='settings' icon={ <Icon>settings</Icon> } />
-                    </BottomNavigation>
-                </div>
 				
 				<div className={ 'wrapper ' + value }> { /*  + ' ' + (value === 'home' && 'blabla') */ }
 					<div className={ 'row' }>
@@ -158,6 +162,15 @@ class MainNavigation extends Component {
 						</div>
 					</div>
 				</div>
+
+                <div className='d-lg-none'>
+                    <BottomNavigation value={ value } onChange={ this.handleChange } className={ classes.mobileNav } showLabels>
+                        <BottomNavigationAction className={ classes.mobileNavItem } label='Home' value='home' icon={ <Icon>home</Icon> } />
+                        <BottomNavigationAction className={ classes.mobileNavItem } label='Controls' value='controls' icon={ <Icon>tune</Icon> } />
+                        <BottomNavigationAction className={ classes.mobileNavItem } label='Reports' value='reports' icon={ <Icon>assessment</Icon> } />
+                        <BottomNavigationAction className={ classes.mobileNavItem } label='Settings' value='settings' icon={ <Icon>settings</Icon> } />
+                    </BottomNavigation>
+                </div>
             </div>
         );
     }

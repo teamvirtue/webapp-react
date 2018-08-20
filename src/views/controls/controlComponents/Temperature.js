@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Typography from '@material-ui/core/Typography';
 import ListItem from '@material-ui/core/ListItem';
+import ListSubheader from '@material-ui/core/ListSubheader';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
@@ -22,9 +22,7 @@ class Temperature extends Component {
 	render() {
 		return (
 			<div>
-				<Typography variant="body2" gutterBottom>
-					Temperature
-				</Typography>
+				<ListSubheader>Temperature</ListSubheader>
 
 				<ListItem button onClick={ this.handleChange('checkedTemperature') } > {/*TODO: fix click*/}
 					<ListItemIcon>
@@ -42,7 +40,6 @@ class Temperature extends Component {
 				</ListItem>
 				<ListItem
 					button
-					divider
 					/*aria-haspopup='true'
 					aria-controls='set-temperature'
 					aria-label='Set temperature'*/

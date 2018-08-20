@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { withTheme } from '@material-ui/core/styles';
 import { withStyles } from '@material-ui/core/styles';
 import ListItem from '@material-ui/core/ListItem';
+import ListSubheader from '@material-ui/core/ListSubheader';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import Icon from '@material-ui/core/Icon';
 import Switch from '@material-ui/core/Switch';
-import Typography from '@material-ui/core/Typography';
 import 'rc-slider/assets/index.css';
 import Slider from 'rc-slider';
 
@@ -32,9 +32,7 @@ class Light extends Component {
 		
 		return (
 			<div>
-				<Typography variant="body2" gutterBottom>
-					Lights
-				</Typography>
+				<ListSubheader>Lights</ListSubheader>
 				
 				<ListItem>
 					<ListItemIcon>

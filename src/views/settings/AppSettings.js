@@ -186,11 +186,7 @@ class Settings extends Component {
 
                     <div className='settingsContainer'> {/*TODO: remove settings/reportsContainer CSS?*/}
 						<div className='d-none d-lg-block'>
-							<h1 className={ classes.pageTitle }>{ currentUser }</h1>
-						</div>
-
-						<div className='d-lg-none'>
-							<h1 style={{ textAlign: 'center' }}>{ currentUser }</h1>
+							<h1 className={ classes.pageTitle }>Change your settings</h1>
 						</div>
 
                         <Typography className='settingsTitle' type='subheading'>

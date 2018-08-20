@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 // import PropTypes from 'prop-types';
-import Typography from '@material-ui/core/Typography';
 import Icon from '@material-ui/core/Icon';
 import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
+import ListSubheader from '@material-ui/core/ListSubheader';
+import Typography from '@material-ui/core/Typography';
 
 // Local import
 import LineChart from '../LineChart';
@@ -17,17 +18,11 @@ class WasherDryer extends Component {
             <div>
 				<List>
 					
-					<Typography className={ classes.controlsTitle } type='subheading'>
-						Consumption
-					</Typography>
+					<ListSubheader>Consumption</ListSubheader>
 					
 					{<LineChart />}
 					
-					<Divider/>
-					
-					<Typography className={ classes.controlsTitle } type='subheading'>
-						Status
-					</Typography>
+					<ListSubheader>Status</ListSubheader>
 
 					<div className='statusBar'>
 						<div className='statusItem'>

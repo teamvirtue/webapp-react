@@ -56,10 +56,6 @@ class Controls extends Component {
                     <div className={'d-none d-lg-block ' + classes.marginTop }>
 						<h1>Control your room</h1>
 					</div>
-
-                    <div className='d-lg-none'>
-                        <h1>Control your room</h1>
-                    </div>
 					
 					<RoomNavigation />
 				</div>

@@ -23,12 +23,6 @@ let sockets = [
 ];
 
 const styles = theme => ({
-	openNotifications: {
-		position: 'absolute',
-		top: 15,
-		right: 15,
-		zIndex: 1,
-	},
 	dialogContainer: {
 		backgroundColor: 'transparent',
 		boxShadow: 'none',
@@ -62,10 +56,10 @@ class NotificationsDialog extends Component {
 
         return (
             <div>
-				<div className={ classes.openNotifications } onClick={ this.handleNotificationsPopupOpen }>
+				<div className='notificationsIcon' onClick={ this.handleNotificationsPopupOpen }>
 					<IconButton>
 						<Badge badgeContent={ Object.keys(advices.byId).length } color="secondary">
-							<Icon color="primary" className={ 'openNotificationsIcon' }>notifications</Icon>
+							<Icon style={{ color:'white' }}>notifications</Icon>
 						</Badge>
 					</IconButton>
 				</div>

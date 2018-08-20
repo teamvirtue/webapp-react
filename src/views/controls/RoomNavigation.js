@@ -37,7 +37,7 @@ const styles = theme => ({
 		margin: 10,
 	},
 	dialogSmall: {
-		minWidth: 370,
+		minWidth: 380,
 	},
 	dialogFull: {
 		minWidth: 0,

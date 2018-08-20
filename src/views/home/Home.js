@@ -190,21 +190,6 @@ class Home extends Component {
                         <h1>Everything looks great, { accounts.byId[accounts.currentUser].name }!</h1>
                         {/*<div className = {classes.notification}>This is the 1st demo release of the VIRTUe LINQ app</div>*/}
 
-                        <div className='statusBar'>
-                            <div className='statusItem'>
-                                { worlds.map(data => {
-                                    return (
-                                        <img key={ data.id } className={ classes.earthIcon } src={ earthIcon } alt='icon'/>
-                                    );
-                                })}
-                                {/*{ data.half && <img className={ classes.earthIcon } src={ halfEarthIcon } alt='icon'/> }*/}
-
-                                <Typography type='p'>
-                                    Your footprint today
-                                </Typography>
-                            </div>
-                        </div>
-
                         <div className='infoBar'>
                             <div className='infoItem1'>
                                 <h1>16°</h1>
