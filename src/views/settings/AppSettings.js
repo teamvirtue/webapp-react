@@ -9,6 +9,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
+import ListSubheader from '@material-ui/core/ListSubheader';
 import Slider from 'rc-slider';
 import Switch from '@material-ui/core/Switch';
 import Menu from '@material-ui/core/Menu';
@@ -189,11 +190,7 @@ class Settings extends Component {
 							<h1 className={ classes.pageTitle }>Change your settings</h1>
 						</div>
 
-                        <Typography className='settingsTitle' type='subheading'>
-                            Profile
-                        </Typography>
-
-                        <List>
+                        <List subheader={ <ListSubheader disableSticky="true">Profile</ListSubheader> }>
 							<UserDialogContainer
                                 // user={{ id: currentUserId, name: currentUser }}
                                 // family={ accounts.byId }
@@ -257,11 +254,7 @@ class Settings extends Component {
 
                         <Divider />
 
-                        <Typography className='settingsTitle' type='subheading'>
-                            App Settings
-                        </Typography>
-
-                        <List>
+                        <List subheader={ <ListSubheader disableSticky="true">App Settings</ListSubheader> }>
                             <ListItem>
                                 <ListItemIcon>
                                     <Icon>brightness_2</Icon>
@@ -282,11 +275,8 @@ class Settings extends Component {
 						
                         <Divider />
 
-                        {/*<Typography className='settingsTitle' type='subheading'>
-                            Clock
-                        </Typography>
-
-                        <List>
+                        {/*
+                        <List subheader={ <ListSubheader disableSticky="true">Clock</ListSubheader> }>
                             <ListItem>
                                 <ListItemIcon>
                                     <Icon>av_timer</Icon>
@@ -320,11 +310,7 @@ class Settings extends Component {
 
                         <Divider />*/}
 
-                        <Typography className='settingsTitle' type='subheading'>
-                            Notifications
-                        </Typography>
-
-                        <List>
+                        <List subheader={ <ListSubheader disableSticky="true">Notifications</ListSubheader> }>
                             <ListItem>
                                 <ListItemIcon>
                                     <Icon>volume_up</Icon>
@@ -390,12 +376,8 @@ class Settings extends Component {
                         </List>
 
                         <Divider />
-
-                        <Typography className='settingsTitle' type='subheading'>
-                            Account
-                        </Typography>
-
-                        <List>
+						
+                        <List subheader={ <ListSubheader disableSticky="true">Account</ListSubheader> }>
                             <ListItem
                                 button
                                 // divider
@@ -414,13 +396,9 @@ class Settings extends Component {
 
                         <Divider />
 
-                        <Typography className='settingsTitle' type='subheading'>
-                            About
-                        </Typography>
-
                         {/*TODO: add licences and dependencies*/}
 
-                        <List>
+                        <List subheader={ <ListSubheader disableSticky="true">About</ListSubheader> }>
                             <ListItem
                                 button
                                 aria-haspopup='true'

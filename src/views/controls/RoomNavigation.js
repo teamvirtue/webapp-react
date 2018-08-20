@@ -97,10 +97,10 @@ class RoomNavigation extends Component {
 
         return (
 			<div>
-				<div className='row'>
+				<div className='row mobileReducePadding'>
 					{ rooms.map(data => {
 						return (
-							<div key={ data.id } className={ classes.subNavItem + ' col-4' }>
+							<div key={ data.id } className={ classes.subNavItem + ' col-4 mobileReducePadding' }>
 								<Paper
 									className={classes.subNavItemPaper}
 									elevation={1}

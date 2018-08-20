@@ -14,10 +14,6 @@ import LineChart from './LineChart';
 import BarChart from './BarChart';
 
 const styles = theme => ({
-    marginTop: {
-        paddingTop: 48,
-        paddingBottom: 16,
-    },
 	appBar: {
 		backgroundColor: '#fff',
 		borderRadius: 5,
@@ -91,8 +87,6 @@ class Reports extends Component {
 
         return (
             <div>
-				<div className={'d-none d-lg-block ' + classes.marginTop }></div>
-					
 				<AppBar className={ classes.appBar } position="static">
 					<Tabs
 						value={ value }
@@ -131,10 +125,6 @@ class Reports extends Component {
 							<div className='d-none d-lg-block'>
 								<h1 className={ classes.pageTitle }>Check appliance status</h1>
 							</div>
-
-							<div className='d-lg-none'>
-								<h1>Check appliance status</h1>
-							</div>
 							
 							<ApplianceNavigation />
                         </TabContainer>
@@ -142,10 +132,6 @@ class Reports extends Component {
                         <TabContainer dir={ theme.direction }>
 							<div className='d-none d-lg-block'>
 								<h1 className={ classes.pageTitle }>Check system status</h1>
-							</div>
-
-							<div className='d-lg-none'>
-								<h1>Check system status</h1>
 							</div>
 
                             <SystemNavigation />

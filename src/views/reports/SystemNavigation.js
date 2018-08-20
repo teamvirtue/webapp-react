@@ -94,10 +94,10 @@ class SystemNavigation extends Component {
 
         return (
 			<div>
-				<div className="row">
+				<div className="row mobileReducePadding">
 					{ systems.map(data => {
 						return (
-							<div key={ data.id } className={ classes.subNavItem + ' col-4' }>
+							<div key={ data.id } className={ classes.subNavItem + ' col-4 mobileReducePadding' }>
 								<Paper className={classes.subNavItemPaper} elevation={1} square={true} onClick={ () => { this.handleClick(data.id);this.handleDialogOpen(); } }>
 									<Icon color="primary" style={{ fontSize: 30 }}>{ data.icon }</Icon>
 									<Typography component="p">

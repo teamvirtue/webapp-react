@@ -48,6 +48,7 @@ const styles = theme => ({
 		display: 'flex',
 		flexDirection: 'column',
 		justifyContent: 'center',
+		background: 'linear-gradient(175deg, #f9833f 0%, #f15b27 70%)',
     },
     desktopNavListItem: {
 		width: '200px',
