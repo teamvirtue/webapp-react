@@ -4,7 +4,7 @@ import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
 
 // Local import
-// import Temperature from '../controlComponents/Temperature';
+import Temperature from '../controlComponents/Temperature';
 import Light from '../controlComponents/Light';
 
 class LivingRoom extends Component {
@@ -16,10 +16,7 @@ class LivingRoom extends Component {
             <div>
 				<List>
 					<Light />
-					
-					<Typography className={ classes.controlsTitle } type='subheading'>
-						Appliances
-					</Typography>
+					<Temperature />
 				</List>
 			</div>
         );

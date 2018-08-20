@@ -32,7 +32,7 @@ class Light extends Component {
 		
 		return (
 			<div>
-				<Typography variant="title" gutterBottom>
+				<Typography variant="body2" gutterBottom>
 					Lights
 				</Typography>
 				

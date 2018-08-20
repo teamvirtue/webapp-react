@@ -9,13 +9,16 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
 import Button from '@material-ui/core/Button';
-import Grow from '@material-ui/core/Grow';
+import Slide from '@material-ui/core/Slide';
 
-import All from './rooms/All';
+import AllRooms from './rooms/AllRooms';
 import LivingRoom from './rooms/LivingRoom';
 import DinnerRoom from './rooms/DinnerRoom';
 
 const styles = theme => ({
+	flex: {
+		flex: 1
+	},
     subNavItem: {
 		marginTop: 10,
 		marginBottom: 10,
@@ -30,16 +33,26 @@ const styles = theme => ({
 		display: 'table-cell',
 		verticalAlign: 'middle',
 	},
+	dialogRoot: {
+		margin: 10,
+	},
 	dialogSmall: {
-		minWidth: 350,
+		minWidth: 370,
 	},
 	dialogFull: {
 		minWidth: 0,
 	},
+	dialogHeading: {
+		backgroundColor: '#f9f9f9',
+		borderBottom: '1px solid #eaeaea',
+		textAlign: 'center',
+		padding: '10px 0',
+		marginBottom: 15,
+	},
 });
 
 let rooms = [
-    { id: 1, value: 'General', icon: 'check_circle', component: <All />, },
+    { id: 1, value: 'All Rooms', icon: 'home', component: <AllRooms />, },
     { id: 2, value: 'Living Room', icon: 'weekend', component: <LivingRoom />, },
     { id: 3, value: 'Dinner Room', icon: 'local_dining', component: <DinnerRoom />, },
     { id: 4, value: 'Bedroom', icon: 'hotel', component: <DinnerRoom />, },
@@ -51,7 +64,7 @@ let rooms = [
 ];
 
 function Transition(props) {
-	return <Grow {...props} />;
+	return <Slide direction="up" {...props} />;
 }
 
 class RoomNavigation extends Component {
@@ -114,25 +127,37 @@ class RoomNavigation extends Component {
 					TransitionComponent={Transition}
 					onClose={this.handleDialogClose}
 					classes={{
+						root: classes.dialogRoot,
 						paperWidthSm: classes.dialogSmall,
 						paperFullScreen: classes.dialogFull,
 					}}
 				>
-					<DialogContent>
-						{ rooms.map(data => {
-							if(currentId === data.id){
-								return (
-									<div key={ data.id }>
-										{ data.component }
+					{ rooms.map(data => {
+						if(currentId === data.id){
+							return (
+								<div key={ data.id } className={ classes.flex }>
+									<div className={ classes.dialogHeading }>
+										<Icon color='primary' style={{ fontSize: 36 }}>{ data.icon }</Icon>
+										<Typography variant="title" gutterBottom>
+											{ data.value }
+										</Typography>
 									</div>
-								);
-							}
-							return false;
-						}) }
-					</DialogContent>
+									<DialogContent>
+										{ data.component }
+									</DialogContent>
+								</div>
+							);
+						}
+						return false;
+					}) }
+
 					<DialogActions>
-						<Button onClick={ this.handleDialogClose } color='primary'>
-							Close
+						<Button
+							onClick={ this.handleDialogClose }
+							variant='outlined'
+							color='primary'
+						>
+							Done
 						</Button>
 					</DialogActions>
 				</Dialog>

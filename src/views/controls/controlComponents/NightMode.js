@@ -22,7 +22,7 @@ class NightMode extends Component {
 	render() {
 		return (
 			<div>
-				<Typography variant="title" gutterBottom>
+				<Typography variant="body2" gutterBottom>
 					Night Mode
 				</Typography>
 

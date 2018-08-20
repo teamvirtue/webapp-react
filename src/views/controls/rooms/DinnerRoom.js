@@ -16,11 +16,6 @@ class DinnerRoom extends Component {
             <div>
 				<List>
 					<Light />
-					
-					<Typography className={ classes.controlsTitle } type='subheading'>
-						Appliances
-					</Typography>
-
 				</List>
 			</div>
         );

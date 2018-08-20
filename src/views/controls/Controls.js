@@ -11,8 +11,7 @@ const styles = theme => ({
     root: {
         //textAlign: 'left',
     },
-    pageTitle: {
-        //textAlign: 'center',
+    marginTop: {
         paddingTop: 48,
         paddingBottom: 16,
     },
@@ -54,8 +53,8 @@ class Controls extends Component {
         return (
             <div className={ classes.root }>
 				<div>
-                    <div className='d-none d-lg-block'>
-						<h1 className={ classes.pageTitle }>Control your room</h1>
+                    <div className={'d-none d-lg-block ' + classes.marginTop }>
+						<h1>Control your room</h1>
 					</div>
 
                     <div className='d-lg-none'>

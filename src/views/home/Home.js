@@ -29,6 +29,10 @@ let worlds = [
 ];
 
 const styles = theme => ({
+    marginTop: {
+        paddingTop: 48,
+        paddingBottom: 16,
+    },
     root: {
         transition: 'all 1s ease-in-out',
     },
@@ -138,6 +142,8 @@ class Home extends Component {
 
         return (
             <div className={ classes.root }> {/*TODO: reduce number of nameless divs*/}
+				<div className={'d-none d-lg-block ' + classes.marginTop }></div>
+				
                 <AppBar className={ classes.appBar } position="static">
                     <Tabs
                         value={ value }

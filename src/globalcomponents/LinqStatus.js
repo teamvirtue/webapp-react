@@ -44,7 +44,7 @@ const styles = theme => ({
 		pointerEvents: 'none',
 	},
 	dialogSmall: {
-		minWidth: 350,
+		minWidth: 550,
 	},
 	dialogFull: {
 		minWidth: 0,

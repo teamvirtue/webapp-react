@@ -15,6 +15,9 @@ import Grow from '@material-ui/core/Grow';
 import HVAC from './systems/HVAC';
 
 const styles = theme => ({
+	flex: {
+		flex: 1
+	},
     subNavItem: {
 		marginTop: 10,
 		marginBottom: 10,
@@ -24,15 +27,26 @@ const styles = theme => ({
     subNavItemPaper: {
         backgroundColor: 'white',
 		height: 140,
+		// width: 120,
 		cursor: 'pointer',
 		display: 'table-cell',
 		verticalAlign: 'middle',
+	},
+	dialogRoot: {
+		margin: 10,
 	},
 	dialogSmall: {
 		minWidth: 450,
 	},
 	dialogFull: {
 		minWidth: 0,
+	},
+	dialogHeading: {
+		backgroundColor: '#f9f9f9',
+		borderBottom: '1px solid #eaeaea',
+		textAlign: 'center',
+		padding: '10px 0',
+		marginBottom: 15,
 	},
 });
 
@@ -102,24 +116,36 @@ class SystemNavigation extends Component {
 					TransitionComponent={Transition}
 					onClose={this.handleDialogClose}
 					classes={{
+						root: classes.dialogRoot,
 						paperWidthSm: classes.dialogSmall,
 						paperFullScreen: classes.dialogFull,
 					}}
 				>
-					<DialogContent>
-						{ systems.map(data => {
-							if(currentId === data.id){
-								return (
-									<div key={ data.id }>
-										{ data.component }
+					{ systems.map(data => {
+						if(currentId === data.id){
+							return (
+								<div key={ data.id } className={ classes.flex }>
+									<div className={ classes.dialogHeading }>
+										<Icon color='primary' style={{ fontSize: 36 }}>{ data.icon }</Icon>
+										<Typography variant="title" gutterBottom>
+											{ data.value }
+										</Typography>
 									</div>
-								);
-							}
-							return false;
-						}) }
-					</DialogContent>
+									<DialogContent>
+										{ data.component }
+									</DialogContent>
+								</div>
+							);
+						}
+						return false;
+					}) }
+
 					<DialogActions>
-						<Button onClick={this.handleDialogClose} color="primary">
+						<Button
+							onClick={ this.handleDialogClose }
+							variant='outlined'
+							color='primary'
+						>
 							Close
 						</Button>
 					</DialogActions>
