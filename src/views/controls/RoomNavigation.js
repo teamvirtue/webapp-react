@@ -27,11 +27,20 @@ const styles = theme => ({
     },
     subNavItemPaper: {
         backgroundColor: 'white',
-		height: 140,
-		// width: 120,
 		cursor: 'pointer',
 		display: 'table-cell',
-		verticalAlign: 'middle',
+		paddingBottom: '100%',
+	},
+	subNavItemContent: {
+		position: 'absolute',
+		top: 0,
+		left: 0,
+		height: '100%',
+		width: '100%',
+		display: 'flex',
+		justifyContent: 'center',
+		alignItems: 'center',
+		flexDirection: 'column',
 	},
 	dialogRoot: {
 		margin: 10,
@@ -110,10 +119,12 @@ class RoomNavigation extends Component {
 										this.handleDialogOpen();
 									} }
 								>
-									<Icon color='primary' style={{ fontSize: 30 }}>{ data.icon }</Icon>
-									<Typography component='p'>
-										{ data.value }
-									</Typography>
+									<div className={ classes.subNavItemContent }>
+										<Icon color='primary' style={{ fontSize: 30 }}>{ data.icon }</Icon>
+										<Typography component='p'>
+											{ data.value }
+										</Typography>
+									</div>
 								</Paper>
 							</div>
 						);

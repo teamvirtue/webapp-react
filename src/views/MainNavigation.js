@@ -48,7 +48,7 @@ const styles = theme => ({
 		display: 'flex',
 		flexDirection: 'column',
 		justifyContent: 'center',
-		border: '1px solid #c33e10',
+		borderTop: '1px solid #c33e10',
     },
     desktopNavListItem: {
 		width: '200px',
