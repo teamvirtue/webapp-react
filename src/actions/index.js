@@ -22,3 +22,11 @@ export const updateWeatherData = (celsius, description) => {
 	}
 };
 
+export const updateSustainabilityStatus = (selected) => {
+	return {
+		type: 'UPDATE_SUSTAINABILITY_STATUS',
+		payload: { selected },
+	}
+};
+
+

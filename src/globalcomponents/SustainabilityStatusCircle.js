@@ -23,8 +23,8 @@ const styles = theme => ({
 		/*top: '2%',
 		left: '2%',*/
 		overflow: 'hidden',
-		animation: 'borderGradient 2s 100ms infinite alternate',
 		borderRadius: '50%',
+		transition: 'all 1s',
 	},
 	circleBorder: {
 		cursor: 'pointer',
@@ -34,7 +34,6 @@ const styles = theme => ({
 		left: '0',
 		top: '0',
 		fill: 'none',
-		stroke: theme.palette.primary.main,
 		strokeWidth: '0',
 		strokeDasharray: '12',
 		strokeDashoffset: '0',
@@ -42,6 +41,7 @@ const styles = theme => ({
 		animation: 'startProgress 1500ms ease-out, continueProgress 15s 1500ms linear infinite',
 		animationFillMode: 'forwards',
 		pointerEvents: 'none',
+		transition: 'all 1s',
 	},
 	dialogSmall: {
 		minWidth: 550,
@@ -55,7 +55,7 @@ function Transition(props) {
 	return <Grow {...props} />;
 }
 
-class LinqStatus extends Component {
+class SustainabilityStatusCircle extends Component {
     /*constructor(props) {
         super(props);
     }*/
@@ -79,10 +79,13 @@ class LinqStatus extends Component {
     render() {
 		const { fullScreen } = this.props;
 		const { classes } = this.props;
+		const { sustainabilityStatus } = this.props;
+		
+		const circleColorClass = sustainabilityStatus[sustainabilityStatus.selected]['efficiency'];
 
         return (
 			<div className={ classes.root }>
-				<div className='linqStatusCircle' onClick={ this.handleClickOpen }>
+				<div className={'sustainabilityStatusCircle ' + circleColorClass} onClick={ this.handleClickOpen }>
 					<div className={ classes.circle }>
                         <Scene />
                     </div>
@@ -115,10 +118,10 @@ class LinqStatus extends Component {
     }
 }
 
-LinqStatus.propTypes = {
+SustainabilityStatusCircle.propTypes = {
 	fullScreen: PropTypes.bool.isRequired,
     classes: PropTypes.object.isRequired,
     //src: PropTypes.string.isRequired,
 };
 
-export default withStyles(styles)(withMobileDialog()(LinqStatus));
+export default withStyles(styles)(withMobileDialog()(SustainabilityStatusCircle));

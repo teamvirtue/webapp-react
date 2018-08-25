@@ -5,8 +5,7 @@ import MuiPickersUtilsProvider from 'material-ui-pickers/utils/MuiPickersUtilsPr
 import { defaults } from 'react-chartjs-2';
 
 // Local import
-// import { MainNavigationContainer } from './containers/MainNavigationContainer';
-import MainNavigation from './views/MainNavigation';
+import { MainNavigationContainer } from './containers/MainNavigationContainer';
 import './assets/bootstrap-grid.min.css';
 import './index.css';
 
@@ -119,7 +118,7 @@ class App extends Component {
 						<div className='col-12'>
 							<MuiThemeProvider theme={ theme }>
 								<MuiPickersUtilsProvider utils={ MomentUtils }>
-									<MainNavigation />
+									<MainNavigationContainer />
 								</MuiPickersUtilsProvider>
 							</MuiThemeProvider>
 						</div>

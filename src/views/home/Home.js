@@ -14,13 +14,6 @@ import { mod } from 'react-swipeable-views-core';
 import SupportTouch from 'react-swipeable-views';
 
 // custom import
-import LinqStatus from '../../globalcomponents/LinqStatus';
-import myLinqImage from '../../assets/my_linq.jpg';
-import linqImage from '../../assets/linq.jpg';
-import communityImage from '../../assets/city.jpg';
-import earthIcon from '../../assets/earth.svg';
-// import halfEarthIcon from '../../assets/half_earth.svg';
-
 const VirtualizeSwipeableViews = bindKeyboard(virtualize(SwipeableViews));
 
 let worlds = [
@@ -124,6 +117,14 @@ class Home extends Component {
 
     handleChange = (event, value) => {
         this.setState({ value });
+		
+		if(value===0){
+			this.props.updateSustainabilityStatus('linq');
+		}else if(value===1){
+			this.props.updateSustainabilityStatus('apartmentcomplex');
+		}else if(value===2){
+			this.props.updateSustainabilityStatus('dubai');
+		}
     };
 
     handleChangeIndex = (index) => { // TODO: does not seem to work
@@ -161,14 +162,14 @@ class Home extends Component {
                         slideRenderer={ slideRenderer }
                     />
                     <div className='col-md-5'>
-                        <LinqStatus imageSource={ myLinqImage }/>
+                        <SustainabilityStatus imageSource={ myLinqImage }/>
                     </div>
                 </SupportTouch>*/}
 
                 {/*<div className='col-md-5'>
-                    { value === 0 && <LinqStatus imageSource={ myLinqImage }/> }
-                    { value === 1 && <LinqStatus imageSource={ linqImage }/> }
-                    { value === 2 && <LinqStatus imageSource={ communityImage }/> }
+                    { value === 0 && <SustainabilityStatus imageSource={ myLinqImage }/> }
+                    { value === 1 && <SustainabilityStatus imageSource={ linqImage }/> }
+                    { value === 2 && <SustainabilityStatus imageSource={ communityImage }/> }
                 </div>*/}
 
                 {/*TODO: check https://react-swipeable-views.com/demos/demos/ & https://react-swipeable-views.com/demos/demos/*/}

@@ -8,12 +8,11 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Icon from '@material-ui/core/Icon';
-import LinqStatus from '../globalcomponents/LinqStatus';
 
 // local import
-// import Home from './home/Home';
 import { HomeContainer } from '../containers/HomeContainer';
 import { AppSettingsContainer } from '../containers/AppSettingsContainer';
+import { SustainabilityStatusCircleContainer } from '../containers/SustainabilityStatusCircleContainer';
 // import Settings from './settings/AppSettings';
 import Controls from './controls/Controls';
 import Reports from './reports/Reports';
@@ -88,7 +87,6 @@ class MainNavigation extends Component {
 
     handleChange = (event, value) => {
         this.setState({ value });
-        // console.log(value);
     };
 
     handleClick = (name, event) => {
@@ -96,6 +94,9 @@ class MainNavigation extends Component {
             //id: !this.state.selectedValue,
             value: name,
         });
+		if(name!==this.state.value){
+			this.props.updateSustainabilityStatus('linq');
+		}
     };
 
     render() {
@@ -144,7 +145,7 @@ class MainNavigation extends Component {
 					<div className={ 'row' }>
 						<div className={ 'col-lg-5 headerBg' }>
 							<div className='d-lg-none dubaiBg' style={ { backgroundImage: "url("+dubaiSkyline+")" } }></div>
-							<LinqStatus />
+							<SustainabilityStatusCircleContainer />
 						</div>
 						
 						<div className={ 'col-lg-7' }>

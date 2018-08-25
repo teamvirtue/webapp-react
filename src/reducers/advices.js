@@ -2,18 +2,19 @@ const advices = (state = {
     byId: {
         'card1': {
             id: 'card1',
-            title: 'Lights',
-            message: 'The lights in the Technical Room are turned on but no activity was detected in the past 15 minutes.',
-            buttonIcon: 'done',
-            buttonText: 'Turn lights off',
+            title: 'This is a demo version of the LINQ app',
+            message: 'This notifications area highlights important tips, information and warnings for an efficient household and a sustainable living. They require fast response. See below for a few examples.',
+            buttonIcon: '',
+            buttonText: '',
             visible: true,
+			bordered: true,
         },
         'card2': {
             id: 'card2',
             title: 'Monthly Energy report',
             message: 'Your monthly Energy report for May is available. This month was much more sustainable than April. Well done!',
-            buttonIcon: 'done',
-            buttonText: 'Close',
+            buttonIcon: '',
+            buttonText: '',
             visible: true,
         },
         'card3': {

@@ -95,6 +95,7 @@ class NotificationsDialog extends Component {
 										title={ card.title }
 										buttonIcon={ card.buttonIcon }
 										buttonText={ card.buttonText }
+										bordered={ card.bordered }
 										// onDismissCard={this.dismissCard}
 									>
 										{ card.message }
@@ -104,7 +105,7 @@ class NotificationsDialog extends Component {
 						{ (Object.keys(advices.byId).length === 0) && <div>asdfasdfasdf</div> }
 					</CSSTransitionGroup>
 					
-					<div className={ classes.cardContainer }>
+					{/*<div className={ classes.cardContainer }>
 						{ sockets.map(data => {
 							return (
 								<SocketCard
@@ -115,7 +116,7 @@ class NotificationsDialog extends Component {
 								</SocketCard>
 							);
 						})}
-					</div>
+					</div>*/}
 				</Dialog>
             </div>
         );

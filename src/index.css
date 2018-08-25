@@ -114,7 +114,7 @@ body {
 	margin-bottom: 60px;
 }
 
-.linqStatusCircle {
+.sustainabilityStatusCircle {
 	position: fixed;
 	display: inline-block;
 	width: 22vw;
@@ -124,10 +124,29 @@ body {
 	transition: all 200ms ease-out;
 }
 
-.linqStatusCircle:hover {
+.sustainabilityStatusCircle:hover {
 	cursor: pointer;
 	transform: scale(1.02);
 }
+
+.sustainabilityStatusCircle.positive div { 
+	-webkit-box-shadow: 0px 0px 30px 10px rgba(3,206,164,0.6);
+	-moz-box-shadow: 0px 0px 30px 10px rgba(3,206,164,0.6);
+	box-shadow: 0px 0px 30px 10px rgba(3,206,164,0.6);
+}
+.sustainabilityStatusCircle.positive svg { stroke: #03cea4; }
+.sustainabilityStatusCircle.neutral div {
+	-webkit-box-shadow: 0px 0px 30px 10px rgba(255,174,3,0.6);
+	-moz-box-shadow: 0px 0px 30px 10px rgba(255,174,3,0.6);
+	box-shadow: 0px 0px 30px 10px rgba(255,174,3,0.6);
+}
+.sustainabilityStatusCircle.neutral svg { stroke: #ffae03; }
+.sustainabilityStatusCircle.negative div {
+	-webkit-box-shadow: 0px 0px 30px 10px rgba(233,25,15,0.6);
+	-moz-box-shadow: 0px 0px 30px 10px rgba(233,25,15,0.6);
+	box-shadow: 0px 0px 30px 10px rgba(233,25,15,0.6);
+}
+.sustainabilityStatusCircle.negative svg { stroke: #e9190f; }
 
 .dubaiBg {
 	position:absolute;
@@ -153,7 +172,7 @@ body {
 	.headerBg {
 		background: linear-gradient(175deg, #ee742e 25%, #f15b27 60%, transparent 25%);
 	}
-	.linqStatusCircle {
+	.sustainabilityStatusCircle {
 		width: 30vw;
 		height: 30vw;
 		top: 0;
@@ -162,7 +181,7 @@ body {
 	}
 	
 	/* Home Screen */
-	.home .linqStatusCircle{
+	.home .sustainabilityStatusCircle{
 		width: 40vh;
 		height: 40vh;
 		margin-top: 30vh;
@@ -205,11 +224,9 @@ body {
 /* Animations */
 @keyframes startProgress {
 	50% {
-		stroke:#03cea4;
 		stroke-width:7px;
 	}
 	100% {
-		stroke:#03cea4;
 		transform:rotate(380deg);
 		/*stroke-dasharray:2;
 		stroke-width:3px;*/
@@ -224,20 +241,5 @@ body {
 	}
 	100% {
 		transform:rotate(380deg);
-	}
-}
-
-@keyframes borderGradient {
-	50% {
-		stroke:#03CE87;
-		-webkit-box-shadow: 0px 0px 30px 10px rgba(3,206,135,0.6);
-		-moz-box-shadow: 0px 0px 30px 10px rgba(3,206,135,0.6);
-		box-shadow: 0px 0px 30px 10px rgba(3,206,135,0.6);
-	}
-	100% {
-		stroke:#00a838;
-		-webkit-box-shadow: 0px 0px 30px 10px rgba(2, 206, 175,0.6);
-		-moz-box-shadow: 0px 0px 30px 10px rgba(2, 206, 175,0.6);
-		box-shadow: 0px 0px 30px 10px rgba(2, 206, 175,0.6);
 	}
 }
