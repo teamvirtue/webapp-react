@@ -43,6 +43,11 @@ const theme = createMuiTheme({
                 },
             },
         },
+		MuiTypography: {
+			subheading: {
+				//fontWeight: 500,
+			},
+		},
     },
 });
 

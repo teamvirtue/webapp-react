@@ -46,7 +46,7 @@ TabContainer.propTypes = {
 };
 
 
-class Controls extends Component {
+class Rooms extends Component {
     render() {
         const { classes } = this.props;
 
@@ -64,9 +64,9 @@ class Controls extends Component {
     }
 }
 
-Controls.propTypes = {
+Rooms.propTypes = {
 	classes: PropTypes.object.isRequired,
 	//theme: PropTypes.object.isRequired,
 };
 
-export default (withStyles(styles)(Controls));
+export default (withStyles(styles)(Rooms));

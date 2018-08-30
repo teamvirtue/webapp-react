@@ -5,15 +5,20 @@ import Icon from '@material-ui/core/Icon';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
-import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
 import Slide from '@material-ui/core/Slide';
 
 import AllRooms from './rooms/AllRooms';
 import LivingRoom from './rooms/LivingRoom';
 import DinnerRoom from './rooms/DinnerRoom';
+import Bedroom from './rooms/Bedroom';
+import Bathroom from './rooms/Bathroom';
+import Hallway from './rooms/Hallway';
+import Kitchen from './rooms/Kitchen';
+import Outdoor from './rooms/Outdoor';
+import TechnicalRoom from './rooms/TechnicalRoom';
 
 const styles = theme => ({
 	flex: {
@@ -43,20 +48,26 @@ const styles = theme => ({
 		flexDirection: 'column',
 	},
 	dialogRoot: {
-		margin: 10,
+		// margin: 10,
+	},
+	dialogPaperRoot: {
+		backgroundColor: '#f9f9f9',
 	},
 	dialogSmall: {
-		minWidth: 380,
+		minWidth: 400,
 	},
 	dialogFull: {
 		minWidth: 0,
 	},
 	dialogHeading: {
-		backgroundColor: '#f9f9f9',
+		backgroundColor: 'white',
 		borderBottom: '1px solid #eaeaea',
 		textAlign: 'center',
-		padding: '10px 0',
+		padding: '7px 0',
 		marginBottom: 15,
+	},
+	dialogCloseButton: {
+		position: 'absolute',
 	},
 });
 
@@ -64,12 +75,12 @@ let rooms = [
     { id: 1, value: 'All Rooms', icon: 'home', component: <AllRooms />, },
     { id: 2, value: 'Living Room', icon: 'weekend', component: <LivingRoom />, },
     { id: 3, value: 'Dinner Room', icon: 'local_dining', component: <DinnerRoom />, },
-    { id: 4, value: 'Bedroom', icon: 'hotel', component: <DinnerRoom />, },
-    { id: 5, value: 'Bathroom', icon: 'hot_tub', component: <DinnerRoom />, },
-    { id: 6, value: 'Hallway', icon: 'transfer_within_a_station', component: <DinnerRoom />, },
-	{ id: 7, value: 'Kitchen', icon: 'room_service', component: <DinnerRoom />, },
-    { id: 8, value: 'Outdoor', icon: 'local_florist', component: <DinnerRoom />, },
-	{ id: 9, value: 'Technical Room', icon: 'power', component: <DinnerRoom />, },
+    { id: 4, value: 'Bedroom', icon: 'hotel', component: <Bedroom />, },
+    { id: 5, value: 'Bathroom', icon: 'hot_tub', component: <Bathroom />, },
+    { id: 6, value: 'Hallway', icon: 'transfer_within_a_station', component: <Hallway />, },
+	{ id: 7, value: 'Kitchen', icon: 'room_service', component: <Kitchen />, },
+    { id: 8, value: 'Outdoor', icon: 'local_florist', component: <Outdoor />, },
+	{ id: 9, value: 'Technical Room', icon: 'power', component: <TechnicalRoom />, },
 ];
 
 function Transition(props) {
@@ -139,10 +150,18 @@ class RoomNavigation extends Component {
 					onClose={this.handleDialogClose}
 					classes={{
 						root: classes.dialogRoot,
+						paper: classes.dialogPaperRoot,
 						paperWidthSm: classes.dialogSmall,
 						paperFullScreen: classes.dialogFull,
 					}}
 				>
+					<IconButton
+						onClick={ this.handleDialogClose }
+						aria-label="Close"
+						className={classes.dialogCloseButton}
+					>
+						<Icon>arrow_back</Icon>
+					</IconButton>
 					{ rooms.map(data => {
 						if(currentId === data.id){
 							return (
@@ -161,16 +180,6 @@ class RoomNavigation extends Component {
 						}
 						return false;
 					}) }
-
-					<DialogActions>
-						<Button
-							onClick={ this.handleDialogClose }
-							variant='outlined'
-							color='primary'
-						>
-							Done
-						</Button>
-					</DialogActions>
 				</Dialog>
 			</div>
         );

@@ -4,10 +4,10 @@ import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
 
 // Local import
-import Temperature from '../controlComponents/Temperature';
+// import Temperature from '../controlComponents/Temperature';
 import Light from '../controlComponents/Light';
 
-class LivingRoom extends Component {
+class Hallway extends Component {
 
     render() {
 		const classes = this.props;
@@ -16,11 +16,10 @@ class LivingRoom extends Component {
             <div>
 				<List>
 					<Light />
-					<Temperature />
 				</List>
 			</div>
         );
     }
 }
 
-export default LivingRoom;
+export default Hallway;

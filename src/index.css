@@ -109,6 +109,8 @@ body {
 .datePicker {
   padding-left: 16px; }
   
+.textalign-right {
+  text-align: right; }
 
 .wrapper {
 	margin-bottom: 60px;
