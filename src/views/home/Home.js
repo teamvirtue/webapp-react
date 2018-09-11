@@ -26,9 +26,9 @@ const styles = theme => ({
         transition: 'all 1s ease-in-out',
     },
     appBar: {
-		backgroundColor: 'white',
+		backgroundColor: 'transparent',
 		borderRadius: 5,
-		boxShadow: '0px 3px 3px 0px rgba(0,0,0,0.10)',
+		boxShadow: 'none',
 		marginTop: 10,
 		marginBottom: 30,
 		overflow: 'hidden',
@@ -65,14 +65,6 @@ const styles = theme => ({
     },
     iconSmall: {
         fontSize: 25,
-    },
-    notification: {
-        outline: '2px dashed #f15b27',
-        backgroundColor: '#f15b27',
-        padding:10,
-        maxWidth: 400,
-        margin: '0 auto',
-        color: 'white',
     },
 });
 
@@ -180,77 +172,19 @@ class Home extends Component {
                     onChangeIndex={ this.handleChangeIndex }
                     animateHeight={ true }
                 >
-
                     <TabContainer dir={ theme.direction }>
-                        <h1>Everything looks great, { accounts.byId[accounts.currentUser].name }!</h1>
-                        {/*<div className = {classes.notification}>This is the 1st demo release of the VIRTUe LINQ app</div>*/}
-
-                        <div className='infoBar'>
-                            <div className='infoItem1'>
-                                <h1>16°</h1>
-                                <p>Indoors</p>
-                            </div>
-                            <div className='infoItem2'>
-                                <Icon className={ classes.checkIcon }>swap_vert</Icon>
-                                <p>Generating energy</p>
-                            </div>
-                            <div className='infoItem3'>
-                                <Icon className={ classes.checkIcon }>check_circle</Icon>
-                                <p>System</p>
-                            </div>
-                        </div>
+                        <h1>{ accounts.byId[accounts.currentUser].name }</h1>
                     </TabContainer>
 
                     <TabContainer dir={ theme.direction }>
-                        <h1>LINQ Activity</h1>
-
-                        <div className='statusBar'>
-                            <div className='statusItem'>
-                                <h1>30%</h1>
-                                <Typography type='subheading'>
-                                    Greener than average
-                                </Typography>
-                            </div>
-                            <div className='statusItem'>
-                                <h1>3</h1>
-                                <Typography type='subheading'>
-                                    Spaces available
-                                </Typography>
-                            </div>
-                        </div>
-
-                        <div className='infoBar'>
-                            <div className='infoItem1'>
-                                <h1>18°</h1>
-                                <p>Indoors</p>
-                            </div>
-                            <div className='infoItem2'>
-                                <Icon className={ classes.checkIcon }>swap_vert</Icon>
-                                <p>Generating & using energy</p>
-                            </div>
-                            <div className='infoItem3'>
-                                <h1>1</h1>
-                                <p>Planned activity</p>
-                            </div>
-                        </div>
                     </TabContainer>
 
                     <TabContainer dir={ theme.direction }>
                         <h1>City Activity</h1>
-                        <Typography variant='subheading'>Current location: Eindhoven</Typography>
-
                         <div className='infoBar'>
                             <div className='infoItem1'>
                                 <h1>{ temperature.outside.celsius }°</h1>
                                 <p>{ temperature.outside.description }</p>
-                            </div>
-                            <div className='infoItem2'>
-                                <h1>10</h1>
-                                <p>Spaces free in other LINQs</p>
-                            </div>
-                            <div className='infoItem3'>
-                                <h1>5</h1>
-                                <p>Events near you</p>
                             </div>
                         </div>
 

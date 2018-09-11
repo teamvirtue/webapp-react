@@ -6,6 +6,7 @@ import List from '@material-ui/core/List';
 import Temperature from '../controlComponents/Temperature';
 import NightMode from '../controlComponents/NightMode';
 import LineChart from '../../../globalcomponents/LineChart';
+import BarChart from '../../../globalcomponents/BarChart';
 
 class LivingRoom extends Component {
 
@@ -23,6 +24,9 @@ class LivingRoom extends Component {
 
 				<h1>Water Usage (L)</h1>
 				<LineChart type='water' />
+				
+				<h1>Appliance Energy (kWh)</h1>
+				<BarChart />
             </List>
         );
     }

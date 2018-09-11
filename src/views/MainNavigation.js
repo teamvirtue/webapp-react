@@ -15,12 +15,11 @@ import { AppSettingsContainer } from '../containers/AppSettingsContainer';
 import { SustainabilityStatusCircleContainer } from '../containers/SustainabilityStatusCircleContainer';
 // import Settings from './settings/AppSettings';
 import Rooms from './rooms/Rooms';
-import Reports from './reports/Reports';
 import { NotificationsDialogContainer } from '../containers/NotificationsDialogContainer';
 
 import '../index.css';
 import logo from '../assets/linq_logo_white.png';
-import dubaiSkyline from '../assets/dubai-skyline.svg';
+//import dubaiSkyline from '../assets/dubai-skyline.svg';
 
 const styles = theme => ({
     root: {
@@ -87,13 +86,13 @@ class MainNavigation extends Component {
 
     handleChange = (event, value) => {
         this.setState({ value });
+		if(value!==this.state.value){
+			this.props.updateSustainabilityStatus('linq');
+		}
     };
 
     handleClick = (name, event) => {
-        this.setState({
-            //id: !this.state.selectedValue,
-            value: name,
-        });
+        this.setState({ value: name });
 		if(name!==this.state.value){
 			this.props.updateSustainabilityStatus('linq');
 		}
@@ -122,12 +121,6 @@ class MainNavigation extends Component {
 									</ListItemIcon>
 									<ListItemText primary='Rooms' classes={{ primary: classes.desktopNavListItemContent }} />
 								</ListItem>
-								<ListItem className={classes.desktopNavListItem + " " + (value === 'reports' ? classes.checked : '')} button onClick={ () => this.handleClick('reports') }>
-									<ListItemIcon>
-										<Icon className={ classes.desktopNavListItemContent }>assessment</Icon>
-									</ListItemIcon>
-									<ListItemText primary='Reports' classes={{ primary: classes.desktopNavListItemContent }} />
-								</ListItem>
 								<ListItem className={classes.desktopNavListItem + " " + (value === 'settings' ? classes.checked : '')} button onClick={ () => this.handleClick('settings') }>
 									<ListItemIcon>
 										<Icon className={ classes.desktopNavListItemContent }>settings</Icon>
@@ -144,21 +137,20 @@ class MainNavigation extends Component {
 				<div className={ 'wrapper ' + value }> { /*  + ' ' + (value === 'home' && 'blabla') */ }
 					<div className={ 'row' }>
 						<div className={ 'col-lg-5 headerBg' }>
-							<div className='d-lg-none dubaiBg' style={ { backgroundImage: "url("+dubaiSkyline+")" } }></div>
+							{ /*<div className='d-lg-none dubaiBg' style={ { backgroundImage: "url("+dubaiSkyline+")" } }></div>*/ }
+							<div className='d-lg-none temperatureBg'>39°C</div>
 							<SustainabilityStatusCircleContainer />
 						</div>
 						
-						<div className={ 'col-lg-7' }>
+						<div className={ 'col-lg-7 content' }>
 							{/*{ value === 0 && <CardContainer /> }*/}
 							{ value === 'home' && <HomeContainer /> }
 							{ value === 'rooms' && <Rooms /> }
-							{ value === 'reports' && <Reports /> }
 							{ value === 'settings' && <AppSettingsContainer /> }
 							{/*{ value === 3 && <Settings /> }*/}
 							{/*<div className={ this.state.addContentNavMargin ? classes.contentNavMargin : '' }>
 								{ value === 'home' && <Home/> }
 								{ value === 'rooms' && <Rooms /> }
-								{ value === 'reports' && <Reports /> }
 								{ value === 'settings' && <Settings /> }
 							</div>*/}
 						</div>
@@ -169,7 +161,6 @@ class MainNavigation extends Component {
                     <BottomNavigation value={ value } onChange={ this.handleChange } className={ classes.mobileNav } showLabels>
                         <BottomNavigationAction className={ classes.mobileNavItem } label='Home' value='home' icon={ <Icon>home</Icon> } />
                         <BottomNavigationAction className={ classes.mobileNavItem } label='Rooms' value='rooms' icon={ <Icon>tune</Icon> } />
-                        <BottomNavigationAction className={ classes.mobileNavItem } label='Reports' value='reports' icon={ <Icon>assessment</Icon> } />
                         <BottomNavigationAction className={ classes.mobileNavItem } label='Settings' value='settings' icon={ <Icon>settings</Icon> } />
                     </BottomNavigation>
                 </div>

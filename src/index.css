@@ -2,6 +2,7 @@ body {
   font-family: 'Roboto', Arial, Helvetica, sans-serif;
   margin: 0;
   background-color:#f9f9f9 !important;
+  overflow-y:scroll;
   }
 
 /* width */
@@ -112,10 +113,6 @@ body {
 .textalign-right {
   text-align: right; }
 
-.wrapper {
-	margin-bottom: 60px;
-}
-
 .sustainabilityStatusCircle {
 	position: fixed;
 	display: inline-block;
@@ -162,6 +159,16 @@ body {
 	background-size:cover;
 }
 
+.temperatureBg{
+	position:absolute;
+	bottom:70px;
+	left:20px;
+	overflow:hidden;
+	font-size:60px;
+	font-weight:bold;
+	color:#f87c3b;
+}
+
 .notificationsIcon {
 	position: fixed;
 	top: 15px;
@@ -194,6 +201,11 @@ body {
 	}
 	.home .dubaiBg {
 		display: block;
+	}
+	
+	.home .content{
+		position:absolute;
+		top:0;
 	}
 	
 	.notificationsIcon {
