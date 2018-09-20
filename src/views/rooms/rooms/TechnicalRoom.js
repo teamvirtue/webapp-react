@@ -10,19 +10,24 @@ import Light from '../controlComponents/Light';
 class TechnicalRoom extends Component {
 
     render() {
-		const classes = this.props;
+		const selectedTab = this.props.tab;
 		
         return (
-            <div>
-				<List>
-					<Light />
-					
-					HVAC
-					Battery
-					Grid
-					Solar Panels
-				</List>
-			</div>
+			<List>
+				{ selectedTab === 'appliances' && 
+					<div>
+						<Light />
+						HVAC
+						Battery
+						Grid
+						Solar Panels
+					</div>
+				}
+				
+				{ selectedTab === 'statistics' && 
+					<div></div>
+				}
+			</List>
         );
     }
 }

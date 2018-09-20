@@ -10,14 +10,20 @@ import Light from '../controlComponents/Light';
 class Bedroom extends Component {
 
     render() {
-		const classes = this.props;
+		const selectedTab = this.props.tab;
 		
         return (
-            <div>
-				<List>
-					<Light />
-				</List>
-			</div>
+			<List>
+				{ selectedTab === 'appliances' && 
+					<div>
+						<Light />
+					</div>
+				}
+				
+				{ selectedTab === 'statistics' && 
+					<div></div>
+				}
+			</List>
         );
     }
 }

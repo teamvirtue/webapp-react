@@ -129,21 +129,21 @@ body {
 }
 
 .sustainabilityStatusCircle.positive div { 
-	-webkit-box-shadow: 0px 0px 30px 10px rgba(3,206,164,0.6);
+	/*-webkit-box-shadow: 0px 0px 30px 10px rgba(3,206,164,0.6);
 	-moz-box-shadow: 0px 0px 30px 10px rgba(3,206,164,0.6);
-	box-shadow: 0px 0px 30px 10px rgba(3,206,164,0.6);
+	box-shadow: 0px 0px 30px 10px rgba(3,206,164,0.6);*/
 }
 .sustainabilityStatusCircle.positive svg { stroke: #03cea4; }
 .sustainabilityStatusCircle.neutral div {
-	-webkit-box-shadow: 0px 0px 30px 10px rgba(255,174,3,0.6);
+	/*-webkit-box-shadow: 0px 0px 30px 10px rgba(255,174,3,0.6);
 	-moz-box-shadow: 0px 0px 30px 10px rgba(255,174,3,0.6);
-	box-shadow: 0px 0px 30px 10px rgba(255,174,3,0.6);
+	box-shadow: 0px 0px 30px 10px rgba(255,174,3,0.6);*/
 }
 .sustainabilityStatusCircle.neutral svg { stroke: #ffae03; }
 .sustainabilityStatusCircle.negative div {
-	-webkit-box-shadow: 0px 0px 30px 10px rgba(233,25,15,0.6);
+	/*-webkit-box-shadow: 0px 0px 30px 10px rgba(233,25,15,0.6);
 	-moz-box-shadow: 0px 0px 30px 10px rgba(233,25,15,0.6);
-	box-shadow: 0px 0px 30px 10px rgba(233,25,15,0.6);
+	box-shadow: 0px 0px 30px 10px rgba(233,25,15,0.6);*/
 }
 .sustainabilityStatusCircle.negative svg { stroke: #e9190f; }
 
@@ -159,16 +159,6 @@ body {
 	background-size:cover;
 }
 
-.temperatureBg{
-	position:absolute;
-	bottom:70px;
-	left:20px;
-	overflow:hidden;
-	font-size:60px;
-	font-weight:bold;
-	color:#f87c3b;
-}
-
 .notificationsIcon {
 	position: fixed;
 	top: 15px;
@@ -176,8 +166,16 @@ body {
 	z-index: 1;
 }
 
+.h3-bold h3{
+	font-weight: 500;
+}
+
 
 @media only screen and (max-width: 991px) {
+	.home .headerBg{
+		height:100vh;
+	}
+	
 	.headerBg {
 		background: linear-gradient(175deg, #ee742e 25%, #f15b27 60%, transparent 25%);
 	}
@@ -190,11 +188,14 @@ body {
 	}
 	
 	/* Home Screen */
+	.home {
+		height:100vh;
+	}
+
 	.home .sustainabilityStatusCircle{
 		width: 40vh;
 		height: 40vh;
-		margin-top: 30vh;
-		margin-bottom: 30vh;
+		margin-top: 25vh;
 	}
 	.home .headerBg { /*TODO: implement cubic-bezier*/
 		background: linear-gradient(175deg, #f9833f 0%, #f15b27 70%);
@@ -206,12 +207,33 @@ body {
 	.home .content{
 		position:absolute;
 		top:0;
+		height:100%;
+		pointer-events:none;
+	}
+	
+	.home .tab{
+		color:#fac8af;
+	}
+	
+	.home .tab.selected{
+		color:white;
+		font-weight: bold;
+	}
+	
+	.home .homepageSubnavBar{
+		margin-top:15vh;
+		pointer-events:auto;
+		color:white;
+	}
+	
+	.home .homeBoxContainer{
+		margin-top:50vh;
 	}
 	
 	.notificationsIcon {
 		position: absolute;
-		top: 15px;
-		right: 15px;
+		top: 12px;
+		right: 0;
 		left: auto;
 		bottom: auto;
 	}

@@ -14,7 +14,6 @@ import Slider from 'rc-slider';
 
 const styles = theme => ({
 	card: {
-		padding: "10px 0 15px 0",
 		marginBottom: 10,
 	},
 });
@@ -53,47 +52,46 @@ class Temperature extends Component {
 		const { classes, theme } = this.props;
 		
 		return (
-			<Card className={classes.card}>
-				<CardContent>
-					<div className="row">
-						<div className="col-md-6">
-							<Typography variant="subheading" component="h3">
-								Air conditioning
-							</Typography>
-						</div>
-						
-						<div className="col-md-6 textalign-right">
-							<Switch
-								checked={ this.state.checkedTemperature }
-								onChange={ this.handleChange('checkedTemperature') }
-								color="primary"
-							/>
-						</div>
-					</div>
-					
-					<ListItem>
-						<ListItemIcon>
-							<Icon>toys</Icon>
-						</ListItemIcon>
+			<div>
+				<Typography variant="subheading" gutterBottom>Air conditioning</Typography>
+				<Card className={classes.card}>
+					<CardContent>
+						<ListItem disableGutters="true">
+							<ListItemIcon>
+								<Icon>power_settings_new</Icon>
+							</ListItemIcon>
+							<ListItemText disableTypography primary='Enable' secondary={
+								<Switch
+									checked={ this.state.checkedTemperature }
+									onChange={ this.handleChange('checkedTemperature') }
+									color="primary"
+								/>
+							}/>
+						</ListItem>
+						<ListItem disableGutters="true">
+							<ListItemIcon>
+								<Icon>toys</Icon>
+							</ListItemIcon>
 
-						<ListItemText disableTypography primary='Temperature' secondary={
-							<Slider
-								min={ 10 }
-								max={ 25 }
-								defaultValue={ 20 }
-								trackStyle={{ backgroundColor: theme.palette.primary.main }}
-								handle={ handle }
-								handleStyle={{
-									borderColor: theme.palette.primary.main,
-									backgroundColor: theme.palette.primary.main,
-								}}
-								railStyle={{ backgroundColor: 'lightgray' }}
+							<ListItemText disableTypography primary='Temperature' secondary={
+								<Slider
+									min={ 10 }
+									max={ 25 }
+									defaultValue={ 20 }
+									trackStyle={{ backgroundColor: theme.palette.primary.main }}
+									handle={ handle }
+									handleStyle={{
+										borderColor: theme.palette.primary.main,
+										backgroundColor: theme.palette.primary.main,
+									}}
+									railStyle={{ backgroundColor: 'lightgray' }}
+								/>
+							}
 							/>
-						}
-						/>
-					</ListItem>
-				</CardContent>
-			</Card>
+						</ListItem>
+					</CardContent>
+				</Card>
+			</div>
 		);
 	}
 }

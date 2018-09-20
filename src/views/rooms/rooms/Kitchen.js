@@ -10,19 +10,24 @@ import Light from '../controlComponents/Light';
 class Kitchen extends Component {
 
     render() {
-		const classes = this.props;
+		const selectedTab = this.props.tab;
 		
         return (
-            <div>
-				<List>
-					<Light />
-					
-					Washer-Dryer
-					Dishwasher
-					Oven
-					Refrigerator
-				</List>
-			</div>
+			<List>
+				{ selectedTab === 'appliances' && 
+					<div>
+						<Light />
+						Washer-Dryer
+						Dishwasher
+						Oven
+						Refrigerator
+					</div>
+				}
+				
+				{ selectedTab === 'statistics' && 
+					<div></div>
+				}
+			</List>
         );
     }
 }

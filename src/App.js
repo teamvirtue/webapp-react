@@ -48,6 +48,16 @@ const theme = createMuiTheme({
 				//fontWeight: 500,
 			},
 		},
+		MuiPaper: {
+			elevation1: {
+				boxShadow: '0px 1px 3px 0px rgba(0, 0, 0, 0.1), 0px 1px 1px 0px rgba(0, 0, 0, 0.07), 0px 2px 1px -1px rgba(0, 0, 0, 0.06)',
+			}
+		},
+		MuiCard: {
+			root: {
+				marginBottom: 30,
+			},
+		},
     },
 });
 

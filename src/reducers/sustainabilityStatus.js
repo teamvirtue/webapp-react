@@ -1,12 +1,12 @@
 const sustainabilityStatus = (state = {
-	selected: 'linq',
+	selected: 'mylinq',
 	linq: {
-		efficiency: 'positive',
-	},
-	apartmentcomplex: {
 		efficiency: 'neutral',
 	},
-	dubai: {
+	mylinq: {
+		efficiency: 'positive',
+	},
+	district: {
 		efficiency: 'negative',
 	},
 	

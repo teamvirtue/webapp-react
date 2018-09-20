@@ -4,29 +4,35 @@ import List from '@material-ui/core/List';
 
 // Local import
 import Temperature from '../controlComponents/Temperature';
-import NightMode from '../controlComponents/NightMode';
+import NetEnergy from '../controlComponents/NetEnergy';
+
 import LineChart from '../../../globalcomponents/LineChart';
 import BarChart from '../../../globalcomponents/BarChart';
 
 class LivingRoom extends Component {
 
     render() {
-		// const classes = this.props;
+		const selectedTab = this.props.tab;
 		
         return (
             <List>
-                <Temperature />
+				{ selectedTab === 'appliances' && 
+					<div>
+						<Temperature />
+					</div>
+				}
 				
-                <NightMode />
-				
-				<h1>Net Energy (kWh)</h1>
-				<LineChart type='energy' />
+				{ selectedTab === 'statistics' && 
+					<div>
+						<NetEnergy />
 
-				<h1>Water Usage (L)</h1>
-				<LineChart type='water' />
-				
-				<h1>Appliance Energy (kWh)</h1>
-				<BarChart />
+						<h1>Water Usage (L)</h1>
+						<LineChart type='water' />
+						
+						<h1>Appliance Energy (kWh)</h1>
+						<BarChart />
+					</div>
+				}
             </List>
         );
     }

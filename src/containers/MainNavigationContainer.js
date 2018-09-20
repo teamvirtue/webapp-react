@@ -3,6 +3,13 @@ import MainNavigation from '../views/MainNavigation';
 
 import { updateSustainabilityStatus } from '../actions';
 
+const mapStateToProps = (state) => {
+    // console.log(state);
+    return {
+        accounts: state.accounts,
+    }
+};
+
 const mapDispatchToProps = dispatch => ({
     updateSustainabilityStatus: (selected) => {
         dispatch(updateSustainabilityStatus(selected));
@@ -10,6 +17,6 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export const MainNavigationContainer = connect(
-	null,
+	mapStateToProps,
 	mapDispatchToProps,
 )(MainNavigation);

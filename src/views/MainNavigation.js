@@ -23,13 +23,20 @@ import logo from '../assets/linq_logo_white.png';
 
 const styles = theme => ({
     root: {
-        // backgroundColor: 'blue',
+        position: 'relative',
     },
 	logo: {
 		margin: '23px 27px',
 		'&:hover': {
 			cursor: 'pointer',
 		}
+	},
+	homeHeaderTitle: {
+		position: 'absolute',
+		color: 'white',
+		marginTop: 20,
+		zIndex: 1,
+		width: '100%',
 	},
     desktopNav: {
         position: 'fixed',
@@ -81,25 +88,47 @@ class MainNavigation extends Component {
             value: 'home',
             selectedValue: 0,
 			addContentNavMargin: false,
+			greeting: 'day',
         };
     }
 
     handleChange = (event, value) => {
         this.setState({ value });
 		if(value!==this.state.value){
-			this.props.updateSustainabilityStatus('linq');
+			this.props.updateSustainabilityStatus('mylinq');
 		}
     };
 
     handleClick = (name, event) => {
         this.setState({ value: name });
 		if(name!==this.state.value){
-			this.props.updateSustainabilityStatus('linq');
+			this.props.updateSustainabilityStatus('mylinq');
 		}
     };
+	
+	getGreeting(){
+		const hour = new Date().getHours();
+
+		if (hour >= 0 && hour < 6) {
+			this.setState({ greeting: 'night' })
+		} else if (hour >= 6 && hour < 12) {
+			this.setState({ greeting: 'morning' })
+		} else if (hour >= 12 && hour < 17) {
+			this.setState({ greeting: 'afternoon' })
+		} else if (hour >= 17 && hour < 24) {
+			this.setState({ greeting: 'evening' })
+		}
+	};
+
+	componentDidMount() {
+		this.getGreeting()
+		setInterval(() => {
+			this.getGreeting()
+		}, 600000);//every 10 minutes
+	};
 
     render() {
-        const { classes } = this.props;
+        const { classes, accounts } = this.props;
         const { value } = this.state;
 
         return (
@@ -132,13 +161,14 @@ class MainNavigation extends Component {
                     </div>
                 </div>
 				
+				{ value === 'home' && <h2 className={ classes.homeHeaderTitle }>Good { this.state.greeting }, { accounts.byId[accounts.currentUser].name }!</h2> }
+				
 				<NotificationsDialogContainer />
 				
 				<div className={ 'wrapper ' + value }> { /*  + ' ' + (value === 'home' && 'blabla') */ }
-					<div className={ 'row' }>
+					<div className={ 'row' } style={{ position: 'relative' }}>
 						<div className={ 'col-lg-5 headerBg' }>
 							{ /*<div className='d-lg-none dubaiBg' style={ { backgroundImage: "url("+dubaiSkyline+")" } }></div>*/ }
-							<div className='d-lg-none temperatureBg'>39°C</div>
 							<SustainabilityStatusCircleContainer />
 						</div>
 						
@@ -160,7 +190,7 @@ class MainNavigation extends Component {
                 <div className='d-lg-none'>
                     <BottomNavigation value={ value } onChange={ this.handleChange } className={ classes.mobileNav } showLabels>
                         <BottomNavigationAction className={ classes.mobileNavItem } label='Home' value='home' icon={ <Icon>home</Icon> } />
-                        <BottomNavigationAction className={ classes.mobileNavItem } label='Rooms' value='rooms' icon={ <Icon>tune</Icon> } />
+                        <BottomNavigationAction className={ classes.mobileNavItem } label='Rooms' value='rooms' icon={ <Icon>dashboard</Icon> } />
                         <BottomNavigationAction className={ classes.mobileNavItem } label='Settings' value='settings' icon={ <Icon>settings</Icon> } />
                     </BottomNavigation>
                 </div>
