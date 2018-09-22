@@ -56,7 +56,7 @@ const styles = theme => ({
 		backgroundColor: '#f9f9f9',
 	},
 	dialogSmall: {
-		minWidth: 400,
+		minWidth: 500,
 	},
 	dialogFull: {
 		minWidth: 0,

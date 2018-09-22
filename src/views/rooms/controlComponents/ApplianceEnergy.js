@@ -8,7 +8,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import LineChart from '../../../globalcomponents/LineChart';
+import BarChart from '../../../globalcomponents/BarChart';
 
 const styles = theme => ({
 	card: {
@@ -16,18 +16,18 @@ const styles = theme => ({
 	},
 });
 
-class NetEnergy extends Component {
+class ApplianceEnergy extends Component {
 	
 	render() {
 		const { classes, theme } = this.props;
 		
 		return (
 			<div>
-				<Typography variant="subheading" gutterBottom>Net Energy (kWh)</Typography>
+				<Typography variant="subheading" gutterBottom>Appliance Energy (kWh)</Typography>
 				<Card className={classes.card}>
 					<CardContent>
 						<ListItem disableGutters="true">
-							<LineChart type='energy' />
+							<BarChart />
 						</ListItem>
 					</CardContent>
 				</Card>
@@ -36,4 +36,4 @@ class NetEnergy extends Component {
 	}
 }
 
-export default withTheme()(withStyles(styles)(NetEnergy));
+export default withTheme()(withStyles(styles)(ApplianceEnergy));

@@ -18,7 +18,7 @@ const YEARS = ['2014', '2015', '2016', '2017', '2018'];
 
 const styles = {
     root: {
-        //backgroundColor: 'firebrick'
+		width: '100%',
     },
     radioGroup: {
         justifyContent: 'center',
@@ -185,19 +185,19 @@ class LineChart extends Component{
                     row
                 >
                     <FormControlLabel className={ classes.radioButton } value='week' control={
-                        <Radio classes={{
+                        <Radio color="primary" classes={{
                             root: this.state.type === 'water' && classes.water,
                             checked: this.state.type === 'water' && classes.checked,
                         }}/>
                     } label='Week'/>
                     <FormControlLabel className={ classes.radioButton } value='month' control={
-                        <Radio classes={{
+                        <Radio color="primary" classes={{
                             root: this.state.type === 'water' && classes.water,
                             checked: this.state.type === 'water' && classes.checked,
                         }}/>
                     } label='Month'/>
                     <FormControlLabel className={ classes.radioButton } value='year' control={
-                        <Radio classes={{
+                        <Radio color="primary" classes={{
                             root: this.state.type === 'water' && classes.water,
                             checked: this.state.type === 'water' && classes.checked,
                         }}/>

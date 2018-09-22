@@ -159,6 +159,10 @@ body {
 	background-size:cover;
 }
 
+.content{
+	margin-bottom:65px;
+}
+
 .notificationsIcon {
 	position: fixed;
 	top: 15px;
@@ -207,7 +211,6 @@ body {
 	.home .content{
 		position:absolute;
 		top:0;
-		height:100%;
 		pointer-events:none;
 	}
 	

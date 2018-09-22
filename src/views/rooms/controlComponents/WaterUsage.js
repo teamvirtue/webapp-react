@@ -16,18 +16,18 @@ const styles = theme => ({
 	},
 });
 
-class NetEnergy extends Component {
-	
+class WaterUsage extends Component {
+
 	render() {
 		const { classes, theme } = this.props;
 		
 		return (
 			<div>
-				<Typography variant="subheading" gutterBottom>Net Energy (kWh)</Typography>
+				<Typography variant="subheading" gutterBottom>Water Usage (L)</Typography>
 				<Card className={classes.card}>
 					<CardContent>
 						<ListItem disableGutters="true">
-							<LineChart type='energy' />
+							<LineChart type='water' />
 						</ListItem>
 					</CardContent>
 				</Card>
@@ -36,4 +36,4 @@ class NetEnergy extends Component {
 	}
 }
 
-export default withTheme()(withStyles(styles)(NetEnergy));
+export default withTheme()(withStyles(styles)(WaterUsage));

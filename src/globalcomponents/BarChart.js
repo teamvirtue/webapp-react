@@ -19,7 +19,7 @@ const labels = ['Washer dryer', 'Dishwasher', 'Fridge', 'Lights', 'Oven', 'Car',
 
 const styles = {
     root: {
-        // backgroundColor: 'firebrick'
+		width: '100%',
     },
     radioGroup: {
         justifyContent: 'center',
@@ -149,9 +149,9 @@ class BarChart extends Component{
                     onChange={ this.handleChange }
                     row
                 >
-                    <FormControlLabel className={ classes.radioButton } value='week' control={ <Radio/> } label='Week'/>
-                    <FormControlLabel className={ classes.radioButton } value='month' control={<Radio/> } label='Month'/>
-                    <FormControlLabel className={ classes.radioButton } value='year' control={ <Radio/> } label='Year'/>
+                    <FormControlLabel className={ classes.radioButton } value='week' control={ <Radio color="primary" /> } label='Week'/>
+                    <FormControlLabel className={ classes.radioButton } value='month' control={ <Radio color="primary" /> } label='Month'/>
+                    <FormControlLabel className={ classes.radioButton } value='year' control={ <Radio color="primary" /> } label='Year'/>
                 </RadioGroup>
                 <HorizontalBar
                     data={ this.state }

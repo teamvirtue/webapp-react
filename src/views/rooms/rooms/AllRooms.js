@@ -5,11 +5,10 @@ import List from '@material-ui/core/List';
 // Local import
 import Temperature from '../controlComponents/Temperature';
 import NetEnergy from '../controlComponents/NetEnergy';
+import WaterUsage from '../controlComponents/WaterUsage';
+import ApplianceEnergy from '../controlComponents/ApplianceEnergy';
 
-import LineChart from '../../../globalcomponents/LineChart';
-import BarChart from '../../../globalcomponents/BarChart';
-
-class LivingRoom extends Component {
+class AllRooms extends Component {
 
     render() {
 		const selectedTab = this.props.tab;
@@ -26,11 +25,10 @@ class LivingRoom extends Component {
 					<div>
 						<NetEnergy />
 
-						<h1>Water Usage (L)</h1>
-						<LineChart type='water' />
+						<WaterUsage />
 						
-						<h1>Appliance Energy (kWh)</h1>
-						<BarChart />
+						<h1></h1>
+						<ApplianceEnergy />
 					</div>
 				}
             </List>
@@ -38,4 +36,4 @@ class LivingRoom extends Component {
     }
 }
 
-export default LivingRoom;
+export default AllRooms;

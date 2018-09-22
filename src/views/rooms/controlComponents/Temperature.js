@@ -60,20 +60,21 @@ class Temperature extends Component {
 							<ListItemIcon>
 								<Icon>power_settings_new</Icon>
 							</ListItemIcon>
-							<ListItemText disableTypography primary='Enable' secondary={
+							<ListItemText primary='Enable' />
+							<ListItemSecondaryAction>
 								<Switch
 									checked={ this.state.checkedTemperature }
 									onChange={ this.handleChange('checkedTemperature') }
 									color="primary"
 								/>
-							}/>
+							</ListItemSecondaryAction>
 						</ListItem>
 						<ListItem disableGutters="true">
 							<ListItemIcon>
 								<Icon>toys</Icon>
 							</ListItemIcon>
 
-							<ListItemText disableTypography primary='Temperature' secondary={
+							<ListItemText primary='Temperature' secondary={
 								<Slider
 									min={ 10 }
 									max={ 25 }
