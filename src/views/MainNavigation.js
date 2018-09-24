@@ -137,7 +137,6 @@ class MainNavigation extends Component {
             <div className={ classes.root }>
                 <div className='d-none d-lg-block'>
                     <div className={ classes.desktopNav }>
-						<img className={ classes.logo } src={logo} width='80' alt='LINQ logo' onClick={ () => this.handleClick('home') } />
 						<div className={ classes.desktopNavList }>
 							<List component='nav'>
 								<ListItem className={classes.desktopNavListItem + ' ' + (value === 'home' ? classes.checked : '')} button onClick={ () => this.handleClick('home') }>
