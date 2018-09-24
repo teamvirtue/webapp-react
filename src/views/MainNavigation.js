@@ -121,7 +121,7 @@ class MainNavigation extends Component {
 	};
 
 	componentDidMount() {
-		this.getGreeting()
+		this.getGreeting();
 		setInterval(() => {
 			this.getGreeting()
 		}, 600000);//every 10 minutes
@@ -135,22 +135,22 @@ class MainNavigation extends Component {
             <div className={ classes.root }>
                 <div className='d-none d-lg-block'>
                     <div className={ classes.desktopNav }>
-						<img className={ classes.logo } src={logo} width="80" button onClick={ () => this.handleClick('home') } />
+						<img className={ classes.logo } src={logo} width='80' alt='LINQ logo' onClick={ () => this.handleClick('home') } />
 						<div className={ classes.desktopNavList }>
 							<List component='nav'>
-								<ListItem className={classes.desktopNavListItem + " " + (value === 'home' ? classes.checked : '')} button onClick={ () => this.handleClick('home') }>
+								<ListItem className={classes.desktopNavListItem + ' ' + (value === 'home' ? classes.checked : '')} button onClick={ () => this.handleClick('home') }>
 									<ListItemIcon>
 										<Icon className={ classes.desktopNavListItemContent }>home</Icon>
 									</ListItemIcon>
 									<ListItemText primary='Home' classes={{ primary: classes.desktopNavListItemContent }} />
 								</ListItem>
-								<ListItem className={classes.desktopNavListItem + " " + (value === 'rooms' ? classes.checked : '')} button onClick={ () => this.handleClick('rooms') }>
+								<ListItem className={classes.desktopNavListItem + ' ' + (value === 'rooms' ? classes.checked : '')} button onClick={ () => this.handleClick('rooms') }>
 									<ListItemIcon>
 										<Icon className={ classes.desktopNavListItemContent }>dashboard</Icon>
 									</ListItemIcon>
 									<ListItemText primary='Rooms' classes={{ primary: classes.desktopNavListItemContent }} />
 								</ListItem>
-								<ListItem className={classes.desktopNavListItem + " " + (value === 'settings' ? classes.checked : '')} button onClick={ () => this.handleClick('settings') }>
+								<ListItem className={classes.desktopNavListItem + ' ' + (value === 'settings' ? classes.checked : '')} button onClick={ () => this.handleClick('settings') }>
 									<ListItemIcon>
 										<Icon className={ classes.desktopNavListItemContent }>settings</Icon>
 									</ListItemIcon>
@@ -168,7 +168,7 @@ class MainNavigation extends Component {
 				<div className={ 'wrapper ' + value }> { /*  + ' ' + (value === 'home' && 'blabla') */ }
 					<div className={ 'row' } style={{ position: 'relative' }}>
 						<div className={ 'col-lg-5 headerBg' }>
-							{ /*<div className='d-lg-none dubaiBg' style={ { backgroundImage: "url("+dubaiSkyline+")" } }></div>*/ }
+							{ /*<div className='d-lg-none dubaiBg' style={ { backgroundImage: 'url('+dubaiSkyline+')' } }></div>*/ }
 							<SustainabilityStatusCircleContainer />
 						</div>
 						

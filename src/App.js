@@ -17,7 +17,6 @@ const theme = createMuiTheme({
 		secondary: {
 			main: '#181818',
             light: '#ffffff',
-            light: '#ffffff',
 		},
 		error: {
 			main: '#e83a3a', //inverted (blue): 0EA4D8
