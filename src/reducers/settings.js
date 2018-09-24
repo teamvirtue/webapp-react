@@ -31,9 +31,12 @@ const settings = (state = {
 		allIds: ['user1', 'user2'],
 		currentUser: ['user1'],
 	},
+	birthdate: new Date('October 12, 1986 11:13:00'),
 	checkedSleepCycleMode: true,
+	sleepCycleStartTime: new Date('January 1, 2018 07:00:00'),
+	sleepCycleEndTime: new Date('January 1, 2018 17:00:00'),
 	checkedNightMode: true,
-	notificationsVolume: '5',
+	notificationsVolume: 5,
 	checkedNotificationsVibrate: false,
 	checkedNotificationsDesktop: false,
 }, action) => {
@@ -54,10 +57,28 @@ const settings = (state = {
 				}
             };
 
+        case 'UPDATE_BIRTHDATE':
+			return {
+                ...state,
+				birthdate: action.payload.date,
+            };
+
         case 'UPDATE_SLEEP_CYCLE_MODE':
 			return {
                 ...state,
 				checkedSleepCycleMode: action.payload.check,
+            };
+
+        case 'UPDATE_SLEEP_CYCLE_START_TIME':
+			return {
+                ...state,
+				sleepCycleStartTime: action.payload.time,
+            };
+
+        case 'UPDATE_SLEEP_CYCLE_END_TIME':
+			return {
+                ...state,
+				sleepCycleEndTime: action.payload.time,
             };
 
         case 'UPDATE_NIGHT_MODE':

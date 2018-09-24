@@ -10,9 +10,24 @@ export const updateAccountName = (name, id) => ({
     payload: { name, id },
 });
 
+export const updateBirthdate = (date) => ({
+    type: 'UPDATE_BIRTHDATE',
+    payload: { date },
+});
+
 export const updateSleepCycleMode = (check) => ({
     type: 'UPDATE_SLEEP_CYCLE_MODE',
     payload: { check },
+});
+
+export const updateSleepCycleStartTime = (time) => ({
+    type: 'UPDATE_SLEEP_CYCLE_START_TIME',
+    payload: { time },
+});
+
+export const updateSleepCycleEndTime = (time) => ({
+    type: 'UPDATE_SLEEP_CYCLE_END_TIME',
+    payload: { time },
 });
 
 export const updateNightMode = (check) => ({

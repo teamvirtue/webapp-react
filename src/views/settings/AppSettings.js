@@ -51,36 +51,6 @@ const styles = theme => ({
     },
 });
 
-class Picker extends PureComponent {
-    constructor(props) {
-        super(props);
-        this.state = {
-            selectedDate: new Date(this.props.time),
-        };
-    }
-
-    handleDateChange = (date) => {
-        this.setState({ selectedDate: date });
-    };
-
-    render() {
-        const { selectedDate } = this.state;
-
-        return (
-            <div className='picker'>
-                <TimePicker
-                    keyboard
-                    //label='Masked timepicker'
-                    mask={ [/\d/, /\d/, ':', /\d/, /\d/, ' ', /a|p/i, 'M'] }
-                    placeholder={ this.props.placeholder }
-                    value={ selectedDate }
-                    onChange={ this.handleDateChange }
-                />
-            </div>
-        );
-    }
-}
-
 class ListMenu extends Component {
     constructor(props) {
         super(props);
@@ -151,28 +121,29 @@ class Settings extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            selectedDate: new Date('October 12, 1986 11:13:00'),
-            selectedTime: new Date(),
-            //selectedDateTime: new Date(),
-
-            checkedSleepCycleMode: true,
-            checkedDesktopNotifications: false,
-
             anchorEl: null,
             selectedIndex: 2,
         };
     }
 
-    handleDateChange = date => {
-        this.setState({ selectedDate: date });
-    };
-
     handleChange = name => event => {
         this.setState({ [name]: event.target.checked });
+    };
+	
+    handleBirthdate = date => {
+        this.props.updateBirthdate(date);
     };
 
     handleSleepCycleMode = name => event => {
 		this.props.updateSleepCycleMode(event.target.checked);
+    };
+	
+	handleSleepCycleStartTime = (date) => {
+		this.props.updateSleepCycleStartTime(date);
+    };
+	
+	handleSleepCycleEndTime = (date) => {
+		this.props.updateSleepCycleEndTime(date);
     };
 
     handleNightMode = name => event => {
@@ -193,7 +164,6 @@ class Settings extends Component {
 
     render() {
 		const { classes, theme, settings } = this.props;
-        const { selectedDate } = this.state;
         // const currentUserId = settings.accounts.byId[settings.accounts.currentUser].id;
         const currentUser = settings.accounts.byId[settings.accounts.currentUser].name;
         // const currentUser = settings.accounts.currentUser;
@@ -225,8 +195,8 @@ class Settings extends Component {
 									<DatePicker className='datePicker'
 										keyboard
 										format='MMMM Do, YYYY'
-										value={ selectedDate }
-										onChange={ this.handleDateChange }
+										value={ settings.birthdate }
+										onChange={ this.handleBirthdate }
 										animateYearScrolling={ false }
 									/>
 								</ListItem>
@@ -252,19 +222,19 @@ class Settings extends Component {
 								{ settings.checkedSleepCycleMode &&
 									<ListItem>
 										<ListItemText inset primary='Start' />
-
-										<Picker time='October 15, 2018 09:00:00' placeholder='09:00 AM'/>
-										{/*<TimePicker
-											value={ selectedTime }
-											onChange={ this.handleTimeChange }
-										/>*/}
+										<TimePicker
+											value={ settings.sleepCycleStartTime }
+											onChange={ this.handleSleepCycleStartTime }
+										/>
 									</ListItem>
 								}
 								{ settings.checkedSleepCycleMode &&
 									<ListItem>
 										<ListItemText inset primary='End' />
-
-										<Picker time='October 15, 2018 17:00:00' placeholder='17:00 PM'/>
+										<TimePicker
+											value={ settings.sleepCycleEndTime }
+											onChange={ this.handleSleepCycleEndTime }
+										/>
 									</ListItem>
 								}
 
@@ -438,7 +408,7 @@ class Settings extends Component {
 									aria-label='Phone ringtone'
 									// onClick={this.handleClickListItem}
 								>
-									<ListItemText primary='App version' secondary='v0.1.0' />
+									<ListItemText primary='App version' secondary='v1.0.0' />
 								</ListItem>
 
 								<ListItem
