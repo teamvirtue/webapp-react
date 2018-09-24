@@ -12,13 +12,16 @@ const styles = theme => ({
 	root: {
 		marginBottom:10,
 	},
+	bordered: {
+		border: '3px solid ' + theme.palette.primary.main,
+	},
     card: {
         /*minWidth: 275,
         maxWidth: 600,*/
         textAlign: 'left',
     },
     controls: {
-        justifyContent: 'space-between',
+        /*justifyContent: 'space-between',*/
     },
     title: {
         marginBottom: 16,
@@ -64,7 +67,7 @@ class AdviceCard extends Component {
 
         return (
             <div className={ classes.root } ref={ div => { this.div = div; } } style={{height: `${this.state.cardHeight}px`}}>
-                <Card className={ classes.card }>
+                <Card className={ classes.card + (this.props.bordered ? ' ' + classes.bordered : '') }>
                     <CardContent>
                         <Typography variant='headline' className={ classes.title } component='h1'>
                             { this.props.title }
@@ -75,20 +78,22 @@ class AdviceCard extends Component {
                         </Typography>
                     </CardContent>
                     <CardActions className={ classes.controls }>
+						{ this.props.buttonText !== '' && 
+							<Button
+								className={ classes.button }
+								onClick={ (event) => this.handleDismissCard(event, id) }
+								variant='contained'
+								color='primary'
+							>
+								<Icon className={ classes.buttonIcon }>{ this.props.buttonIcon }</Icon>
+								{ this.props.buttonText }
+							</Button>
+						}
                         <Button
-                            className={ classes.button }
                             onClick={ (event) => this.handleDismissCard(event, id) }
-                            variant='outlined'
                             color='primary'
                         >
-                            <Icon className={ classes.buttonIcon }>{ this.props.buttonIcon }</Icon>
-                            { this.props.buttonText }
-                        </Button>
-                        <Button
-                            onClick={ (event) => this.handleDismissCard(event, id) }
-                            color='primary'
-                        >
-                            Ignore
+                            Close
                         </Button>
                     </CardActions>
                 </Card>

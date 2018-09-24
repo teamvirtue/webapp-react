@@ -226,6 +226,7 @@ class Settings extends Component {
                                         checked={ checkedSleepCycleMode }
                                         onChange={ this.handleChange('checkedSleepCycleMode') }
                                         value='checkedSleepCycleMode'
+										color='primary'
                                     />
                                 </ListItemSecondaryAction>
                             </ListItem>
@@ -266,6 +267,7 @@ class Settings extends Component {
                                     <Switch
                                         checked={this.state.checkedNightMode}
                                         onChange={this.handleChange('checkedNightMode')}
+										color='primary'
                                     />
                                 </ListItemSecondaryAction>
                             </ListItem>
@@ -343,6 +345,7 @@ class Settings extends Component {
                                     <Switch
                                         checked={ this.state.checkedVibrate }
                                         onChange={ this.handleChange('checkedVibrate') }
+										color='primary'
                                     />
                                 </ListItemSecondaryAction>
                             </ListItem>
@@ -357,6 +360,7 @@ class Settings extends Component {
                                     <Switch
                                         checked={ this.state.checkedDesktopNotifications }
                                         onChange={ this.handleChange('checkedDesktopNotifications') }
+										color='primary'
                                     />
                                 </ListItemSecondaryAction>
                             </ListItem>

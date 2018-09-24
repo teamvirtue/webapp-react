@@ -7,19 +7,25 @@ import List from '@material-ui/core/List';
 // import Temperature from '../controlComponents/Temperature';
 import Light from '../controlComponents/Light';
 
-class DinnerRoom extends Component {
+class Hallway extends Component {
 
     render() {
-		const classes = this.props;
+		const selectedTab = this.props.tab;
 		
         return (
-            <div>
-				<List>
-					<Light />
-				</List>
-			</div>
+			<List>
+				{ selectedTab === 'appliances' && 
+					<div>
+						<Light />
+					</div>
+				}
+				
+				{ selectedTab === 'statistics' && 
+					<div></div>
+				}
+			</List>
         );
     }
 }
 
-export default DinnerRoom;
+export default Hallway;

@@ -10,15 +10,24 @@ import Light from '../controlComponents/Light';
 class LivingRoom extends Component {
 
     render() {
-		const classes = this.props;
+		const selectedTab = this.props.tab;
 		
         return (
-            <div>
-				<List>
-					<Light />
-					<Temperature />
-				</List>
-			</div>
+			<List>
+				{ selectedTab === 'appliances' && 
+					<div>
+						<Light />
+						<Temperature />
+						Music System
+						TV
+						Clock
+					</div>
+				}
+				
+				{ selectedTab === 'statistics' && 
+					<div></div>
+				}
+			</List>
         );
     }
 }

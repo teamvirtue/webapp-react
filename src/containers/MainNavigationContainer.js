@@ -1,14 +1,12 @@
 import { connect } from 'react-redux';
-import Home from '../views/home/Home';
+import MainNavigation from '../views/MainNavigation';
 
 import { updateSustainabilityStatus } from '../actions';
 
 const mapStateToProps = (state) => {
     // console.log(state);
     return {
-		sustainabilityStatus: state.sustainabilityStatus,
-		temperature: state.temperature,
-		localNewsHeadlines: state.localNewsHeadlines,
+        accounts: state.accounts,
     }
 };
 
@@ -18,7 +16,7 @@ const mapDispatchToProps = dispatch => ({
     }
 });
 
-export const HomeContainer = connect(
-    mapStateToProps,
+export const MainNavigationContainer = connect(
+	mapStateToProps,
 	mapDispatchToProps,
-)(Home);
+)(MainNavigation);

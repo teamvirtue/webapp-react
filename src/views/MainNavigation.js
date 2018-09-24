@@ -8,30 +8,35 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Icon from '@material-ui/core/Icon';
-import LinqStatus from '../globalcomponents/LinqStatus';
 
 // local import
-// import Home from './home/Home';
 import { HomeContainer } from '../containers/HomeContainer';
 import { AppSettingsContainer } from '../containers/AppSettingsContainer';
+import { SustainabilityStatusCircleContainer } from '../containers/SustainabilityStatusCircleContainer';
 // import Settings from './settings/AppSettings';
-import Controls from './controls/Controls';
-import Reports from './reports/Reports';
+import Rooms from './rooms/Rooms';
 import { NotificationsDialogContainer } from '../containers/NotificationsDialogContainer';
 
 import '../index.css';
 import logo from '../assets/linq_logo_white.png';
-import dubaiSkyline from '../assets/dubai-skyline.svg';
+//import dubaiSkyline from '../assets/dubai-skyline.svg';
 
 const styles = theme => ({
     root: {
-        // backgroundColor: 'blue',
+        position: 'relative',
     },
 	logo: {
 		margin: '23px 27px',
 		'&:hover': {
 			cursor: 'pointer',
 		}
+	},
+	homeHeaderTitle: {
+		position: 'absolute',
+		color: 'white',
+		marginTop: 20,
+		zIndex: 1,
+		width: '100%',
 	},
     desktopNav: {
         position: 'fixed',
@@ -48,7 +53,7 @@ const styles = theme => ({
 		display: 'flex',
 		flexDirection: 'column',
 		justifyContent: 'center',
-		border: '1px solid #c33e10',
+		borderTop: '1px solid #c33e10',
     },
     desktopNavListItem: {
 		width: '200px',
@@ -83,23 +88,47 @@ class MainNavigation extends Component {
             value: 'home',
             selectedValue: 0,
 			addContentNavMargin: false,
+			greeting: 'day',
         };
     }
 
     handleChange = (event, value) => {
         this.setState({ value });
-        // console.log(value);
+		if(value!==this.state.value){
+			this.props.updateSustainabilityStatus('mylinq');
+		}
     };
 
     handleClick = (name, event) => {
-        this.setState({
-            //id: !this.state.selectedValue,
-            value: name,
-        });
+        this.setState({ value: name });
+		if(name!==this.state.value){
+			this.props.updateSustainabilityStatus('mylinq');
+		}
     };
+	
+	getGreeting(){
+		const hour = new Date().getHours();
+
+		if (hour >= 0 && hour < 6) {
+			this.setState({ greeting: 'night' })
+		} else if (hour >= 6 && hour < 12) {
+			this.setState({ greeting: 'morning' })
+		} else if (hour >= 12 && hour < 17) {
+			this.setState({ greeting: 'afternoon' })
+		} else if (hour >= 17 && hour < 24) {
+			this.setState({ greeting: 'evening' })
+		}
+	};
+
+	componentDidMount() {
+		this.getGreeting()
+		setInterval(() => {
+			this.getGreeting()
+		}, 600000);//every 10 minutes
+	};
 
     render() {
-        const { classes } = this.props;
+        const { classes, accounts } = this.props;
         const { value } = this.state;
 
         return (
@@ -115,17 +144,11 @@ class MainNavigation extends Component {
 									</ListItemIcon>
 									<ListItemText primary='Home' classes={{ primary: classes.desktopNavListItemContent }} />
 								</ListItem>
-								<ListItem className={classes.desktopNavListItem + " " + (value === 'controls' ? classes.checked : '')} button onClick={ () => this.handleClick('controls') }>
+								<ListItem className={classes.desktopNavListItem + " " + (value === 'rooms' ? classes.checked : '')} button onClick={ () => this.handleClick('rooms') }>
 									<ListItemIcon>
-										<Icon className={ classes.desktopNavListItemContent }>tune</Icon>
+										<Icon className={ classes.desktopNavListItemContent }>dashboard</Icon>
 									</ListItemIcon>
-									<ListItemText primary='Controls' classes={{ primary: classes.desktopNavListItemContent }} />
-								</ListItem>
-								<ListItem className={classes.desktopNavListItem + " " + (value === 'reports' ? classes.checked : '')} button onClick={ () => this.handleClick('reports') }>
-									<ListItemIcon>
-										<Icon className={ classes.desktopNavListItemContent }>assessment</Icon>
-									</ListItemIcon>
-									<ListItemText primary='Reports' classes={{ primary: classes.desktopNavListItemContent }} />
+									<ListItemText primary='Rooms' classes={{ primary: classes.desktopNavListItemContent }} />
 								</ListItem>
 								<ListItem className={classes.desktopNavListItem + " " + (value === 'settings' ? classes.checked : '')} button onClick={ () => this.handleClick('settings') }>
 									<ListItemIcon>
@@ -138,26 +161,26 @@ class MainNavigation extends Component {
                     </div>
                 </div>
 				
+				{ value === 'home' && <h2 className={ classes.homeHeaderTitle }>Good { this.state.greeting }, { accounts.byId[accounts.currentUser].name }!</h2> }
+				
 				<NotificationsDialogContainer />
 				
 				<div className={ 'wrapper ' + value }> { /*  + ' ' + (value === 'home' && 'blabla') */ }
-					<div className={ 'row' }>
+					<div className={ 'row' } style={{ position: 'relative' }}>
 						<div className={ 'col-lg-5 headerBg' }>
-							<div className='d-lg-none dubaiBg' style={ { backgroundImage: "url("+dubaiSkyline+")" } }></div>
-							<LinqStatus />
+							{ /*<div className='d-lg-none dubaiBg' style={ { backgroundImage: "url("+dubaiSkyline+")" } }></div>*/ }
+							<SustainabilityStatusCircleContainer />
 						</div>
 						
-						<div className={ 'col-lg-7' }>
+						<div className={ 'col-lg-7 content' }>
 							{/*{ value === 0 && <CardContainer /> }*/}
 							{ value === 'home' && <HomeContainer /> }
-							{ value === 'controls' && <Controls /> }
-							{ value === 'reports' && <Reports /> }
+							{ value === 'rooms' && <Rooms /> }
 							{ value === 'settings' && <AppSettingsContainer /> }
 							{/*{ value === 3 && <Settings /> }*/}
 							{/*<div className={ this.state.addContentNavMargin ? classes.contentNavMargin : '' }>
 								{ value === 'home' && <Home/> }
-								{ value === 'controls' && <Controls /> }
-								{ value === 'reports' && <Reports /> }
+								{ value === 'rooms' && <Rooms /> }
 								{ value === 'settings' && <Settings /> }
 							</div>*/}
 						</div>
@@ -167,8 +190,7 @@ class MainNavigation extends Component {
                 <div className='d-lg-none'>
                     <BottomNavigation value={ value } onChange={ this.handleChange } className={ classes.mobileNav } showLabels>
                         <BottomNavigationAction className={ classes.mobileNavItem } label='Home' value='home' icon={ <Icon>home</Icon> } />
-                        <BottomNavigationAction className={ classes.mobileNavItem } label='Controls' value='controls' icon={ <Icon>tune</Icon> } />
-                        <BottomNavigationAction className={ classes.mobileNavItem } label='Reports' value='reports' icon={ <Icon>assessment</Icon> } />
+                        <BottomNavigationAction className={ classes.mobileNavItem } label='Rooms' value='rooms' icon={ <Icon>dashboard</Icon> } />
                         <BottomNavigationAction className={ classes.mobileNavItem } label='Settings' value='settings' icon={ <Icon>settings</Icon> } />
                     </BottomNavigation>
                 </div>

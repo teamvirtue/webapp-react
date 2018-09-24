@@ -5,8 +5,7 @@ import MuiPickersUtilsProvider from 'material-ui-pickers/utils/MuiPickersUtilsPr
 import { defaults } from 'react-chartjs-2';
 
 // Local import
-// import { MainNavigationContainer } from './containers/MainNavigationContainer';
-import MainNavigation from './views/MainNavigation';
+import { MainNavigationContainer } from './containers/MainNavigationContainer';
 import './assets/bootstrap-grid.min.css';
 import './index.css';
 
@@ -45,6 +44,21 @@ const theme = createMuiTheme({
                 },
             },
         },
+		MuiTypography: {
+			subheading: {
+				//fontWeight: 500,
+			},
+		},
+		MuiPaper: {
+			elevation1: {
+				boxShadow: '0px 1px 3px 0px rgba(0, 0, 0, 0.1), 0px 1px 1px 0px rgba(0, 0, 0, 0.07), 0px 2px 1px -1px rgba(0, 0, 0, 0.06)',
+			}
+		},
+		MuiCard: {
+			root: {
+				marginBottom: 30,
+			},
+		},
     },
 });
 
@@ -75,7 +89,7 @@ class App extends Component {
 		 */
 		
 		// Current Weather
-		let weatherURL = 'https://api.openweathermap.org/data/2.5/weather?id=2756252&APPID=1473962c711c59e516b01eb4065ce872&units=metric';
+		let weatherURL = 'https://api.openweathermap.org/data/2.5/weather?id=292223&APPID=1473962c711c59e516b01eb4065ce872&units=metric';
 		weatherURL = '';//temporarily disable for dev
 		fetch(weatherURL)
 			.then(res => res.json())
@@ -120,7 +134,7 @@ class App extends Component {
 						<div className='col-12'>
 							<MuiThemeProvider theme={ theme }>
 								<MuiPickersUtilsProvider utils={ MomentUtils }>
-									<MainNavigation />
+									<MainNavigationContainer />
 								</MuiPickersUtilsProvider>
 							</MuiThemeProvider>
 						</div>
