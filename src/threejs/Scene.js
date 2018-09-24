@@ -48,10 +48,10 @@ class Scene extends Component { // code from https://stackoverflow.com/questions
         scene.add(camera);
 
         /* for debugging */
-        let controls = new OrbitControls(camera, renderer.domElement);
+        /*let controls = new OrbitControls(camera, renderer.domElement);
         controls.enableDamping = true;
         controls.dampingFactor = 0.25;
-        controls.enableZoom = true;
+        controls.enableZoom = true;*/
 
         let ambientLight = new THREE.AmbientLight(0x999999, 0.5);
         scene.add(ambientLight);
@@ -90,7 +90,9 @@ class Scene extends Component { // code from https://stackoverflow.com/questions
 
                     // console.log(this.loadedObject.children[0].material);
                     this.loadedObject.children[0].material[1].transparent = true;
-                    this.loadedObject.children[0].material[1].opacity = 0;
+                    this.loadedObject.children[0].material[1].opacity = 0.5;
+                    this.loadedObject.children[1].material[1].transparent = true;
+                    this.loadedObject.children[1].material[1].opacity = 0;
                     // this.loadedObject.children[0].material[1].transparent = true;
 
                     /*object.traverse(function(child) {
@@ -151,7 +153,12 @@ class Scene extends Component { // code from https://stackoverflow.com/questions
     animate = () => {
         this.renderScene();
 
-        theta += 0.4;
+        if (this.loadedObject) {
+            alpha += 0.2;
+
+            this.loadedObject.rotation.y += 0.002;
+            this.loadedObject.rotation.x = 0.5 + 0.55 * Math.cos(THREE.Math.degToRad(alpha));
+        }
 
         /*if (this.loadedObject) { // Check if the object is present
             alpha += 1.2;

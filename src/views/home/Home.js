@@ -68,7 +68,7 @@ class Home extends Component {
 	setActiveTab = tab => (newTab) => {
 		this.setState({ tab });
 		this.props.updateSustainabilityStatus(tab);
-	}
+	};
 
     render() {
         const { classes, theme, accounts, temperature, localNewsHeadlines } = this.props;
@@ -76,7 +76,6 @@ class Home extends Component {
 
         return (
             <div className={ classes.root }> {/*TODO: reduce number of nameless divs*/}
-			
 				<div className={ classes.subnavBar + ' homepageSubnavBar row' }>
 					<Button color="secondary" className={'col-4 tab ' + (tab === 'mylinq' ? "selected" : "" )} onClick={ this.setActiveTab('mylinq') }>
 						My LINQ
