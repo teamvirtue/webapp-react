@@ -31,6 +31,11 @@ const settings = (state = {
 		allIds: ['user1', 'user2'],
 		currentUser: ['user1'],
 	},
+	checkedSleepCycleMode: true,
+	checkedNightMode: true,
+	notificationsVolume: '5',
+	checkedNotificationsVibrate: false,
+	checkedNotificationsDesktop: false,
 }, action) => {
 	switch (action.type) {
         case 'UPDATE_ACCOUNT_NAME':
@@ -48,6 +53,37 @@ const settings = (state = {
 					}
 				}
             };
+
+        case 'UPDATE_SLEEP_CYCLE_MODE':
+			return {
+                ...state,
+				checkedSleepCycleMode: action.payload.check,
+            };
+
+        case 'UPDATE_NIGHT_MODE':
+			return {
+                ...state,
+				checkedNightMode: action.payload.check,
+            };
+
+        case 'UPDATE_NOTIFICATIONS_VOLUME':
+			return {
+                ...state,
+				notificationsVolume: action.payload.volume,
+            };
+
+        case 'UPDATE_NOTIFICATIONS_VIBRATE':
+			return {
+                ...state,
+				checkedNotificationsVibrate: action.payload.check,
+            };
+
+        case 'UPDATE_NOTIFICATIONS_DESKTOP':
+			return {
+                ...state,
+				checkedNotificationsDesktop: action.payload.check,
+            };
+			
 		default:
 			return state;
 	}

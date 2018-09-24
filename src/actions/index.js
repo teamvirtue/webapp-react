@@ -10,6 +10,31 @@ export const updateAccountName = (name, id) => ({
     payload: { name, id },
 });
 
+export const updateSleepCycleMode = (check) => ({
+    type: 'UPDATE_SLEEP_CYCLE_MODE',
+    payload: { check },
+});
+
+export const updateNightMode = (check) => ({
+    type: 'UPDATE_NIGHT_MODE',
+    payload: { check },
+});
+
+export const updateNotificationsVolume = (volume) => ({
+    type: 'UPDATE_NOTIFICATIONS_VOLUME',
+    payload: { volume },
+});
+
+export const updateNotificationsVibrate = (check) => ({
+    type: 'UPDATE_NOTIFICATIONS_VIBRATE',
+    payload: { check },
+});
+
+export const updateNotificationsDesktop = (check) => ({
+    type: 'UPDATE_NOTIFICATIONS_DESKTOP',
+    payload: { check },
+});
+
 export const updateLocalNewsHeadlines = (sources) => ({
     type: 'UPDATE_LOCAL_NEWS_HEADLINES',
     payload: { sources },

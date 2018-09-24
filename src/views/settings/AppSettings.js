@@ -156,8 +156,6 @@ class Settings extends Component {
             //selectedDateTime: new Date(),
 
             checkedSleepCycleMode: true,
-            checkedNightMode: true,
-            checkedVibrate: false,
             checkedDesktopNotifications: false,
 
             anchorEl: null,
@@ -173,9 +171,29 @@ class Settings extends Component {
         this.setState({ [name]: event.target.checked });
     };
 
+    handleSleepCycleMode = name => event => {
+		this.props.updateSleepCycleMode(event.target.checked);
+    };
+
+    handleNightMode = name => event => {
+		this.props.updateNightMode(event.target.checked);
+    };
+
+    handleNotificationsVolume = name => newVolume => {
+		this.props.updateNotificationsVolume(newVolume);
+    };
+
+    handleNotificationsVibrate = name => event => {
+		this.props.updateNotificationsVibrate(event.target.checked);
+    };
+
+    handleNotificationsDesktop = name => event => {
+		this.props.updateNotificationsDesktop(event.target.checked);
+    };
+
     render() {
 		const { classes, theme, settings } = this.props;
-        const { selectedDate, checkedNightMode, checkedSleepCycleMode } = this.state;
+        const { selectedDate } = this.state;
         // const currentUserId = settings.accounts.byId[settings.accounts.currentUser].id;
         const currentUser = settings.accounts.byId[settings.accounts.currentUser].name;
         // const currentUser = settings.accounts.currentUser;
@@ -223,15 +241,15 @@ class Settings extends Component {
 
 									<ListItemSecondaryAction>
 										<Switch
-											checked={ checkedSleepCycleMode }
-											onChange={ this.handleChange('checkedSleepCycleMode') }
+											checked={ settings.checkedSleepCycleMode }
+											onChange={ this.handleSleepCycleMode() }
 											value='checkedSleepCycleMode'
 											color='primary'
 										/>
 									</ListItemSecondaryAction>
 								</ListItem>
 
-								{ checkedSleepCycleMode &&
+								{ settings.checkedSleepCycleMode &&
 									<ListItem>
 										<ListItemText inset primary='Start' />
 
@@ -242,7 +260,7 @@ class Settings extends Component {
 										/>*/}
 									</ListItem>
 								}
-								{ checkedSleepCycleMode &&
+								{ settings.checkedSleepCycleMode &&
 									<ListItem>
 										<ListItemText inset primary='End' />
 
@@ -283,14 +301,14 @@ class Settings extends Component {
 
 									<ListItemSecondaryAction>
 										<Switch
-											checked={this.state.checkedNightMode}
-											onChange={this.handleChange('checkedNightMode')}
+											checked={settings.checkedNightMode}
+											onChange={this.handleNightMode()}
 											color='primary'
 										/>
 									</ListItemSecondaryAction>
 								</ListItem>
 
-								{ checkedNightMode &&
+								{ settings.checkedNightMode &&
 									<ListMenu label='Night mode' title='Turn on automatically' options={ optionsNightmode } />
 								}
 							</List>
@@ -345,7 +363,8 @@ class Settings extends Component {
 										<Slider
 											min={ 0 }
 											max={ 20 }
-											defaultValue={ 5 }
+											defaultValue={ settings.notificationsVolume }
+											onChange={ this.handleNotificationsVolume() }
 											trackStyle={{ backgroundColor: theme.palette.primary.main }}
 											handleStyle={{
 												borderColor: theme.palette.primary.main,
@@ -366,8 +385,8 @@ class Settings extends Component {
 
 									<ListItemSecondaryAction>
 										<Switch
-											checked={ this.state.checkedVibrate }
-											onChange={ this.handleChange('checkedVibrate') }
+											checked={ settings.checkedNotificationsVibrate }
+											onChange={ this.handleNotificationsVibrate() }
 											color='primary'
 										/>
 									</ListItemSecondaryAction>
@@ -381,12 +400,13 @@ class Settings extends Component {
 
 									<ListItemSecondaryAction>
 										<Switch
-											checked={ this.state.checkedDesktopNotifications }
-											onChange={ this.handleChange('checkedDesktopNotifications') }
+											checked={ settings.checkedNotificationsDesktop }
+											onChange={ this.handleNotificationsDesktop() }
 											color='primary'
 										/>
 									</ListItemSecondaryAction>
 								</ListItem>
+								{ /*
 								<ListItem
 									button
 									aria-haspopup='true'
@@ -400,6 +420,7 @@ class Settings extends Component {
 
 									<ListItemText primary='Notifications types' secondary='Choose what you want to be notified of' />
 								</ListItem>
+								*/ }
 							</List>
 						</CardContent>
 					</Card>
