@@ -67,7 +67,7 @@ const styles = theme => ({
         position: 'fixed',
         bottom: 0,
 		marginLeft: '-15px',
-        zIndex: 50,
+        zIndex: 5,
         width: '100%',
         boxShadow: '0px -3px 3px 0px rgba(0,0,0,0.10)',
 		backgroundColor: 'white',
@@ -127,7 +127,7 @@ class MainNavigation extends Component {
 		}, 600000);//every 10 minutes
 	};
 
-    render() {
+    render() { /*TODO: remove inline styles*/
         const { classes, accounts } = this.props;
         const { value } = this.state;
 
@@ -138,19 +138,19 @@ class MainNavigation extends Component {
 						<img className={ classes.logo } src={logo} width='80' alt='LINQ logo' onClick={ () => this.handleClick('home') } />
 						<div className={ classes.desktopNavList }>
 							<List component='nav'>
-								<ListItem className={classes.desktopNavListItem + ' ' + (value === 'home' ? classes.checked : '')} button onClick={ () => this.handleClick('home') }>
+								<ListItem className={ classes.desktopNavListItem + ' ' + (value === 'home' ? classes.checked : '') } button onClick={ () => this.handleClick('home') }>
 									<ListItemIcon>
 										<Icon className={ classes.desktopNavListItemContent }>home</Icon>
 									</ListItemIcon>
 									<ListItemText primary='Home' classes={{ primary: classes.desktopNavListItemContent }} />
 								</ListItem>
-								<ListItem className={classes.desktopNavListItem + ' ' + (value === 'rooms' ? classes.checked : '')} button onClick={ () => this.handleClick('rooms') }>
+								<ListItem className={ classes.desktopNavListItem + ' ' + (value === 'rooms' ? classes.checked : '') } button onClick={ () => this.handleClick('rooms') }>
 									<ListItemIcon>
 										<Icon className={ classes.desktopNavListItemContent }>dashboard</Icon>
 									</ListItemIcon>
 									<ListItemText primary='Rooms' classes={{ primary: classes.desktopNavListItemContent }} />
 								</ListItem>
-								<ListItem className={classes.desktopNavListItem + ' ' + (value === 'settings' ? classes.checked : '')} button onClick={ () => this.handleClick('settings') }>
+								<ListItem className={ classes.desktopNavListItem + ' ' + (value === 'settings' ? classes.checked : '') } button onClick={ () => this.handleClick('settings') }>
 									<ListItemIcon>
 										<Icon className={ classes.desktopNavListItemContent }>settings</Icon>
 									</ListItemIcon>
@@ -167,7 +167,7 @@ class MainNavigation extends Component {
 				
 				<div className={ 'wrapper ' + value }> { /*  + ' ' + (value === 'home' && 'blabla') */ }
 					<div className={ 'row' } style={{ position: 'relative' }}>
-						<div className={ 'col-lg-5 headerBg' }>
+						<div className={ 'col-lg-5 headerBg' } style={{ overflow: 'hidden' }}>
 							{ /*<div className='d-lg-none dubaiBg' style={ { backgroundImage: 'url('+dubaiSkyline+')' } }></div>*/ }
 							<SustainabilityStatusCircleContainer />
 						</div>
