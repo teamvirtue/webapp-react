@@ -82,7 +82,7 @@ class LinqStatus extends Component {
 
         return (
 			<div className={ classes.root }>
-				<div className='linqStatusCircle' onClick={ this.handleClickOpen }>
+				<div className='linqStatusCircle'> {/*onClick={ this.handleClickOpen }*/}
 					<div className={ classes.circle }>
                         <Scene />
                     </div>

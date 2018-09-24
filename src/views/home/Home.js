@@ -181,6 +181,8 @@ class Home extends Component {
                 >
 
                     <TabContainer dir={ theme.direction }>
+                        <p style={{ color: '#f15b27', fontWeight: 'bold'}}>DEMO VERSION v1.1</p>
+
                         <h1>Everything looks great, { accounts.byId[accounts.currentUser].name }!</h1>
                         {/*<div className = {classes.notification}>This is the 1st demo release of the VIRTUe LINQ app</div>*/}
 
@@ -259,7 +261,7 @@ class Home extends Component {
                                 let card = localNewsHeadlines.byId[id];
 
                                 return card.visible ?
-                                    <div key={id}>{card.description}</div>
+                                    <div key={ id }>{card.description}</div>
                                     : null;
                             }
                         ) }
