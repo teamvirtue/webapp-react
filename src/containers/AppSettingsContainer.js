@@ -5,7 +5,7 @@ import AppSettings from '../views/settings/AppSettings';
 const mapStateToProps = (state) => {
     // console.log(state);
     return {
-        accounts: state.accounts,
+        accounts: state.accounts
     }
 };
 

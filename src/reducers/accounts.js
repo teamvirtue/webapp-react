@@ -38,6 +38,7 @@ const accounts = (state = {
                 byId: {
                     ...state.byId,
                     [action.payload.id]: {
+						...state.byId[action.payload.id],
                         name: action.payload.name,
                     }
                 }

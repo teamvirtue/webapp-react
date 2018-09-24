@@ -26,7 +26,10 @@ const styles = theme => ({
         position: 'relative',
     },
 	logo: {
-		margin: '23px 27px',
+		position: 'absolute',
+		left: 0,
+		margin: '23px 20px',
+		zIndex: 1,
 		'&:hover': {
 			cursor: 'pointer',
 		}
@@ -53,7 +56,6 @@ const styles = theme => ({
 		display: 'flex',
 		flexDirection: 'column',
 		justifyContent: 'center',
-		borderTop: '1px solid #c33e10',
     },
     desktopNavListItem: {
 		width: '200px',
@@ -135,7 +137,6 @@ class MainNavigation extends Component {
             <div className={ classes.root }>
                 <div className='d-none d-lg-block'>
                     <div className={ classes.desktopNav }>
-						<img className={ classes.logo } src={logo} width="80" button onClick={ () => this.handleClick('home') } />
 						<div className={ classes.desktopNavList }>
 							<List component='nav'>
 								<ListItem className={classes.desktopNavListItem + " " + (value === 'home' ? classes.checked : '')} button onClick={ () => this.handleClick('home') }>
@@ -160,6 +161,8 @@ class MainNavigation extends Component {
 						</div>
                     </div>
                 </div>
+				
+				<img className={ classes.logo } src={logo} width="80" button onClick={ () => this.handleClick('home') } />
 				
 				{ value === 'home' && <h2 className={ classes.homeHeaderTitle }>Good { this.state.greeting }, { accounts.byId[accounts.currentUser].name }!</h2> }
 				
