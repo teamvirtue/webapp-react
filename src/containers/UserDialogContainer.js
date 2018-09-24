@@ -5,7 +5,7 @@ import { updateAccountName } from '../actions';
 const mapStateToProps = (state) => {
     // console.log(state);
     return {
-        accounts: state.accounts,
+        settings: state.settings,
     }
 };
 

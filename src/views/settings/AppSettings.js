@@ -174,11 +174,11 @@ class Settings extends Component {
     };
 
     render() {
-		const { classes, theme, accounts } = this.props;
+		const { classes, theme, settings } = this.props;
         const { selectedDate, checkedNightMode, checkedSleepCycleMode } = this.state;
-        // const currentUserId = accounts.byId[accounts.currentUser].id;
-        const currentUser = accounts.byId[accounts.currentUser].name;
-        // const currentUser = accounts.currentUser;
+        // const currentUserId = settings.accounts.byId[settings.accounts.currentUser].id;
+        const currentUser = settings.accounts.byId[settings.accounts.currentUser].name;
+        // const currentUser = settings.accounts.currentUser;
 
         return (
             <div className={classes.root}>
@@ -193,7 +193,7 @@ class Settings extends Component {
 							<List>
 								<UserDialogContainer
 									// user={{ id: currentUserId, name: currentUser }}
-									// family={ accounts.byId }
+									// family={ settings.accounts.byId }
 									// onSubmit={ (event) => this.handleNameChangeSubmit(event) }
 								/>
 								

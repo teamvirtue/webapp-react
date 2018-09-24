@@ -130,7 +130,7 @@ class MainNavigation extends Component {
 	};
 
     render() {
-        const { classes, accounts } = this.props;
+        const { classes, settings } = this.props;
         const { value } = this.state;
 
         return (
@@ -164,7 +164,7 @@ class MainNavigation extends Component {
 				
 				<img className={ classes.logo } src={logo} width="80" button onClick={ () => this.handleClick('home') } />
 				
-				{ value === 'home' && <h2 className={ classes.homeHeaderTitle }>Good { this.state.greeting }, { accounts.byId[accounts.currentUser].name }!</h2> }
+				{ value === 'home' && <h2 className={ classes.homeHeaderTitle }>Good { this.state.greeting }, { settings.accounts.byId[settings.accounts.currentUser].name }!</h2> }
 				
 				<NotificationsDialogContainer />
 				
