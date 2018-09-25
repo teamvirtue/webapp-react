@@ -1,4 +1,5 @@
 const sustainabilityStatus = (state = {
+    fullscreen: false,
 	selected: 'mylinq',
 	linq: {
 		efficiency: 'neutral',
@@ -16,7 +17,12 @@ const sustainabilityStatus = (state = {
 			return {
 				...state,
 				selected: action.payload.selected,
-			}
+			};
+        case 'UPDATE_FULLSCREEN_STATUS':
+            return {
+                ...state,
+                fullscreen: action.payload.fullscreen,
+            };
 		default:
 			return state;
 	}

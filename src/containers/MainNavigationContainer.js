@@ -7,6 +7,7 @@ const mapStateToProps = (state) => {
     // console.log(state);
     return {
         accounts: state.accounts,
+        sustainabilityStatus: state.sustainabilityStatus,
     }
 };
 

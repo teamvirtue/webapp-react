@@ -29,4 +29,11 @@ export const updateSustainabilityStatus = (selected) => {
 	}
 };
 
+export const updateFullscreenStatus = (fullscreen) => {
+    return {
+        type: 'UPDATE_FULLSCREEN_STATUS',
+        payload: { fullscreen },
+    }
+};
+
 

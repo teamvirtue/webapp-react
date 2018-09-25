@@ -205,12 +205,13 @@ class Scene extends Component { // code from https://stackoverflow.com/questions
         /*const DPR = window.devicePixelRatio ? window.devicePixelRatio : 1;
         this.renderer.setPixelRatio(DPR);*/
 
-        if (this.props.fullScreen) {
+        if (this.props.fullscreen) {
             this.camera.aspect = window.innerWidth / window.innerHeight;
             this.camera.updateProjectionMatrix();
 
             this.renderer.setSize( window.innerWidth, window.innerHeight );
         } else {
+            console.log("I am confusion");
             this.canvas.style.width = '100%';
             this.canvas.style.height= '100%';
         }
@@ -219,7 +220,8 @@ class Scene extends Component { // code from https://stackoverflow.com/questions
     render() {
         const { classes } = this.props;
 
-        if (this.props.fullScreen) {
+        // console.log(this.props.fullscreen);
+        if (this.props.fullscreen) {
             this.resizeCanvas();
         }
 

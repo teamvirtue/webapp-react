@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';	
+import { withStyles } from '@material-ui/core/styles';
 // import Dialog from '@material-ui/core/Dialog';
 // import DialogActions from '@material-ui/core/DialogActions';
 // import DialogContent from '@material-ui/core/DialogContent';
@@ -41,10 +41,10 @@ const styles = theme => ({
 	circleBorder: {
         // position: 'absolute',
 		cursor: 'pointer',
-		height: '100%',
+		// height: '40vh',
+        alignSelf: 'center',
+		// height: '100%',
 		width: '100%',
-		left: '0',
-		top: '0',
 		fill: 'none',
 		strokeWidth: '0',
 		strokeDasharray: '12',
@@ -56,7 +56,7 @@ const styles = theme => ({
 		transition: 'all 200ms ease-out',
         // transform: 'scale(1.2)',
 	},
-    /*fullScreen: {
+    /*fullscreen: {
         WebkitTransform: 'scale(2)',
         transform: 'scale(2)',
     },*/
@@ -77,46 +77,52 @@ class SustainabilityStatusCircle extends Component {
         super(props);
     }*/
 
-	state = {
-        fullScreen: false,
-	};
+	/*state = {
+        fullscreen: false,
+	};*/
 
 	handleClickOpen = () => {
-		this.setState({ fullScreen: true });
+        this.props.updateFullscreenStatus(true);
+
+        console.log(this.props.sustainabilityStatus);
+
+        // this.setState({ fullScreen: true });
 	};
 
 	handleClose = () => {
-		this.setState({ fullScreen: false });
+		// this.setState({ fullscreen: false });
 	};
 
     render() {
-		// const { fullScreen } = this.props;
-		const { fullScreen } = this.state;
+		// const { fullscreen } = this.props;
+		// const { fullscreen } = this.state;
 		const { classes } = this.props;
 		const { sustainabilityStatus } = this.props;
 		
 		const circleColorClass = sustainabilityStatus[sustainabilityStatus.selected]['efficiency'];
-		const fullScreenClass = fullScreen ? ' fullScreen' : '';
-		// const fullScreenClass = this.state.open ? classes.fullScreen : null;
+		const fullscreenClass = sustainabilityStatus.fullscreen ? ' fullscreen' : '';
+		// const fullscreenClass = this.state.open ? classes.fullScreen : null;
 
         return (
-            <div className={ 'sustainabilityStatusCircle' + fullScreenClass + ' ' + circleColorClass }>
-                <div className={ fullScreen ? classes.circleFullscreen : 'sustainabilityStatusScene' } onClick={ this.handleClickOpen }>
-                    <Scene fullScreen={ fullScreen }/>
-                </div>
+            <div className={ classes.root }>
+                <div className={ 'sustainabilityStatusCircle' + fullscreenClass + ' ' + circleColorClass }>
+                    <div className={ sustainabilityStatus.fullscreen ? classes.circleFullscreen : 'sustainabilityStatusScene' } onClick={ this.handleClickOpen }>
+                        <Scene fullscreen={ sustainabilityStatus.fullscreen }/>
+                    </div>
 
-                <div className={ 'circleBorderContainer' + fullScreenClass }>
-                    <svg
-                        className={ classes.circleBorder }
-                        version='1.1'
-                        id='L1'
-                        xmlns='http://www.w3.org/2000/svg'
-                        x='0px'
-                        y='0px'
-                        viewBox='0 0 100 100'
-                    >
-                        <circle cx='50' cy='50' r='48'/>
-                    </svg>
+                    <div className={ 'circleBorderContainer' + fullscreenClass }>
+                        <svg
+                            className={ classes.circleBorder }
+                            version='1.1'
+                            id='L1'
+                            xmlns='http://www.w3.org/2000/svg'
+                            x='0px'
+                            y='0px'
+                            viewBox='0 0 100 100'
+                        >
+                            <circle cx='50' cy='50' r='48'/>
+                        </svg>
+                    </div>
                 </div>
             </div>
         );
@@ -124,7 +130,7 @@ class SustainabilityStatusCircle extends Component {
 }
 
 SustainabilityStatusCircle.propTypes = {
-	// fullScreen: PropTypes.bool.isRequired,
+	// fullscreen: PropTypes.bool.isRequired,
     classes: PropTypes.object.isRequired,
     //src: PropTypes.string.isRequired,
 };
