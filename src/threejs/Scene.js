@@ -37,8 +37,8 @@ class Scene extends Component { // code from https://stackoverflow.com/questions
     componentDidMount() {
         window.addEventListener('resize', this.resizeCanvas);
 
-        // const width = this.canvas.clientWidth;
-        // const height = this.canvas.clientHeight;
+        const width = this.canvas.clientWidth;
+        const height = this.canvas.clientHeight;
 
         const renderer = new THREE.WebGLRenderer({ canvas: this.canvas, antialias: true, alpha: true });
         const DPR = window.devicePixelRatio ? window.devicePixelRatio : 1;
@@ -205,7 +205,11 @@ class Scene extends Component { // code from https://stackoverflow.com/questions
         /*const DPR = window.devicePixelRatio ? window.devicePixelRatio : 1;
         this.renderer.setPixelRatio(DPR);*/
 
-        if (this.props.fullscreen) {
+        console.log("I am confusion");
+        this.canvas.style.width = '100%';
+        this.canvas.style.height= '100%';
+
+        /*if (this.props.fullscreen) {
             this.camera.aspect = window.innerWidth / window.innerHeight;
             this.camera.updateProjectionMatrix();
 
@@ -214,16 +218,16 @@ class Scene extends Component { // code from https://stackoverflow.com/questions
             console.log("I am confusion");
             this.canvas.style.width = '100%';
             this.canvas.style.height= '100%';
-        }
+        }*/
     };
 
     render() {
         const { classes } = this.props;
 
         // console.log(this.props.fullscreen);
-        if (this.props.fullscreen) {
+        /*if (this.props.fullscreen) {
             this.resizeCanvas();
-        }
+        }*/
 
         return (
             <canvas
