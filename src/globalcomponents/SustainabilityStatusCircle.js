@@ -15,17 +15,6 @@ const styles = theme => ({
         width: '100%',
 		backgroundColor: 'blue',
 	},*/
-	circle: {
-        position: 'absolute',
-        height: '100%',
-        width: '100%',
-        overflow: 'hidden',
-        borderRadius: '50%',
-        transition: 'all 1s',
-    },
-    circleFullscreen: {
-        borderRadius: 0,
-    },
     circleBorder: {
         cursor: 'pointer',
         position: 'absolute',
@@ -85,14 +74,16 @@ class SustainabilityStatusCircle extends Component {
 
         return (
             <div className={ classes.root }>
-                <div className={'sustainabilityStatusCircle ' + circleColorClass} onClick={ this.handleClickOpen }>
-                    <div className={ sustainabilityStatus.fullscreen ? classes.circleFullscreen + ' ' + classes.circle : classes.circle }>
+                <div className={'sustainabilityStatusCircleContainer ' + circleColorClass} onClick={ this.handleClickOpen }>
+                    <div className={ 'sustainabilityStatusCircle' }>
                         <Scene />
                         {/*<Scene fullscreen={ sustainabilityStatus.fullscreen }/>*/}
                     </div>
-                    <svg className={ classes.circleBorder } version='1.1' id='L1' xmlns='http://www.w3.org/2000/svg' x='0px' y='0px' viewBox='0 0 100 100'>
-                        <circle cx='50' cy='50' r='48'/>
-                    </svg>
+					{!sustainabilityStatus.fullscreen &&
+						<svg className={ classes.circleBorder } version='1.1' id='L1' xmlns='http://www.w3.org/2000/svg' x='0px' y='0px' viewBox='0 0 100 100'>
+							<circle cx='50' cy='50' r='48'/>
+						</svg>
+					}
                 </div>
             </div>
         );
