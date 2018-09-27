@@ -69,7 +69,7 @@ const styles = theme => ({
         position: 'fixed',
         bottom: 0,
 		marginLeft: '-15px',
-        zIndex: 50,
+        zIndex: 5,
         width: '100%',
         boxShadow: '0px -3px 3px 0px rgba(0,0,0,0.10)',
 		backgroundColor: 'white',
@@ -96,14 +96,14 @@ class MainNavigation extends Component {
 
     handleChange = (event, value) => {
         this.setState({ value });
-		if(value!==this.state.value){
+		if(value !== this.state.value){
 			this.props.updateSustainabilityStatus('mylinq');
 		}
     };
 
     handleClick = (name, event) => {
         this.setState({ value: name });
-		if(name!==this.state.value){
+		if(name !== this.state.value){
 			this.props.updateSustainabilityStatus('mylinq');
 		}
     };
@@ -129,29 +129,31 @@ class MainNavigation extends Component {
 		}, 600000);//every 10 minutes
 	};
 
-    render() {
-        const { classes, settings } = this.props;
+    render() { /*TODO: remove inline styles*/
+        const { classes, accounts, sustainabilityStatus } = this.props;
         const { value } = this.state;
 
         return (
             <div className={ classes.root }>
                 <div className='d-none d-lg-block'>
                     <div className={ classes.desktopNav }>
+						<img className={ classes.logo } src={ logo } width='80' alt='LINQ logo' onClick={ () => this.handleClick('home') } />
+
 						<div className={ classes.desktopNavList }>
 							<List component='nav'>
-								<ListItem className={classes.desktopNavListItem + ' ' + (value === 'home' ? classes.checked : '')} button onClick={ () => this.handleClick('home') }>
+								<ListItem className={ classes.desktopNavListItem + ' ' + (value === 'home' ? classes.checked : '') } button onClick={ () => this.handleClick('home') }>
 									<ListItemIcon>
 										<Icon className={ classes.desktopNavListItemContent }>home</Icon>
 									</ListItemIcon>
 									<ListItemText primary='Home' classes={{ primary: classes.desktopNavListItemContent }} />
 								</ListItem>
-								<ListItem className={classes.desktopNavListItem + ' ' + (value === 'rooms' ? classes.checked : '')} button onClick={ () => this.handleClick('rooms') }>
+								<ListItem className={ classes.desktopNavListItem + ' ' + (value === 'rooms' ? classes.checked : '') } button onClick={ () => this.handleClick('rooms') }>
 									<ListItemIcon>
 										<Icon className={ classes.desktopNavListItemContent }>dashboard</Icon>
 									</ListItemIcon>
 									<ListItemText primary='Rooms' classes={{ primary: classes.desktopNavListItemContent }} />
 								</ListItem>
-								<ListItem className={classes.desktopNavListItem + ' ' + (value === 'settings' ? classes.checked : '')} button onClick={ () => this.handleClick('settings') }>
+								<ListItem className={ classes.desktopNavListItem + ' ' + (value === 'settings' ? classes.checked : '') } button onClick={ () => this.handleClick('settings') }>
 									<ListItemIcon>
 										<Icon className={ classes.desktopNavListItemContent }>settings</Icon>
 									</ListItemIcon>
@@ -161,42 +163,46 @@ class MainNavigation extends Component {
 						</div>
                     </div>
                 </div>
-				
-				<img className={ classes.logo } src={logo} width="80" button onClick={ () => this.handleClick('home') } />
-				
-				{ value === 'home' && <h2 className={ classes.homeHeaderTitle }>Good { this.state.greeting }, { settings.accounts.byId[settings.accounts.currentUser].name }!</h2> }
-				
+
+				{ value === 'home' && !sustainabilityStatus.fullscreen &&
+                <h2 className={ classes.homeHeaderTitle }>Good { this.state.greeting }, { accounts.byId[accounts.currentUser].name }!</h2>
+				}
+
 				<NotificationsDialogContainer />
 				
 				<div className={ 'wrapper ' + value }> { /*  + ' ' + (value === 'home' && 'blabla') */ }
 					<div className={ 'row' } style={{ position: 'relative' }}>
-						<div className={ 'col-lg-5 headerBg' }>
+						<div className={ 'col-lg-5 headerBg' }> {/*style={{ position: 'relative', overflow: 'hidden' }}>*/}
 							{ /*<div className='d-lg-none dubaiBg' style={ { backgroundImage: 'url('+dubaiSkyline+')' } }></div>*/ }
 							<SustainabilityStatusCircleContainer />
 						</div>
-						
-						<div className={ 'col-lg-7 content' }>
-							{/*{ value === 0 && <CardContainer /> }*/}
-							{ value === 'home' && <HomeContainer /> }
-							{ value === 'rooms' && <Rooms /> }
-							{ value === 'settings' && <AppSettingsContainer /> }
-							{/*{ value === 3 && <Settings /> }*/}
-							{/*<div className={ this.state.addContentNavMargin ? classes.contentNavMargin : '' }>
-								{ value === 'home' && <Home/> }
-								{ value === 'rooms' && <Rooms /> }
-								{ value === 'settings' && <Settings /> }
-							</div>*/}
-						</div>
+
+                        { !sustainabilityStatus.fullscreen &&
+                        <div className={ 'col-lg-7 content' }>
+                            {/*{ value === 0 && <CardContainer /> }*/}
+                            { value === 'home' && <HomeContainer /> }
+                            { value === 'rooms' && <Rooms /> }
+                            { value === 'settings' && <AppSettingsContainer /> }
+                            {/*{ value === 3 && <Settings /> }*/}
+                            {/*<div className={ this.state.addContentNavMargin ? classes.contentNavMargin : '' }>
+                                { value === 'home' && <Home/> }
+                                { value === 'rooms' && <Rooms /> }
+                                { value === 'settings' && <Settings /> }
+                            </div>*/}
+                        </div>
+                        }
 					</div>
 				</div>
 
-                <div className='d-lg-none'>
-                    <BottomNavigation value={ value } onChange={ this.handleChange } className={ classes.mobileNav } showLabels>
-                        <BottomNavigationAction className={ classes.mobileNavItem } label='Home' value='home' icon={ <Icon>home</Icon> } />
-                        <BottomNavigationAction className={ classes.mobileNavItem } label='Rooms' value='rooms' icon={ <Icon>dashboard</Icon> } />
-                        <BottomNavigationAction className={ classes.mobileNavItem } label='Settings' value='settings' icon={ <Icon>settings</Icon> } />
-                    </BottomNavigation>
-                </div>
+                { !sustainabilityStatus.fullscreen &&
+                    <div className='d-lg-none'>
+                        <BottomNavigation value={ value } onChange={ this.handleChange } className={ classes.mobileNav } showLabels>
+                            <BottomNavigationAction className={ classes.mobileNavItem } label='Home' value='home' icon={ <Icon>home</Icon> } />
+                            <BottomNavigationAction className={ classes.mobileNavItem } label='Rooms' value='rooms' icon={ <Icon>dashboard</Icon> } />
+                            <BottomNavigationAction className={ classes.mobileNavItem } label='Settings' value='settings' icon={ <Icon>settings</Icon> } />
+                        </BottomNavigation>
+                    </div>
+                }
             </div>
         );
     }

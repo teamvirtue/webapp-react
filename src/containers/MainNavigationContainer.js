@@ -6,7 +6,8 @@ import { updateSustainabilityStatus } from '../actions';
 const mapStateToProps = (state) => {
     // console.log(state);
     return {
-        settings: state.settings,
+        accounts: state.accounts,
+        sustainabilityStatus: state.sustainabilityStatus,
     }
 };
 

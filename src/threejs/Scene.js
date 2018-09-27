@@ -6,6 +6,7 @@ import { MTLLoader, OBJLoader } from 'three-obj-mtl-loader';
 // import mtlUrl from '../assets/models/linq_scene_low_poly_optimised.mtl';
 import objUrl from '../assets/models/linq_low_poly_complex.obj';
 import mtlUrl from '../assets/models/linq_low_poly_complex.mtl';
+// import { withStyles } from '@material-ui/core/styles';
 
 // OrbitControls(THREE);
 // OBJLoader(THREE);
@@ -17,6 +18,16 @@ let radius = 4;
 let alpha = 0;
 let theta = 0;
 
+/*
+const styles = theme => ({
+    canvasCircle: {
+        marginTop: -this.canvas.clientHeight / 2,
+        marginLeft: -this.canvas.clientWidth / 2,
+        // transform: 'translate(-50%, -50%)',
+    }
+});
+*/
+
 class Scene extends Component { // code from https://stackoverflow.com/questions/41248287/how-to-connect-threejs-to-react
     /*constructor(props) {
         super(props);
@@ -26,8 +37,8 @@ class Scene extends Component { // code from https://stackoverflow.com/questions
     componentDidMount() {
         window.addEventListener('resize', this.resizeCanvas);
 
-        const width = this.canvas.clientWidth;
-        const height = this.canvas.clientHeight;
+        // const width = this.canvas.clientWidth;
+        // const height = this.canvas.clientHeight;
 
         const renderer = new THREE.WebGLRenderer({ canvas: this.canvas, antialias: true, alpha: true });
         const DPR = window.devicePixelRatio ? window.devicePixelRatio : 1;
@@ -41,7 +52,8 @@ class Scene extends Component { // code from https://stackoverflow.com/questions
         scene.background = new THREE.Color(0x97D6EA);
         const camera = new THREE.PerspectiveCamera(
             40, //75
-            width / height,
+            1,
+            // width / height,
             0.1,
             1000
         );
@@ -125,7 +137,7 @@ class Scene extends Component { // code from https://stackoverflow.com/questions
             camera.fov *= 3;
             camera.updateProjectionMatrix();
         }, 1000);*/
-        renderer.setSize(width, height);
+        // renderer.setSize(width, height);
 
         this.scene = scene;
         this.camera = camera;
@@ -179,7 +191,8 @@ class Scene extends Component { // code from https://stackoverflow.com/questions
 
         this.camera.lookAt(this.scene.position);*/
 
-        this.camera.updateMatrixWorld();
+        // this.camera.updateMatrixWorld();
+        this.camera.updateProjectionMatrix();
 
         this.frameId = window.requestAnimationFrame(this.animate);
     };
@@ -189,16 +202,34 @@ class Scene extends Component { // code from https://stackoverflow.com/questions
     }
 
     resizeCanvas = () => {
-        this.canvas.style.width = '100%';
-        this.canvas.style.height= '100%';
-        // this.canvas.style.borderRadius = '50%';
+        /*const DPR = window.devicePixelRatio ? window.devicePixelRatio : 1;
+        this.renderer.setPixelRatio(DPR);*/
+
+        if (this.props.fullscreen) {
+            this.camera.aspect = window.innerWidth / window.innerHeight;
+            this.camera.updateProjectionMatrix();
+
+            this.renderer.setSize( window.innerWidth, window.innerHeight );
+        } else {
+            console.log("I am confusion");
+            this.canvas.style.width = '100%';
+            this.canvas.style.height= '100%';
+        }
     };
 
     render() {
+        const { classes } = this.props;
+
+        // console.log(this.props.fullscreen);
+        if (this.props.fullscreen) {
+            this.resizeCanvas();
+        }
+
         return (
             <canvas
-                // className={ classes.circle }
-                style={{ width: '100%', height: '100%', borderRadius: '50%' }}
+                // className={ this.props.fullScreen ? '' : classes.canvasCircle }
+                // style={{ width: '100%', height: '100%' }}
+                // style={{ width: '100%', height: '100%', borderRadius: '50%' }}
                 ref={ (canvas) => { this.canvas = canvas }}
             />
         )
@@ -206,3 +237,4 @@ class Scene extends Component { // code from https://stackoverflow.com/questions
 }
 
 export default Scene;
+// export default withStyles(styles)(Scene);
