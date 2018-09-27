@@ -9,15 +9,6 @@ const advices = (state = {
             visible: true,
 			bordered: false,
         },
-        'card2': {
-            id: 'card2',
-            title: 'The notifications area',
-            message: 'This notifications area highlights important information and warnings that require immediate response, such as a system failure or a disastrous storm.',
-            buttonIcon: '',
-            buttonText: '',
-            visible: true,
-			bordered: false,
-        },
     },
     //allIds: ['card1'],
 }, action) => {

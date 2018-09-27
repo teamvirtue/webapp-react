@@ -33,11 +33,11 @@ class UserDialog extends Component {
     constructor(props) {
         super(props);
 
-        const user = this.props.accounts.currentUser;
+        const user = this.props.settings.accounts.currentUser;
 
         this.state = {
 			openNamePopup: false,
-            currentAccountName: this.props.accounts.byId[user].name,
+            currentAccountName: this.props.settings.accounts.byId[user].name,
 			// currentAccountName: this.props.accounts.currentUser,
 			// currentAccountName: this.props.user,
         };
@@ -59,15 +59,14 @@ class UserDialog extends Component {
 	};
 
     render() {
-		const { classes, accounts } = this.props;
+		const { classes, settings } = this.props;
 		// const { classes, user, family } = this.props;
-        let family = accounts.allIds.slice();
-        let index = family.indexOf(String(accounts.currentUser));
+        let family = settings.accounts.allIds.slice();
+        let index = family.indexOf(String(settings.accounts.currentUser));
 
         if (index > -1) {
             family.splice(index, 1);
         }
-		// console.log(family, accounts);
 
         return (
             <div> {/*TODO: reduce unnamed divs*/}
@@ -85,7 +84,7 @@ class UserDialog extends Component {
 					open={ this.state.openNamePopup }
 					onClose={ this.handleNamePopupClose }
 				>
-					<form onSubmit={ (event) => this.handleSubmit(event, accounts.currentUser) }>
+					<form onSubmit={ (event) => this.handleSubmit(event, settings.accounts.currentUser) }>
 						<DialogContent>
 							<Typography variant='title' gutterBottom>
 								Your account
@@ -95,7 +94,7 @@ class UserDialog extends Component {
 									<ListItemAvatar>
 										<Avatar 
 										  alt={ this.state.currentAccountName }
-										  src={ accounts.byId[accounts.currentUser].imgName }
+										  src={ settings.accounts.byId[settings.accounts.currentUser].imgName }
 										  className={ classes.avatar }
 										/>
 									</ListItemAvatar>
@@ -118,7 +117,7 @@ class UserDialog extends Component {
 							</Typography>
 							<List>
                                 { family.map(id => {
-                                    let member = accounts.byId[id];
+                                    let member = settings.accounts.byId[id];
 
                                     return (
                                         <ListItem button key={ id }>

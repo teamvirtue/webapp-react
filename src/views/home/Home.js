@@ -71,7 +71,7 @@ class Home extends Component {
 	};
 
     render() {
-        const { classes, theme, accounts, temperature, localNewsHeadlines } = this.props;
+        const { classes, theme, temperature, localNewsHeadlines } = this.props;
 		const tab = this.state.tab;
 
         return (

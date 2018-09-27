@@ -26,7 +26,10 @@ const styles = theme => ({
         position: 'relative',
     },
 	logo: {
-		margin: '23px 27px',
+		position: 'absolute',
+		left: 0,
+		margin: '23px 20px',
+		zIndex: 1,
 		'&:hover': {
 			cursor: 'pointer',
 		}
@@ -53,7 +56,6 @@ const styles = theme => ({
 		display: 'flex',
 		flexDirection: 'column',
 		justifyContent: 'center',
-		borderTop: '1px solid #c33e10',
     },
     desktopNavListItem: {
 		width: '200px',
