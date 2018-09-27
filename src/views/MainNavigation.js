@@ -11,10 +11,9 @@ import Icon from '@material-ui/core/Icon';
 
 // local import
 import { HomeContainer } from '../containers/HomeContainer';
+import Rooms from './rooms/Rooms';
 import { AppSettingsContainer } from '../containers/AppSettingsContainer';
 import { SustainabilityStatusCircleContainer } from '../containers/SustainabilityStatusCircleContainer';
-// import Settings from './settings/AppSettings';
-import Rooms from './rooms/Rooms';
 import { NotificationsDialogContainer } from '../containers/NotificationsDialogContainer';
 
 import '../index.css';

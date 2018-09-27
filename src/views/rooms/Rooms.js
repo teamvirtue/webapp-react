@@ -69,4 +69,4 @@ Rooms.propTypes = {
 	//theme: PropTypes.object.isRequired,
 };
 
-export default (withStyles(styles)(Rooms));
+export default withStyles(styles)(Rooms);

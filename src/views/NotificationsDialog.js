@@ -11,8 +11,9 @@ import Icon from '@material-ui/core/Icon';
 import { CSSTransitionGroup } from 'react-transition-group';
 import '../animations.css';
 import { CardContainer } from '../containers/CardContainer';
-import SocketCard from './../globalcomponents/SocketCard';
 
+/*
+import SocketCard from './../globalcomponents/SocketCard';
 let sockets = [
     {   id: '1',
         title: 'Appliance Connected',
@@ -21,6 +22,7 @@ let sockets = [
         // buttonText: 'schedule',
     },
 ];
+*/
 
 const styles = theme => ({
 	dialogContainer: {

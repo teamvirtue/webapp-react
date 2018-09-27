@@ -14,7 +14,6 @@ const advices = (state = {
 }, action) => {
 	switch (action.type) {
         case 'DISMISS_CARD':
-            console.log(action.payload);
             return {
                 ...state,
                 byId: {

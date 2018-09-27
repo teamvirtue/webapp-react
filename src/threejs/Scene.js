@@ -122,11 +122,11 @@ class Scene extends Component { // code from https://stackoverflow.com/questions
                 },
                 // called when loading is in progresses
                 (xhr) => {
-                    console.log('Model ' + (xhr.loaded / xhr.total * 100) + '% loaded');
+                    //console.log('Model ' + (xhr.loaded / xhr.total * 100) + '% loaded');
                 },
                 // called when loading has errors
                 (error) => {
-                    console.log('An error happened ' + error);
+                    console.log('An error happened: ' + error);
                 });
         });
 
@@ -205,7 +205,6 @@ class Scene extends Component { // code from https://stackoverflow.com/questions
         /*const DPR = window.devicePixelRatio ? window.devicePixelRatio : 1;
         this.renderer.setPixelRatio(DPR);*/
 
-        console.log("I am confusion");
         this.canvas.style.width = '100%';
         this.canvas.style.height= '100%';
 

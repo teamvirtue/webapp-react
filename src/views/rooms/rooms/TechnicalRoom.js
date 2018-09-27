@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 // import PropTypes from 'prop-types';
-import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
 
 // Local import
@@ -16,7 +15,7 @@ class TechnicalRoom extends Component {
 			<List>
 				{ selectedTab === 'appliances' && 
 					<div>
-						<Light />
+						<Light forRoom='Technical Room' />
 						HVAC
 						Battery
 						Grid

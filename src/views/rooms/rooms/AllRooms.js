@@ -27,7 +27,6 @@ class AllRooms extends Component {
 
 						<WaterUsage />
 						
-						<h1></h1>
 						<ApplianceEnergy />
 					</div>
 				}

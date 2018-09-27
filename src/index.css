@@ -126,6 +126,11 @@ body {
     text-align: right;
 }
 
+.listitem-secondaryflex{
+	flex: 1;
+	padding:0 16px;
+}
+
 .sustainabilityStatusCircleContainer {
     position: fixed;
     display: inline-block;

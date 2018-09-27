@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 // import PropTypes from 'prop-types';
-import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
 
 // Local import
@@ -16,8 +15,7 @@ class LivingRoom extends Component {
 			<List>
 				{ selectedTab === 'appliances' && 
 					<div>
-						<Light />
-						<Temperature />
+						<Light forRoom='Living Room' />
 						Music System
 						TV
 						Clock

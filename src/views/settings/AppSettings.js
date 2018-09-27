@@ -1,9 +1,8 @@
-import React, { Component, PureComponent } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles'
 import { withTheme } from '@material-ui/core/styles';
-import Divider from '@material-ui/core/Divider';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import List from '@material-ui/core/List';
@@ -11,7 +10,6 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
-import ListSubheader from '@material-ui/core/ListSubheader';
 import Slider from 'rc-slider';
 import Switch from '@material-ui/core/Switch';
 import Menu from '@material-ui/core/Menu';
@@ -165,7 +163,7 @@ class Settings extends Component {
     render() {
 		const { classes, theme, settings } = this.props;
         // const currentUserId = settings.accounts.byId[settings.accounts.currentUser].id;
-        const currentUser = settings.accounts.byId[settings.accounts.currentUser].name;
+        // const currentUser = settings.accounts.byId[settings.accounts.currentUser].name;
         // const currentUser = settings.accounts.currentUser;
 
         return (
@@ -292,7 +290,8 @@ class Settings extends Component {
 								<Icon>av_timer</Icon>
 							</ListItemIcon>
 
-							<ListItemText disableTypography	primary='Clock Budget' secondary={
+							<div className='listitem-secondaryflex'>
+								<ListItemText primary='Clock Budget' />
 								<Slider
 									min={ 0 }
 									defaultValue={ 25 }
@@ -312,8 +311,7 @@ class Settings extends Component {
 									}}
 									railStyle={{ backgroundColor: 'lightgray' }}
 								/>
-							}
-							/>
+							</div>
 
 						</ListItem>
 					</List>
@@ -329,7 +327,8 @@ class Settings extends Component {
 										<Icon>volume_up</Icon>
 									</ListItemIcon>
 
-									<ListItemText disableTypography	primary='Volume' secondary={
+									<div className='listitem-secondaryflex'>
+										<ListItemText primary='Volume' />
 										<Slider
 											min={ 0 }
 											max={ 20 }
@@ -342,8 +341,7 @@ class Settings extends Component {
 											}}
 											railStyle={{ backgroundColor: 'lightgray' }}
 										/>
-									}
-									/>
+									</div>
 
 								</ListItem>
 								<ListItem>

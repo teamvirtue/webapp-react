@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { withTheme } from '@material-ui/core/styles';
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -12,15 +13,17 @@ import Icon from '@material-ui/core/Icon';
 import Switch from '@material-ui/core/Switch';
 import Slider from 'rc-slider';
 
+import { updateRoomsAircoOnOff, updateRoomsAircoTemperature } from '../../../actions';
+
 const styles = theme => ({
 	card: {
-		marginBottom: 10,
+		marginBottom: 25,
 	},
 });
 
 const Handle = Slider.Handle;
 const handle = (props: HandleProps) => {
-    const { value, offset, ...restProps } = props;
+    const { value, dragging, offset, ...restProps } = props;
     const positionStyle = {
       position: 'absolute',
       left: `${offset-5}%`,
@@ -37,48 +40,48 @@ const handle = (props: HandleProps) => {
 }
 
 class Temperature extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            checkedTemperature: true,
-        };
-    }
 	
-    handleChange = name => (event, checked) => {
-        this.setState({ [name]: checked });
+	handleAircoOnOff = name => event => {
+		this.props.updateAircoOnOff(event.target.checked);
     };
 	
+	handleAircoTemperature = name => newTemperature => {
+		this.props.updateAircoTemperature(newTemperature);
+    };
+
 	render() {
-		const { classes, theme } = this.props;
+		const { classes, theme, houseData } = this.props;
 		
 		return (
 			<div>
 				<Typography variant="subheading" gutterBottom>Air conditioning</Typography>
 				<Card className={classes.card}>
 					<CardContent>
-						<ListItem disableGutters="true">
+						<ListItem disableGutters={true}>
 							<ListItemIcon>
 								<Icon>power_settings_new</Icon>
 							</ListItemIcon>
 							<ListItemText primary='Enable' />
 							<ListItemSecondaryAction>
 								<Switch
-									checked={ this.state.checkedTemperature }
-									onChange={ this.handleChange('checkedTemperature') }
+									checked={ houseData.room['All Rooms'].airco.onOff }
+									onChange={ this.handleAircoOnOff() }
 									color="primary"
 								/>
 							</ListItemSecondaryAction>
 						</ListItem>
-						<ListItem disableGutters="true">
+						<ListItem disableGutters={true}>
 							<ListItemIcon>
 								<Icon>toys</Icon>
 							</ListItemIcon>
 
-							<ListItemText primary='Temperature' secondary={
+							<div className='listitem-secondaryflex'>
+								<ListItemText primary='Temperature' />
 								<Slider
 									min={ 10 }
 									max={ 25 }
-									defaultValue={ 20 }
+									defaultValue={ houseData.room['All Rooms'].airco.temperature }
+									onChange={ this.handleAircoTemperature() }
 									trackStyle={{ backgroundColor: theme.palette.primary.main }}
 									handle={ handle }
 									handleStyle={{
@@ -87,8 +90,7 @@ class Temperature extends Component {
 									}}
 									railStyle={{ backgroundColor: 'lightgray' }}
 								/>
-							}
-							/>
+							</div>
 						</ListItem>
 					</CardContent>
 				</Card>
@@ -97,4 +99,20 @@ class Temperature extends Component {
 	}
 }
 
-export default withTheme()(withStyles(styles)(Temperature));
+
+const mapStateToProps = (state) => {
+    return {
+		houseData: state.houseData,
+    }
+};
+
+const mapDispatchToProps = (dispatch) => ({
+    updateAircoOnOff: (onOff) => {
+        dispatch(updateRoomsAircoOnOff(onOff));
+    },
+    updateAircoTemperature: (temperature) => {
+        dispatch(updateRoomsAircoTemperature(temperature));
+    },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(withTheme()(withStyles(styles)(Temperature)));

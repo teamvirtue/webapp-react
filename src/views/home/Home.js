@@ -2,10 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withTheme } from '@material-ui/core/styles';
 import { withStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Typography from '@material-ui/core/Typography';
-import Icon from '@material-ui/core/Icon';
-import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 
 const styles = theme => ({
@@ -71,7 +67,7 @@ class Home extends Component {
 	};
 
     render() {
-        const { classes, theme, temperature, localNewsHeadlines } = this.props;
+        const { classes, temperature, localNewsHeadlines } = this.props;
 		const tab = this.state.tab;
 
         return (

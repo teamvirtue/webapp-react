@@ -76,4 +76,37 @@ export const updateFullscreenStatus = (fullscreen) => {
     }
 };
 
+export const updateRoomsAircoOnOff = (onOff) => {
+    return {
+        type: 'UPDATE_ROOMS_AIRCO_ONOFF',
+        payload: { onOff },
+    }
+};
 
+export const updateRoomsAircoTemperature = (temperature) => {
+    return {
+        type: 'UPDATE_ROOMS_AIRCO_TEMPERATURE',
+        payload: { temperature },
+    }
+};
+
+export const updateRoomsLightOnOff = (room, onOff) => {
+    return {
+        type: 'UPDATE_ROOMS_LIGHT_ONOFF',
+        payload: { room, onOff },
+    }
+};
+
+export const updateRoomsLightIntensity = (room, intensity) => {
+    return {
+        type: 'UPDATE_ROOMS_LIGHT_INTENSITY',
+        payload: { room, intensity },
+    }
+};
+
+export const updateRoomsLightWarmth = (room, warmth) => {
+    return {
+        type: 'UPDATE_ROOMS_LIGHT_WARMTH',
+        payload: { room, warmth },
+    }
+};
