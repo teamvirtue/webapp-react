@@ -130,7 +130,7 @@ class MainNavigation extends Component {
 	};
 
     render() { /*TODO: remove inline styles*/
-        const { classes, accounts, sustainabilityStatus } = this.props;
+        const { classes, settings, sustainabilityStatus } = this.props;
         const { value } = this.state;
 
         return (
@@ -165,7 +165,7 @@ class MainNavigation extends Component {
                 </div>
 
 				{ value === 'home' && !sustainabilityStatus.fullscreen &&
-                <h2 className={ classes.homeHeaderTitle }>Good { this.state.greeting }, { accounts.byId[accounts.currentUser].name }!</h2>
+                <h2 className={ classes.homeHeaderTitle }>Good { this.state.greeting }, { settings.accounts.byId[settings.accounts.currentUser].name }!</h2>
 				}
 
 				<NotificationsDialogContainer />
