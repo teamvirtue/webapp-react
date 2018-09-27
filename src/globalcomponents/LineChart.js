@@ -19,6 +19,7 @@ const YEARS = ['2014', '2015', '2016', '2017', '2018'];
 const styles = {
     root: {
 		width: '100%',
+		textAlign: 'center',
     },
     radioGroup: {
         justifyContent: 'center',
