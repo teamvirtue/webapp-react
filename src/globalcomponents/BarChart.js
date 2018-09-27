@@ -20,6 +20,7 @@ const labels = ['Washer dryer', 'Dishwasher', 'Fridge', 'Lights', 'Oven', 'Car',
 const styles = {
     root: {
 		width: '100%',
+		textAlign: 'center',
     },
     radioGroup: {
         justifyContent: 'center',
