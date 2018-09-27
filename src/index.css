@@ -131,6 +131,7 @@ body {
     display: inline-block;
     width: 22vw;
     height: 22vw;
+	left: 32%;
     top: 50%;
     margin: -11vw 0 0 -11vw;
     transition: all 200ms ease-out;
@@ -229,6 +230,7 @@ body {
         position: relative;
         /*width: 25vw;
         height: 25vw;*/
+		left:auto;
         top: 0;
         margin: 20px auto 0 auto;
     }
