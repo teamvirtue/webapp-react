@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 import * as THREE from 'three';
 import OrbitControls  from 'three-orbitcontrols';
 import { MTLLoader, OBJLoader } from 'three-obj-mtl-loader';
-// import objUrl from '../assets/models/linq_scene_low_poly_optimised.obj';
-// import mtlUrl from '../assets/models/linq_scene_low_poly_optimised.mtl';
+// import { withStyles } from '@material-ui/core/styles';
+
+// Local import
 import objUrl from '../assets/models/linq_low_poly_complex.obj';
 import mtlUrl from '../assets/models/linq_low_poly_complex.mtl';
-// import { withStyles } from '@material-ui/core/styles';
+// import objUrl from '../assets/models/linq_scene_low_poly_optimised.obj';
+// import mtlUrl from '../assets/models/linq_scene_low_poly_optimised.mtl';
 
 // OrbitControls(THREE);
 // OBJLoader(THREE);
@@ -31,14 +33,19 @@ const styles = theme => ({
 class Scene extends Component { // code from https://stackoverflow.com/questions/41248287/how-to-connect-threejs-to-react
     /*constructor(props) {
         super(props);
-        let theta = 0;
+        const { sustainabilityStatus } = this.props;
     }*/
 
     componentDidMount() {
         window.addEventListener('resize', this.resizeCanvas);
 
-        const width = this.canvas.clientWidth;
-        const height = this.canvas.clientHeight;
+        let width = this.canvas.clientWidth;
+        let height = this.canvas.clientHeight;
+
+        let fieldOfView = 45,
+            aspectRatio = width / height,
+            near = 1,
+            far = 1000;
 
         const renderer = new THREE.WebGLRenderer({ canvas: this.canvas, antialias: true, alpha: true });
         const DPR = window.devicePixelRatio ? window.devicePixelRatio : 1;
@@ -48,14 +55,15 @@ class Scene extends Component { // code from https://stackoverflow.com/questions
         renderer.gammaInput = true;
         renderer.gammaOutput = true;
 
+        // console.log(width / height);
+
         const scene = new THREE.Scene();
         scene.background = new THREE.Color(0x97D6EA);
         const camera = new THREE.PerspectiveCamera(
-            40, //75
-            1,
-            width / height,
-            // 0.1,
-            1000
+            fieldOfView,
+            aspectRatio,
+            near,
+            far
         );
         scene.add(camera);
 
@@ -199,40 +207,59 @@ class Scene extends Component { // code from https://stackoverflow.com/questions
 
     renderScene() {
         this.renderer.render(this.scene, this.camera);
+
+        // console.log(this.canvas.clientWidth, this.canvas.clientHeight);
+
+        this.camera.aspect = this.canvas.clientWidth / this.canvas.clientHeight;
+        this.camera.updateProjectionMatrix(); // TODO: only check when state is updated
+
+        /*let currentValue
+        function handleChange() {
+            let previousValue = currentValue
+            currentValue = select(store.getState())
+​
+            if (previousValue !== currentValue) {
+              console.log(
+                  'Some deep nested property changed from',
+                  previousValue,
+                  'to',
+                  currentValue
+              )
+            }
+        }*/
     }
 
     resizeCanvas = () => {
-        /*const DPR = window.devicePixelRatio ? window.devicePixelRatio : 1;
-        this.renderer.setPixelRatio(DPR);*/
-
         this.canvas.style.width = '100%';
         this.canvas.style.height= '100%';
 
-        /*if (this.props.fullscreen) {
-            this.camera.aspect = window.innerWidth / window.innerHeight;
-            this.camera.updateProjectionMatrix();
+        /*if (this.props.sustainabilityStatus.fullscreen) {
+            setTimeout(() => {
+                this.camera.aspect = window.innerWidth / window.innerHeight;
+                this.camera.updateProjectionMatrix();
 
-            this.renderer.setSize( window.innerWidth, window.innerHeight );
+                this.renderer.setSize(window.innerWidth, window.innerHeight);
+            }, 5000);
         } else {
-            console.log("I am confusion");
-            this.canvas.style.width = '100%';
-            this.canvas.style.height= '100%';
+            this.camera.aspect = 1;
+            this.camera.updateProjectionMatrix();
         }*/
     };
 
     render() {
         const { classes } = this.props;
+        // const { sustainabilityStatus } = this.props;
 
-        // console.log(this.props.fullscreen);
-        /*if (this.props.fullscreen) {
+       /* if (this.canvas) {
             this.resizeCanvas();
+            // this.updateAspectRatio(sustainabilityStatus.fullscreen);
         }*/
+        // this.resizeCanvas(sustainabilityStatus.fullscreen);
 
         return (
             <canvas
                 // className={ this.props.fullScreen ? '' : classes.canvasCircle }
                 // style={{ width: '100%', height: '100%' }}
-                // style={{ width: '100%', height: '100%', borderRadius: '50%' }}
                 ref={ (canvas) => { this.canvas = canvas }}
             />
         )

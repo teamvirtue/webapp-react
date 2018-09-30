@@ -52,17 +52,24 @@ body {
     text-align:center;
     align-items: end;
     width: 100%;
-    margin: 0; }
+    margin: 0;
+}
 .statusBar h1 {
     margin: 0;
-    line-height: 50px; }
+    line-height: 50px;
+}
 .statusBar h3 {
-    margin: 0; }
+    margin: 0;
+}
 .statusBar .statusItem {
-    width: 50%; }
+    width: 50%;
+}
+
 @media only screen and (min-width: 1200px) {
     .statusBar .statusItem {
-        width: 40%; } }
+        width: 40%;
+    }
+}
 
 .infoBar {
     display: flex;

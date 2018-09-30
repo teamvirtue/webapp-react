@@ -3,7 +3,10 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Icon from '@material-ui/core/Icon';
 import IconButton from '@material-ui/core/IconButton';
-import Scene from '../threejs/Scene';
+
+// Local import
+import { SceneContainer } from '../containers/SceneContainer';
+// import Scene from '../threejs/Scene';
 // import ThreeEntryPoint from '../threejs/ThreeEntryPoint';
 
 const styles = theme => ({
@@ -67,7 +70,6 @@ class SustainabilityStatusCircle extends Component {
 
     render() {
 		// const { fullscreen } = this.props;
-		// const { fullscreen } = this.state;
 		const { classes } = this.props;
 		const { sustainabilityStatus } = this.props;
 		
@@ -78,7 +80,7 @@ class SustainabilityStatusCircle extends Component {
             <div className={ classes.root }>
                 <div className={'sustainabilityStatusCircleContainer ' + circleColorClass} onClick={ this.handleOpen }>
                     <div className={ 'sustainabilityStatusCircle' }>
-                        <Scene />
+                        <SceneContainer />
                     </div>
 					{ !sustainabilityStatus.fullscreen &&
 						<svg className={ classes.circleBorder } version='1.1' id='L1' xmlns='http://www.w3.org/2000/svg' x='0px' y='0px' viewBox='0 0 100 100'>
