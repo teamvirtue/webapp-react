@@ -25,6 +25,15 @@ let sockets = [
 */
 
 const styles = theme => ({
+	root: {
+		// backgroundColor: 'red',
+	},
+    /*notificationsIcon: {
+        position: 'fixed',
+        top: 15,
+        left: 125,
+        zIndex: 2,
+    },*/
 	dialogContainer: {
 		backgroundColor: 'transparent',
 		boxShadow: 'none',
@@ -74,7 +83,7 @@ class NotificationsDialog extends Component {
 		});
 
         return (
-            <div>
+            <div className={ classes.root }>
 				{ advicesCount > 0 && 
 					<div>
 						<div className='notificationsIcon' onClick={ this.handleNotificationsPopupOpen }>

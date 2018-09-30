@@ -1,20 +1,22 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-// import Dialog from '@material-ui/core/Dialog';
-// import DialogActions from '@material-ui/core/DialogActions';
-// import DialogContent from '@material-ui/core/DialogContent';
-// import withMobileDialog from '@material-ui/core/withMobileDialog';
-// import Button from '@material-ui/core/Button';
+import Icon from '@material-ui/core/Icon';
+import IconButton from '@material-ui/core/IconButton';
 import Scene from '../threejs/Scene';
 // import ThreeEntryPoint from '../threejs/ThreeEntryPoint';
 
 const styles = theme => ({
-	/*root: { // TODO: remove root
-        height: '100%',
-        width: '100%',
-		backgroundColor: 'blue',
-	},*/
+	root: {
+		// backgroundColor: 'blue',
+	},
+    backButton: {
+        position: 'absolute',
+        top: 12,
+        right: 'auto',
+        left: 0,
+        bottom: 'auto',
+    },
     circleBorder: {
         cursor: 'pointer',
         position: 'absolute',
@@ -51,15 +53,15 @@ class SustainabilityStatusCircle extends Component {
         fullscreen: false,
 	};*/
 
-	handleClickOpen = () => {
+	handleOpen = () => {
         this.props.updateFullscreenStatus(true);
-
-        console.log(this.props.sustainabilityStatus);
 
         // this.setState({ fullScreen: true });
 	};
 
 	handleClose = () => {
+        this.props.updateFullscreenStatus(false);
+
 		// this.setState({ fullscreen: false });
 	};
 
@@ -74,17 +76,22 @@ class SustainabilityStatusCircle extends Component {
 
         return (
             <div className={ classes.root }>
-                <div className={'sustainabilityStatusCircleContainer ' + circleColorClass} onClick={ this.handleClickOpen }>
+                <div className={'sustainabilityStatusCircleContainer ' + circleColorClass} onClick={ this.handleOpen }>
                     <div className={ 'sustainabilityStatusCircle' }>
                         <Scene />
-                        {/*<Scene fullscreen={ sustainabilityStatus.fullscreen }/>*/}
                     </div>
-					{!sustainabilityStatus.fullscreen &&
+					{ !sustainabilityStatus.fullscreen &&
 						<svg className={ classes.circleBorder } version='1.1' id='L1' xmlns='http://www.w3.org/2000/svg' x='0px' y='0px' viewBox='0 0 100 100'>
 							<circle cx='50' cy='50' r='48'/>
 						</svg>
 					}
                 </div>
+
+                { sustainabilityStatus.fullscreen &&
+                    <IconButton className={ classes.backButton } onClick={ this.handleClose } aria-label='Back'>
+                        <Icon>arrow_back</Icon>
+                    </IconButton>
+                }
             </div>
         );
     }

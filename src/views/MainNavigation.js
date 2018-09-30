@@ -164,7 +164,7 @@ class MainNavigation extends Component {
                 </div>
 
 				{ value === 'home' && !sustainabilityStatus.fullscreen &&
-                <h2 className={ classes.homeHeaderTitle }>Good { this.state.greeting }, { settings.accounts.byId[settings.accounts.currentUser].name }!</h2>
+                    <h2 className={ classes.homeHeaderTitle }>Good { this.state.greeting }, { settings.accounts.byId[settings.accounts.currentUser].name }!</h2>
 				}
 
 				<NotificationsDialogContainer />
@@ -177,18 +177,18 @@ class MainNavigation extends Component {
 						</div>
 
                         { !sustainabilityStatus.fullscreen &&
-                        <div className={ 'col-lg-7 content' }>
-                            {/*{ value === 0 && <CardContainer /> }*/}
-                            { value === 'home' && <HomeContainer /> }
-                            { value === 'rooms' && <Rooms /> }
-                            { value === 'settings' && <AppSettingsContainer /> }
-                            {/*{ value === 3 && <Settings /> }*/}
-                            {/*<div className={ this.state.addContentNavMargin ? classes.contentNavMargin : '' }>
-                                { value === 'home' && <Home/> }
+                            <div className={ 'col-lg-7 content' }>
+                                {/*{ value === 0 && <CardContainer /> }*/}
+                                { value === 'home' && <HomeContainer /> }
                                 { value === 'rooms' && <Rooms /> }
-                                { value === 'settings' && <Settings /> }
-                            </div>*/}
-                        </div>
+                                { value === 'settings' && <AppSettingsContainer /> }
+                                {/*{ value === 3 && <Settings /> }*/}
+                                {/*<div className={ this.state.addContentNavMargin ? classes.contentNavMargin : '' }>
+                                    { value === 'home' && <Home/> }
+                                    { value === 'rooms' && <Rooms /> }
+                                    { value === 'settings' && <Settings /> }
+                                </div>*/}
+                            </div>
                         }
 					</div>
 				</div>

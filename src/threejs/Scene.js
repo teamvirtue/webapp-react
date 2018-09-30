@@ -53,8 +53,8 @@ class Scene extends Component { // code from https://stackoverflow.com/questions
         const camera = new THREE.PerspectiveCamera(
             40, //75
             1,
-            // width / height,
-            0.1,
+            width / height,
+            // 0.1,
             1000
         );
         scene.add(camera);
