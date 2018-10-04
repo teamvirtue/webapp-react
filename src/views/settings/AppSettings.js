@@ -24,7 +24,7 @@ import { UserDialogContainer } from '../../containers/UserDialogContainer';
 
 // const options = [];
 
-const optionsFood = [ // TODO: add allergy option as well?
+const optionsFood = [
     'Not applicable',
     'Flexitarian',
     'Pescatarian',
