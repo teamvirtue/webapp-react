@@ -19,6 +19,7 @@ import gltfUrl from '../assets/models/linq_low_poly_web_app.gltf';
 /* TODO: implement ambient occlusion using postprocessing library or baking it into the mesh in Blender https://blender.stackexchange.com/questions/13956/how-do-you-bake-ambient-occlusion-for-a-model*/
 
 let levels = ['MY', 'LINQ', 'DISTRICT'];
+let selectedObject = null;
 
 /*
 const styles = theme => ({
@@ -78,7 +79,7 @@ class Scene extends Component { // code from https://stackoverflow.com/questions
             near,
             far
         );
-        camera.position.set(100, 50, 100);
+        camera.position.set(100, 75, 100);
         // camera.position.set(0, 0, 100);
 
         /*setTimeout(() => {
@@ -392,13 +393,35 @@ class Scene extends Component { // code from https://stackoverflow.com/questions
         // update the picking ray with the camera and mouse position
         this.raycaster.setFromCamera(this.mouse, this.camera);
 
+        // let color = null;
+        let highlightColor = 0xff0000;
         // calculate objects intersecting the picking ray
         let intersects = this.raycaster.intersectObjects(this.scene.children, true);
         // let intersects = this.raycaster.intersectObjects(this.scene.children);
+        // let firstObject = intersects[0].object;
 
-        if (intersects && intersects[0] && Object.keys(intersects[0].object.userData).length !== 0) {
-            this.setActiveTab(intersects[0].object.userData.parent.name)();
-            console.log(intersects[0].object.userData);
+        // check if there are 1 or more intersections and the first object has group data
+        if (intersects.length > 0 && Object.keys(intersects[0].object.userData).length !== 0) {
+        // if (intersects && intersects[0] && Object.keys(intersects[0].object.userData).length !== 0) {
+
+            // check if the closest object intersected is not the currently stored intersection object
+            if (intersects[0].object !== selectedObject) {
+
+                // this.setActiveTab(intersects[0].object.userData.parent.name)()
+
+                if (selectedObject) {
+                    this.setColor(selectedObject, selectedObject.currentHex);
+                }
+                selectedObject = intersects[0].object;
+                selectedObject.currentHex = this.getColor(selectedObject);
+                this.setColor(selectedObject, highlightColor);
+            }
+        } else {
+            // restore previous intersection object (if it exists) to its original color
+            if (selectedObject) {
+                this.setColor(selectedObject, selectedObject.currentHex);
+            }
+            selectedObject = null;
         }
 
         /*for ( let i = 0; i < intersects.length; i++ ) {
@@ -411,8 +434,24 @@ class Scene extends Component { // code from https://stackoverflow.com/questions
 
     };
 
-    setActiveTab = tab => (event) => {
+    setActiveTab = (tab) => (event) => {
         this.props.updateSustainabilityStatus(tab);
+    };
+
+    setColor = (object, color) => {
+        if (object.material instanceof Array) {
+            object.material[0].color.set(color); //setHex
+        } else {
+            object.material.color.set(color);
+        }
+    };
+
+    getColor = (object) => {
+        if (object.material instanceof Array) {
+            return object.material[0].color.getHex();
+        } else {
+            return object.material.color.getHex();
+        }
     };
 
     render() {
