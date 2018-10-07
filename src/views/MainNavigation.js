@@ -8,6 +8,10 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Icon from '@material-ui/core/Icon';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import Button from '@material-ui/core/Button';
 
 // local import
 import { HomeContainer } from '../containers/HomeContainer';
@@ -15,7 +19,6 @@ import Rooms from './rooms/Rooms';
 import { AppSettingsContainer } from '../containers/AppSettingsContainer';
 import { SustainabilityStatusCircleContainer } from '../containers/SustainabilityStatusCircleContainer';
 import { NotificationsDialogContainer } from '../containers/NotificationsDialogContainer';
-
 import '../index.css';
 import logo from '../assets/linq_logo_white.png';
 //import dubaiSkyline from '../assets/dubai-skyline.svg';
@@ -79,6 +82,14 @@ const styles = theme => ({
     checked: {
 		backgroundColor: 'rgba(255,255,255,0.3) !important',
     },
+    sustainabilityCard: {
+        position: 'absolute',
+        top: 12,
+        right: 0,
+        left: 'auto',
+        bottom: 'auto',
+        minWidth: 275,
+    },
 });
 
 
@@ -100,7 +111,7 @@ class MainNavigation extends Component {
 		}
     };
 
-    handleClick = (name, event) => {
+    handleClick = (name) => {
         this.setState({ value: name });
 		if(name !== this.state.value){
 			this.props.updateSustainabilityStatus('mylinq');
@@ -192,6 +203,18 @@ class MainNavigation extends Component {
                         }
 					</div>
 				</div>
+
+                {/*3D view cards*/}
+				{ sustainabilityStatus.fullscreen &&
+                    <Card className={ classes.sustainabilityCard }>
+                        <CardContent>
+                            Level: { sustainabilityStatus.selected }
+                        </CardContent>
+                        <CardActions>
+                            <Button size='small'>Learn More</Button>
+                        </CardActions>
+                    </Card>
+                }
 
                 { !sustainabilityStatus.fullscreen &&
                     <div className='d-lg-none'>

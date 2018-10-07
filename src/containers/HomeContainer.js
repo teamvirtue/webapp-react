@@ -1,6 +1,5 @@
 import { connect } from 'react-redux';
 import Home from '../views/home/Home';
-
 import { updateSustainabilityStatus } from '../actions';
 
 const mapStateToProps = (state) => {

@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 import * as THREE from 'three';
 import OrbitControls  from 'three-orbitcontrols';
 import { MTLLoader, OBJLoader } from 'three-obj-mtl-loader';
+// import GLTFLoader from 'three-gltf-loader';
 // import { withStyles } from '@material-ui/core/styles';
 
 // Local import
 import objUrl from '../assets/models/linq_low_poly_web_app.obj';
 import mtlUrl from '../assets/models/linq_low_poly_web_app.mtl';
+import gltfUrl from '../assets/models/linq_low_poly_web_app.gltf';
 // import objUrl from '../assets/models/linq_scene_low_poly_optimised.obj';
 // import mtlUrl from '../assets/models/linq_scene_low_poly_optimised.mtl';
 
@@ -16,9 +18,7 @@ import mtlUrl from '../assets/models/linq_low_poly_web_app.mtl';
 
 /* TODO: implement ambient occlusion using postprocessing library or baking it into the mesh in Blender https://blender.stackexchange.com/questions/13956/how-do-you-bake-ambient-occlusion-for-a-model*/
 
-let radius = 4;
-let alpha = 0;
-let theta = 0;
+let levels = ['MY', 'LINQ', 'DISTRICT'];
 
 /*
 const styles = theme => ({
@@ -31,13 +31,11 @@ const styles = theme => ({
 */
 
 class Scene extends Component { // code from https://stackoverflow.com/questions/41248287/how-to-connect-threejs-to-react
-    /*constructor(props) {
-        super(props);
-        const { sustainabilityStatus } = this.props;
-    }*/
 
     componentDidMount() {
         window.addEventListener('resize', this.resizeCanvas);
+        window.addEventListener('click', this.onMouseClick, false);
+        // window.addEventListener('mousemove', this.onMouseMove, false);
 
         let width = this.canvas.clientWidth;
         let height = this.canvas.clientHeight;
@@ -52,7 +50,7 @@ class Scene extends Component { // code from https://stackoverflow.com/questions
         renderer.setPixelRatio(DPR);
         renderer.setSize(width, height);
 
-        // TODO: fix shadows
+        // TODO: fix shadows + light from inside LINQ
         renderer.shadowMap.enabled = true;
         // renderer.shadowMap.type = THREE.BasicShadowMap;
         renderer.shadowMapType = THREE.PCFSoftShadowMap; // softer shadows
@@ -80,9 +78,8 @@ class Scene extends Component { // code from https://stackoverflow.com/questions
             near,
             far
         );
-        camera.position.set(0, 0, 100);
-        // camera.position.set(0, 0, 4);
-        // camera.position.z = 4;
+        camera.position.set(100, 50, 100);
+        // camera.position.set(0, 0, 100);
 
         /*setTimeout(() => {
             camera.fov *= 3;
@@ -91,20 +88,21 @@ class Scene extends Component { // code from https://stackoverflow.com/questions
         // renderer.setSize(width, height);
         scene.add(camera);
 
-        let meshGround = new THREE.Mesh(
-            new THREE.PlaneBufferGeometry(500, 500, 1, 1),
-            new THREE.MeshPhongMaterial({ color: 0xf15b27 })
-            // new THREE.MeshStandardMaterial({ color: 0xffffff })
-            // new THREE.MeshLambertMaterial({ color: 0xf15b27 })
-        );
-        meshGround.position.y = -36; // 2.4 per 0.25 scale
-        meshGround.rotation.x = -Math.PI / 2; // Rotate ground 90 degrees
-        meshGround.receiveShadow = true;
-        scene.add(meshGround);
+        let MYLINQ_GROUP = new THREE.Group();
+        let LINQ_GROUP = new THREE.Group();
+        let DISTRICT_GROUP = new THREE.Group();
 
-        let loadedObject = null; // TODO: why was this needed again? 😅
-        this.THREE = THREE;
+        // group names = same as Redux sustainabilityStatus state
+        MYLINQ_GROUP.name = 'mylinq';
+        LINQ_GROUP.name = 'linq';
+        DISTRICT_GROUP.name = 'district';
 
+        // let objects = [];
+        let mylinqObjects = [];
+        let linqObjects = [];
+        let districtObjects = [];
+
+        let loadedObject = null;
         let mtlLoader = new MTLLoader();
         let objLoader = new OBJLoader();
         // let mtlLoader = new this.THREE.MTLLoader();
@@ -118,14 +116,12 @@ class Scene extends Component { // code from https://stackoverflow.com/questions
             objLoader.load(objUrl,
                 // called when resource is loaded
                 (object) => {
-                    loadedObject = object;
-                    /*loadedObject = object;
-                    this.loadedObject = loadedObject;*/
+                    // loadedObject = object;
                     // console.log(object);
 
                     // console.log(loadedObject.children);
-                    loadedObject.children[0].material.transparent = true;
-                    loadedObject.children[0].material.opacity = 0.25;
+                    object.children[0].material.transparent = true;
+                    object.children[0].material.opacity = 0.25;
                     /*for (let i = 0; i < 7; i++) {
                         loadedObject.children[i].material.transparent = true;
                         loadedObject.children[i].material.opacity = 0.25;
@@ -133,7 +129,8 @@ class Scene extends Component { // code from https://stackoverflow.com/questions
 
                     object.traverse((node) => {
                         if (node instanceof THREE.Mesh) {
-                            // console.log(node.material);
+                            // console.log(node);
+                            // child.geometry.computeFaceNormals();
                             // node.material = new THREE.MeshLambertMaterial({ color: 0xf15b27, flatShading: true });
                             node.material.flatShading = true; // TODO: make group for shading?
                             node.material.shininess = 0;
@@ -141,20 +138,57 @@ class Scene extends Component { // code from https://stackoverflow.com/questions
                             // enable casting shadows
                             node.castShadow = true;
                             node.receiveShadow = true;
-                        }
-                    });
 
+                            // store objects in correct array for levels
+                            if (node.name.includes(levels[0])) {
+                                mylinqObjects.push(node);
+                                node.userData.parent = MYLINQ_GROUP;
+                            } else if (node.name.includes(levels[1])) {
+                                linqObjects.push(node);
+                                node.userData.parent = LINQ_GROUP;
+                            } else if (node.name.includes(levels[2])) {
+                                districtObjects.push(node);
+                                node.userData.parent = DISTRICT_GROUP;
+                            } else {
+                                districtObjects.push(node);
+                                node.userData.parent = DISTRICT_GROUP;
+                            }
+                        }
+                        // testGroup.add(node);
+                    });
+                    // add filled arrays to correct THREE.js group
+                    MYLINQ_GROUP.children = mylinqObjects;
+                    LINQ_GROUP.children = linqObjects;
+                    DISTRICT_GROUP.children = districtObjects;
+                    // objects.push(object);
+                    /*object.position.x = 10;
+                    object.position.y = 10;
+                    object.scale.set(100,100,100);*/
                     scene.add(object);
                 },
                 // called when loading is in progresses
                 (xhr) => {
-                    // console.log('Model ' + (xhr.loaded / xhr.total * 100) + '% loaded');
+                    console.log('Model ' + (xhr.loaded / xhr.total * 100) + '% loaded');
                 },
                 // called when loading has errors
                 (error) => {
                     console.log('An error happened: ' + error);
                 });
         });
+
+        let meshGround = new THREE.Mesh(
+            new THREE.PlaneBufferGeometry(500, 500, 1, 1),
+            new THREE.MeshPhongMaterial({ color: 0xf15b27 })
+            // new THREE.MeshStandardMaterial({ color: 0xffffff })
+            // new THREE.MeshLambertMaterial({ color: 0xf15b27 })
+        );
+        meshGround.name = 'Ground';
+        meshGround.position.y = -35;
+        meshGround.rotation.x = -Math.PI / 2; // Rotate ground 90 degrees
+        meshGround.receiveShadow = true;
+        DISTRICT_GROUP.add(meshGround);
+        meshGround.userData.parent = DISTRICT_GROUP;
+        scene.add(meshGround);
 
         let lights = [];
         lights[0] = new THREE.AmbientLight(0x97D6EA, 0.30);
@@ -168,21 +202,16 @@ class Scene extends Component { // code from https://stackoverflow.com/questions
         // shadow properties for the light
         lights[1].shadow.mapSize.width = 2048; //512 = default
         lights[1].shadow.mapSize.height = 2048;
-        lights[1].shadow.camera.near = 0.5;    // default
-        lights[1].shadow.camera.far = 500;     // default
+        /*lights[1].shadow.camera.near = 0.5;    // default
+        lights[1].shadow.camera.far = 500;     // default*/
         lights[1].shadow.camera = new THREE.OrthographicCamera(-100, 100, 100, -100, 0.5, 1000);
         // lights[1].shadowCameraLeft;
         scene.add(lights[1]);
 
         /* interior light(s) */
-        lights[2] = new THREE.PointLight(
-            0xfffd99, //0xff0000
-            0.35,
-            0,
-            2,
-            // power: 4 * Math.PI,
-        );
-        lights[2].position.set(11, 4, -11);
+        lights[2] = new THREE.PointLight(0xfffd99, 0.35, 0, 2);
+        // lights[2].shadow.camera.fov = 30;
+        lights[2].position.set(7, 4, -11);
         scene.add(lights[2]);
 
         /*lights[2] = new THREE.SpotLight(0xffffff, 1);
@@ -213,18 +242,33 @@ class Scene extends Component { // code from https://stackoverflow.com/questions
         scene.add(axesHelper);
 
         let lightHelpers = [];
-        lightHelpers[1] = new THREE.DirectionalLightHelper(lights[1]);
-        lightHelpers[2] = new THREE.PointLightHelper(lights[2], 0.5);
+        lightHelpers[0] = new THREE.DirectionalLightHelper(lights[1]);
+        lightHelpers[1] = new THREE.PointLightHelper(lights[2], 0.5);
         // lightHelpers[2] = new THREE.SpotLightHelper(lights[2]);
+        scene.add(lightHelpers[0]);
         scene.add(lightHelpers[1]);
-        scene.add(lightHelpers[2]);
+        /*axesHelper.userData.parent = DISTRICT_GROUP;
+        for (let i in lightHelpers) {
+            lightHelpers[i].userData.parent = DISTRICT_GROUP;
+            console.log(lightHelpers);
+        }*/
 
         // renderer.setClearColor( scene.fog.color );
+
+        let raycaster = new THREE.Raycaster();
+        let mouse = new THREE.Vector2();
 
         this.scene = scene;
         this.camera = camera;
         this.renderer = renderer;
+        /*this.MYLINQ_GROUP = MYLINQ_GROUP;
+        this.LINQ_GROUP = LINQ_GROUP;
+        this.DISTRICT_GROUP = DISTRICT_GROUP;*/
+        // this.objects = objects;
+        // this.loadedObject = loadedObject;
         this.lights = lights;
+        this.raycaster = raycaster;
+        this.mouse = mouse;
 
         this.start();
     }
@@ -335,6 +379,40 @@ class Scene extends Component { // code from https://stackoverflow.com/questions
             this.camera.aspect = 1;
             this.camera.updateProjectionMatrix();
         }*/
+    };
+
+    onMouseClick = (event) => {
+        event.preventDefault();
+        // calculate mouse position in normalized device coordinates
+        // (-1 to +1) for both components
+
+        this.mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+        this.mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
+
+        // update the picking ray with the camera and mouse position
+        this.raycaster.setFromCamera(this.mouse, this.camera);
+
+        // calculate objects intersecting the picking ray
+        let intersects = this.raycaster.intersectObjects(this.scene.children, true);
+        // let intersects = this.raycaster.intersectObjects(this.scene.children);
+
+        if (intersects && intersects[0] && Object.keys(intersects[0].object.userData).length !== 0) {
+            this.setActiveTab(intersects[0].object.userData.parent.name)();
+            console.log(intersects[0].object.userData);
+        }
+
+        /*for ( let i = 0; i < intersects.length; i++ ) {
+            this.setActiveTab('linq')();
+            console.log(this.scene.children);
+            console.log(intersects[0].object);
+            // intersects[ i ].object.material.color.set( 0xff0000 );
+        }*/
+        // console.log(intersects[0].object);
+
+    };
+
+    setActiveTab = tab => (event) => {
+        this.props.updateSustainabilityStatus(tab);
     };
 
     render() {

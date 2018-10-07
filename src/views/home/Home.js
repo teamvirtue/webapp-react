@@ -61,7 +61,8 @@ class Home extends Component {
         };
     }
 
-	setActiveTab = tab => (newTab) => {
+	setActiveTab = (tab) => (event) => { // TODO: what is newTab doing and why does it not work without?
+        event.preventDefault();
 		this.setState({ tab });
 		this.props.updateSustainabilityStatus(tab);
 	};
@@ -73,47 +74,49 @@ class Home extends Component {
         return (
             <div className={ classes.root }> {/*TODO: reduce number of nameless divs*/}
 				<div className={ classes.subnavBar + ' homepageSubnavBar row' }>
-					<Button color="secondary" className={'col-4 tab ' + (tab === 'mylinq' ? "selected" : "" )} onClick={ this.setActiveTab('mylinq') }>
+					<Button color='secondary' className={'col-4 tab ' + (tab === 'mylinq' ? 'selected' : '' )} onClick={ this.setActiveTab('mylinq') }>
 						My LINQ
 					</Button>
-					<Button color="secondary" className={'col-4 tab ' + (tab === 'linq' ? "selected" : "" )} onClick={ this.setActiveTab('linq') }>
+					<Button color='secondary' className={'col-4 tab ' + (tab === 'linq' ? 'selected' : '' )} onClick={ this.setActiveTab('linq') }>
 						LINQ
 					</Button>
-					<Button color="secondary" className={'col-4 tab ' + (tab === 'district' ? "selected" : "" )} onClick={ this.setActiveTab('district') }>
+					<Button color='secondary' className={'col-4 tab ' + (tab === 'district' ? 'selected' : '' )} onClick={ this.setActiveTab('district') }>
 						District
 					</Button>
 				</div>
 				
 				<div className='homeBoxContainer'>
-					{ tab === 'mylinq' && 	<div>
-												<div className={classes.homeBoxContainer + " " + classes.homeBoxLeft}>
-													<div className={classes.homeBox}> </div>
-												</div>
-												<div className={classes.homeBoxContainer + " " + classes.homeBoxMiddle}>
-													<div className={classes.homeBox}> </div>
-												</div>
-												<div className={classes.homeBoxContainer + " " + classes.homeBoxRight}>
-													<div className={classes.homeBox}> </div>
-												</div>
-											</div> 
+					{ tab === 'mylinq' &&
+						<div>
+                            <div className={classes.homeBoxContainer + ' ' + classes.homeBoxLeft}>
+                                <div className={classes.homeBox}> </div>
+                            </div>
+                            <div className={classes.homeBoxContainer + ' ' + classes.homeBoxMiddle}>
+                                <div className={classes.homeBox}> </div>
+                            </div>
+                            <div className={classes.homeBoxContainer + ' ' + classes.homeBoxRight}>
+                                <div className={classes.homeBox}> </div>
+                            </div>
+                        </div>
 					}
-					{ tab === 'linq' && <div className='homebox'>
+					{ tab === 'linq' &&
+                        <div className='homebox'>
 							<h1>{ temperature.outside.celsius }°</h1>
 							<p>{ temperature.outside.description }</p>
 						</div> 
 					}
-					{ tab === 'district' && <div className='homebox'>
+					{ tab === 'district' &&
+                        <div className='homebox'>
 							News:
 							Powered by News API
 							{ Object.keys(localNewsHeadlines.byId).map((id) => {
-									let card = localNewsHeadlines.byId[id];
+                                let card = localNewsHeadlines.byId[id];
 
-									return card.visible ?
-										<div key={id}>{card.description}</div>
-										: null;
-								}
-							) }
-						</div> 
+                                return card.visible ?
+                                    <div key={id}>{card.description}</div>
+                                    : null;
+                            }) }
+						</div>
 					}
 				</div>
 			</div>
