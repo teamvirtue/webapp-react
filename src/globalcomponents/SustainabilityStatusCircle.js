@@ -38,6 +38,12 @@ const styles = theme => ({
         pointerEvents: 'none',
         transition: 'all 1s',
     },
+    /*fullscreenContainer: {
+        position: 'absolute',
+        width: '100%',
+        height: '100%',
+	    backgroundColor: 'blue',
+    },*/
     /*fullscreen: {
         WebkitTransform: 'scale(2)',
         transform: 'scale(2)',

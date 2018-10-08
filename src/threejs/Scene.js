@@ -2,42 +2,21 @@ import React, { Component } from 'react';
 import * as THREE from 'three';
 import OrbitControls  from 'three-orbitcontrols';
 import { MTLLoader, OBJLoader } from 'three-obj-mtl-loader';
-// import { withStyles } from '@material-ui/core/styles';
 
 // Local import
 import objUrl from '../assets/models/linq_low_poly_web_app.obj';
 import mtlUrl from '../assets/models/linq_low_poly_web_app.mtl';
-// import objUrl from '../assets/models/linq_scene_low_poly_optimised.obj';
-// import mtlUrl from '../assets/models/linq_scene_low_poly_optimised.mtl';
 
-// OrbitControls(THREE);
-// OBJLoader(THREE);
-// MTLLoader(THREE);
+let levels = ['MY', 'LINQ', 'DISTRICT'];
+let selectedObject = null;
 
 /* TODO: implement ambient occlusion using postprocessing library or baking it into the mesh in Blender https://blender.stackexchange.com/questions/13956/how-do-you-bake-ambient-occlusion-for-a-model*/
-
-let radius = 4;
-let alpha = 0;
-let theta = 0;
-
-/*
-const styles = theme => ({
-    canvasCircle: {
-        marginTop: -this.canvas.clientHeight / 2,
-        marginLeft: -this.canvas.clientWidth / 2,
-        // transform: 'translate(-50%, -50%)',
-    }
-});
-*/
-
-class Scene extends Component { // code from https://stackoverflow.com/questions/41248287/how-to-connect-threejs-to-react
-    /*constructor(props) {
-        super(props);
-        const { sustainabilityStatus } = this.props;
-    }*/
+class Scene extends Component { // code based on https://stackoverflow.com/questions/41248287/how-to-connect-threejs-to-react
 
     componentDidMount() {
         window.addEventListener('resize', this.resizeCanvas);
+        window.addEventListener('click', this.onMouseClick, false);
+        // window.addEventListener('mousemove', this.onMouseMove, false);
 
         let width = this.canvas.clientWidth;
         let height = this.canvas.clientHeight;
@@ -47,22 +26,18 @@ class Scene extends Component { // code from https://stackoverflow.com/questions
             near = 1,
             far = 1000;
 
-        const renderer = new THREE.WebGLRenderer({ canvas: this.canvas, antialias: true,  }); //alpha: true
+        const renderer = new THREE.WebGLRenderer({ canvas: this.canvas, antialias: true, alpha: true });
         const DPR = window.devicePixelRatio ? window.devicePixelRatio : 1;
         renderer.setPixelRatio(DPR);
         renderer.setSize(width, height);
-
-        // TODO: fix shadows
-        renderer.shadowMap.enabled = true;
+        renderer.shadowMap.enabled = true; // TODO: fix shadows + light from inside LINQ
+        renderer.shadowMap.type = THREE.PCFSoftShadowMap; // softer shadows
         // renderer.shadowMap.type = THREE.BasicShadowMap;
-        renderer.shadowMapType = THREE.PCFSoftShadowMap; // softer shadows
         renderer.shadowMap.enabled = true;
-        renderer.shadowMap.renderReverseSided = true;
-
+        // renderer.shadowMap.renderReverseSided = true;
+        // renderer.setClearColor( scene.fog.color );
         // renderer.gammaInput = true;
         // renderer.gammaOutput = true;
-
-        // console.log(width / height);
 
         const scene = new THREE.Scene();
         scene.background = new THREE.Color(0x97D6EA);
@@ -80,9 +55,8 @@ class Scene extends Component { // code from https://stackoverflow.com/questions
             near,
             far
         );
-        camera.position.set(0, 0, 100);
-        // camera.position.set(0, 0, 4);
-        // camera.position.z = 4;
+        camera.position.set(100, 75, 100);
+        camera.lookAt(0, 0, 0);
 
         /*setTimeout(() => {
             camera.fov *= 3;
@@ -91,20 +65,21 @@ class Scene extends Component { // code from https://stackoverflow.com/questions
         // renderer.setSize(width, height);
         scene.add(camera);
 
-        let meshGround = new THREE.Mesh(
-            new THREE.PlaneBufferGeometry(500, 500, 1, 1),
-            new THREE.MeshPhongMaterial({ color: 0xf15b27 })
-            // new THREE.MeshStandardMaterial({ color: 0xffffff })
-            // new THREE.MeshLambertMaterial({ color: 0xf15b27 })
-        );
-        meshGround.position.y = -36; // 2.4 per 0.25 scale
-        meshGround.rotation.x = -Math.PI / 2; // Rotate ground 90 degrees
-        meshGround.receiveShadow = true;
-        scene.add(meshGround);
+        let MYLINQ_GROUP = new THREE.Group();
+        let LINQ_GROUP = new THREE.Group();
+        let DISTRICT_GROUP = new THREE.Group();
 
-        let loadedObject = null; // TODO: why was this needed again? 😅
-        this.THREE = THREE;
+        // group names = same as Redux sustainabilityStatus state
+        MYLINQ_GROUP.name = 'mylinq';
+        LINQ_GROUP.name = 'linq';
+        DISTRICT_GROUP.name = 'district';
 
+        // let objects = [];
+        let mylinqObjects = [];
+        let linqObjects = [];
+        let districtObjects = [];
+
+        // let loadedObject = null;
         let mtlLoader = new MTLLoader();
         let objLoader = new OBJLoader();
         // let mtlLoader = new this.THREE.MTLLoader();
@@ -112,28 +87,17 @@ class Scene extends Component { // code from https://stackoverflow.com/questions
 
         mtlLoader.load(mtlUrl, (materials) => {
             materials.preload();
-            // let objLoader = new OBJLoader();
             objLoader.setMaterials(materials);
 
             objLoader.load(objUrl,
                 // called when resource is loaded
                 (object) => {
-                    loadedObject = object;
-                    /*loadedObject = object;
-                    this.loadedObject = loadedObject;*/
-                    // console.log(object);
-
-                    // console.log(loadedObject.children);
-                    loadedObject.children[0].material.transparent = true;
-                    loadedObject.children[0].material.opacity = 0.25;
-                    /*for (let i = 0; i < 7; i++) {
-                        loadedObject.children[i].material.transparent = true;
-                        loadedObject.children[i].material.opacity = 0.25;
-                    }*/
+                    // loadedObject = object;
 
                     object.traverse((node) => {
                         if (node instanceof THREE.Mesh) {
-                            // console.log(node.material);
+                            // console.log(node);
+                            // child.geometry.computeFaceNormals();
                             // node.material = new THREE.MeshLambertMaterial({ color: 0xf15b27, flatShading: true });
                             node.material.flatShading = true; // TODO: make group for shading?
                             node.material.shininess = 0;
@@ -141,20 +105,55 @@ class Scene extends Component { // code from https://stackoverflow.com/questions
                             // enable casting shadows
                             node.castShadow = true;
                             node.receiveShadow = true;
+
+                            // store objects in correct array for levels
+                            if (node.name.includes(levels[0])) {
+                                mylinqObjects.push(node);
+                                node.userData.parent = MYLINQ_GROUP;
+                            } else if (node.name.includes(levels[1])) {
+                                linqObjects.push(node);
+                                node.userData.parent = LINQ_GROUP;
+                            } else if (node.name.includes(levels[2])) {
+                                districtObjects.push(node);
+                                node.userData.parent = DISTRICT_GROUP;
+                            } else {
+                                districtObjects.push(node);
+                                node.userData.parent = DISTRICT_GROUP;
+                            }
                         }
                     });
-
+                    // add filled arrays to correct THREE.js group
+                    MYLINQ_GROUP.children = mylinqObjects;
+                    LINQ_GROUP.children = linqObjects;
+                    DISTRICT_GROUP.children = districtObjects;
+                    /*object.position.x = 10;
+                    object.position.y = 10;
+                    object.scale.set(100,100,100);*/
                     scene.add(object);
                 },
                 // called when loading is in progresses
                 (xhr) => {
-                    // console.log('Model ' + (xhr.loaded / xhr.total * 100) + '% loaded');
+                    console.log('Model ' + (xhr.loaded / xhr.total * 100) + '% loaded');
                 },
                 // called when loading has errors
                 (error) => {
                     console.log('An error happened: ' + error);
                 });
         });
+
+        let meshGround = new THREE.Mesh(
+            new THREE.PlaneBufferGeometry(500, 500, 1, 1),
+            new THREE.MeshPhongMaterial({ color: 0xf15b27 })
+            // new THREE.MeshStandardMaterial({ color: 0xffffff })
+            // new THREE.MeshLambertMaterial({ color: 0xf15b27 })
+        );
+        meshGround.name = 'Ground';
+        meshGround.position.y = -35;
+        meshGround.rotation.x = -Math.PI / 2; // Rotate ground 90 degrees
+        meshGround.receiveShadow = true;
+        DISTRICT_GROUP.add(meshGround);
+        meshGround.userData.parent = DISTRICT_GROUP;
+        scene.add(meshGround);
 
         let lights = [];
         lights[0] = new THREE.AmbientLight(0x97D6EA, 0.30);
@@ -168,40 +167,17 @@ class Scene extends Component { // code from https://stackoverflow.com/questions
         // shadow properties for the light
         lights[1].shadow.mapSize.width = 2048; //512 = default
         lights[1].shadow.mapSize.height = 2048;
-        lights[1].shadow.camera.near = 0.5;    // default
-        lights[1].shadow.camera.far = 500;     // default
+        /*lights[1].shadow.camera.near = 0.5;    // default
+        lights[1].shadow.camera.far = 500;     // default*/
         lights[1].shadow.camera = new THREE.OrthographicCamera(-100, 100, 100, -100, 0.5, 1000);
         // lights[1].shadowCameraLeft;
         scene.add(lights[1]);
 
         /* interior light(s) */
-        lights[2] = new THREE.PointLight(
-            0xfffd99, //0xff0000
-            0.35,
-            0,
-            2,
-            // power: 4 * Math.PI,
-        );
-        lights[2].position.set(11, 4, -11);
+        lights[2] = new THREE.PointLight(0xfffd99, 0.35, 0, 2);
+        // lights[2].shadow.camera.fov = 30;
+        lights[2].position.set(7, 4, -11);
         scene.add(lights[2]);
-
-        /*lights[2] = new THREE.SpotLight(0xffffff, 1);
-        lights[2].position.set(15, 30, 35);
-        lights[2].rotation.x = -1; // Rotate ground 90 degrees
-        lights[2].angle = Math.PI / 6;
-        lights[2].penumbra = 0.5;
-        lights[2].decay = 2;
-        lights[2].distance = 100;
-        lights[2].castShadow = true;
-
-        //Set up shadow properties for the light
-        lights[2].shadow.mapSize.width = 1024;  // default
-        lights[2].shadow.mapSize.height = 1024; // default
-        lights[2].shadowCameraNear = 10;
-        lights[2].shadowCameraFar = 200;
-        // lights[1].shadow.camera.near = 0.5;       // default
-        // lights[1].shadow.camera.far = 500;      // default
-        scene.add(lights[2]);*/
 
         /* for debugging */
         let controls = new OrbitControls(camera, renderer.domElement);
@@ -213,18 +189,26 @@ class Scene extends Component { // code from https://stackoverflow.com/questions
         scene.add(axesHelper);
 
         let lightHelpers = [];
-        lightHelpers[1] = new THREE.DirectionalLightHelper(lights[1]);
-        lightHelpers[2] = new THREE.PointLightHelper(lights[2], 0.5);
+        lightHelpers[0] = new THREE.DirectionalLightHelper(lights[1]);
+        lightHelpers[1] = new THREE.PointLightHelper(lights[2], 0.5);
         // lightHelpers[2] = new THREE.SpotLightHelper(lights[2]);
+        scene.add(lightHelpers[0]);
         scene.add(lightHelpers[1]);
-        scene.add(lightHelpers[2]);
+        /*axesHelper.userData.parent = DISTRICT_GROUP;
+        for (let i in lightHelpers) {
+            lightHelpers[i].userData.parent = DISTRICT_GROUP;
+            console.log(lightHelpers);
+        }*/
 
-        // renderer.setClearColor( scene.fog.color );
+        let raycaster = new THREE.Raycaster();
+        let mouse = new THREE.Vector2();
 
         this.scene = scene;
         this.camera = camera;
         this.renderer = renderer;
         this.lights = lights;
+        this.raycaster = raycaster;
+        this.mouse = mouse;
 
         this.start();
     }
@@ -290,32 +274,15 @@ class Scene extends Component { // code from https://stackoverflow.com/questions
     renderScene() {
         this.renderer.render(this.scene, this.camera);
 
-        // console.log(this.canvas.clientWidth, this.canvas.clientHeight);
-
         this.camera.aspect = this.canvas.clientWidth / this.canvas.clientHeight;
         this.camera.updateProjectionMatrix(); // TODO: only check when state is updated + then also update the size of renderer with this.renderer.setSize(window.innerWidth, window.innerHeight);
-
-        /*let currentValue
-        function handleChange() {
-            let previousValue = currentValue
-            currentValue = select(store.getState())
-​
-            if (previousValue !== currentValue) {
-              console.log(
-                  'Some deep nested property changed from',
-                  previousValue,
-                  'to',
-                  currentValue
-              )
-            }
-        }*/
     }
 
     resizeCanvas = () => {
         this.canvas.style.width = '100%';
         this.canvas.style.height= '100%';
 
-        // for debugging
+        /* for debugging, sharpens 3D view on fullscreen */
         this.renderer.setSize(window.innerWidth, window.innerHeight);
 
         /*if (this.props.sustainabilityStatus.fullscreen) {
@@ -323,18 +290,79 @@ class Scene extends Component { // code from https://stackoverflow.com/questions
         } else {
             this.renderer.setSize(this.canvas.clientWidth, this.canvas.clientHeight);
         }*/
+    };
 
-        /*if (this.props.sustainabilityStatus.fullscreen) {
-            setTimeout(() => {
-                this.camera.aspect = window.innerWidth / window.innerHeight;
-                this.camera.updateProjectionMatrix();
+    onMouseClick = (event) => {
+        event.preventDefault();
 
-                this.renderer.setSize(window.innerWidth, window.innerHeight);
-            }, 5000);
+        // calculate mouse position in normalized device coordinates
+        // (-1 to +1) for both components
+        this.mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+        this.mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
+
+        // update the picking ray with the camera and mouse position
+        this.raycaster.setFromCamera(this.mouse, this.camera);
+
+        // let color = null;
+        let highlightColor = 0xff0000;
+        // calculate objects intersecting the picking ray
+        let intersects = this.raycaster.intersectObjects(this.scene.children, true);
+        // let intersects = this.raycaster.intersectObjects(this.scene.children);
+        // let firstObject = intersects[0].object;
+
+        // check if there are 1 or more intersections and the first object has group data
+        if (intersects.length > 0 && Object.keys(intersects[0].object.userData).length !== 0) {
+            // check if the closest object intersected is not the currently stored intersection object
+            if (intersects[0].object !== selectedObject) {
+                // restore previous intersection object (if it exists) to its original color
+                if (selectedObject) {
+                    this.setColor(selectedObject, selectedObject.currentHex);
+                }
+                // store reference to closest object as current intersection object
+                selectedObject = intersects[0].object;
+                // store color of closest object (for later restoration)
+                selectedObject.currentHex = this.getColor(selectedObject);
+                // set a new color for closest object
+                this.setColor(selectedObject, highlightColor);
+                // update Redux state
+                this.setActiveTab(selectedObject.userData.parent.name)()
+            }
         } else {
-            this.camera.aspect = 1;
-            this.camera.updateProjectionMatrix();
+            // restore previous intersection object (if it exists) to its original color
+            if (selectedObject) {
+                this.setColor(selectedObject, selectedObject.currentHex);
+            }
+            selectedObject = null;
+        }
+    };
+
+    setActiveTab = (tab) => (event) => {
+        this.props.updateSustainabilityStatus(tab);
+    };
+
+    setColor = (object, color) => {
+        if (object.material instanceof Array) {
+            object.material[0].color.set(color); //setHex
+        } else {
+            object.material.color.set(color);
+        }
+
+        /*object.children[0].material.transparent = true;
+        object.children[0].material.opacity = 0.25;*/
+        /*for (let i = 0; i < 7; i++) {
+            loadedObject.children[i].material.transparent = true;
+            loadedObject.children[i].material.opacity = 0.25;
         }*/
+    };
+
+    getColor = (object) => {
+        if (object.material instanceof Array) {
+            console.log('Array');
+            return object.material[0].color.getHex();
+        } else {
+            console.log('No array');
+            return object.material.color.getHex();
+        }
     };
 
     render() {
@@ -358,4 +386,3 @@ class Scene extends Component { // code from https://stackoverflow.com/questions
 }
 
 export default Scene;
-// export default withStyles(styles)(Scene);
