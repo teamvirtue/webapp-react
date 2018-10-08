@@ -28,6 +28,7 @@ const styles = theme => ({
         left: '0',
         top: '0',
         fill: 'none',
+		borderRadius: '47%',
         strokeWidth: '0',
         strokeDasharray: '12',
         strokeDashoffset: '0',

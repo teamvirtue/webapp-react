@@ -2,29 +2,17 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withTheme } from '@material-ui/core/styles';
 import { withStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
 
 const styles = theme => ({
     root: {
 		position: 'relative',
         transition: 'all 1s ease-in-out',
     },
-    subnavBar: {
-		textAlign: 'center',
+	subNavBar: {
+		backgroundColor: 'transparent',
 	},
-	selected: {
-		fontWeight: 'bold',
-	},
-    cardContainer: {
-        // minWidth: 275,
-        minWidth: 275,
-        maxWidth: 600,
-       /* display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',*/
-        margin: '0 auto',
-        // backgroundColor: 'lightblue',
-    },
 	homeBoxContainer: {
 		width: '33%',
 		display: 'inline-block',
@@ -61,9 +49,9 @@ class Home extends Component {
         };
     }
 
-	setActiveTab = tab => (newTab) => {
-		this.setState({ tab });
-		this.props.updateSustainabilityStatus(tab);
+	setActiveTab = (event, value) => {
+		this.setState({ tab: value });
+		this.props.updateSustainabilityStatus(value);
 	};
 
     render() {
@@ -72,16 +60,19 @@ class Home extends Component {
 
         return (
             <div className={ classes.root }> {/*TODO: reduce number of nameless divs*/}
-				<div className={ classes.subnavBar + ' homepageSubnavBar row' }>
-					<Button color="secondary" className={'col-4 tab ' + (tab === 'mylinq' ? "selected" : "" )} onClick={ this.setActiveTab('mylinq') }>
-						My LINQ
-					</Button>
-					<Button color="secondary" className={'col-4 tab ' + (tab === 'linq' ? "selected" : "" )} onClick={ this.setActiveTab('linq') }>
-						LINQ
-					</Button>
-					<Button color="secondary" className={'col-4 tab ' + (tab === 'district' ? "selected" : "" )} onClick={ this.setActiveTab('district') }>
-						District
-					</Button>
+				<div className={ 'subNavBarContainer' }>
+					<Tabs
+					  value={tab}
+					  onChange={this.setActiveTab}
+					  indicatorColor="primary"
+					  textColor="primary"
+					  fullWidth
+					  classes={{ root: classes.subNavBar }}
+					>
+						<Tab label="My LINQ" value="mylinq" />
+						<Tab label="LINQ" value="linq" />
+						<Tab label="District" value="district" />
+					</Tabs>
 				</div>
 				
 				<div className='homeBoxContainer'>

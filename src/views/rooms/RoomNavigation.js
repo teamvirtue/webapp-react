@@ -84,6 +84,7 @@ const styles = theme => ({
 	},
 	dialogCloseButton: {
 		position: 'absolute',
+		marginTop: 10,
 	},
 });
 		

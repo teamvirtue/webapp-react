@@ -273,19 +273,9 @@ body {
         pointer-events: none;
     }
 
-    .home .tab {
-        color: #fac8af;
-    }
-
-    .home .tab.selected {
-        color: white;
-        font-weight: bold;
-    }
-
-    .home .homepageSubnavBar{
+    .home .subNavBarContainer{
         margin-top: 15vh;
         pointer-events: auto;
-        color: white;
     }
 
     .home .homeBoxContainer{
