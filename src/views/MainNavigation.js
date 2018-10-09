@@ -182,8 +182,7 @@ class MainNavigation extends Component {
 				
 				<div className={ 'wrapper ' + (sustainabilityStatus.fullscreen ? 'fullscreen ' : '') + value }> { /*  + ' ' + (value === 'home' && 'blabla') */ }
 					<div className={ 'row' } style={{ position: 'relative' }}>
-						<div className={ 'col-lg-5 headerBg' }> {/*style={{ position: 'relative', overflow: 'hidden' }}>*/}
-							{ /*<div className='d-lg-none dubaiBg' style={ { backgroundImage: 'url('+dubaiSkyline+')' } }></div>*/ }
+						<div className={ 'col-lg-5 headerBg' }>
 							<SustainabilityStatusCircleContainer />
 						</div>
 

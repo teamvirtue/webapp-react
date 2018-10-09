@@ -270,7 +270,7 @@ body {
     .home .content {
         position: absolute;
         top: 0;
-        pointer-events: none;
+        /*pointer-events: none;*/
     }
 
     .home .subNavBarContainer{
