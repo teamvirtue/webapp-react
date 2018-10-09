@@ -11,6 +11,7 @@ import mtlUrl from '../assets/models/linq_low_poly_web_app.mtl';
 
 let levels = ['MY', 'LINQ', 'DISTRICT'];
 let selectedObject = null;
+let alpha = 0;
 
 let opacityTween,
     cameraTween;
@@ -36,7 +37,7 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
 
     componentDidMount() {
         window.addEventListener('resize', this.resizeCanvas);
-        window.addEventListener('click', this.onMouseClick, false);
+        // window.addEventListener('click', this.onMouseClick, false);
         // window.addEventListener('mousemove', this.onMouseMove, false);
 
         let width = this.canvas.clientWidth;
@@ -189,7 +190,8 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
 
         lights[1] = new THREE.DirectionalLight(0xffffff, 0.6, 1000);
         lights[1].target = meshGround;
-        lights[1].position.set(50, 100, 150);
+        lights[1].position.set(0, 150, -25);
+        // lights[1].position.set(50, 100, 150);
         lights[1].castShadow = true;
 
         // shadow properties for the light
@@ -270,11 +272,11 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
             cameraTween.update();
         }
 
+        // TODO: animate lights based on time of day
         /*if (this.lights[1]) {
-            alpha += 0.5;
+            alpha += 0.05;
 
-            this.lights[1].position.x = 50 * Math.sin(THREE.Math.degToRad(alpha));
-            this.lights[1].position.z = 10 * Math.cos(THREE.Math.degToRad(alpha));
+            this.lights[1].position.x = 200 * Math.sin(THREE.Math.degToRad(alpha));
         }*/
 
         /*if (this.loadedObject) {
@@ -321,7 +323,7 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         this.canvas.style.height= '100%';
 
         /* for debugging, sharpens 3D view on fullscreen */
-        this.renderer.setSize(window.innerWidth, window.innerHeight);
+        // this.renderer.setSize(window.innerWidth, window.innerHeight);
 
         /*if (this.props.sustainabilityStatus.fullscreen) {
             this.renderer.setSize(window.innerWidth, window.innerHeight);
@@ -332,6 +334,8 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
 
     onMouseClick = (event) => {
         event.preventDefault();
+
+        console.log(event);
 
         // calculate mouse position in normalized device coordinates
         // (-1 to +1) for both components
@@ -479,10 +483,12 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         }*/
         // this.resizeCanvas(sustainabilityStatus.fullscreen);
 
-        return (
+        return ( // TODO: put styles in classes
             <canvas
                 // className={ this.props.fullScreen ? '' : classes.canvasCircle }
                 // style={{ width: '100%', height: '100%' }}
+                onClick={ this.onMouseClick }
+                style={ !this.props.sustainabilityStatus.fullscreen ? { pointerEvents: 'none' } : { pointer: 'cursor' }}
                 ref={ (canvas) => { this.canvas = canvas }}
             />
         )
