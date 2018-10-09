@@ -50,7 +50,7 @@ class Home extends Component {
     }
 
 	setActiveTab = (tab) => (event) => { // TODO: what is newTab doing and why does it not work without?
-        event.preventDefault();
+        // event.preventDefault();
 		this.setState({ tab });
 		this.props.updateSustainabilityStatus(tab);
 	};
@@ -63,30 +63,30 @@ class Home extends Component {
             <div className={ classes.root }> {/*TODO: reduce number of nameless divs*/}
 				<div className={ 'subNavBarContainer' }>
 					<Tabs
-					  value={tab}
-					  onChange={this.setActiveTab}
-					  indicatorColor="primary"
-					  textColor="primary"
+					  value={ tab }
+					  onChange={ this.setActiveTab }
+					  indicatorColor='primary'
+					  textColor='primary'
 					  fullWidth
 					  classes={{ root: classes.subNavBar }}
 					>
-						<Tab label="My LINQ" value="mylinq" />
-						<Tab label="LINQ" value="linq" />
-						<Tab label="District" value="district" />
+						<Tab label='My LINQ' value='mylinq' />
+						<Tab label='LINQ' value='linq' />
+						<Tab label='District' value='district' />
 					</Tabs>
 				</div>
-				
+
 				<div className='homeBoxContainer'>
 					{ tab === 'mylinq' &&
 						<div>
-                            <div className={classes.homeBoxContainer + ' ' + classes.homeBoxLeft}>
-                                <div className={classes.homeBox}> </div>
+                            <div className={ classes.homeBoxContainer + ' ' + classes.homeBoxLeft }>
+                                <div className={ classes.homeBox }> </div>
                             </div>
-                            <div className={classes.homeBoxContainer + ' ' + classes.homeBoxMiddle}>
-                                <div className={classes.homeBox}> </div>
+                            <div className={ classes.homeBoxContainer + ' ' + classes.homeBoxMiddle }>
+                                <div className={ classes.homeBox }> </div>
                             </div>
-                            <div className={classes.homeBoxContainer + ' ' + classes.homeBoxRight}>
-                                <div className={classes.homeBox}> </div>
+                            <div className={ classes.homeBoxContainer + ' ' + classes.homeBoxRight }>
+                                <div className={ classes.homeBox }> </div>
                             </div>
                         </div>
 					}
@@ -94,7 +94,7 @@ class Home extends Component {
                         <div className='homebox'>
 							<h1>{ temperature.outside.celsius }°</h1>
 							<p>{ temperature.outside.description }</p>
-						</div> 
+						</div>
 					}
 					{ tab === 'district' &&
                         <div className='homebox'>
@@ -104,7 +104,7 @@ class Home extends Component {
                                 let card = localNewsHeadlines.byId[id];
 
                                 return card.visible ?
-                                    <div key={id}>{card.description}</div>
+                                    <div key={id}>{ card.description }</div>
                                     : null;
                             }) }
 						</div>
