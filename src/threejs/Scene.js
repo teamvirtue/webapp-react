@@ -94,6 +94,12 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
                 (object) => {
                     // loadedObject = object;
 
+                    // console.log(object.children[1]);
+                    /*for (let i = 0; i < object.children[1].material.length; i++) {
+                        object.children[1].material[i].transparent = true;
+                        object.children[1].material[i].opacity = 0.25;
+                    }*/
+
                     object.traverse((node) => {
                         if (node instanceof THREE.Mesh) {
                             // console.log(node);
@@ -126,6 +132,7 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
                     MYLINQ_GROUP.children = mylinqObjects;
                     LINQ_GROUP.children = linqObjects;
                     DISTRICT_GROUP.children = districtObjects;
+
                     /*object.position.x = 10;
                     object.position.y = 10;
                     object.scale.set(100,100,100);*/
@@ -207,6 +214,9 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         this.camera = camera;
         this.renderer = renderer;
         this.lights = lights;
+        this.MYLINQ_GROUP = MYLINQ_GROUP;
+        this.LINQ_GROUP = LINQ_GROUP;
+        this.DISTRICT_GROUP = DISTRICT_GROUP;
         this.raycaster = raycaster;
         this.mouse = mouse;
 
@@ -316,21 +326,35 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
             if (intersects[0].object !== selectedObject) {
                 // restore previous intersection object (if it exists) to its original color
                 if (selectedObject) {
-                    this.setColor(selectedObject, selectedObject.currentHex);
+                    this.LINQ_GROUP.children[0].material[0].opacity = 1;
+                    this.MYLINQ_GROUP.children[1].material[1].opacity = 1;
+                    // this.setColor(selectedObject, selectedObject.currentHex);
                 }
                 // store reference to closest object as current intersection object
                 selectedObject = intersects[0].object;
                 // store color of closest object (for later restoration)
                 selectedObject.currentHex = this.getColor(selectedObject);
+
                 // set a new color for closest object
-                this.setColor(selectedObject, highlightColor);
+                if (selectedObject.userData.parent.name === 'mylinq') {
+                    console.log(this.MYLINQ_GROUP.children);
+                    this.LINQ_GROUP.children[0].material[0].transparent = true;
+                    this.MYLINQ_GROUP.children[1].material[1].transparent = true;
+                    this.LINQ_GROUP.children[0].material[0].opacity = 0.25;
+                    this.MYLINQ_GROUP.children[1].material[1].opacity = 0.25;
+                }
+                // this.setColor(selectedObject, highlightColor);
+
                 // update Redux state
-                this.setActiveTab(selectedObject.userData.parent.name)()
+                this.setActiveTab(selectedObject.userData.parent.name)();
             }
         } else {
             // restore previous intersection object (if it exists) to its original color
             if (selectedObject) {
-                this.setColor(selectedObject, selectedObject.currentHex);
+                console.log('hi');
+                this.LINQ_GROUP.children[0].material[0].opacity = 1;
+                this.MYLINQ_GROUP.children[1].material[1].opacity = 1;
+                // this.setColor(selectedObject, selectedObject.currentHex);
             }
             selectedObject = null;
         }
@@ -343,9 +367,20 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
     setColor = (object, color) => {
         if (object.material instanceof Array) {
             object.material[0].color.set(color); //setHex
+
+            /*for (let i = 0; i < object.material.length; i++) {
+                object.material[i].transparent = true;
+                object.material[i].opacity = 0.25;
+                // object.material[i].color.set(color);
+            }*/
         } else {
             object.material.color.set(color);
         }
+
+        /*linqObjects[0].material[0].transparent = true;
+        linqObjects[0].material[0].opacity = 0.25;
+        linqObjects[0].material[1].transparent = true;
+        linqObjects[0].material[1].opacity = 0.25;*/
 
         /*object.children[0].material.transparent = true;
         object.children[0].material.opacity = 0.25;*/
