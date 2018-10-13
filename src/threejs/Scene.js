@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import * as THREE from 'three';
 import OrbitControls  from 'three-orbitcontrols';
 import { MTLLoader, OBJLoader } from 'three-obj-mtl-loader';
-import { Easing, Tween, autoPlay } from 'es6-tween';
+import { Easing, Tween } from 'es6-tween';
 // import * as TWEEN from '@tweenjs/tween.js';
 
 // Local import
@@ -11,7 +11,7 @@ import mtlUrl from '../assets/models/linq_low_poly_web_app.mtl';
 
 let levels = ['MY', 'LINQ', 'DISTRICT'];
 let selectedObject = null;
-let alpha = 0;
+// let alpha = 0;
 
 let opacityTween,
     cameraTween;
@@ -36,8 +36,10 @@ let tween = new Tween(coordinates)
 class Scene extends Component { // code based on https://stackoverflow.com/questions/41248287/how-to-connect-threejs-to-react
 
     componentDidMount() {
-        window.addEventListener('resize', this.resizeCanvas);
-        // window.addEventListener('click', this.onMouseClick, false);
+        this.canvas.addEventListener('resize', this.resizeCanvas);
+        this.canvas.addEventListener('touchstart', this.onClick);
+        this.canvas.addEventListener('click', this.onClick);
+        // this.canvas.addEventListener('click', this.onClick, false);
         // window.addEventListener('mousemove', this.onMouseMove, false);
 
         let width = this.canvas.clientWidth;
@@ -247,7 +249,10 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
     }
 
     componentWillUnmount() {
-        window.removeEventListener('resize', this.resizeCanvas);
+        this.canvas.removeEventListener('resize', this.resizeCanvas);
+        this.canvas.removeEventListener('touchstart', this.onClick);
+        this.canvas.removeEventListener('click', this.onClick);
+
         this.stop();
     }
 
@@ -332,15 +337,20 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         }*/
     };
 
-    onMouseClick = (event) => {
+    onClick = (event) => {
         event.preventDefault();
 
         console.log(event);
 
-        // calculate mouse position in normalized device coordinates
-        // (-1 to +1) for both components
-        this.mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-        this.mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
+        if (event.type === 'click') {
+            // calculate mouse position in normalized device coordinates
+            // (-1 to +1) for both components
+            this.mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+            this.mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
+        } else {
+            this.mouse.x = (event.touches[0].clientX / window.innerWidth) * 2 - 1;
+            this.mouse.y = - (event.touches[0].clientY / window.innerHeight) * 2 + 1;
+        }
 
         // update the picking ray with the camera and mouse position
         this.raycaster.setFromCamera(this.mouse, this.camera);
@@ -391,7 +401,7 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
     };
 
     animateCamera = (camera) => {
-    // animateCamera = (camera, position) => {
+        // animateCamera = (camera, position) => {
         let position = new THREE.Vector3(0, 75, 10);
         let currentPosition = camera.position;
         let value = { x: currentPosition.x, y: currentPosition.y, z: currentPosition.z  };
@@ -474,7 +484,7 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
     };
 
     render() {
-        const { classes } = this.props;
+        // const { classes } = this.props;
         // const { sustainabilityStatus } = this.props;
 
         /*if (this.canvas) {
@@ -483,11 +493,11 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         }*/
         // this.resizeCanvas(sustainabilityStatus.fullscreen);
 
-        return ( // TODO: put styles in classes
+        return ( // TODO: put styles in classes?
             <canvas
                 // className={ this.props.fullScreen ? '' : classes.canvasCircle }
                 // style={{ width: '100%', height: '100%' }}
-                onClick={ this.onMouseClick }
+                // onClick={ this.onClick }
                 style={ !this.props.sustainabilityStatus.fullscreen ? { pointerEvents: 'none' } : { pointer: 'cursor' }}
                 ref={ (canvas) => { this.canvas = canvas }}
             />
