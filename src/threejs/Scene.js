@@ -11,7 +11,7 @@ import mtlUrl from '../assets/models/linq_low_poly_web_app.mtl';
 
 let levels = ['MY', 'LINQ', 'DISTRICT'];
 let selectedObject = null;
-// let alpha = 0;
+let alpha = 0;
 
 let opacityTween,
     cameraTween;
@@ -126,11 +126,13 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
 
                     object.traverse((node) => {
                         if (node instanceof THREE.Mesh) {
-                            // console.log(node);
                             // child.geometry.computeFaceNormals();
-                            // node.material = new THREE.MeshLambertMaterial({ color: 0xf15b27, flatShading: true });
+                            // node.material = new THREE.MeshLambertMaterial({ color: 0xf15b27, flatShading: true, side: THREE.DoubleSide });
+                            // node.material.side = THREE.DoubleSide;
                             node.material.flatShading = true; // TODO: make group for shading?
                             node.material.shininess = 0;
+
+                            // console.log(node);
 
                             // enable casting shadows
                             node.castShadow = true;
@@ -174,7 +176,7 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
 
         let meshGround = new THREE.Mesh(
             new THREE.PlaneBufferGeometry(500, 500, 1, 1),
-            new THREE.MeshPhongMaterial({ color: 0xf15b27 })
+            new THREE.MeshPhongMaterial({ color: 0xf15b27, shininess: 0 })
             // new THREE.MeshStandardMaterial({ color: 0xffffff })
             // new THREE.MeshLambertMaterial({ color: 0xf15b27 })
         );
@@ -219,6 +221,9 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
 
         let axesHelper = new THREE.AxesHelper(5);
         scene.add(axesHelper);
+
+        /*let gridHelper = new THREE.GridHelper(100, 100);
+        scene.add(gridHelper);*/
 
         let lightHelpers = [];
         lightHelpers[0] = new THREE.DirectionalLightHelper(lights[1]);
@@ -278,11 +283,11 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         }
 
         // TODO: animate lights based on time of day
-        /*if (this.lights[1]) {
+        if (this.lights[1]) {
             alpha += 0.05;
 
             this.lights[1].position.x = 200 * Math.sin(THREE.Math.degToRad(alpha));
-        }*/
+        }
 
         /*if (this.loadedObject) {
             alpha += 0.2;
@@ -328,7 +333,7 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         this.canvas.style.height= '100%';
 
         /* for debugging, sharpens 3D view on fullscreen */
-        // this.renderer.setSize(window.innerWidth, window.innerHeight);
+        this.renderer.setSize(window.innerWidth, window.innerHeight);
 
         /*if (this.props.sustainabilityStatus.fullscreen) {
             this.renderer.setSize(window.innerWidth, window.innerHeight);
@@ -340,7 +345,7 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
     onClick = (event) => {
         event.preventDefault();
 
-        console.log(event);
+        // console.log(event);
 
         if (event.type === 'click') {
             // calculate mouse position in normalized device coordinates
@@ -369,6 +374,7 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
                 // restore previous intersection object (if it exists) to its original color
                 if (selectedObject) {
                     this.setTransparency(selectedObject, 1);
+                    this.animateCamera(this.camera, { x: 0, y: 75, z: 5 });
                     // this.setColor(selectedObject, selectedObject.currentHex);
                 }
                 // store reference to closest object as current intersection object
@@ -379,7 +385,10 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
                 // set a new color for closest object
                 if (selectedObject.userData.parent.name === 'mylinq') {
                     this.setTransparency(selectedObject, 0.25);
-                    this.animateCamera(this.camera);
+                    this.animateCamera(this.camera, { x: 0, y: 75, z: 10 });
+                } else {
+                    this.setTransparency(selectedObject, 1);
+                    this.animateCamera(this.camera, { x: 100, y: 75, z: 100 });
                 }
                 // this.setColor(selectedObject, highlightColor);
 
@@ -389,7 +398,8 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         } else {
             // restore previous intersection object (if it exists) to its original color
             if (selectedObject) {
-                this.setTransparency(selectedObject, 1);
+                /*this.setTransparency(selectedObject, 1);
+                this.animateCamera(this.camera, { x: 0, y: 75, z: 10 });*/
                 // this.setColor(selectedObject, selectedObject.currentHex);
             }
             selectedObject = null;
@@ -400,13 +410,13 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         this.props.updateSustainabilityStatus(tab);
     };
 
-    animateCamera = (camera) => {
+    animateCamera = (camera, position) => {
         // animateCamera = (camera, position) => {
-        let position = new THREE.Vector3(0, 75, 10);
+        let finalPosition = new THREE.Vector3(position.x, position.y, position.z);
         let currentPosition = camera.position;
         let value = { x: currentPosition.x, y: currentPosition.y, z: currentPosition.z  };
         cameraTween = new Tween(value)
-            .to({ x: position.x, y: position.y, z: position.z }, 1000)
+            .to({ x: finalPosition.x, y: finalPosition.y, z: finalPosition.z }, 1200)
             .easing(Easing.Exponential.InOut)
             .on('update', ({ x, y, z }) => {
                 // console.log(`Position: ${ x }, ${ y }, ${ z }`);
@@ -421,7 +431,7 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
 
     setTransparency = (object, opacity) => {
         // let coordinates = { x: 0, y: 0 };
-        let currentOpacity = opacity === 1 ? 0.25 : 1;
+        let currentOpacity = opacity === 1 ? 0.25 : 1; // TODO: fix unwanted animations
         let value = { x: currentOpacity };
         opacityTween = new Tween(value)
             .to({ x: opacity }, 500)
@@ -431,20 +441,33 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
                 // console.log(`Opacity: ${ x }`);
                 // console.log(Object.values({x})[0]);
 
-                this.LINQ_GROUP.children[0].material[0].transparent = true;
-                this.MYLINQ_GROUP.children[1].material[1].transparent = true;
-                this.LINQ_GROUP.children[0].material[0].opacity = Object.values({x})[0];
-                this.MYLINQ_GROUP.children[1].material[1].opacity = Object.values({x})[0];
+                this.MYLINQ_GROUP.children[0].material[0].transparent = true;
+                this.MYLINQ_GROUP.children[0].material[1].transparent = true;
+                this.MYLINQ_GROUP.children[0].material[0].opacity = Object.values({x})[0];
+                this.MYLINQ_GROUP.children[0].material[1].opacity = Object.values({x})[0];
             });
         opacityTween.start();
-        /*let currentOpacity = opacity === 1 ? 0.25 : 1;
-        let tween = new Tween(currentOpacity)
-            .to(opacity, 5000)
-            .easing(Easing.Quadratic.Out)
-            .on('update', ({x, y}) => {
-                console.log(`The values is x: ${x} and y: ${y}`);
-            })
-            .start();*/
+
+        // check if object has multiple materials (i.e. not the ground) and opacity is already set
+        /*if (object.material instanceof Array && opacity !== object.material[0].opacity) {
+            // let coordinates = { x: 0, y: 0 };
+            let currentOpacity = opacity === 1 ? 0.25 : 1; // TODO: fix unwanted animations
+            let value = { x: currentOpacity };
+            opacityTween = new Tween(value)
+                .to({ x: opacity }, 500)
+                // .easing(Easing.Circular.Out)
+                .delay(500)
+                .on('update', ({ x }) => {
+                    // console.log(`Opacity: ${ x }`);
+                    // console.log(Object.values({x})[0]);
+
+                    this.MYLINQ_GROUP.children[1].material[0].transparent = true;
+                    this.MYLINQ_GROUP.children[1].material[1].transparent = true;
+                    this.MYLINQ_GROUP.children[1].material[0].opacity = Object.values({x})[0];
+                    this.MYLINQ_GROUP.children[1].material[1].opacity = Object.values({x})[0];
+                });
+            opacityTween.start();
+        }*/
 
         /*this.LINQ_GROUP.children[0].material[0].transparent = true;
         this.MYLINQ_GROUP.children[1].material[1].transparent = true;
