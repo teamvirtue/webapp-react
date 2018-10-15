@@ -89,7 +89,7 @@ const styles = theme => ({
 });
 		
 let rooms = [
-	{ id: 1, value: 'All Rooms', icon: 'home', component: AllRooms, highlight: true },
+	{ id: 1, value: 'All Rooms', icon: 'home', component: AllRooms, diffColor: true },
 	{ id: 2, value: 'Living Room', icon: 'weekend', component: LivingRoom, },
 	{ id: 3, value: 'Dinner Room', icon: 'local_dining', component: DinnerRoom, },
 	{ id: 4, value: 'Bedroom', icon: 'hotel', component: Bedroom, },
@@ -155,9 +155,10 @@ class RoomNavigation extends Component {
 									} }
 								>
 									<div className={ classes.subNavItemContent }>
-										<Icon color='primary' style={{ fontSize: 30 }}>{ data.icon }</Icon>
+										<Icon color={ (data.diffColor === true ? 'secondary' : 'primary' ) } style={{ fontSize: 30 }}>{ data.icon }</Icon>
 										<Typography component='p'>
-											{ (data.highlight === true ? <strong>{data.value}</strong> : data.value ) }
+											{ data.value }
+											
 										</Typography>
 									</div>
 								</Paper>

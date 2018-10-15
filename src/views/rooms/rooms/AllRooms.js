@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 // import PropTypes from 'prop-types';
 import List from '@material-ui/core/List';
 
@@ -8,7 +9,13 @@ import NetEnergy from '../controlComponents/NetEnergy';
 import WaterUsage from '../controlComponents/WaterUsage';
 import ApplianceEnergy from '../controlComponents/ApplianceEnergy';
 
+import { apiGetSocketData } from '../../../actions/asyncActions';
+
 class AllRooms extends Component {
+	
+    componentDidMount() {
+        this.props.apiGetSocketData('Allrooms');
+    };
 
     render() {
 		const selectedTab = this.props.tab;
@@ -35,4 +42,10 @@ class AllRooms extends Component {
     }
 }
 
-export default AllRooms;
+const mapDispatchToProps = dispatch => ({
+	apiGetSocketData: (room) => {
+		dispatch(apiGetSocketData(room));
+	}
+});
+
+export default connect(null, mapDispatchToProps)(AllRooms);

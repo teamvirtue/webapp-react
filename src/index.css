@@ -1,8 +1,24 @@
+html {
+    overflow: hidden;
+    height: 100%;
+	position: fixed;
+}
+
 body {
+	position: fixed;
+    height: 100%;
+    overflow: hidden;
+	overscroll-behavior-y: none;
     font-family: 'Roboto', Arial, Helvetica, sans-serif;
     margin: 0;
     background-color:#f9f9f9 !important;
-    overflow-y:scroll;
+}
+
+#root{  
+	width: 100vw;
+	height: 100vh;
+	overflow-y: auto;
+	-webkit-overflow-scrolling: touch;
 }
 
 /* width */
@@ -146,7 +162,7 @@ body {
 	left: 32%;
     top: 50%;
     margin: -11vw 0 0 -11vw;
-    transition: all 200ms ease-out;
+    transition: all 200ms;
 }
 
 .sustainabilityStatusCircleContainer:hover {
@@ -179,6 +195,7 @@ body {
 	overflow: hidden;
 	border-radius: 50%;
 	transition: all 200ms;
+	border:5px solid #f77638;
 }
 
 /*** FULLSCREEN MODEL ***/
@@ -199,6 +216,7 @@ body {
 
 .wrapper.fullscreen .sustainabilityStatusCircleContainer .sustainabilityStatusCircle{
 	border-radius: 0;
+	border:0;
 }
 /*** END FULLSCREEN MODEL ***/
 
@@ -236,7 +254,7 @@ body {
     }
 
     .headerBg {
-        background: linear-gradient(175deg, #ee742e 25%, #f15b27 60%, transparent 25%);
+        background: linear-gradient(175deg, #f2612a 60%, transparent 25%);
     }
     .sustainabilityStatusCircleContainer {
         position: relative;
@@ -258,10 +276,14 @@ body {
     .home .sustainabilityStatusCircleContainer{
         width: 40vh;
         height: 40vh;
-        margin-top: 25vh;
+        margin-top: 15vh;
     }
     .home .headerBg { /*TODO: implement cubic-bezier*/
-        background: linear-gradient(175deg, #f9833f 0%, #f15b27 70%);
+		background-color: rgb(249, 130, 63);
+        background: linear-gradient(175deg, 
+			rgba(245, 154, 80, 0.9) 0%, 
+			rgba(249, 130, 63, 0.9) 30%, 
+			rgba(241, 91, 39, 0.9) 70%);
     }
     .home .dubaiBg {
         display: block;
@@ -269,18 +291,35 @@ body {
 
     .home .content {
         position: absolute;
-        top: 0;
+        bottom: 0;
+		margin-bottom:50px;
         pointer-events: none;
+		background-color:#f2612a;
+		height:22vh;
     }
 
-    .home .subNavBarContainer{
-        margin-top: 15vh;
+    .subNavBarContainer{
         pointer-events: auto;
+		position: absolute;
+		margin-top:-45px;
+		width: 100vw;
     }
-
-    .home .homeBoxContainer{
-        margin-top:50vh;
-    }
+	
+	.homeInfoBox{
+		margin-top:5vh;
+		color:#fff;
+		position:relative;
+	}
+	
+	.homeInfoBox h1{
+		font-size:8vw;
+		display:inline;
+	}
+	
+	.homeInfoBox p{
+		text-transform:uppercase;
+		margin-top:-10px;
+	}
 
     .notificationsIcon {
         position: absolute;
