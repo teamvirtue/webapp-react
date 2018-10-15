@@ -66,8 +66,6 @@ class SustainabilityStatusCircle extends Component {
 	handleOpen = () => {
         this.props.updateFullscreenStatus(true);
 
-        console.log('hi');
-
         // this.setState({ fullScreen: true });
 	};
 
