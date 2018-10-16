@@ -1,43 +1,65 @@
-import Axios from 'axios';
+import axios from 'axios';
 
 const server = 'http://192.168.0.50:8000';
 const user = 'django';
 const pass = 'P@ssw0rd';
 
 
-export function apiConnect() {
+export function getApiToken(callback) {
 	return dispatch => {
-		return Axios.get(server + "/api/auth/token/?username=" + user + "&password=" + pass)
-		//return Axios.get("https://httpbin.org/get")
+		return axios.post(server + "/api/auth/token/", {
+				username: user,
+				password: pass
+			})
 		.then(response => {
 			if (response.status >= 200 && response.status < 300) {
-				var token = response.data.origin;
-				localStorage.setItem('token', token);
+				var token = response.data.token;
+				console.log(token);
+				axios.defaults.headers.common['Authorization'] = "JWT " + token;
+				if(callback){
+					callback();
+				}
 			} else {
-				const error = new Error(response.statusText);
-				error.response = response;
-				throw error;
+				throw new Error(response.statusText);
 			}
 		})
-		.catch(error => { console.log('Cannot connect with LINQ API. ', error); });
+		.catch(error => { console.log('[1] Cannot connect with LINQ API. ', error); });
 	}
 }
 
-export function apiGetSocketData(room) {
+export function apiGetSocketData(room, time) {
 	return dispatch => {
-		return Axios.get(server + "/socket/" + room + "/realtime/")
-		//return Axios.get("https://httpbin.org/get")
+		/*dispatch({			
+			type: 'UPDATE_ENERGY_USAGE',
+			payload: {
+				room: room, 
+				energyUsage: 'asdfasdf22222222222',
+			}
+		});*/
+		return axios.get(server + "/socket_reading/" + room + "/" + time + "/")
 		.then(response => {
 			if (response.status >= 200 && response.status < 300) {
-				var token = localStorage.getItem('token');
-				console.log("asdf" + token);
-				console.log(response);
+				//console.log(response.data);
+				dispatch({			
+					type: 'UPDATE_ENERGY_USAGE',
+					payload: {
+						room: room, 
+						energyUsage: 'asdfasdf22222222222',
+					}
+				});
+				return true;
 			} else {
-				const error = new Error(response.statusText);
-				error.response = response;
-				throw error;
+				throw new Error(response.statusText);
 			}
 		})
-		.catch(error => { console.log('Cannot connect with LINQ API. ', error); });
+		.catch(
+			//refresh token
+			error => {
+				console.log('Refreshing token...');
+				dispatch(getApiToken(function() {
+					dispatch(apiGetSocketData(room, time));
+				})); 
+			}
+		);
 	}
 }

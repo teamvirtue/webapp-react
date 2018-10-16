@@ -16,10 +16,7 @@ class Kitchen extends Component {
 				{ selectedTab === 'appliances' && 
 					<div>
 						<Light forRoom='Kitchen' />
-						Washer-Dryer
-						Dishwasher
-						Oven
-						Refrigerator
+						{ /* Washer-Dryer, Dishwasher, Oven, Refrigerator */ }
 					</div>
 				}
 				

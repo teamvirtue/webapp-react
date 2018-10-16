@@ -16,7 +16,7 @@ class Outdoor extends Component {
 				{ selectedTab === 'appliances' && 
 					<div>
 						<Light forRoom='Outdoor' />
-						Car
+						{ /* Car */ }
 					</div>
 				}
 				

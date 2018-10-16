@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import App from '../App';
 import { updateWeatherData } from '../actions';
 import { updateLocalNewsHeadlines } from '../actions';
-import { apiConnect } from '../actions/asyncActions';
+import { getApiToken } from '../actions/asyncActions';
 
 const mapDispatchToProps = dispatch => ({
     updateWeatherData: (temperature, temperatureDescription) => {
@@ -11,8 +11,8 @@ const mapDispatchToProps = dispatch => ({
     updateLocalNewsHeadlines: (sources) => {
         dispatch(updateLocalNewsHeadlines(sources));
     },
-	apiConnect: () => {
-		dispatch(apiConnect());
+	getApiToken: () => {
+		dispatch(getApiToken());
 	}
 });
 

@@ -5,6 +5,7 @@ const houseData = (state = {
 				onOff: false,
 				temperature: 20,
 			},
+			energyUsage: 0,
 		},
 		'Living Room': {
 			lights: {
@@ -12,6 +13,7 @@ const houseData = (state = {
 				intensity: 5,
 				warmth: 0,
 			},
+			energyUsage: 0,
 		},
 		'Dinner Room': {
 			lights: {
@@ -19,6 +21,7 @@ const houseData = (state = {
 				intensity: 5,
 				warmth: 0,
 			},
+			energyUsage: 0,
 		},
 		'Bedroom': {
 			lights: {
@@ -26,6 +29,7 @@ const houseData = (state = {
 				intensity: 5,
 				warmth: 0,
 			},
+			energyUsage: 0,
 		},
 		'Bathroom': {
 			lights: {
@@ -33,6 +37,7 @@ const houseData = (state = {
 				intensity: 5,
 				warmth: 0,
 			},
+			energyUsage: 0,
 		},
 		'Hallway': {
 			lights: {
@@ -40,6 +45,7 @@ const houseData = (state = {
 				intensity: 5,
 				warmth: 0,
 			},
+			energyUsage: 0,
 		},
 		'Kitchen': {
 			lights: {
@@ -47,6 +53,7 @@ const houseData = (state = {
 				intensity: 5,
 				warmth: 0,
 			},
+			energyUsage: 0,
 		},
 		'Outdoor': {
 			lights: {
@@ -54,6 +61,7 @@ const houseData = (state = {
 				intensity: 5,
 				warmth: 0,
 			},
+			energyUsage: 0,
 		},
 		'Technical Room': {
 			lights: {
@@ -61,6 +69,7 @@ const houseData = (state = {
 				intensity: 5,
 				warmth: 0,
 			},
+			energyUsage: 0,
 		},
 	},
 }, action) => {
@@ -137,6 +146,18 @@ const houseData = (state = {
 							...state.room[action.payload.room].lights,
 							warmth: action.payload.warmth,
 						}
+					}
+				}
+            };
+			
+        case 'UPDATE_ENERGY_USAGE':
+			return {
+                ...state,
+				room: {
+					...state.room,
+					[action.payload.room]: {
+						...state.room[action.payload.room],
+						energyUsage: action.payload.energyUsage,
 					}
 				}
             };

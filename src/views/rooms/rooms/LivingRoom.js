@@ -16,9 +16,7 @@ class LivingRoom extends Component {
 				{ selectedTab === 'appliances' && 
 					<div>
 						<Light forRoom='Living Room' />
-						Music System
-						TV
-						Clock
+						{ /* Music System, TV, Clock */ }
 					</div>
 				}
 				

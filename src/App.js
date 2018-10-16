@@ -73,7 +73,7 @@ class App extends Component {
 	componentDidMount() {
 		this.intervalId = setInterval(() => this.loadPublicData(), 15 * 60 * 1000);// Call Public API's every 15 minutes
 		this.loadPublicData();// also load one immediately
-		this.props.apiConnect();
+		this.props.getApiToken();
 	}
 
 	componentWillUnmount() {

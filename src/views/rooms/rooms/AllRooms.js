@@ -14,7 +14,7 @@ import { apiGetSocketData } from '../../../actions/asyncActions';
 class AllRooms extends Component {
 	
     componentDidMount() {
-        this.props.apiGetSocketData('Allrooms');
+        this.props.apiGetSocketData('Kitchen', 'all');
     };
 
     render() {
@@ -43,8 +43,8 @@ class AllRooms extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-	apiGetSocketData: (room) => {
-		dispatch(apiGetSocketData(room));
+	apiGetSocketData: (room, time) => {
+		dispatch(apiGetSocketData(room, time));
 	}
 });
 

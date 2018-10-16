@@ -54,6 +54,7 @@ class Temperature extends Component {
 		
 		return (
 			<div>
+				{ houseData.room['Kitchen'].energyUsage }
 				<Typography variant="subheading" gutterBottom>Air conditioning</Typography>
 				<Card className={classes.card}>
 					<CardContent>

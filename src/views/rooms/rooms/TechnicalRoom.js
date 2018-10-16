@@ -16,10 +16,7 @@ class TechnicalRoom extends Component {
 				{ selectedTab === 'appliances' && 
 					<div>
 						<Light forRoom='Technical Room' />
-						HVAC
-						Battery
-						Grid
-						Solar Panels
+						{ /* HVAC, Battery, Grid, Solar Panels */ }
 					</div>
 				}
 				
