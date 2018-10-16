@@ -34,9 +34,15 @@ let tween = new Tween(coordinates)
 
 /* TODO: implement ambient occlusion using postprocessing library or baking it into the mesh in Blender https://blender.stackexchange.com/questions/13956/how-do-you-bake-ambient-occlusion-for-a-model*/
 class Scene extends Component { // code based on https://stackoverflow.com/questions/41248287/how-to-connect-threejs-to-react
+    constructor(props) {
+        super(props);
+        this.state = {
+            transitioning: false,
+        }
+    }
 
     componentDidMount() {
-        this.canvas.addEventListener('resize', this.resizeCanvas);
+        window.addEventListener('resize', this.resizeCanvas);
         this.canvas.addEventListener('touchstart', this.onClick);
         this.canvas.addEventListener('click', this.onClick);
         // this.canvas.addEventListener('click', this.onClick, false);
@@ -45,16 +51,16 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         let width = this.canvas.clientWidth;
         let height = this.canvas.clientHeight;
 
-        let fieldOfView = 45,
+        /*let fieldOfView = 45,
             aspectRatio = width / height,
             near = 1,
-            far = 1000;
+            far = 1000;*/
 
         const renderer = new THREE.WebGLRenderer({ canvas: this.canvas, antialias: true, alpha: true });
         const DPR = window.devicePixelRatio ? window.devicePixelRatio : 1;
         renderer.setPixelRatio(DPR);
         renderer.setSize(width, height);
-        renderer.shadowMap.enabled = true; // TODO: fix shadows + light from inside LINQ
+        renderer.shadowMap.enabled = true; // TODO: fix light from inside LINQ
         renderer.shadowMap.type = THREE.PCFSoftShadowMap; // softer shadows
         // renderer.shadowMap.type = THREE.BasicShadowMap;
         renderer.shadowMap.enabled = true;
@@ -65,20 +71,21 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
 
         const scene = new THREE.Scene();
         scene.background = new THREE.Color(0x97D6EA);
-        /*const camera = new THREE.OrthographicCamera(
+        const camera = new THREE.OrthographicCamera(
             width / -2,
             width / 2,
             height / 2,
             height / -2,
             1,
             1000
-        );*/
-        const camera = new THREE.PerspectiveCamera(
+        );
+
+        /*const camera = new THREE.PerspectiveCamera(
             fieldOfView,
             aspectRatio,
             near,
             far
-        );
+        );*/
         camera.position.set(100, 75, 100);
         camera.lookAt(0, 0, 0);
 
@@ -127,7 +134,7 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
                     object.traverse((node) => {
                         if (node instanceof THREE.Mesh) {
                             // child.geometry.computeFaceNormals();
-                            // node.material = new THREE.MeshLambertMaterial({ color: 0xf15b27, flatShading: true, side: THREE.DoubleSide });
+                            // node.material = new THREE.MeshLambertMaterial({ color: 0xf15b27, flatShading: true });
                             // node.material.side = THREE.DoubleSide;
                             node.material.flatShading = true; // TODO: make group for shading?
                             node.material.shininess = 0;
@@ -175,43 +182,47 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         });
 
         let meshGround = new THREE.Mesh(
-            new THREE.PlaneBufferGeometry(500, 500, 1, 1),
-            new THREE.MeshPhongMaterial({ color: 0xf15b27, shininess: 0 })
+            new THREE.PlaneBufferGeometry(400, 400, 1, 1),
+            new THREE.MeshPhongMaterial({ color: 0xffffff, shininess: 0 })
             // new THREE.MeshStandardMaterial({ color: 0xffffff })
             // new THREE.MeshLambertMaterial({ color: 0xf15b27 })
         );
         meshGround.name = 'Ground';
         meshGround.position.y = -35;
         meshGround.rotation.x = -Math.PI / 2; // Rotate ground 90 degrees
+        meshGround.castShadow = true;
         meshGround.receiveShadow = true;
         DISTRICT_GROUP.add(meshGround);
         meshGround.userData.parent = DISTRICT_GROUP;
         scene.add(meshGround);
 
         let lights = [];
-        lights[0] = new THREE.AmbientLight(0x97D6EA, 0.30);
+        lights[0] = new THREE.AmbientLight(0x97D6EA, 0.6);
         scene.add(lights[0]);
 
-        lights[1] = new THREE.DirectionalLight(0xffffff, 0.6, 1000);
-        lights[1].target = meshGround;
+
+        lights[1] = new THREE.HemisphereLight(0x97D6EA, 0x080820, 1);
+        // lights[1] = new THREE.HemisphereLight(0xffffbb, 0x080820, 1);
+        lights[1].position.set(0, 100, -25);
+        /*lights[1] = new THREE.DirectionalLight(0xffffff, 0.6, 1000);
+        // lights[1].target = meshGround;
         lights[1].position.set(0, 150, -25);
         // lights[1].position.set(50, 100, 150);
         lights[1].castShadow = true;
 
         // shadow properties for the light
-        lights[1].shadow.mapSize.width = 2048; //512 = default
-        lights[1].shadow.mapSize.height = 2048;
-        /*lights[1].shadow.camera.near = 0.5;    // default
-        lights[1].shadow.camera.far = 500;     // default*/
-        lights[1].shadow.camera = new THREE.OrthographicCamera(-100, 100, 100, -100, 0.5, 1000);
+        lights[1].shadow.mapSize.width = 2 * 2048; //512 = default
+        lights[1].shadow.mapSize.height = 2 * 2048;
+        // lights[1].shadow.camera = new THREE.OrthographicCamera(-100, 100, 100, -100, 0.5, 1000); // TODO: adjust values
+        lights[1].shadow.camera = new THREE.OrthographicCamera(width / - 2, width / 2, height / 2, height / - 2, 1, 1000);*/
         // lights[1].shadowCameraLeft;
         scene.add(lights[1]);
 
         /* interior light(s) */
-        lights[2] = new THREE.PointLight(0xfffd99, 0.35, 0, 2);
+        lights[2] = new THREE.PointLight(0xfffd99, 0.75, 0, 2);
         // lights[2].shadow.camera.fov = 30;
-        lights[2].position.set(7, 4, -11);
-        scene.add(lights[2]);
+        lights[2].position.set(7, 4, -2);
+        // scene.add(lights[2]);
 
         /* for debugging */
         let controls = new OrbitControls(camera, renderer.domElement);
@@ -226,21 +237,29 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         scene.add(gridHelper);*/
 
         let lightHelpers = [];
-        lightHelpers[0] = new THREE.DirectionalLightHelper(lights[1]);
+        lightHelpers[0] = new THREE.HemisphereLightHelper(lights[1]);
+        // lightHelpers[0] = new THREE.DirectionalLightHelper(lights[1]);
         lightHelpers[1] = new THREE.PointLightHelper(lights[2], 0.5);
         // lightHelpers[2] = new THREE.SpotLightHelper(lights[2]);
         scene.add(lightHelpers[0]);
-        scene.add(lightHelpers[1]);
+        // scene.add(lightHelpers[1]);
         /*axesHelper.userData.parent = DISTRICT_GROUP;
         for (let i in lightHelpers) {
             lightHelpers[i].userData.parent = DISTRICT_GROUP;
             console.log(lightHelpers);
         }*/
 
+        /*let cameraHelper = new THREE.CameraHelper(camera);
+        scene.add(cameraHelper);*/
+
         let raycaster = new THREE.Raycaster();
         let mouse = new THREE.Vector2();
 
         this.scene = scene;
+
+        this.width = width;
+        this.height = height;
+
         this.camera = camera;
         this.renderer = renderer;
         this.lights = lights;
@@ -258,7 +277,25 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         this.canvas.removeEventListener('touchstart', this.onClick);
         this.canvas.removeEventListener('click', this.onClick);
 
+        // this.canvas.removeEventListener('transitionend', this.test);
+
         this.stop();
+    }
+
+    componentDidUpdate(previousProps, previousState) {
+        // only update if fullscreen state has changed
+        if (this.props.sustainabilityStatus.fullscreen !== previousProps.sustainabilityStatus.fullscreen) {
+            this.setState({ transitioning: true });
+
+            setTimeout(() => {
+                this.setState({ transitioning: false });
+
+                console.log('false');
+            }, 2000);
+
+            // this.resizeCanvas();
+            // this.renderer.setSize(this.canvas.clientWidth, this.canvas.clientHeight);
+        }
     }
 
     start = () => {
@@ -282,12 +319,11 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
             cameraTween.update();
         }
 
-        // TODO: animate lights based on time of day
-        if (this.lights[1]) {
+        /*if (this.lights[1]) {
             alpha += 0.05;
 
             this.lights[1].position.x = 200 * Math.sin(THREE.Math.degToRad(alpha));
-        }
+        }*/
 
         /*if (this.loadedObject) {
             alpha += 0.2;
@@ -324,16 +360,48 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
     renderScene() {
         this.renderer.render(this.scene, this.camera);
 
-        this.camera.aspect = this.canvas.clientWidth / this.canvas.clientHeight;
-        this.camera.updateProjectionMatrix(); // TODO: only check when state is updated + then also update the size of renderer with this.renderer.setSize(window.innerWidth, window.innerHeight);
+        if (this.state.transitioning) {
+            this.resizeCanvas();
+            console.log(this.canvas.clientWidth);
+            // this.renderer.setSize(this.canvas.clientWidth, this.canvas.clientHeight);
+        }
+
+        // console.log(this.canvas.clientWidth);
+        // this.renderer.setSize(this.canvas.clientWidth, this.canvas.clientHeight);
+
+        /*if (this.props.sustainabilityStatus.fullscreen) {
+            console.log('fullscreen');
+            this.renderer.setSize(window.innerWidth, window.innerHeight);
+        } else {
+            console.log('not fullscreen');
+            this.renderer.setSize(this.canvas.clientWidth, this.canvas.clientHeight);
+        }*/
+
+        // this.camera.aspect = this.canvas.clientWidth / this.canvas.clientHeight;
+        // this.camera.updateProjectionMatrix(); // TODO: only check when state is updated + then also update the size of renderer with this.renderer.setSize(window.innerWidth, window.innerHeight);
     }
 
     resizeCanvas = () => {
         this.canvas.style.width = '100%';
         this.canvas.style.height= '100%';
 
+        // console.log(this.canvas.clientHeight, this.canvas.clientWidth);
+
+        this.renderer.setSize(this.canvas.clientWidth, this.canvas.clientHeight);
+
         /* for debugging, sharpens 3D view on fullscreen */
-        this.renderer.setSize(window.innerWidth, window.innerHeight);
+        // this.renderer.setSize(window.innerWidth, window.innerHeight);
+
+        let cameraFactor = (this.width / this.height) * 10;
+
+        this.camera.left = this.canvas.clientWidth / -cameraFactor;
+        this.camera.right = this.canvas.clientWidth / cameraFactor;
+        this.camera.top = this.canvas.clientHeight / cameraFactor;
+        this.camera.bottom = this.canvas.clientHeight / -cameraFactor;
+        this.camera.updateProjectionMatrix();
+
+        /*let width = this.canvas.clientWidth;
+        let height = this.canvas.clientHeight;*/
 
         /*if (this.props.sustainabilityStatus.fullscreen) {
             this.renderer.setSize(window.innerWidth, window.innerHeight);
@@ -344,8 +412,6 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
 
     onClick = (event) => {
         event.preventDefault();
-
-        // console.log(event);
 
         if (event.type === 'click') {
             // calculate mouse position in normalized device coordinates
@@ -384,7 +450,7 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
 
                 // set a new color for closest object
                 if (selectedObject.userData.parent.name === 'mylinq') {
-                    this.setTransparency(selectedObject, 0.25);
+                    this.setTransparency(selectedObject, 0.3);
                     this.animateCamera(this.camera, { x: 0, y: 75, z: 10 });
                 } else {
                     this.setTransparency(selectedObject, 1);
@@ -397,11 +463,11 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
             }
         } else {
             // restore previous intersection object (if it exists) to its original color
-            if (selectedObject) {
-                /*this.setTransparency(selectedObject, 1);
-                this.animateCamera(this.camera, { x: 0, y: 75, z: 10 });*/
+            /*if (selectedObject) {
+                this.setTransparency(selectedObject, 1);
+                this.animateCamera(this.camera, { x: 0, y: 75, z: 10 });
                 // this.setColor(selectedObject, selectedObject.currentHex);
-            }
+            }*/
             selectedObject = null;
         }
     };
@@ -431,7 +497,7 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
 
     setTransparency = (object, opacity) => {
         // let coordinates = { x: 0, y: 0 };
-        let currentOpacity = opacity === 1 ? 0.25 : 1; // TODO: fix unwanted animations
+        let currentOpacity = opacity === 1 ? 0.3 : 1; // TODO: fix unwanted animations
         let value = { x: currentOpacity };
         opacityTween = new Tween(value)
             .to({ x: opacity }, 500)
@@ -443,8 +509,10 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
 
                 this.MYLINQ_GROUP.children[0].material[0].transparent = true;
                 this.MYLINQ_GROUP.children[0].material[1].transparent = true;
+                this.MYLINQ_GROUP.children[0].material[2].transparent = true;
                 this.MYLINQ_GROUP.children[0].material[0].opacity = Object.values({x})[0];
                 this.MYLINQ_GROUP.children[0].material[1].opacity = Object.values({x})[0];
+                this.MYLINQ_GROUP.children[0].material[2].opacity = Object.values({x})[0];
             });
         opacityTween.start();
 
@@ -468,18 +536,6 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
                 });
             opacityTween.start();
         }*/
-
-        /*this.LINQ_GROUP.children[0].material[0].transparent = true;
-        this.MYLINQ_GROUP.children[1].material[1].transparent = true;
-        this.LINQ_GROUP.children[0].material[0].opacity = opacity;
-        this.MYLINQ_GROUP.children[1].material[1].opacity = opacity;*/
-
-        /*object.children[0].material.transparent = true;
-        object.children[0].material.opacity = 0.25;*/
-        /*for (let i = 0; i < 7; i++) {
-            loadedObject.children[i].material.transparent = true;
-            loadedObject.children[i].material.opacity = 0.25;
-        }*/
     };
 
     setColor = (object, color) => {
@@ -498,10 +554,10 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
 
     getColor = (object) => {
         if (object.material instanceof Array) {
-            console.log('Array');
+            // console.log('Array');
             return object.material[0].color.getHex();
         } else {
-            console.log('No array');
+            // console.log('No array');
             return object.material.color.getHex();
         }
     };
@@ -509,11 +565,6 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
     render() {
         // const { classes } = this.props;
         // const { sustainabilityStatus } = this.props;
-
-        /*if (this.canvas) {
-            this.resizeCanvas();
-            // this.updateAspectRatio(sustainabilityStatus.fullscreen);
-        }*/
         // this.resizeCanvas(sustainabilityStatus.fullscreen);
 
         return ( // TODO: put styles in classes?

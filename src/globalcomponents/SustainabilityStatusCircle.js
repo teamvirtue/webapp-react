@@ -68,6 +68,8 @@ class SustainabilityStatusCircle extends Component {
 	handleClose = () => {
         this.props.updateFullscreenStatus(false);
 
+        // this.child.resizeCanvas();
+
 		// this.setState({ fullscreen: false });
 	};
 
@@ -83,7 +85,7 @@ class SustainabilityStatusCircle extends Component {
             <div className={ classes.root }>
                 <div className={'sustainabilityStatusCircleContainer ' + circleColorClass} onClick={ this.handleOpen }>
                     <div className={ 'sustainabilityStatusCircle' }>
-                        <SceneContainer />
+                        <SceneContainer setClick={ click => this.clickChild = click } />
                     </div>
 					{ !sustainabilityStatus.fullscreen &&
 						<svg className={ classes.circleBorder } version='1.1' id='L1' xmlns='http://www.w3.org/2000/svg' x='0px' y='0px' viewBox='0 0 100 100'>
