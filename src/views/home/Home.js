@@ -2,34 +2,28 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withTheme } from '@material-ui/core/styles';
 import { withStyles } from '@material-ui/core/styles';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
 
 const styles = theme => ({
     root: {
 		position: 'relative',
         transition: 'all 1s ease-in-out',
     },
-	subNavBar: {
-		backgroundColor: 'transparent',
+	subNavBarContainerTab: {
+		color: 'white',
+		textAlign: 'center',
+		lineHeight: '24px',
+		transition: 'font-size 100ms',
+		borderBottom: '3px solid transparent',
+		padding: '10px 0',
+		'&:hover': {
+			cursor: 'pointer',
+		}
 	},
-	homeBoxContainer: {
-		width: '33%',
-		display: 'inline-block',
-	},
-	homeBoxLeft: {
-	},
-	homeBoxMiddle: {
-	},
-	homeBoxRight: {
-	},
-	homeBox: {
-		padding: 10,
-		backgroundColor: '#db5020',
-		width: 50,
-		height: 50,
-		borderRadius: '50%',
-		margin: 'auto',
+	subNavBarContainerTabSelected: {
+		color: 'white',
+		fontWeight: 'bold',
+		fontSize: '3.5vw',
+		borderColor: '#f3f3f3',
 	},
     title: {
         marginBottom: 16,
@@ -60,44 +54,46 @@ class Home extends Component {
 		const tab = this.state.tab;
 
         return (
-            <div className={ classes.root }> {/*TODO: reduce number of nameless divs*/}
-				<div className={ 'subNavBarContainer' }>
-					<Tabs
-					  value={ tab }
-					  onChange={ this.setActiveTab }
-					  indicatorColor='primary'
-					  textColor='primary'
-					  fullWidth
-					  classes={{ root: classes.subNavBar }}
-					>
-						<Tab label='My LINQ' value='mylinq' />
-						<Tab label='LINQ' value='linq' />
-						<Tab label='District' value='district' />
-					</Tabs>
+            <div className={ classes.root }>
+				<div className='subNavBarContainer row'>
+					<div className='col-4'>
+						<div className={ classes.subNavBarContainerTab + ' ' + ( tab === 'linq' ? classes.subNavBarContainerTabSelected : '' ) } onClick={ this.setActiveTab('linq') }>
+							LINQ
+						</div>
+					</div>
+					<div className='col-4'>
+						<div className={ classes.subNavBarContainerTab + ' ' + ( tab === 'mylinq' ? classes.subNavBarContainerTabSelected : '' )} onClick={ this.setActiveTab('mylinq') }>
+							My LINQ
+						</div>
+					</div>
+					<div className='col-4'>
+						<div className={ classes.subNavBarContainerTab + ' ' + ( tab === 'district' ? classes.subNavBarContainerTabSelected : '' )} onClick={ this.setActiveTab('district') }>
+							District
+						</div>
+					</div>
 				</div>
 
-				<div className='homeBoxContainer'>
-					{ tab === 'mylinq' &&
-						<div>
-                            <div className={ classes.homeBoxContainer + ' ' + classes.homeBoxLeft }>
-                                <div className={ classes.homeBox }> </div>
-                            </div>
-                            <div className={ classes.homeBoxContainer + ' ' + classes.homeBoxMiddle }>
-                                <div className={ classes.homeBox }> </div>
-                            </div>
-                            <div className={ classes.homeBoxContainer + ' ' + classes.homeBoxRight }>
-                                <div className={ classes.homeBox }> </div>
-                            </div>
-                        </div>
-					}
+				<div>
 					{ tab === 'linq' &&
-                        <div className='homebox'>
+                        <div className={ 'row' }>
 							<h1>{ temperature.outside.celsius }°</h1>
 							<p>{ temperature.outside.description }</p>
 						</div>
 					}
+					{ tab === 'mylinq' &&
+						<div className={ 'row' }>
+							<div className='col-6 homeInfoBox'>
+								<h1>{ temperature.outside.celsius }°</h1>
+								<p>temperature</p>
+							</div>
+							<div className='col-6 homeInfoBox'>
+								<h1>{ temperature.outside.celsius }°</h1>
+								<p>temperature</p>
+							</div>
+						</div>
+					}
 					{ tab === 'district' &&
-                        <div className='homebox'>
+                        <div className={ 'row' }>
 							News:
 							Powered by News API
 							{ Object.keys(localNewsHeadlines.byId).map((id) => {

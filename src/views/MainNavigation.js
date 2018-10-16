@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import BottomNavigation  from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction  from '@material-ui/core/BottomNavigationAction';
+import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -21,12 +22,16 @@ import { SustainabilityStatusCircleContainer } from '../containers/Sustainabilit
 import { NotificationsDialogContainer } from '../containers/NotificationsDialogContainer';
 import '../index.css';
 import logo from '../assets/linq_logo_white.png';
-//import dubaiSkyline from '../assets/dubai-skyline.svg';
+import linqBg from '../assets/linq_top_down_view.jpg';
 
 const styles = theme => ({
     root: {
         position: 'relative',
     },
+	bg: {
+		backgroundImage: 'url("'+linqBg+'")',
+		backgroundSize: 'cover',
+	},
 	logo: {
 		position: 'absolute',
 		left: 0,
@@ -90,6 +95,13 @@ const styles = theme => ({
         bottom: 'auto',
         minWidth: 275,
     },
+	dubaiSkyline: {
+		position: 'absolute',
+		pointerEvents: 'none',
+		bottom: 0,
+		left: '-15px',
+		right: '-15px',
+	},
 });
 
 
@@ -117,27 +129,6 @@ class MainNavigation extends Component {
 			this.props.updateSustainabilityStatus('mylinq');
 		}
     };
-	
-	getGreeting(){
-		const hour = new Date().getHours();
-
-		if (hour >= 0 && hour < 6) {
-			this.setState({ greeting: 'night' })
-		} else if (hour >= 6 && hour < 12) {
-			this.setState({ greeting: 'morning' })
-		} else if (hour >= 12 && hour < 17) {
-			this.setState({ greeting: 'afternoon' })
-		} else if (hour >= 17 && hour < 24) {
-			this.setState({ greeting: 'evening' })
-		}
-	};
-
-	componentDidMount() {
-		this.getGreeting();
-		setInterval(() => {
-			this.getGreeting()
-		}, 600000);//every 10 minutes
-	};
 
     render() { /*TODO: remove inline styles*/
         const { classes, settings, sustainabilityStatus } = this.props;
@@ -174,14 +165,11 @@ class MainNavigation extends Component {
                     </div>
                 </div>
 
-				{ value === 'home' && !sustainabilityStatus.fullscreen &&
-                    <h2 className={ classes.homeHeaderTitle }>Good { this.state.greeting }, { settings.accounts.byId[settings.accounts.currentUser].name }!</h2>
-				}
-
+				<img className={ classes.logo } src={ logo } width='80' alt='LINQ logo' onClick={ () => this.handleClick('home') } />
 				<NotificationsDialogContainer />
 				
 				<div className={ 'wrapper ' + (sustainabilityStatus.fullscreen ? 'fullscreen ' : '') + value }> { /*  + ' ' + (value === 'home' && 'blabla') */ }
-					<div className={ 'row' } style={{ position: 'relative' }}>
+					<div className={ 'row ' + (value === 'home' ? classes.bg : '') } style={{ position: 'relative' }}>
 						<div className={ 'col-lg-5 headerBg' }>
 							<SustainabilityStatusCircleContainer />
 						</div>
@@ -224,6 +212,8 @@ class MainNavigation extends Component {
                         </BottomNavigation>
                     </div>
                 }
+				
+				{ /*<img className={ classes.dubaiSkyline } src={ dubaiSkyline } />*/ }
             </div>
         );
     }

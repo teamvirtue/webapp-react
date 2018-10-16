@@ -11,7 +11,7 @@ import { SceneContainer } from '../containers/SceneContainer';
 
 const styles = theme => ({
 	root: {
-		// backgroundColor: 'blue',
+		overflow: 'hidden',
 	},
     backButton: {
         position: 'absolute',

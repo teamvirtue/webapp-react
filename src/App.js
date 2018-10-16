@@ -71,15 +71,16 @@ defaults.global.elements.point.hitRadius = 15;
 class App extends Component {
 	
 	componentDidMount() {
-		this.intervalId = setInterval(() => this.loadData(), 15 * 60 * 1000);// Call API every 15 minutes
-		this.loadData(); // also load one immediately
+		this.intervalId = setInterval(() => this.loadPublicData(), 15 * 60 * 1000);// Call Public API's every 15 minutes
+		this.loadPublicData();// also load one immediately
+		this.props.getApiToken();
 	}
 
 	componentWillUnmount() {
 		clearInterval(this.intervalId);
 	}
 
-	loadData() {
+	loadPublicData() {
 		/* 
 		 * OPEN WEATHER MAP
 		 *

@@ -1,6 +1,6 @@
 const temperature = (state = {
 	outside: {
-		celsius: 0,
+		celsius: 30,
 		description: '',
 	}
 }, action) => {
