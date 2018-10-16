@@ -34,6 +34,12 @@ let tween = new Tween(coordinates)
 
 /* TODO: implement ambient occlusion using postprocessing library or baking it into the mesh in Blender https://blender.stackexchange.com/questions/13956/how-do-you-bake-ambient-occlusion-for-a-model*/
 class Scene extends Component { // code based on https://stackoverflow.com/questions/41248287/how-to-connect-threejs-to-react
+    constructor(props) {
+        super(props);
+        this.state = {
+            transitioning: false,
+        }
+    }
 
     componentDidMount() {
         window.addEventListener('resize', this.resizeCanvas);
@@ -195,7 +201,8 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         scene.add(lights[0]);
 
 
-        lights[1] = new THREE.HemisphereLight(0xffffbb, 0x080820, 1);
+        lights[1] = new THREE.HemisphereLight(0x97D6EA, 0x080820, 1);
+        // lights[1] = new THREE.HemisphereLight(0xffffbb, 0x080820, 1);
         lights[1].position.set(0, 100, -25);
         /*lights[1] = new THREE.DirectionalLight(0xffffff, 0.6, 1000);
         // lights[1].target = meshGround;
@@ -270,7 +277,25 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         this.canvas.removeEventListener('touchstart', this.onClick);
         this.canvas.removeEventListener('click', this.onClick);
 
+        // this.canvas.removeEventListener('transitionend', this.test);
+
         this.stop();
+    }
+
+    componentDidUpdate(previousProps, previousState) {
+        // only update if fullscreen state has changed
+        if (this.props.sustainabilityStatus.fullscreen !== previousProps.sustainabilityStatus.fullscreen) {
+            this.setState({ transitioning: true });
+
+            setTimeout(() => {
+                this.setState({ transitioning: false });
+
+                console.log('false');
+            }, 2000);
+
+            // this.resizeCanvas();
+            // this.renderer.setSize(this.canvas.clientWidth, this.canvas.clientHeight);
+        }
     }
 
     start = () => {
@@ -294,7 +319,6 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
             cameraTween.update();
         }
 
-        // TODO: animate lights based on time of day
         /*if (this.lights[1]) {
             alpha += 0.05;
 
@@ -336,10 +360,25 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
     renderScene() {
         this.renderer.render(this.scene, this.camera);
 
-        // console.log(this.canvas.clientWidth);
+        if (this.state.transitioning) {
+            this.resizeCanvas();
+            console.log(this.canvas.clientWidth);
+            // this.renderer.setSize(this.canvas.clientWidth, this.canvas.clientHeight);
+        }
 
-        this.camera.aspect = this.canvas.clientWidth / this.canvas.clientHeight;
-        this.camera.updateProjectionMatrix(); // TODO: only check when state is updated + then also update the size of renderer with this.renderer.setSize(window.innerWidth, window.innerHeight);
+        // console.log(this.canvas.clientWidth);
+        // this.renderer.setSize(this.canvas.clientWidth, this.canvas.clientHeight);
+
+        /*if (this.props.sustainabilityStatus.fullscreen) {
+            console.log('fullscreen');
+            this.renderer.setSize(window.innerWidth, window.innerHeight);
+        } else {
+            console.log('not fullscreen');
+            this.renderer.setSize(this.canvas.clientWidth, this.canvas.clientHeight);
+        }*/
+
+        // this.camera.aspect = this.canvas.clientWidth / this.canvas.clientHeight;
+        // this.camera.updateProjectionMatrix(); // TODO: only check when state is updated + then also update the size of renderer with this.renderer.setSize(window.innerWidth, window.innerHeight);
     }
 
     resizeCanvas = () => {
@@ -347,11 +386,6 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         this.canvas.style.height= '100%';
 
         // console.log(this.canvas.clientHeight, this.canvas.clientWidth);
-        /*if (this.props.sustainabilityStatus.fullscreen) {
-            this.renderer.setSize(window.innerWidth, window.innerHeight);
-        } else {
-            this.renderer.setSize(this.canvas.clientWidth, this.canvas.clientHeight);
-        }*/
 
         this.renderer.setSize(this.canvas.clientWidth, this.canvas.clientHeight);
 
@@ -520,10 +554,10 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
 
     getColor = (object) => {
         if (object.material instanceof Array) {
-            console.log('Array');
+            // console.log('Array');
             return object.material[0].color.getHex();
         } else {
-            console.log('No array');
+            // console.log('No array');
             return object.material.color.getHex();
         }
     };
@@ -531,10 +565,6 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
     render() {
         // const { classes } = this.props;
         // const { sustainabilityStatus } = this.props;
-
-        if (this.canvas) {
-            console.log(this.canvas.width);
-        }
         // this.resizeCanvas(sustainabilityStatus.fullscreen);
 
         return ( // TODO: put styles in classes?
