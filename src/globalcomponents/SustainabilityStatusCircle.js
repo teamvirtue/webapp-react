@@ -29,11 +29,11 @@ const styles = theme => ({
         top: '0',
         fill: 'none',
 		borderRadius: '47%',
-        strokeWidth: '0',
-        strokeDasharray: '12',
+        strokeWidth: '6',
+        strokeDasharray: '0',
         strokeDashoffset: '0',
         strokeLinecap: 'square',
-        animation: 'startProgress 1500ms ease-out, continueProgress 15s 1500ms linear infinite',
+        animation: 'circleProgress 12s linear infinite',
         animationFillMode: 'forwards',
         pointerEvents: 'none',
         transition: 'all 1s',
@@ -49,10 +49,6 @@ const styles = theme => ({
         transform: 'scale(2)',
     },*/
 });
-
-/*function Transition(props) {
-	return <Grow { ...props } />;
-}*/
 
 class SustainabilityStatusCircle extends Component {
     /*constructor(props) {

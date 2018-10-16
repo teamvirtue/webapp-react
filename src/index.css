@@ -5,7 +5,6 @@ html {
 }
 
 body {
-	position: fixed;
     height: 100%;
     overflow: hidden;
 	overscroll-behavior-y: none;
@@ -14,11 +13,15 @@ body {
     background-color:#f9f9f9 !important;
 }
 
-#root{  
+#app{  
 	width: 100vw;
 	height: 100vh;
 	overflow-y: auto;
-	-webkit-overflow-scrolling: touch;
+	text-align: center;
+}
+
+#app.fullscreen{
+	overflow-y:hidden;
 }
 
 /* width */
@@ -45,9 +48,6 @@ body {
 ::selection {
     color: white;
     background: #f15b27; }
-
-.App {
-    text-align: center; }
 
 .pageContainer {
     width: 100%; }
@@ -162,7 +162,7 @@ body {
 	left: 32%;
     top: 50%;
     margin: -11vw 0 0 -11vw;
-    transition: all 200ms;
+    transition: all 300ms ease;
 }
 
 .sustainabilityStatusCircleContainer:hover {
@@ -194,18 +194,18 @@ body {
 	width: 100%;
 	overflow: hidden;
 	border-radius: 50%;
-	transition: all 200ms;
+	transition: all 300ms ease;
 	border:5px solid #f77638;
 }
 
 /*** FULLSCREEN MODEL ***/
-.wrapper.fullscreen .headerBg{
+.fullscreen .wrapper .headerBg{
 	overflow:hidden;
 	padding:0;
 	height:100vh;
 }
 
-.wrapper.fullscreen .sustainabilityStatusCircleContainer{
+.fullscreen .wrapper .sustainabilityStatusCircleContainer{
 	width:100%;
 	height:100vh;
 	margin:0;
@@ -214,7 +214,7 @@ body {
 	top:0;
 }
 
-.wrapper.fullscreen .sustainabilityStatusCircleContainer .sustainabilityStatusCircle{
+.fullscreen .wrapper .sustainabilityStatusCircleContainer .sustainabilityStatusCircle{
 	border-radius: 0;
 	border:0;
 }
@@ -233,7 +233,7 @@ body {
 }
 
 .content{
-    margin-bottom: 65px;
+    margin-bottom: 95px;
 }
 
 .notificationsIcon {
@@ -349,24 +349,11 @@ body {
 }
 
 /* Animations */
-@keyframes startProgress {
-    50% {
-        stroke-width:7px;
-    }
-    100% {
-        transform:rotate(380deg);
-        /*stroke-dasharray:2;
-        stroke-width:3px;*/
-        stroke-dasharray:0;
-        stroke-width:6px;
-    }
-}
-
-@keyframes continueProgress {
+@keyframes circleProgress {
     0%{
-        transform:rotate(20deg);
+        transform:rotate(0deg);
     }
     100% {
-        transform:rotate(380deg);
+        transform:rotate(360deg);
     }
 }

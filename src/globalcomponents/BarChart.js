@@ -15,7 +15,6 @@ let dataYears = [330, 340, 325, 321, 318, 311, 301, 290,];
 let initialData = [81, 80, 79, 65, 59, 45, 40, 20, 15,]; // TODO: find way to insert initial array more efficient
 
 const labels = ['Washer dryer', 'Dishwasher', 'Fridge', 'Lights', 'Oven', 'Car', 'Media system', 'Laptop'];
-// const labels = ['Washer dryer', 'Dishwasher', 'Oven', 'Fridge', 'Music system', 'TV', 'Laptop', 'Lights', 'Clock', 'Car'];
 
 const styles = {
     root: {

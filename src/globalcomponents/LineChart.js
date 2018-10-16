@@ -5,16 +5,15 @@ import RadioGroup  from '@material-ui/core/RadioGroup';
 import FormControlLabel  from '@material-ui/core/FormControlLabel';
 import { Line } from 'react-chartjs-2';
 
-let dataWeek = [10, 18, 20, 16, 105, 56,];
-let dataMonths = [100, 181, 200, 106, 105, 95, 56, 604, 150, 234, 11,];
-let dataYears = [1000, 1810, 2000, 1060,];
 
-let initialData = [10, 18, 20, 16, 105, 56, 78]; // TODO: find way to insert initial array more efficient
+let dataWeek = [0, 0, 0, 0, 0, 0, 0];
+let dataMonths = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+let dataYears = [0, 0, 0, 0, 0];
 
 const WEEK = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-// const WEEK = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 const MONTHS = ['Jan', 'Feb', 'Mrt', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 const YEARS = ['2014', '2015', '2016', '2017', '2018'];
+
 
 const styles = {
     root: {
@@ -45,7 +44,6 @@ class LineChart extends Component{
             value: 'week',
             type: props.type,
         };
-        // const { theme } = props;
     }
 
     handleChange = (event, value) => {
@@ -58,9 +56,6 @@ class LineChart extends Component{
             case 'week':
                 selectedLabel = WEEK;
                 newData.push(...dataWeek);
-                /*for (let x = 0; x < selectedLabel.length; x++) {
-                    newData.push(dataWeek[x]);
-                }*/
                 break;
             case 'month':
                 selectedLabel = MONTHS;
@@ -93,7 +88,7 @@ class LineChart extends Component{
                     {
                         label: 'Water Graph',
                         fill: true,
-                        data: initialData,
+                        data: dataWeek,
                         backgroundColor: '#AFE4F5',
                         borderColor: '#0EA4D8', // TODO: get color from theme
                     }
@@ -117,7 +112,7 @@ class LineChart extends Component{
                         pointHoverBorderWidth: 2,
                         pointRadius: 1,
                         pointHitRadius: 10,
-                        data: initialData,
+                        data: dataWeek,
                         borderColor: '#f15b27',
                     }
                 ]
@@ -127,50 +122,8 @@ class LineChart extends Component{
     };
 
     componentDidMount() { // TODO: replace with API call
-        this.timer = setInterval(
-            (value) => this.retrieve(this.state.value),
-            30000
-            //3000
-        );
+
     };
-
-    componentWillUnmount() {
-        clearInterval(this.timer);
-    }
-
-    retrieve(value) {
-        const datasetsCopy = this.state.datasets.slice(0);
-        let dataCopy = datasetsCopy[0].data.slice(0);
-        let dataPoint = Math.floor(Math.random() * 100);
-
-        if (dataCopy.length < this.state.labels.length) {
-            dataCopy[dataCopy.length] = dataPoint;
-        } else {
-            dataCopy = [dataPoint];
-        }
-
-        switch (value) {
-            case 'week':
-                dataWeek = dataCopy;
-                break;
-            case 'month':
-                dataMonths = dataCopy;
-                break;
-            case 'year':
-                dataYears = dataCopy;
-                break;
-            default:
-                dataWeek = dataCopy;
-                console.log('default');
-        }
-
-        datasetsCopy[0].data = dataCopy;
-
-        this.setState({
-            //...initialState,
-            datasets: datasetsCopy
-        });
-    }
 
     render(){
         const { classes } = this.props;

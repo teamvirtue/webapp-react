@@ -127,8 +127,10 @@ class App extends Component {
 
 
     render() {
+		const { sustainabilityStatus } = this.props;
+		
         return (
-            <div className='App'>
+            <div id='app' className={ (sustainabilityStatus.fullscreen ? 'fullscreen' : '') }>
 				<div className='container-fluid'>
 					<div className='row'>
 						<div className='col-12'>
