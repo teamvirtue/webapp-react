@@ -176,13 +176,14 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
 
         let meshGround = new THREE.Mesh(
             new THREE.PlaneBufferGeometry(500, 500, 1, 1),
-            new THREE.MeshPhongMaterial({ color: 0xf15b27, shininess: 0 })
+            new THREE.MeshPhongMaterial({ color: 0xffffff, shininess: 0 })
             // new THREE.MeshStandardMaterial({ color: 0xffffff })
             // new THREE.MeshLambertMaterial({ color: 0xf15b27 })
         );
         meshGround.name = 'Ground';
         meshGround.position.y = -35;
         meshGround.rotation.x = -Math.PI / 2; // Rotate ground 90 degrees
+        meshGround.castShadow = true;
         meshGround.receiveShadow = true;
         DISTRICT_GROUP.add(meshGround);
         meshGround.userData.parent = DISTRICT_GROUP;
@@ -193,7 +194,7 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         scene.add(lights[0]);
 
         lights[1] = new THREE.DirectionalLight(0xffffff, 0.6, 1000);
-        lights[1].target = meshGround;
+        // lights[1].target = meshGround;
         lights[1].position.set(0, 150, -25);
         // lights[1].position.set(50, 100, 150);
         lights[1].castShadow = true;
@@ -201,17 +202,16 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         // shadow properties for the light
         lights[1].shadow.mapSize.width = 2048; //512 = default
         lights[1].shadow.mapSize.height = 2048;
-        /*lights[1].shadow.camera.near = 0.5;    // default
-        lights[1].shadow.camera.far = 500;     // default*/
-        lights[1].shadow.camera = new THREE.OrthographicCamera(-100, 100, 100, -100, 0.5, 1000);
+        // lights[1].shadow.camera = new THREE.OrthographicCamera(-100, 100, 100, -100, 0.5, 1000); // TODO: adjust values
+        lights[1].shadow.camera = new THREE.OrthographicCamera(width / - 2, width / 2, height / 2, height / - 2, 1, 1000);
         // lights[1].shadowCameraLeft;
         scene.add(lights[1]);
 
         /* interior light(s) */
-        lights[2] = new THREE.PointLight(0xfffd99, 0.35, 0, 2);
+        lights[2] = new THREE.PointLight(0xfffd99, 0.75, 0, 2);
         // lights[2].shadow.camera.fov = 30;
-        lights[2].position.set(7, 4, -11);
-        scene.add(lights[2]);
+        lights[2].position.set(7, 4, -2);
+        // scene.add(lights[2]);
 
         /* for debugging */
         let controls = new OrbitControls(camera, renderer.domElement);
@@ -236,6 +236,9 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
             lightHelpers[i].userData.parent = DISTRICT_GROUP;
             console.log(lightHelpers);
         }*/
+
+        /*let cameraHelper = new THREE.CameraHelper(camera);
+        scene.add(cameraHelper);*/
 
         let raycaster = new THREE.Raycaster();
         let mouse = new THREE.Vector2();
@@ -384,7 +387,7 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
 
                 // set a new color for closest object
                 if (selectedObject.userData.parent.name === 'mylinq') {
-                    this.setTransparency(selectedObject, 0.25);
+                    this.setTransparency(selectedObject, 0.3);
                     this.animateCamera(this.camera, { x: 0, y: 75, z: 10 });
                 } else {
                     this.setTransparency(selectedObject, 1);
@@ -431,7 +434,7 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
 
     setTransparency = (object, opacity) => {
         // let coordinates = { x: 0, y: 0 };
-        let currentOpacity = opacity === 1 ? 0.25 : 1; // TODO: fix unwanted animations
+        let currentOpacity = opacity === 1 ? 0.3 : 1; // TODO: fix unwanted animations
         let value = { x: currentOpacity };
         opacityTween = new Tween(value)
             .to({ x: opacity }, 500)
@@ -443,8 +446,10 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
 
                 this.MYLINQ_GROUP.children[0].material[0].transparent = true;
                 this.MYLINQ_GROUP.children[0].material[1].transparent = true;
+                this.MYLINQ_GROUP.children[0].material[2].transparent = true;
                 this.MYLINQ_GROUP.children[0].material[0].opacity = Object.values({x})[0];
                 this.MYLINQ_GROUP.children[0].material[1].opacity = Object.values({x})[0];
+                this.MYLINQ_GROUP.children[0].material[2].opacity = Object.values({x})[0];
             });
         opacityTween.start();
 
