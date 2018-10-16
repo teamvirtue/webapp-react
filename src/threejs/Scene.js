@@ -36,7 +36,7 @@ let tween = new Tween(coordinates)
 class Scene extends Component { // code based on https://stackoverflow.com/questions/41248287/how-to-connect-threejs-to-react
 
     componentDidMount() {
-        this.canvas.addEventListener('resize', this.resizeCanvas);
+        window.addEventListener('resize', this.resizeCanvas);
         this.canvas.addEventListener('touchstart', this.onClick);
         this.canvas.addEventListener('click', this.onClick);
         // this.canvas.addEventListener('click', this.onClick, false);
@@ -45,16 +45,16 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         let width = this.canvas.clientWidth;
         let height = this.canvas.clientHeight;
 
-        let fieldOfView = 45,
+        /*let fieldOfView = 45,
             aspectRatio = width / height,
             near = 1,
-            far = 1000;
+            far = 1000;*/
 
         const renderer = new THREE.WebGLRenderer({ canvas: this.canvas, antialias: true, alpha: true });
         const DPR = window.devicePixelRatio ? window.devicePixelRatio : 1;
         renderer.setPixelRatio(DPR);
         renderer.setSize(width, height);
-        renderer.shadowMap.enabled = true; // TODO: fix shadows + light from inside LINQ
+        renderer.shadowMap.enabled = true; // TODO: fix light from inside LINQ
         renderer.shadowMap.type = THREE.PCFSoftShadowMap; // softer shadows
         // renderer.shadowMap.type = THREE.BasicShadowMap;
         renderer.shadowMap.enabled = true;
@@ -65,20 +65,21 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
 
         const scene = new THREE.Scene();
         scene.background = new THREE.Color(0x97D6EA);
-        /*const camera = new THREE.OrthographicCamera(
+        const camera = new THREE.OrthographicCamera(
             width / -2,
             width / 2,
             height / 2,
             height / -2,
             1,
             1000
-        );*/
-        const camera = new THREE.PerspectiveCamera(
+        );
+
+        /*const camera = new THREE.PerspectiveCamera(
             fieldOfView,
             aspectRatio,
             near,
             far
-        );
+        );*/
         camera.position.set(100, 75, 100);
         camera.lookAt(0, 0, 0);
 
@@ -127,7 +128,7 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
                     object.traverse((node) => {
                         if (node instanceof THREE.Mesh) {
                             // child.geometry.computeFaceNormals();
-                            // node.material = new THREE.MeshLambertMaterial({ color: 0xf15b27, flatShading: true, side: THREE.DoubleSide });
+                            // node.material = new THREE.MeshLambertMaterial({ color: 0xf15b27, flatShading: true });
                             // node.material.side = THREE.DoubleSide;
                             node.material.flatShading = true; // TODO: make group for shading?
                             node.material.shininess = 0;
@@ -175,7 +176,7 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         });
 
         let meshGround = new THREE.Mesh(
-            new THREE.PlaneBufferGeometry(500, 500, 1, 1),
+            new THREE.PlaneBufferGeometry(400, 400, 1, 1),
             new THREE.MeshPhongMaterial({ color: 0xffffff, shininess: 0 })
             // new THREE.MeshStandardMaterial({ color: 0xffffff })
             // new THREE.MeshLambertMaterial({ color: 0xf15b27 })
@@ -190,20 +191,23 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         scene.add(meshGround);
 
         let lights = [];
-        lights[0] = new THREE.AmbientLight(0x97D6EA, 0.30);
+        lights[0] = new THREE.AmbientLight(0x97D6EA, 0.6);
         scene.add(lights[0]);
 
-        lights[1] = new THREE.DirectionalLight(0xffffff, 0.6, 1000);
+
+        lights[1] = new THREE.HemisphereLight(0xffffbb, 0x080820, 1);
+        lights[1].position.set(0, 100, -25);
+        /*lights[1] = new THREE.DirectionalLight(0xffffff, 0.6, 1000);
         // lights[1].target = meshGround;
         lights[1].position.set(0, 150, -25);
         // lights[1].position.set(50, 100, 150);
         lights[1].castShadow = true;
 
         // shadow properties for the light
-        lights[1].shadow.mapSize.width = 2048; //512 = default
-        lights[1].shadow.mapSize.height = 2048;
+        lights[1].shadow.mapSize.width = 2 * 2048; //512 = default
+        lights[1].shadow.mapSize.height = 2 * 2048;
         // lights[1].shadow.camera = new THREE.OrthographicCamera(-100, 100, 100, -100, 0.5, 1000); // TODO: adjust values
-        lights[1].shadow.camera = new THREE.OrthographicCamera(width / - 2, width / 2, height / 2, height / - 2, 1, 1000);
+        lights[1].shadow.camera = new THREE.OrthographicCamera(width / - 2, width / 2, height / 2, height / - 2, 1, 1000);*/
         // lights[1].shadowCameraLeft;
         scene.add(lights[1]);
 
@@ -226,11 +230,12 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         scene.add(gridHelper);*/
 
         let lightHelpers = [];
-        lightHelpers[0] = new THREE.DirectionalLightHelper(lights[1]);
+        lightHelpers[0] = new THREE.HemisphereLightHelper(lights[1]);
+        // lightHelpers[0] = new THREE.DirectionalLightHelper(lights[1]);
         lightHelpers[1] = new THREE.PointLightHelper(lights[2], 0.5);
         // lightHelpers[2] = new THREE.SpotLightHelper(lights[2]);
         scene.add(lightHelpers[0]);
-        scene.add(lightHelpers[1]);
+        // scene.add(lightHelpers[1]);
         /*axesHelper.userData.parent = DISTRICT_GROUP;
         for (let i in lightHelpers) {
             lightHelpers[i].userData.parent = DISTRICT_GROUP;
@@ -244,6 +249,10 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         let mouse = new THREE.Vector2();
 
         this.scene = scene;
+
+        this.width = width;
+        this.height = height;
+
         this.camera = camera;
         this.renderer = renderer;
         this.lights = lights;
@@ -286,11 +295,11 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         }
 
         // TODO: animate lights based on time of day
-        if (this.lights[1]) {
+        /*if (this.lights[1]) {
             alpha += 0.05;
 
             this.lights[1].position.x = 200 * Math.sin(THREE.Math.degToRad(alpha));
-        }
+        }*/
 
         /*if (this.loadedObject) {
             alpha += 0.2;
@@ -327,6 +336,8 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
     renderScene() {
         this.renderer.render(this.scene, this.camera);
 
+        // console.log(this.canvas.clientWidth);
+
         this.camera.aspect = this.canvas.clientWidth / this.canvas.clientHeight;
         this.camera.updateProjectionMatrix(); // TODO: only check when state is updated + then also update the size of renderer with this.renderer.setSize(window.innerWidth, window.innerHeight);
     }
@@ -335,8 +346,28 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         this.canvas.style.width = '100%';
         this.canvas.style.height= '100%';
 
+        // console.log(this.canvas.clientHeight, this.canvas.clientWidth);
+        /*if (this.props.sustainabilityStatus.fullscreen) {
+            this.renderer.setSize(window.innerWidth, window.innerHeight);
+        } else {
+            this.renderer.setSize(this.canvas.clientWidth, this.canvas.clientHeight);
+        }*/
+
+        this.renderer.setSize(this.canvas.clientWidth, this.canvas.clientHeight);
+
         /* for debugging, sharpens 3D view on fullscreen */
-        this.renderer.setSize(window.innerWidth, window.innerHeight);
+        // this.renderer.setSize(window.innerWidth, window.innerHeight);
+
+        let cameraFactor = (this.width / this.height) * 10;
+
+        this.camera.left = this.canvas.clientWidth / -cameraFactor;
+        this.camera.right = this.canvas.clientWidth / cameraFactor;
+        this.camera.top = this.canvas.clientHeight / cameraFactor;
+        this.camera.bottom = this.canvas.clientHeight / -cameraFactor;
+        this.camera.updateProjectionMatrix();
+
+        /*let width = this.canvas.clientWidth;
+        let height = this.canvas.clientHeight;*/
 
         /*if (this.props.sustainabilityStatus.fullscreen) {
             this.renderer.setSize(window.innerWidth, window.innerHeight);
@@ -347,8 +378,6 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
 
     onClick = (event) => {
         event.preventDefault();
-
-        // console.log(event);
 
         if (event.type === 'click') {
             // calculate mouse position in normalized device coordinates
@@ -400,11 +429,11 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
             }
         } else {
             // restore previous intersection object (if it exists) to its original color
-            if (selectedObject) {
-                /*this.setTransparency(selectedObject, 1);
-                this.animateCamera(this.camera, { x: 0, y: 75, z: 10 });*/
+            /*if (selectedObject) {
+                this.setTransparency(selectedObject, 1);
+                this.animateCamera(this.camera, { x: 0, y: 75, z: 10 });
                 // this.setColor(selectedObject, selectedObject.currentHex);
-            }
+            }*/
             selectedObject = null;
         }
     };
@@ -473,18 +502,6 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
                 });
             opacityTween.start();
         }*/
-
-        /*this.LINQ_GROUP.children[0].material[0].transparent = true;
-        this.MYLINQ_GROUP.children[1].material[1].transparent = true;
-        this.LINQ_GROUP.children[0].material[0].opacity = opacity;
-        this.MYLINQ_GROUP.children[1].material[1].opacity = opacity;*/
-
-        /*object.children[0].material.transparent = true;
-        object.children[0].material.opacity = 0.25;*/
-        /*for (let i = 0; i < 7; i++) {
-            loadedObject.children[i].material.transparent = true;
-            loadedObject.children[i].material.opacity = 0.25;
-        }*/
     };
 
     setColor = (object, color) => {
@@ -515,10 +532,9 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         // const { classes } = this.props;
         // const { sustainabilityStatus } = this.props;
 
-        /*if (this.canvas) {
-            this.resizeCanvas();
-            // this.updateAspectRatio(sustainabilityStatus.fullscreen);
-        }*/
+        if (this.canvas) {
+            console.log(this.canvas.width);
+        }
         // this.resizeCanvas(sustainabilityStatus.fullscreen);
 
         return ( // TODO: put styles in classes?
