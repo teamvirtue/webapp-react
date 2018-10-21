@@ -292,7 +292,7 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
                 this.setState({ transitioning: false });
 
                 console.log('false');
-            }, 2000);
+            }, 1000);
 
             // this.resizeCanvas();
             // this.renderer.setSize(this.canvas.clientWidth, this.canvas.clientHeight);
@@ -364,25 +364,11 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         if (this.state.transitioning) {
             this.resizeCanvas();
 
-            console.log(this.camera);
-
+            // console.log(this.camera);
             // console.log(this.canvas.clientWidth, this.canvas.clientHeight);
+
             // this.renderer.setSize(this.canvas.clientWidth, this.canvas.clientHeight);
         }
-
-        // console.log(this.canvas.clientWidth);
-        // this.renderer.setSize(this.canvas.clientWidth, this.canvas.clientHeight);
-
-        /*if (this.props.sustainabilityStatus.fullscreen) {
-            console.log('fullscreen');
-            this.renderer.setSize(window.innerWidth, window.innerHeight);
-        } else {
-            console.log('not fullscreen');
-            this.renderer.setSize(this.canvas.clientWidth, this.canvas.clientHeight);
-        }*/
-
-        // this.camera.aspect = this.canvas.clientWidth / this.canvas.clientHeight;
-        // this.camera.updateProjectionMatrix(); // TODO: only check when state is updated + then also update the size of renderer with this.renderer.setSize(window.innerWidth, window.innerHeight);
     }
 
     resizeCanvas = () => {
@@ -489,7 +475,7 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         let currentPosition = camera.position;
         let value = { x: currentPosition.x, y: currentPosition.y, z: currentPosition.z  };
         cameraTween = new Tween(value)
-            .to({ x: finalPosition.x, y: finalPosition.y, z: finalPosition.z }, 2500) //1200
+            .to({ x: finalPosition.x, y: finalPosition.y, z: finalPosition.z }, 1500) //1200
             .easing(Easing.Exponential.InOut)
             .on('update', ({ x, y, z }) => {
                 // console.log(`Position: ${ x }, ${ y }, ${ z }`);

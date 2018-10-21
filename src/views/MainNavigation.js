@@ -89,10 +89,10 @@ const styles = theme => ({
     },
     sustainabilityCard: {
         position: 'absolute',
-        top: 12,
+        top: 'auto',
         right: 0,
         left: 'auto',
-        bottom: 'auto',
+        bottom: 12,
         minWidth: 275,
 		zIndex: 15,
     },

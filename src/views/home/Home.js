@@ -36,22 +36,22 @@ const styles = theme => ({
 
 
 class Home extends Component {
-    constructor(props) {
+    /*constructor(props) {
         super(props);
         this.state = {
             tab: this.props.sustainabilityStatus.selected,
         };
-    }
+    }*/
 
 	setActiveTab = (tab) => (event) => { // TODO: what is newTab doing and why does it not work without?
         // event.preventDefault();
-		this.setState({ tab });
+		// this.setState({ tab });
 		this.props.updateSustainabilityStatus(tab);
 	};
 
     render() {
         const { classes, temperature, localNewsHeadlines } = this.props;
-		const tab = this.state.tab;
+		const tab = this.props.sustainabilityStatus.selected;
 
         return (
             <div className={ classes.root }>

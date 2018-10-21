@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import SustainabilityStatusCircle from '../globalcomponents/SustainabilityStatusCircle';
-import { updateFullscreenStatus } from '../actions';
+import { updateFullscreenStatus, updateSustainabilityStatus } from '../actions';
 
 const mapStateToProps = (state) => {
     // console.log(state);
@@ -12,6 +12,9 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = dispatch => ({
     updateFullscreenStatus: (fullscreen) => {
         dispatch(updateFullscreenStatus(fullscreen));
+    },
+    updateSustainabilityStatus: (selected) => {
+        dispatch(updateSustainabilityStatus(selected));
     }
 });
 
