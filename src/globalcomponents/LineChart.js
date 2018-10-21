@@ -6,13 +6,48 @@ import FormControlLabel  from '@material-ui/core/FormControlLabel';
 import { Line } from 'react-chartjs-2';
 
 
+let dataDay = [0, 0, 0, 0, 0, 0, 0];
 let dataWeek = [0, 0, 0, 0, 0, 0, 0];
 let dataMonths = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 let dataYears = [0, 0, 0, 0, 0];
 
+const DAY = ['00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00', '08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00'];
 const WEEK = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 const MONTHS = ['Jan', 'Feb', 'Mrt', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 const YEARS = ['2014', '2015', '2016', '2017', '2018'];
+
+const energyGraph = {
+	labels: DAY,
+	datasets: [{
+		label: 'Energy Usage',
+		fill: true,
+		backgroundColor: '#fce1d7',
+		lineTension: 0.15, //0.1
+		borderCapStyle: 'butt',
+		borderDash: [],
+		borderDashOffset: 0.0,
+		borderJoinStyle: 'miter',
+		borderWidth: 3,
+		pointBorderWidth: 1,
+		pointHoverRadius: 5,
+		pointHoverBorderWidth: 2,
+		pointRadius: 1,
+		pointHitRadius: 10,
+		data: dataDay,
+		borderColor: '#f15b27',
+	}]
+};
+
+const waterGraph = {
+	labels: DAY,
+	datasets: [{
+		label: 'Water Usage',
+		fill: true,
+		backgroundColor: '#AFE4F5',
+		data: dataDay,
+		borderColor: '#0EA4D8', // TODO: get color from theme
+	}]
+};
 
 
 const styles = {
@@ -29,7 +64,6 @@ const styles = {
         margin: 0,
     },
     water: {
-        // color: '#0EA4D8',
         '&$checked': {
             color: '#0EA4D8',
         },
@@ -37,12 +71,16 @@ const styles = {
     checked: {},
 };
 
+
+
+
 class LineChart extends Component{
     constructor(props){
         super(props);
         this.state = {
-            value: 'week',
+            value: 'day',
             type: props.type,
+			data: energyGraph,
         };
     }
 
@@ -53,6 +91,10 @@ class LineChart extends Component{
         let newData = [];
 
         switch(value) {
+            case 'day':
+                selectedLabel = DAY;
+                newData.push(...dataDay);
+                break;
             case 'week':
                 selectedLabel = WEEK;
                 newData.push(...dataWeek);
@@ -66,8 +108,8 @@ class LineChart extends Component{
                 newData.push(...dataYears);
                 break;
             default:
-                selectedLabel = WEEK;
-                newData.push(...dataWeek);
+                selectedLabel = DAY;
+                newData.push(...dataDay);
         }
 
         let newDataSet = { ...oldDataSet };
@@ -83,47 +125,29 @@ class LineChart extends Component{
     componentWillMount() {
         if (this.state.type === 'water') {
             this.setState({
-                labels: WEEK,
-                datasets: [
-                    {
-                        label: 'Water Graph',
-                        fill: true,
-                        data: dataWeek,
-                        backgroundColor: '#AFE4F5',
-                        borderColor: '#0EA4D8', // TODO: get color from theme
-                    }
-                ]
+				data: waterGraph
             });
         } else {
             this.setState({
-                labels: WEEK,
-                datasets: [
-                    {
-                        label: 'Difference Energy Graph',
-                        fill: false,
-                        lineTension: 0.15, //0.1
-                        borderCapStyle: 'butt',
-                        borderDash: [],
-                        borderDashOffset: 0.0,
-                        borderJoinStyle: 'miter',
-                        borderWidth: 3,
-                        pointBorderWidth: 1,
-                        pointHoverRadius: 5,
-                        pointHoverBorderWidth: 2,
-                        pointRadius: 1,
-                        pointHitRadius: 10,
-                        data: dataWeek,
-                        borderColor: '#f15b27',
-                    }
-                ]
+				data: energyGraph
             });
         }
-        // this.setState(initialState);
     };
 
-    componentDidMount() { // TODO: replace with API call
+    componentWillReceiveProps() {
+		var datasetsCopy = this.state.data.datasets.slice(0);
+		var dataCopy = datasetsCopy[0].data.slice(0);
+		dataCopy = this.props.data;
+		datasetsCopy[0].data = dataCopy;
 
+		var newData = Object.assign( {}, this.state.data, { datasets: datasetsCopy } );
+		this.setState({
+			data: newData
+		});
     };
+	
+	
+	
 
     render(){
         const { classes } = this.props;
@@ -138,6 +162,12 @@ class LineChart extends Component{
                     onChange={ this.handleChange }
                     row
                 >
+                    <FormControlLabel className={ classes.radioButton } value='day' control={
+                        <Radio color="primary" classes={{
+                            root: this.state.type === 'water' && classes.water,
+                            checked: this.state.type === 'water' && classes.checked,
+                        }}/>
+                    } label='Day'/>
                     <FormControlLabel className={ classes.radioButton } value='week' control={
                         <Radio color="primary" classes={{
                             root: this.state.type === 'water' && classes.water,
@@ -159,20 +189,20 @@ class LineChart extends Component{
                 </RadioGroup>
 
                 <Line
-                    data={ this.state } // TODO: chart is cut off sometimes (https://github.com/chartjs/Chart.js/issues/2872), fixed it with setting the padding for now (mobile)
+                    data={ this.state.data } // TODO: chart is cut off sometimes (https://github.com/chartjs/Chart.js/issues/2872), fixed it with setting the padding for now (mobile)
                     /*width={75}*/
                     /*height={ 175 }*/
                     options={{
                         tooltips: {
-                            enabled: false,
+                            enabled: true,
                             // mode: 'nearest'
                         },
                         layout: {
                             padding: {
-                                left: 30,
-                                right: 35,
-                                top: 15, //10
-                                bottom: 15 //10
+                                left: 0,
+                                right: 0,
+                                top: 10,
+                                bottom: 10
                             }
                         },
                         legend:{
@@ -205,7 +235,8 @@ class LineChart extends Component{
                                     //tickMarkLength: 0
                                 },
                                 ticks: {
-                                    display: false,
+                                    display: true,
+									beginAtZero:true,
                                     /*suggestedMin: 0,    // minimum will be 0, unless there is a lower value
                                     fontFamily: "'Roboto'",
                                     fontColor: 'gray',*/
@@ -228,7 +259,7 @@ class LineChart extends Component{
                                 backgroundColor: function(context) {
                                     return context.dataset.borderColor;
                                 },
-                                borderRadius: 100, //4,
+                                borderRadius: 10, //4,
                                 color: 'white',
                                 font: {
                                     weight: 'bold'

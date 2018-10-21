@@ -8,7 +8,7 @@ body {
     height: 100%;
     overflow: hidden;
 	overscroll-behavior-y: none;
-    font-family: 'Roboto', Arial, Helvetica, sans-serif;
+    font-family: 'Open Sans', Arial, Helvetica, sans-serif !important;
     margin: 0;
     background-color:#f9f9f9 !important;
 }
@@ -247,6 +247,19 @@ body {
     font-weight: 500;
 }
 
+.notification{
+	outline: 2px dashed #f15b27;
+	background-color: #fce1d7;
+	padding: 10px;
+	width: 100%;
+	margin: 10px auto 30px auto;
+}
+
+.row.no-margin {
+	margin-left:0;
+	margin-right:0;
+}
+
 
 @media only screen and (max-width: 991px) {
     .home .headerBg {
@@ -294,15 +307,18 @@ body {
         bottom: 0;
 		margin-bottom:50px;
         pointer-events: none;
-		background-color:#f2612a;
+		background-color: rgba(0, 0, 0, 0.1);
+		border-top: 1px solid rgba(0,0,0,0.1);
 		height:22vh;
+		/* background-color:#f2612a;
+		box-shadow: 0px -1px 10px rgba(0,0,0,0.2); */
     }
 
     .subNavBarContainer{
         pointer-events: auto;
 		position: absolute;
-		margin-top:-45px;
-		width: 100vw;
+		margin-top:-50px;
+		width: 100%;
     }
 	
 	.homeInfoBox{
@@ -328,6 +344,13 @@ body {
         left: auto;
         bottom: auto;
     }
+}
+
+@media only screen and (max-width: 500px) {
+    .reduceDialogMarginMobile{
+        margin-left: 10px !important;
+        margin-right: 10px !important;
+    }
 
     [class*="col-"].mobileReducePadding {
         padding-left:5px;
@@ -338,13 +361,6 @@ body {
     .row.mobileReducePadding {
         margin-left:-5px;
         margin-right:-5px;
-    }
-}
-
-@media only screen and (max-width: 500px) {
-    .reduceDialogMarginMobile{
-        margin-left: 10px !important;
-        margin-right: 10px !important;
     }
 }
 

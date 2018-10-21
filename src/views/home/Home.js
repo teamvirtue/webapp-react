@@ -1,5 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import Icon from '@material-ui/core/Icon';
+import FontAwesome from 'react-fontawesome';
+import Paper from '@material-ui/core/Paper';
+import Badge from '@material-ui/core/Badge';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import SwipeableViews from 'react-swipeable-views';
+import Typography from '@material-ui/core/Typography';
 import { withTheme } from '@material-ui/core/styles';
 import { withStyles } from '@material-ui/core/styles';
 
@@ -7,6 +15,7 @@ const styles = theme => ({
     root: {
 		position: 'relative',
         transition: 'all 1s ease-in-out',
+		marginBottom: 10,
     },
 	subNavBarContainerTab: {
 		color: 'white',
@@ -15,23 +24,56 @@ const styles = theme => ({
 		transition: 'font-size 100ms',
 		borderBottom: '3px solid transparent',
 		padding: '10px 0',
-		'&:hover': {
-			cursor: 'pointer',
-		}
+		textTransform: 'none',
+		fontWeight: 400,
+	},
+	subNavBarIndicator:{
+		display: 'none',
 	},
 	subNavBarContainerTabSelected: {
-		color: 'white',
-		fontWeight: 'bold',
-		fontSize: '3.5vw',
-		borderColor: '#f3f3f3',
+		'& span': {
+			fontWeight: 'bold',
+			fontSize: '3.5vw',
+		}
 	},
-    title: {
-        marginBottom: 16,
-        fontSize: 20,
-    },
-    iconSmall: {
-        fontSize: 25,
-    },
+	iconBox: {
+		marginTop: 10,
+		marginBottom: 10,
+		padding: '3.5vw',
+		display: 'table',
+		whiteSpace: 'nowrap',
+	},
+	iconBoxPaper: {
+        backgroundColor: '#f2693a',
+		cursor: 'pointer',
+		display: 'table-cell',
+		paddingBottom: '100%',
+	},
+	iconBoxContent: {
+		position: 'absolute',
+		top: 0,
+		left: 0,
+		width: '100%',
+		height: '100%',
+		display: 'flex',
+		justifyContent: 'center',
+		alignItems: 'center',
+		flexDirection: 'column',
+	},
+	iconBoxContentBigger: {
+		fontSize: 30, 
+		verticalAlign: 'middle',
+		color: 'white',
+	},
+	iconCounter: {
+		fontSize: 30, 
+		verticalAlign: 'middle',
+		color: 'white',
+	},
+	iconCounterDescription: {
+		display: 'block',
+		color: '#ffd1bf',
+	},
 });
 
 
@@ -40,71 +82,245 @@ class Home extends Component {
         super(props);
         this.state = {
             tab: this.props.sustainabilityStatus.selected,
+			tabIndex: (this.props.sustainabilityStatus.selected === 'linq') ? (0) : ((this.props.sustainabilityStatus.selected === 'mylinq') ? (1) : (2)),
         };
     }
 
-	setActiveTab = (tab) => (event) => { // TODO: what is newTab doing and why does it not work without?
-        // event.preventDefault();
-		this.setState({ tab });
-		this.props.updateSustainabilityStatus(tab);
+	updateActiveTabState = (tab) => {
+		if (tab === 0) {
+			this.props.updateSustainabilityStatus('linq');
+		} else if(tab === 1) {
+			this.props.updateSustainabilityStatus('mylinq');
+		} else if(tab === 2) {
+			this.props.updateSustainabilityStatus('district');
+		}
+	};
+
+	handleTabChange = (event, tabIndex) => {
+		this.setState({ tabIndex });
+		this.updateActiveTabState(tabIndex);
+	};
+
+	handleTabChangeIndex = index => {
+		this.setState({ tabIndex: index });
+		this.updateActiveTabState(index);
 	};
 
     render() {
-        const { classes, temperature, localNewsHeadlines } = this.props;
+        const { classes, temperature, localNewsHeadlines, houseData } = this.props;
 		const tab = this.state.tab;
 
         return (
             <div className={ classes.root }>
-				<div className='subNavBarContainer row'>
-					<div className='col-4'>
-						<div className={ classes.subNavBarContainerTab + ' ' + ( tab === 'linq' ? classes.subNavBarContainerTabSelected : '' ) } onClick={ this.setActiveTab('linq') }>
-							LINQ
-						</div>
-					</div>
-					<div className='col-4'>
-						<div className={ classes.subNavBarContainerTab + ' ' + ( tab === 'mylinq' ? classes.subNavBarContainerTabSelected : '' )} onClick={ this.setActiveTab('mylinq') }>
-							My LINQ
-						</div>
-					</div>
-					<div className='col-4'>
-						<div className={ classes.subNavBarContainerTab + ' ' + ( tab === 'district' ? classes.subNavBarContainerTabSelected : '' )} onClick={ this.setActiveTab('district') }>
-							District
-						</div>
-					</div>
-				</div>
-
-				<div>
-					{ tab === 'linq' &&
-                        <div className={ 'row' }>
-							<h1>{ temperature.outside.celsius }°</h1>
-							<p>{ temperature.outside.description }</p>
-						</div>
-					}
-					{ tab === 'mylinq' &&
-						<div className={ 'row' }>
-							<div className='col-6 homeInfoBox'>
-								<h1>{ temperature.outside.celsius }°</h1>
-								<p>temperature</p>
+				<div className='subNavBarContainer'>
+					<Tabs
+						value={this.state.tabIndex}
+						onChange={this.handleTabChange}
+						classes={{indicator: classes.subNavBarIndicator}}
+						indicatorColor="secondary"
+						textColor="secondary"
+						centered
+						fullWidth
+					>
+						<Tab label="LINQ" classes={{ label: classes.subNavBarContainerTab, selected: classes.subNavBarContainerTabSelected }} />
+						<Tab label="My LINQ" classes={{ label: classes.subNavBarContainerTab, selected: classes.subNavBarContainerTabSelected }} />
+						<Tab label="District" classes={{ label: classes.subNavBarContainerTab, selected: classes.subNavBarContainerTabSelected }} />
+					</Tabs>
+					
+					<SwipeableViews index={this.state.tabIndex} onChangeIndex={this.handleTabChangeIndex} style={{overflow: 'hidden'}}>
+					
+						<div className='row no-margin'>
+							<div className={ classes.iconBox + ' col-3' }>
+								<Paper
+									className={classes.iconBoxPaper}
+									elevation={1}
+									square={true}
+								>
+									<div className={ classes.iconBoxContent }>
+										<span>
+											<Icon className={ classes.iconBoxContentBigger }>directions_bike</Icon>
+											<span className={ classes.iconBoxContentBigger }> 6</span>
+										</span>
+										<span className={ classes.iconCounterDescription }>bikes free</span>
+									</div>
+								</Paper>
 							</div>
-							<div className='col-6 homeInfoBox'>
-								<h1>{ temperature.outside.celsius }°</h1>
-								<p>temperature</p>
+							<div className={ classes.iconBox + ' col-3' }>
+								<Paper
+									className={classes.iconBoxPaper}
+									elevation={1}
+									square={true}
+								>
+									<div className={ classes.iconBoxContent }>
+										<span>
+											<Icon className={ classes.iconBoxContentBigger }>local_laundry_service</Icon>
+											<span className={ classes.iconBoxContentBigger }> 1</span>
+										</span>
+										<span className={ classes.iconCounterDescription }>machine available</span>
+									</div>
+								</Paper>
+							</div>
+							<div className={ classes.iconBox + ' col-3' }>
+								<Paper
+									className={classes.iconBoxPaper}
+									elevation={1}
+									square={true}
+								>
+									<div className={ classes.iconBoxContent }>
+										<Badge badgeContent={'!'} color="secondary">
+											<span>
+												<Icon className={ classes.iconBoxContentBigger }>restaurant</Icon>
+												<span className={ classes.iconBoxContentBigger }> 2</span>
+											</span>
+										</Badge>
+										<span className={ classes.iconCounterDescription }>eat together</span>
+									</div>
+								</Paper>
+							</div>
+							<div className={ classes.iconBox + ' col-3' }>
+								<Paper
+									className={classes.iconBoxPaper}
+									elevation={1}
+									square={true}
+								>
+									<div className={ classes.iconBoxContent }>
+										<span>
+											<Icon className={ classes.iconBoxContentBigger }>fitness_center</Icon>
+											<span className={ classes.iconBoxContentBigger }> 4</span>
+										</span>
+										<span className={ classes.iconCounterDescription }>people sporting</span>
+									</div>
+								</Paper>
 							</div>
 						</div>
-					}
-					{ tab === 'district' &&
-                        <div className={ 'row' }>
-							News:
-							Powered by News API
-							{ Object.keys(localNewsHeadlines.byId).map((id) => {
-                                let card = localNewsHeadlines.byId[id];
-
-                                return card.visible ?
-                                    <div key={id}>{ card.description }</div>
-                                    : null;
-                            }) }
+						
+						<div className='row no-margin'>
+							<div className={ classes.iconBox + ' col-3' }>
+								<Paper
+									className={classes.iconBoxPaper}
+									elevation={1}
+									square={true}
+								>
+									<div className={ classes.iconBoxContent }>
+										<span>
+											<FontAwesome className={ classes.iconBoxContentBigger } name='thermometer-half' />
+											<span className={ classes.iconBoxContentBigger }> { houseData.indoorTemperature }°C</span>
+										</span>
+										<span className={ classes.iconCounterDescription }>temperature</span>
+									</div>
+								</Paper>
+							</div>
+							<div className={ classes.iconBox + ' col-3' }>
+								<Paper
+									className={classes.iconBoxPaper}
+									elevation={1}
+									square={true}
+								>
+									<div className={ classes.iconBoxContent }>
+										<span>
+											<FontAwesome className={ classes.iconBoxContentBigger } name='tint' />
+											<span className={ classes.iconBoxContentBigger }> { houseData.indoorHumidity }%</span>
+										</span>
+										<span className={ classes.iconCounterDescription }>humidity</span>
+									</div>
+								</Paper>
+							</div>
+							<div className={ classes.iconBox + ' col-3' }>
+								<Paper
+									className={classes.iconBoxPaper}
+									elevation={1}
+									square={true}
+								>
+									<div className={ classes.iconBoxContent }>
+										<span>
+											<Icon className={ classes.iconBoxContentBigger }>check</Icon>
+											<span className={ classes.iconBoxContentBigger }> </span>
+										</span>
+										<span className={ classes.iconCounterDescription }>energy usage</span>
+									</div>
+								</Paper>
+							</div>
+							<div className={ classes.iconBox + ' col-3' }>
+								<Paper
+									className={classes.iconBoxPaper}
+									elevation={1}
+									square={true}
+								>
+									<div className={ classes.iconBoxContent }>
+										<span>
+											<Icon className={ classes.iconBoxContentBigger }>check</Icon>
+											<span className={ classes.iconBoxContentBigger }> </span>
+										</span>
+										<span className={ classes.iconCounterDescription }>water usage</span>
+									</div>
+								</Paper>
+							</div>
 						</div>
-					}
+						
+						<div className='row no-margin'>
+							<div className={ classes.iconBox + ' col-3' }>
+								<Paper
+									className={classes.iconBoxPaper}
+									elevation={1}
+									square={true}
+								>
+									<div className={ classes.iconBoxContent }>
+										<span>
+											<FontAwesome className={ classes.iconBoxContentBigger } name='thermometer-half' />
+											<span className={ classes.iconBoxContentBigger }> { temperature.outside.celsius }°C</span>
+										</span>
+										<span className={ classes.iconCounterDescription }>{ temperature.outside.description }</span>
+									</div>
+								</Paper>
+							</div>
+							<div className={ classes.iconBox + ' col-3' }>
+								<Paper
+									className={classes.iconBoxPaper}
+									elevation={1}
+									square={true}
+								>
+									<div className={ classes.iconBoxContent }>
+										<span>
+											<Icon className={ classes.iconBoxContentBigger }>directions_bus</Icon>
+											<span className={ classes.iconBoxContentBigger }> 7m</span>
+										</span>
+										<span className={ classes.iconCounterDescription }>until next bus</span>
+									</div>
+								</Paper>
+							</div>
+							<div className={ classes.iconBox + ' col-3' }>
+								<Paper
+									className={classes.iconBoxPaper}
+									elevation={1}
+									square={true}
+								>
+									<div className={ classes.iconBoxContent }>
+										<span>
+											<Icon className={ classes.iconBoxContentBigger }>directions_subway</Icon>
+											<span className={ classes.iconBoxContentBigger }> 9m</span>
+										</span>
+										<span className={ classes.iconCounterDescription }>until next metro</span>
+									</div>
+								</Paper>
+							</div>
+							<div className={ classes.iconBox + ' col-3' }>
+								<Paper
+									className={classes.iconBoxPaper}
+									elevation={1}
+									square={true}
+								>
+									<div className={ classes.iconBoxContent }>
+										<span>
+											<Icon className={ classes.iconBoxContentBigger }>tram</Icon>
+											<span className={ classes.iconBoxContentBigger }> 14m</span>
+										</span>
+										<span className={ classes.iconCounterDescription }>until next tram</span>
+									</div>
+								</Paper>
+							</div>
+						</div>
+						
+					</SwipeableViews>
 				</div>
 			</div>
         );

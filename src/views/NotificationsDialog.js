@@ -50,14 +50,6 @@ const styles = theme => ({
 		textAlign: 'center',
 		color: 'white',
 	},
-    /*notification: {
-        outline: '2px dashed #f15b27',
-        backgroundColor: '#f15b27',
-        padding:10,
-        width: '100%',
-        margin: '0 auto 10px auto',
-        color: 'white',
-    },*/
 });
 
 class NotificationsDialog extends Component {
@@ -110,9 +102,7 @@ class NotificationsDialog extends Component {
 							<Typography variant="headline" className={classes.dialogTitle} gutterBottom>
 								Notifications
 							</Typography>
-							
-							{ /* <div className = {classes.notification}>This is the 1st demo release of the VIRTUe LINQ app</div> */ }
-								
+															
 							<CSSTransitionGroup
 								transitionName='cardAnimation'
 								transitionAppear={ true }

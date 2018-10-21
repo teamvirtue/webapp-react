@@ -15,6 +15,7 @@ class Bathroom extends Component {
 			<List>
 				{ selectedTab === 'appliances' && 
 					<div>
+						<div className='notification'>This is a mock-up. Appliance controls are disabled during tours.</div>
 						<Light forRoom='Bathroom' />
 					</div>
 				}
