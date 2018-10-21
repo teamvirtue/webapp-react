@@ -160,6 +160,8 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
                     LINQ_GROUP.children = linqObjects;
                     DISTRICT_GROUP.children = districtObjects;
 
+                    this.selectLevel(this.props.sustainabilityStatus.selected);
+
                     /*object.position.x = 10;
                     object.position.y = 10;
                     object.scale.set(100,100,100);*/
@@ -299,7 +301,6 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
     start = () => {
         if (!this.frameId) {
             this.resizeCanvas();
-            this.selectLevel(this.props.sustainabilityStatus.selected);
             this.frameId = requestAnimationFrame(this.animate);
         }
     };
@@ -468,9 +469,6 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
 
     setActiveTab = (tab) => (event) => { // TODO: check event variable
         this.props.updateSustainabilityStatus(tab);
-
-        // TODO: get mylinq from redux state
-        // this.setActiveTab('mylinq')();
     };
 
     selectLevel = (level) => {
@@ -488,7 +486,8 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
                 break;
             case 'district':
                 this.setTransparency(this.MYLINQ_GROUP.children[0], 1);
-                this.animateCamera(this.camera, { x: 100, y: 75, z: 100 });
+                this.animateCamera(this.camera, { x: 100, y: 100, z: 100 }, 0.5);
+
                 break;
         }
 
@@ -496,19 +495,23 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         this.setActiveTab(level)();
     };
 
-    animateCamera = (camera, position) => {
-        // animateCamera = (camera, position) => {
-        let finalPosition = new THREE.Vector3(position.x, position.y, position.z);
+    animateCamera = (camera, position, zoom = 1) => {
+    // animateCamera = (camera, position) => {
+        let currentZoom = camera.zoom;
+        let finalZoom = zoom;
         let currentPosition = camera.position;
-        let value = { x: currentPosition.x, y: currentPosition.y, z: currentPosition.z  };
-        cameraTween = new Tween(value)
-            .to({ x: finalPosition.x, y: finalPosition.y, z: finalPosition.z }, 1500) //1200
+        let finalPosition = new THREE.Vector3(position.x, position.y, position.z);
+        let coordinates = { x: currentPosition.x, y: currentPosition.y, z: currentPosition.z, zoom: currentZoom };
+
+        cameraTween = new Tween(coordinates)
+            .to({ x: finalPosition.x, y: finalPosition.y, z: finalPosition.z, zoom: finalZoom }, 1500) //1200
             .easing(Easing.Exponential.InOut)
-            .on('update', ({ x, y, z }) => {
+            .on('update', ({ x, y, z, zoom }) => {
                 // console.log(`Position: ${ x }, ${ y }, ${ z }`);
                 camera.lookAt(0, 0, 0);
 
                 camera.position.set(x, y, z);
+                camera.zoom = zoom;
                 // camera.rotation.set(x, y, z);
                 // console.log(Object.values({x})[0]);
             });
@@ -516,30 +519,31 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
     };
 
     setTransparency = (object, opacity) => {
-        // let coordinates = { x: 0, y: 0 };
-        let currentOpacity = opacity === 1 ? 0.3 : 1; // TODO: fix unwanted animations
-        let value = { x: currentOpacity };
+        let currentOpacity = object.material[0].opacity;
+        let finalOpacity = opacity;
+        let value = { o: currentOpacity };
+
         opacityTween = new Tween(value)
-            .to({ x: opacity }, 500)
+            .to({ o: finalOpacity }, 500)
             // .easing(Easing.Circular.Out)
             .delay(500)
-            .on('update', ({ x }) => {
+            .on('update', ({ o }) => {
                 // console.log(`Opacity: ${ x }`);
                 // console.log(Object.values({x})[0]);
 
                 this.MYLINQ_GROUP.children[0].material[0].transparent = true;
                 this.MYLINQ_GROUP.children[0].material[1].transparent = true;
                 this.MYLINQ_GROUP.children[0].material[2].transparent = true;
-                this.MYLINQ_GROUP.children[0].material[0].opacity = Object.values({x})[0];
-                this.MYLINQ_GROUP.children[0].material[1].opacity = Object.values({x})[0];
-                this.MYLINQ_GROUP.children[0].material[2].opacity = Object.values({x})[0];
+                this.MYLINQ_GROUP.children[0].material[0].opacity = Object.values({ o })[0];
+                this.MYLINQ_GROUP.children[0].material[1].opacity = Object.values({ o })[0];
+                this.MYLINQ_GROUP.children[0].material[2].opacity = Object.values({ o })[0];
             });
         opacityTween.start();
 
         // check if object has multiple materials (i.e. not the ground) and opacity is already set
         /*if (object.material instanceof Array && opacity !== object.material[0].opacity) {
             // let coordinates = { x: 0, y: 0 };
-            let currentOpacity = opacity === 1 ? 0.25 : 1; // TODO: fix unwanted animations
+            let currentOpacity = opacity === 1 ? 0.25 : 1;
             let value = { x: currentOpacity };
             opacityTween = new Tween(value)
                 .to({ x: opacity }, 500)
