@@ -162,6 +162,8 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
 
                     this.selectLevel(this.props.sustainabilityStatus.selected);
 
+                    console.log(object);
+
                     /*object.position.x = 10;
                     object.position.y = 10;
                     object.scale.set(100,100,100);*/
@@ -177,7 +179,7 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
                 });
         });
 
-        let meshGround = new THREE.Mesh(
+        /*let meshGround = new THREE.Mesh(
             new THREE.PlaneBufferGeometry(400, 400, 1, 1),
             new THREE.MeshPhongMaterial({ color: 0xffffff, shininess: 0 })
             // new THREE.MeshStandardMaterial({ color: 0xffffff })
@@ -190,10 +192,11 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         meshGround.receiveShadow = true;
         DISTRICT_GROUP.add(meshGround);
         meshGround.userData.parent = DISTRICT_GROUP;
-        scene.add(meshGround);
+        scene.add(meshGround);*/
 
         let lights = [];
-        lights[0] = new THREE.AmbientLight(0x97D6EA, 0.6);
+        lights[0] = new THREE.AmbientLight(0xffffff, 0.6);
+        // lights[0] = new THREE.AmbientLight(0x97D6EA, 0.6);
         scene.add(lights[0]);
 
 
