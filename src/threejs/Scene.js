@@ -50,6 +50,7 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
 
         let width = this.canvas.clientWidth;
         let height = this.canvas.clientHeight;
+        let camFactor = (width / height) * 10;
 
         /*let fieldOfView = 45,
             aspectRatio = width / height,
@@ -362,7 +363,10 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
 
         if (this.state.transitioning) {
             this.resizeCanvas();
-            console.log(this.canvas.clientWidth);
+
+            console.log(this.camera);
+
+            // console.log(this.canvas.clientWidth, this.canvas.clientHeight);
             // this.renderer.setSize(this.canvas.clientWidth, this.canvas.clientHeight);
         }
 
@@ -387,11 +391,11 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
 
         // console.log(this.canvas.clientHeight, this.canvas.clientWidth);
 
-        this.renderer.setSize(this.canvas.clientWidth, this.canvas.clientHeight);
-
         /* for debugging, sharpens 3D view on fullscreen */
         // this.renderer.setSize(window.innerWidth, window.innerHeight);
 
+        // let cameraFactor = (this.canvas.clientWidth / this.canvas.clientHeight) * 10;
+        // let cameraFactor = (window.innerWidth / window.innerHeight) * 10;
         let cameraFactor = (this.width / this.height) * 10;
 
         this.camera.left = this.canvas.clientWidth / -cameraFactor;
@@ -399,6 +403,9 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         this.camera.top = this.canvas.clientHeight / cameraFactor;
         this.camera.bottom = this.canvas.clientHeight / -cameraFactor;
         this.camera.updateProjectionMatrix();
+
+        this.renderer.setSize(window.innerWidth, window.innerHeight);
+        // this.renderer.setSize(this.canvas.clientWidth, this.canvas.clientHeight);
 
         /*let width = this.canvas.clientWidth;
         let height = this.canvas.clientHeight;*/
@@ -482,7 +489,7 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         let currentPosition = camera.position;
         let value = { x: currentPosition.x, y: currentPosition.y, z: currentPosition.z  };
         cameraTween = new Tween(value)
-            .to({ x: finalPosition.x, y: finalPosition.y, z: finalPosition.z }, 1200)
+            .to({ x: finalPosition.x, y: finalPosition.y, z: finalPosition.z }, 2500) //1200
             .easing(Easing.Exponential.InOut)
             .on('update', ({ x, y, z }) => {
                 // console.log(`Position: ${ x }, ${ y }, ${ z }`);
