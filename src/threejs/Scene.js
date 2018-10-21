@@ -50,7 +50,7 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
 
         let width = this.canvas.clientWidth;
         let height = this.canvas.clientHeight;
-        let camFactor = (width / height) * 10;
+        // let camFactor = (width / height) * 10;
 
         /*let fieldOfView = 45,
             aspectRatio = width / height,
@@ -80,21 +80,14 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
             1,
             1000
         );
-
         /*const camera = new THREE.PerspectiveCamera(
             fieldOfView,
             aspectRatio,
             near,
             far
         );*/
-        camera.position.set(100, 75, 100);
+        camera.position.set(0, 75, 10);
         camera.lookAt(0, 0, 0);
-
-        /*setTimeout(() => {
-            camera.fov *= 3;
-            camera.updateProjectionMatrix();
-        }, 1000);*/
-        // renderer.setSize(width, height);
         scene.add(camera);
 
         let MYLINQ_GROUP = new THREE.Group();
@@ -291,17 +284,22 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
             setTimeout(() => {
                 this.setState({ transitioning: false });
 
-                console.log('false');
-            }, 1000);
+                console.log('fullscreen transition done');
+            }, 500);
 
             // this.resizeCanvas();
             // this.renderer.setSize(this.canvas.clientWidth, this.canvas.clientHeight);
+        }
+
+        if (this.props.sustainabilityStatus.selected !== previousProps.sustainabilityStatus.selected) {
+            this.selectLevel(this.props.sustainabilityStatus.selected);
         }
     }
 
     start = () => {
         if (!this.frameId) {
             this.resizeCanvas();
+            this.selectLevel(this.props.sustainabilityStatus.selected);
             this.frameId = requestAnimationFrame(this.animate);
         }
     };
@@ -432,8 +430,11 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
             if (intersects[0].object !== selectedObject) {
                 // restore previous intersection object (if it exists) to its original color
                 if (selectedObject) {
-                    this.setTransparency(selectedObject, 1);
-                    this.animateCamera(this.camera, { x: 0, y: 75, z: 5 });
+                    this.selectLevel(selectedObject.userData.parent.name);
+                    // this.selectLevel(selectedObject);
+
+                    /*this.setTransparency(selectedObject, 1);
+                    this.animateCamera(this.camera, { x: 0, y: 75, z: 5 });*/
                     // this.setColor(selectedObject, selectedObject.currentHex);
                 }
                 // store reference to closest object as current intersection object
@@ -441,18 +442,18 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
                 // store color of closest object (for later restoration)
                 selectedObject.currentHex = this.getColor(selectedObject);
 
+                this.selectLevel(selectedObject.userData.parent.name);
+                // this.selectLevel(selectedObject);
+
                 // set a new color for closest object
-                if (selectedObject.userData.parent.name === 'mylinq') {
+                /*if (selectedObject.userData.parent.name === 'mylinq') {
                     this.setTransparency(selectedObject, 0.3);
                     this.animateCamera(this.camera, { x: 0, y: 75, z: 10 });
                 } else {
                     this.setTransparency(selectedObject, 1);
                     this.animateCamera(this.camera, { x: 100, y: 75, z: 100 });
-                }
+                }*/
                 // this.setColor(selectedObject, highlightColor);
-
-                // update Redux state
-                this.setActiveTab(selectedObject.userData.parent.name)();
             }
         } else {
             // restore previous intersection object (if it exists) to its original color
@@ -465,8 +466,34 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         }
     };
 
-    setActiveTab = (tab) => (event) => {
+    setActiveTab = (tab) => (event) => { // TODO: check event variable
         this.props.updateSustainabilityStatus(tab);
+
+        // TODO: get mylinq from redux state
+        // this.setActiveTab('mylinq')();
+    };
+
+    selectLevel = (level) => {
+    // selectLevel = (object) => {
+    //     let level = object.userData.parent.name;
+
+        switch(level) {
+            case 'mylinq':
+                this.setTransparency(this.MYLINQ_GROUP.children[0], 0.3); // TODO: find roof group in a more flexible way
+                this.animateCamera(this.camera, { x: 0, y: 75, z: 10 });
+                break;
+            case 'linq':
+                this.setTransparency(this.MYLINQ_GROUP.children[0], 1);
+                this.animateCamera(this.camera, { x: 100, y: 75, z: 100 });
+                break;
+            case 'district':
+                this.setTransparency(this.MYLINQ_GROUP.children[0], 1);
+                this.animateCamera(this.camera, { x: 100, y: 75, z: 100 });
+                break;
+        }
+
+        // update Redux state
+        this.setActiveTab(level)();
     };
 
     animateCamera = (camera, position) => {
@@ -557,15 +584,13 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
 
     render() {
         // const { classes } = this.props;
-        // const { sustainabilityStatus } = this.props;
-        // this.resizeCanvas(sustainabilityStatus.fullscreen);
+        const { sustainabilityStatus } = this.props;
 
         return ( // TODO: put styles in classes?
             <canvas
                 // className={ this.props.fullScreen ? '' : classes.canvasCircle }
                 // style={{ width: '100%', height: '100%' }}
-                // onClick={ this.onClick }
-                style={ !this.props.sustainabilityStatus.fullscreen ? { pointerEvents: 'none' } : { pointer: 'cursor' }}
+                style={ !this.props.sustainabilityStatus.fullscreen || this.state.transitioning ? { pointerEvents: 'none' } : { pointer: 'cursor' }}
                 ref={ (canvas) => { this.canvas = canvas }}
             />
         )
