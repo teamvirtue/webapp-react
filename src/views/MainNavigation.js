@@ -94,6 +94,7 @@ const styles = theme => ({
         left: 'auto',
         bottom: 'auto',
         minWidth: 275,
+		zIndex: 15,
     },
 	dubaiSkyline: {
 		position: 'absolute',
@@ -168,26 +169,17 @@ class MainNavigation extends Component {
 				<img className={ classes.logo } src={ logo } width='80' alt='LINQ logo' onClick={ () => this.handleClick('home') } />
 				<NotificationsDialogContainer />
 				
-				<div className={ 'wrapper ' + (sustainabilityStatus.fullscreen ? 'fullscreen ' : '') + value }> { /*  + ' ' + (value === 'home' && 'blabla') */ }
+				<div className={ 'wrapper ' + value }>
 					<div className={ 'row ' + (value === 'home' ? classes.bg : '') } style={{ position: 'relative' }}>
-						<div className={ 'col-lg-5 headerBg' }>
+						<div className={ 'col-lg-5 headerBg' } style={{ zIndex: sustainabilityStatus.fullscreen ? 10 : 0 }}>
 							<SustainabilityStatusCircleContainer />
 						</div>
-
-                        { !sustainabilityStatus.fullscreen &&
-                            <div className={ 'col-lg-7 content' }>
-                                {/*{ value === 0 && <CardContainer /> }*/}
-                                { value === 'home' && <HomeContainer /> }
-                                { value === 'rooms' && <Rooms /> }
-                                { value === 'settings' && <AppSettingsContainer /> }
-                                {/*{ value === 3 && <Settings /> }*/}
-                                {/*<div className={ this.state.addContentNavMargin ? classes.contentNavMargin : '' }>
-                                    { value === 'home' && <Home/> }
-                                    { value === 'rooms' && <Rooms /> }
-                                    { value === 'settings' && <Settings /> }
-                                </div>*/}
-                            </div>
-                        }
+						
+						<div className={ 'col-lg-7 content' }>
+							{ value === 'home' && <HomeContainer /> }
+							{ value === 'rooms' && <Rooms /> }
+							{ value === 'settings' && <AppSettingsContainer /> }
+						</div>
 					</div>
 				</div>
 
@@ -203,17 +195,13 @@ class MainNavigation extends Component {
                     </Card>
                 }
 
-                { !sustainabilityStatus.fullscreen &&
-                    <div className='d-lg-none'>
-                        <BottomNavigation value={ value } onChange={ this.handleChange } className={ classes.mobileNav } showLabels>
-                            <BottomNavigationAction className={ classes.mobileNavItem } label='Home' value='home' icon={ <Icon>home</Icon> } />
-                            <BottomNavigationAction className={ classes.mobileNavItem } label='Rooms' value='rooms' icon={ <Icon>dashboard</Icon> } />
-                            <BottomNavigationAction className={ classes.mobileNavItem } label='Settings' value='settings' icon={ <Icon>settings</Icon> } />
-                        </BottomNavigation>
-                    </div>
-                }
-				
-				{ /*<img className={ classes.dubaiSkyline } src={ dubaiSkyline } />*/ }
+				<div className='d-lg-none'>
+					<BottomNavigation value={ value } onChange={ this.handleChange } className={ classes.mobileNav } showLabels>
+						<BottomNavigationAction className={ classes.mobileNavItem } label='Home' value='home' icon={ <Icon>home</Icon> } />
+						<BottomNavigationAction className={ classes.mobileNavItem } label='Rooms' value='rooms' icon={ <Icon>dashboard</Icon> } />
+						<BottomNavigationAction className={ classes.mobileNavItem } label='Settings' value='settings' icon={ <Icon>settings</Icon> } />
+					</BottomNavigation>
+				</div>
             </div>
         );
     }

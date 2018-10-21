@@ -8,7 +8,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
 import IconButton from '@material-ui/core/IconButton';
-import Slide from '@material-ui/core/Slide';
+import Fade from '@material-ui/core/Fade';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 
@@ -48,9 +48,6 @@ const styles = theme => ({
 		justifyContent: 'center',
 		alignItems: 'center',
 		flexDirection: 'column',
-	},
-	dialogRoot: {
-		// margin: 10,
 	},
 	dialogPaperRoot: {
 		backgroundColor: '#f9f9f9',
@@ -101,7 +98,7 @@ let rooms = [
 ];
 
 function Transition(props) {
-	return <Slide direction="up" {...props} />;
+	return <Fade {...props} />;
 }
 
 class RoomNavigation extends Component {
@@ -158,7 +155,6 @@ class RoomNavigation extends Component {
 										<Icon color={ (data.diffColor === true ? 'secondary' : 'primary' ) } style={{ fontSize: 30 }}>{ data.icon }</Icon>
 										<Typography component='p'>
 											{ data.value }
-											
 										</Typography>
 									</div>
 								</Paper>

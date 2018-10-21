@@ -30,7 +30,7 @@ class AllRooms extends Component {
 				
 				{ selectedTab === 'statistics' && 
 					<div>
-						<NetEnergy />
+						<NetEnergy forRoom='All Rooms' />
 
 						<WaterUsage />
 						

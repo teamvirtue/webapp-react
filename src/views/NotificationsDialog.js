@@ -28,12 +28,17 @@ const styles = theme => ({
 	root: {
 		// backgroundColor: 'red',
 	},
-    /*notificationsIcon: {
-        position: 'fixed',
-        top: 15,
-        left: 125,
-        zIndex: 2,
-    },*/
+    badge: {
+		fontSize: '1.4vh',
+		width: '2.0vh',
+		height: '2.0vh',
+		top: '-0.8vh',
+		right: '-0.8vh',
+	},
+    badgeIcon: {
+		fontSize: '3vh', 
+		color:'white',
+	},
 	dialogContainer: {
 		backgroundColor: 'transparent',
 		boxShadow: 'none',
@@ -88,8 +93,8 @@ class NotificationsDialog extends Component {
 					<div>
 						<div className='notificationsIcon' onClick={ this.handleNotificationsPopupOpen }>
 							<IconButton>
-								<Badge badgeContent={ advicesCount } color="secondary">
-									<Icon style={{ color:'white' }}>notifications</Icon>
+								<Badge classes={{ badge: classes.badge }} badgeContent={ advicesCount } color="secondary">
+									<Icon className={ classes.badgeIcon }>notifications</Icon>
 								</Badge>
 							</IconButton>
 						</div>

@@ -4,6 +4,12 @@ import { updateWeatherData } from '../actions';
 import { updateLocalNewsHeadlines } from '../actions';
 import { getApiToken } from '../actions/asyncActions';
 
+const mapStateToProps = (state) => {
+    return {
+        sustainabilityStatus: state.sustainabilityStatus,
+    }
+};
+
 const mapDispatchToProps = dispatch => ({
     updateWeatherData: (temperature, temperatureDescription) => {
         dispatch(updateWeatherData(temperature, temperatureDescription));
@@ -17,7 +23,6 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export const AppContainer = connect(
-    null,
-    // () => {},
+    mapStateToProps,
     mapDispatchToProps,
 )(App);

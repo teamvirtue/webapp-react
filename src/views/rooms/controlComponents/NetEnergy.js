@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { withTheme } from '@material-ui/core/styles';
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -16,7 +17,7 @@ const styles = theme => ({
 class NetEnergy extends Component {
 	
 	render() {
-		const { classes } = this.props;
+		const { classes, houseData, forRoom } = this.props;
 		
 		return (
 			<div>
@@ -24,7 +25,7 @@ class NetEnergy extends Component {
 				<Card className={classes.card}>
 					<CardContent>
 						<ListItem disableGutters={true}>
-							<LineChart type='energy' />
+							<LineChart type='energy' data={ houseData.room[forRoom].energyUsageAll } />
 						</ListItem>
 					</CardContent>
 				</Card>
@@ -33,4 +34,11 @@ class NetEnergy extends Component {
 	}
 }
 
-export default withTheme()(withStyles(styles)(NetEnergy));
+
+const mapStateToProps = (state) => {
+    return {
+		houseData: state.houseData,
+    }
+};
+
+export default connect(mapStateToProps, null)(withTheme()(withStyles(styles)(NetEnergy)));
