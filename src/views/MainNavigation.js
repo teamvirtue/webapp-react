@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import BottomNavigation  from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction  from '@material-ui/core/BottomNavigationAction';
-import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -40,13 +39,6 @@ const styles = theme => ({
 		'&:hover': {
 			cursor: 'pointer',
 		}
-	},
-	homeHeaderTitle: {
-		position: 'absolute',
-		color: 'white',
-		marginTop: 20,
-		zIndex: 1,
-		width: '100%',
 	},
     desktopNav: {
         position: 'fixed',
@@ -96,13 +88,6 @@ const styles = theme => ({
         minWidth: 275,
 		zIndex: 15,
     },
-	dubaiSkyline: {
-		position: 'absolute',
-		pointerEvents: 'none',
-		bottom: 0,
-		left: '-15px',
-		right: '-15px',
-	},
 });
 
 
@@ -111,9 +96,6 @@ class MainNavigation extends Component {
         super(props);
         this.state = {
             value: 'home',
-            selectedValue: 0,
-			addContentNavMargin: false,
-			greeting: 'day',
         };
     }
 
@@ -132,7 +114,7 @@ class MainNavigation extends Component {
     };
 
     render() { /*TODO: remove inline styles*/
-        const { classes, settings, sustainabilityStatus } = this.props;
+        const { classes, sustainabilityStatus } = this.props;
         const { value } = this.state;
 
         return (

@@ -141,7 +141,7 @@ class Home extends Component {
 											<Icon className={ classes.iconBoxContentBigger }>directions_bike</Icon>
 											<span className={ classes.iconBoxContentBigger }> 6</span>
 										</span>
-										<span className={ classes.iconCounterDescription }>bikes free</span>
+										<span className={ classes.iconCounterDescription }>bikes</span>
 									</div>
 								</Paper>
 							</div>
@@ -156,7 +156,7 @@ class Home extends Component {
 											<Icon className={ classes.iconBoxContentBigger }>local_laundry_service</Icon>
 											<span className={ classes.iconBoxContentBigger }> 1</span>
 										</span>
-										<span className={ classes.iconCounterDescription }>machine available</span>
+										<span className={ classes.iconCounterDescription }>available machine</span>
 									</div>
 								</Paper>
 							</div>
@@ -284,7 +284,7 @@ class Home extends Component {
 											<Icon className={ classes.iconBoxContentBigger }>directions_bus</Icon>
 											<span className={ classes.iconBoxContentBigger }> 7m</span>
 										</span>
-										<span className={ classes.iconCounterDescription }>until next bus</span>
+										<span className={ classes.iconCounterDescription }>next bus</span>
 									</div>
 								</Paper>
 							</div>
@@ -299,7 +299,7 @@ class Home extends Component {
 											<Icon className={ classes.iconBoxContentBigger }>directions_subway</Icon>
 											<span className={ classes.iconBoxContentBigger }> 9m</span>
 										</span>
-										<span className={ classes.iconCounterDescription }>until next metro</span>
+										<span className={ classes.iconCounterDescription }>next metro</span>
 									</div>
 								</Paper>
 							</div>
@@ -314,7 +314,7 @@ class Home extends Component {
 											<Icon className={ classes.iconBoxContentBigger }>tram</Icon>
 											<span className={ classes.iconBoxContentBigger }> 14m</span>
 										</span>
-										<span className={ classes.iconCounterDescription }>until next tram</span>
+										<span className={ classes.iconCounterDescription }>next tram</span>
 									</div>
 								</Paper>
 							</div>

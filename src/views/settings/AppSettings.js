@@ -331,7 +331,7 @@ class Settings extends Component {
 										<ListItemText primary='Volume' />
 										<Slider
 											min={ 0 }
-											max={ 20 }
+											max={ 100 }
 											defaultValue={ settings.notificationsVolume }
 											onChange={ this.handleNotificationsVolume() }
 											trackStyle={{ backgroundColor: theme.palette.primary.main }}
