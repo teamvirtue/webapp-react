@@ -24,7 +24,7 @@ class WaterUsage extends Component {
 				<Card className={classes.card}>
 					<CardContent>
 						<ListItem disableGutters={true}>
-							<LineChart type='water' />
+							{/* <LineChart type='water' /> */}
 						</ListItem>
 					</CardContent>
 				</Card>

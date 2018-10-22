@@ -1,8 +1,7 @@
 import { connect } from 'react-redux';
 import App from '../App';
 import { updateWeatherData } from '../actions';
-import { updateLocalNewsHeadlines } from '../actions';
-import { getApiToken } from '../actions/asyncActions';
+import { getApiToken, apiGetAtmoTemperature } from '../actions/asyncActions';
 
 const mapStateToProps = (state) => {
     return {
@@ -14,12 +13,12 @@ const mapDispatchToProps = dispatch => ({
     updateWeatherData: (temperature, temperatureDescription) => {
         dispatch(updateWeatherData(temperature, temperatureDescription));
     },
-    updateLocalNewsHeadlines: (sources) => {
-        dispatch(updateLocalNewsHeadlines(sources));
-    },
 	getApiToken: () => {
 		dispatch(getApiToken());
-	}
+	},
+	apiGetAtmoTemperature: () => {
+		dispatch(apiGetAtmoTemperature());
+	},
 });
 
 export const AppContainer = connect(

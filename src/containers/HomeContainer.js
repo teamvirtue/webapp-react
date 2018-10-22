@@ -7,7 +7,7 @@ const mapStateToProps = (state) => {
     return {
 		sustainabilityStatus: state.sustainabilityStatus,
 		temperature: state.temperature,
-		localNewsHeadlines: state.localNewsHeadlines,
+		houseData: state.houseData,
     }
 };
 

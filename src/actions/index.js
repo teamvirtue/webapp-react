@@ -48,11 +48,6 @@ export const updateNotificationsDesktop = (check) => ({
     payload: { check },
 });
 
-export const updateLocalNewsHeadlines = (sources) => ({
-    type: 'UPDATE_LOCAL_NEWS_HEADLINES',
-    payload: { sources },
-});
-
 export const updateWeatherData = (celsius, description) => ({
 	type: 'UPDATE_WEATHER_DATA',
 	payload: { celsius, description },

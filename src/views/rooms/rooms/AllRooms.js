@@ -14,7 +14,7 @@ import { apiGetSocketData } from '../../../actions/asyncActions';
 class AllRooms extends Component {
 	
     componentDidMount() {
-        this.props.apiGetSocketData('Kitchen', 'all');
+        this.props.apiGetSocketData('All Rooms', 'all');
     };
 
     render() {
@@ -24,6 +24,7 @@ class AllRooms extends Component {
             <List>
 				{ selectedTab === 'appliances' && 
 					<div>
+						<div className='notification'>This is a mock-up. Appliance controls are disabled during tours.</div>
 						<Temperature />
 					</div>
 				}

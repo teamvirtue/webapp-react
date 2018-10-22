@@ -1,5 +1,6 @@
 const houseData = (state = {
 	indoorTemperature: 0,
+	indoorHumidity: 0,
 	room: {
 		'All Rooms': {
 			airco: {
@@ -256,9 +257,16 @@ const houseData = (state = {
 					...state.room,
 					[action.payload.room]: {
 						...state.room[action.payload.room],
-						energyUsage: action.payload.energyUsage,
+						energyUsageAll: action.payload.energyUsageAll,
 					}
 				}
+            };
+			
+        case 'UPDATE_ATMO_TEMPERATURE':
+			return {
+				indoorTemperature: [action.payload.temperature],
+				indoorHumidity: [action.payload.humidity],
+                ...state,
             };
 			
 		default:

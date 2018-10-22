@@ -29,13 +29,15 @@ export function getApiToken(callback) {
 
 export function apiGetSocketData(room, time) {
 	return dispatch => {
-		/*dispatch({			
-			type: 'UPDATE_ENERGY_USAGE',
-			payload: {
-				room: room, 
-				energyUsage: 'asdfasdf22222222222',
-			}
-		});*/
+		setInterval(() => {
+			dispatch({
+				type: 'UPDATE_ENERGY_USAGE',
+				payload: {
+					room: room, 
+					energyUsageAll: [0, 0, 0, 10, 30, 0, 0],
+				}
+			});
+		}, 2000);
 		return axios.get(server + "/socket_reading/" + room + "/" + time + "/")
 		.then(response => {
 			if (response.status >= 200 && response.status < 300) {
@@ -44,7 +46,7 @@ export function apiGetSocketData(room, time) {
 					type: 'UPDATE_ENERGY_USAGE',
 					payload: {
 						room: room, 
-						energyUsage: 'asdfasdf22222222222',
+						energyUsageAll: [0, 0, 0, 10, 30, 0, 0],
 					}
 				});
 				return true;
@@ -55,9 +57,38 @@ export function apiGetSocketData(room, time) {
 		.catch(
 			//refresh token
 			error => {
-				console.log('Refreshing token...');
+				console.log('[1] Refreshing token...');
 				dispatch(getApiToken(function() {
 					dispatch(apiGetSocketData(room, time));
+				})); 
+			}
+		);
+	}
+}
+
+export function apiGetAtmoTemperature() {
+	return dispatch => {
+		return axios.get(server + "/room/1")
+		.then(response => {
+			if (response.status >= 200 && response.status < 300) {
+				dispatch({			
+					type: 'UPDATE_ATMO_TEMPERATURE',
+					payload: {
+						temperature: response.data.last_temperature, 
+						humidity: response.data.last_humidity,
+					}
+				});
+				return true;
+			} else {
+				throw new Error(response.statusText);
+			}
+		})
+		.catch(
+			//refresh token
+			error => {
+				console.log('[2] Refreshing token...');
+				dispatch(getApiToken(function() {
+					dispatch(apiGetAtmoTemperature());
 				})); 
 			}
 		);

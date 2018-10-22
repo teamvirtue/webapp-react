@@ -70,10 +70,18 @@ defaults.global.elements.point.hitRadius = 15;
 
 class App extends Component {
 	
-	componentDidMount() {
+	async componentDidMount() {
 		this.intervalId = setInterval(() => this.loadPublicData(), 15 * 60 * 1000);// Call Public API's every 15 minutes
 		this.loadPublicData();// also load one immediately
 		this.props.getApiToken();
+		
+		/* TODO: Only do this after receiving API token */
+		try {
+			this.props.apiGetAtmoTemperature();
+			setInterval(async () => {
+				this.props.apiGetAtmoTemperature();
+			}, 300000);
+		} catch(e) { console.log(e); }
 	}
 
 	componentWillUnmount() {
@@ -105,24 +113,6 @@ class App extends Component {
 					console.log('Error fetching current temperature [OpenWeatherMap API]');
 				}
 			);
-			
-			
-		/* 
-		 * NEWS API
-		 *
-		 */
-		fetch('https://newsapi.org/v2/sources?apiKey=60c273fa41dc479cb51405ca65e3f0f5')
-			.then(res => res.json())
-			.then(
-				(result) => {
-					let localNewsHeadlines = result.sources;
-					// console.log(localNewsHeadlines);
-					//this.props.updateLocalNewsHeadlines(localNewsHeadlines);
-				},
-				(error) => {
-					console.log('Error fetching headline news [News API]');
-				}
-			)
 	}
 
 
