@@ -50,6 +50,7 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
 
         let width = this.canvas.clientWidth;
         let height = this.canvas.clientHeight;
+        // let camFactor = (width / height) * 10;
 
         /*let fieldOfView = 45,
             aspectRatio = width / height,
@@ -79,21 +80,14 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
             1,
             1000
         );
-
         /*const camera = new THREE.PerspectiveCamera(
             fieldOfView,
             aspectRatio,
             near,
             far
         );*/
-        camera.position.set(100, 75, 100);
+        camera.position.set(0, 75, 10);
         camera.lookAt(0, 0, 0);
-
-        /*setTimeout(() => {
-            camera.fov *= 3;
-            camera.updateProjectionMatrix();
-        }, 1000);*/
-        // renderer.setSize(width, height);
         scene.add(camera);
 
         let MYLINQ_GROUP = new THREE.Group();
@@ -166,6 +160,10 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
                     LINQ_GROUP.children = linqObjects;
                     DISTRICT_GROUP.children = districtObjects;
 
+                    this.selectLevel(this.props.sustainabilityStatus.selected);
+
+                    console.log(object);
+
                     /*object.position.x = 10;
                     object.position.y = 10;
                     object.scale.set(100,100,100);*/
@@ -181,7 +179,7 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
                 });
         });
 
-        let meshGround = new THREE.Mesh(
+        /*let meshGround = new THREE.Mesh(
             new THREE.PlaneBufferGeometry(400, 400, 1, 1),
             new THREE.MeshPhongMaterial({ color: 0xffffff, shininess: 0 })
             // new THREE.MeshStandardMaterial({ color: 0xffffff })
@@ -194,10 +192,11 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         meshGround.receiveShadow = true;
         DISTRICT_GROUP.add(meshGround);
         meshGround.userData.parent = DISTRICT_GROUP;
-        scene.add(meshGround);
+        scene.add(meshGround);*/
 
         let lights = [];
-        lights[0] = new THREE.AmbientLight(0x97D6EA, 0.6);
+        lights[0] = new THREE.AmbientLight(0xffffff, 0.6);
+        // lights[0] = new THREE.AmbientLight(0x97D6EA, 0.6);
         scene.add(lights[0]);
 
 
@@ -290,11 +289,15 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
             setTimeout(() => {
                 this.setState({ transitioning: false });
 
-                console.log('false');
-            }, 2000);
+                console.log('fullscreen transition done');
+            }, 500);
 
             // this.resizeCanvas();
             // this.renderer.setSize(this.canvas.clientWidth, this.canvas.clientHeight);
+        }
+
+        if (this.props.sustainabilityStatus.selected !== previousProps.sustainabilityStatus.selected) {
+            this.selectLevel(this.props.sustainabilityStatus.selected);
         }
     }
 
@@ -362,23 +365,12 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
 
         if (this.state.transitioning) {
             this.resizeCanvas();
-            console.log(this.canvas.clientWidth);
+
+            // console.log(this.camera);
+            // console.log(this.canvas.clientWidth, this.canvas.clientHeight);
+
             // this.renderer.setSize(this.canvas.clientWidth, this.canvas.clientHeight);
         }
-
-        // console.log(this.canvas.clientWidth);
-        // this.renderer.setSize(this.canvas.clientWidth, this.canvas.clientHeight);
-
-        /*if (this.props.sustainabilityStatus.fullscreen) {
-            console.log('fullscreen');
-            this.renderer.setSize(window.innerWidth, window.innerHeight);
-        } else {
-            console.log('not fullscreen');
-            this.renderer.setSize(this.canvas.clientWidth, this.canvas.clientHeight);
-        }*/
-
-        // this.camera.aspect = this.canvas.clientWidth / this.canvas.clientHeight;
-        // this.camera.updateProjectionMatrix(); // TODO: only check when state is updated + then also update the size of renderer with this.renderer.setSize(window.innerWidth, window.innerHeight);
     }
 
     resizeCanvas = () => {
@@ -387,11 +379,11 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
 
         // console.log(this.canvas.clientHeight, this.canvas.clientWidth);
 
-        this.renderer.setSize(this.canvas.clientWidth, this.canvas.clientHeight);
-
         /* for debugging, sharpens 3D view on fullscreen */
         // this.renderer.setSize(window.innerWidth, window.innerHeight);
 
+        // let cameraFactor = (this.canvas.clientWidth / this.canvas.clientHeight) * 10;
+        // let cameraFactor = (window.innerWidth / window.innerHeight) * 10;
         let cameraFactor = (this.width / this.height) * 10;
 
         this.camera.left = this.canvas.clientWidth / -cameraFactor;
@@ -399,6 +391,9 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         this.camera.top = this.canvas.clientHeight / cameraFactor;
         this.camera.bottom = this.canvas.clientHeight / -cameraFactor;
         this.camera.updateProjectionMatrix();
+
+        this.renderer.setSize(window.innerWidth, window.innerHeight);
+        // this.renderer.setSize(this.canvas.clientWidth, this.canvas.clientHeight);
 
         /*let width = this.canvas.clientWidth;
         let height = this.canvas.clientHeight;*/
@@ -439,8 +434,11 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
             if (intersects[0].object !== selectedObject) {
                 // restore previous intersection object (if it exists) to its original color
                 if (selectedObject) {
-                    this.setTransparency(selectedObject, 1);
-                    this.animateCamera(this.camera, { x: 0, y: 75, z: 5 });
+                    this.selectLevel(selectedObject.userData.parent.name);
+                    // this.selectLevel(selectedObject);
+
+                    /*this.setTransparency(selectedObject, 1);
+                    this.animateCamera(this.camera, { x: 0, y: 75, z: 5 });*/
                     // this.setColor(selectedObject, selectedObject.currentHex);
                 }
                 // store reference to closest object as current intersection object
@@ -448,18 +446,18 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
                 // store color of closest object (for later restoration)
                 selectedObject.currentHex = this.getColor(selectedObject);
 
+                this.selectLevel(selectedObject.userData.parent.name);
+                // this.selectLevel(selectedObject);
+
                 // set a new color for closest object
-                if (selectedObject.userData.parent.name === 'mylinq') {
+                /*if (selectedObject.userData.parent.name === 'mylinq') {
                     this.setTransparency(selectedObject, 0.3);
                     this.animateCamera(this.camera, { x: 0, y: 75, z: 10 });
                 } else {
                     this.setTransparency(selectedObject, 1);
                     this.animateCamera(this.camera, { x: 100, y: 75, z: 100 });
-                }
+                }*/
                 // this.setColor(selectedObject, highlightColor);
-
-                // update Redux state
-                this.setActiveTab(selectedObject.userData.parent.name)();
             }
         } else {
             // restore previous intersection object (if it exists) to its original color
@@ -472,23 +470,51 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         }
     };
 
-    setActiveTab = (tab) => (event) => {
+    setActiveTab = (tab) => (event) => { // TODO: check event variable
         this.props.updateSustainabilityStatus(tab);
     };
 
-    animateCamera = (camera, position) => {
-        // animateCamera = (camera, position) => {
-        let finalPosition = new THREE.Vector3(position.x, position.y, position.z);
+    selectLevel = (level) => {
+    // selectLevel = (object) => {
+    //     let level = object.userData.parent.name;
+
+        switch(level) {
+            case 'mylinq':
+                this.setTransparency(this.MYLINQ_GROUP.children[0], 0.3); // TODO: find roof group in a more flexible way
+                this.animateCamera(this.camera, { x: 0, y: 75, z: 10 });
+                break;
+            case 'linq':
+                this.setTransparency(this.MYLINQ_GROUP.children[0], 1);
+                this.animateCamera(this.camera, { x: 100, y: 75, z: 100 });
+                break;
+            case 'district':
+                this.setTransparency(this.MYLINQ_GROUP.children[0], 1);
+                this.animateCamera(this.camera, { x: 100, y: 100, z: 100 }, 0.5);
+
+                break;
+        }
+
+        // update Redux state
+        this.setActiveTab(level)();
+    };
+
+    animateCamera = (camera, position, zoom = 1) => {
+    // animateCamera = (camera, position) => {
+        let currentZoom = camera.zoom;
+        let finalZoom = zoom;
         let currentPosition = camera.position;
-        let value = { x: currentPosition.x, y: currentPosition.y, z: currentPosition.z  };
-        cameraTween = new Tween(value)
-            .to({ x: finalPosition.x, y: finalPosition.y, z: finalPosition.z }, 1200)
+        let finalPosition = new THREE.Vector3(position.x, position.y, position.z);
+        let coordinates = { x: currentPosition.x, y: currentPosition.y, z: currentPosition.z, zoom: currentZoom };
+
+        cameraTween = new Tween(coordinates)
+            .to({ x: finalPosition.x, y: finalPosition.y, z: finalPosition.z, zoom: finalZoom }, 1500) //1200
             .easing(Easing.Exponential.InOut)
-            .on('update', ({ x, y, z }) => {
+            .on('update', ({ x, y, z, zoom }) => {
                 // console.log(`Position: ${ x }, ${ y }, ${ z }`);
                 camera.lookAt(0, 0, 0);
 
                 camera.position.set(x, y, z);
+                camera.zoom = zoom;
                 // camera.rotation.set(x, y, z);
                 // console.log(Object.values({x})[0]);
             });
@@ -496,30 +522,31 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
     };
 
     setTransparency = (object, opacity) => {
-        // let coordinates = { x: 0, y: 0 };
-        let currentOpacity = opacity === 1 ? 0.3 : 1; // TODO: fix unwanted animations
-        let value = { x: currentOpacity };
+        let currentOpacity = object.material[0].opacity;
+        let finalOpacity = opacity;
+        let value = { o: currentOpacity };
+
         opacityTween = new Tween(value)
-            .to({ x: opacity }, 500)
+            .to({ o: finalOpacity }, 500)
             // .easing(Easing.Circular.Out)
             .delay(500)
-            .on('update', ({ x }) => {
+            .on('update', ({ o }) => {
                 // console.log(`Opacity: ${ x }`);
                 // console.log(Object.values({x})[0]);
 
                 this.MYLINQ_GROUP.children[0].material[0].transparent = true;
                 this.MYLINQ_GROUP.children[0].material[1].transparent = true;
                 this.MYLINQ_GROUP.children[0].material[2].transparent = true;
-                this.MYLINQ_GROUP.children[0].material[0].opacity = Object.values({x})[0];
-                this.MYLINQ_GROUP.children[0].material[1].opacity = Object.values({x})[0];
-                this.MYLINQ_GROUP.children[0].material[2].opacity = Object.values({x})[0];
+                this.MYLINQ_GROUP.children[0].material[0].opacity = Object.values({ o })[0];
+                this.MYLINQ_GROUP.children[0].material[1].opacity = Object.values({ o })[0];
+                this.MYLINQ_GROUP.children[0].material[2].opacity = Object.values({ o })[0];
             });
         opacityTween.start();
 
         // check if object has multiple materials (i.e. not the ground) and opacity is already set
         /*if (object.material instanceof Array && opacity !== object.material[0].opacity) {
             // let coordinates = { x: 0, y: 0 };
-            let currentOpacity = opacity === 1 ? 0.25 : 1; // TODO: fix unwanted animations
+            let currentOpacity = opacity === 1 ? 0.25 : 1;
             let value = { x: currentOpacity };
             opacityTween = new Tween(value)
                 .to({ x: opacity }, 500)
@@ -564,15 +591,13 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
 
     render() {
         // const { classes } = this.props;
-        // const { sustainabilityStatus } = this.props;
-        // this.resizeCanvas(sustainabilityStatus.fullscreen);
+        const { sustainabilityStatus } = this.props;
 
         return ( // TODO: put styles in classes?
             <canvas
                 // className={ this.props.fullScreen ? '' : classes.canvasCircle }
                 // style={{ width: '100%', height: '100%' }}
-                // onClick={ this.onClick }
-                style={ !this.props.sustainabilityStatus.fullscreen ? { pointerEvents: 'none' } : { pointer: 'cursor' }}
+                style={ !this.props.sustainabilityStatus.fullscreen || this.state.transitioning ? { pointerEvents: 'none' } : { pointer: 'cursor' }}
                 ref={ (canvas) => { this.canvas = canvas }}
             />
         )

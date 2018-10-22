@@ -78,37 +78,37 @@ const styles = theme => ({
 
 
 class Home extends Component {
-    constructor(props) {
+    /*constructor(props) {
         super(props);
         this.state = {
             tab: this.props.sustainabilityStatus.selected,
 			tabIndex: (this.props.sustainabilityStatus.selected === 'linq') ? (0) : ((this.props.sustainabilityStatus.selected === 'mylinq') ? (1) : (2)),
         };
-    }
+    }*/
 
-	updateActiveTabState = (tab) => {
-		if (tab === 0) {
-			this.props.updateSustainabilityStatus('linq');
-		} else if(tab === 1) {
-			this.props.updateSustainabilityStatus('mylinq');
-		} else if(tab === 2) {
-			this.props.updateSustainabilityStatus('district');
-		}
-	};
+    updateActiveTabState = (tab) => {
+        if (tab === 0) {
+            this.props.updateSustainabilityStatus('linq');
+        } else if(tab === 1) {
+            this.props.updateSustainabilityStatus('mylinq');
+        } else if(tab === 2) {
+            this.props.updateSustainabilityStatus('district');
+        }
+    };
 
-	handleTabChange = (event, tabIndex) => {
-		this.setState({ tabIndex });
-		this.updateActiveTabState(tabIndex);
-	};
+    handleTabChange = (event, tabIndex) => {
+        this.setState({ tabIndex });
+        this.updateActiveTabState(tabIndex);
+    };
 
-	handleTabChangeIndex = index => {
-		this.setState({ tabIndex: index });
-		this.updateActiveTabState(index);
-	};
+    handleTabChangeIndex = index => {
+        this.setState({ tabIndex: index });
+        this.updateActiveTabState(index);
+    };
 
     render() {
         const { classes, temperature, localNewsHeadlines, houseData } = this.props;
-		const tab = this.state.tab;
+        const tab = this.state.tab;
 
         return (
             <div className={ classes.root }>
