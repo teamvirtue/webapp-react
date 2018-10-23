@@ -156,12 +156,12 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
                 scene.add(gltf.scene);
             },
             // called when loading is in progresses
-            /*(xhr) => {
+            (xhr) => {
                 console.log('Model ' + (xhr.loaded / xhr.total * 100) + '% loaded');
-            },*/
+            },
             // called when loading has errors
             (error) => {
-                console.log('An error happened: ' + error);
+                console.log(error);
             });
 
         /*mtlLoader.load(mtlUrl, (materials) => {
