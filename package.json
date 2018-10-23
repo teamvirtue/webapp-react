@@ -28,7 +28,6 @@
     "redux-thunk": "^2.3.0",
     "three": "^0.94.0",
     "three-gltf-loader": "^1.97.0",
-    "three-gltf2-loader": "^1.2.0",
     "three-obj-mtl-loader": "^1.0.3",
     "three-orbitcontrols": "^2.1.2",
     "typeface-open-sans": "0.0.54"
