@@ -78,13 +78,13 @@ const styles = theme => ({
 
 
 class Home extends Component {
-    /*constructor(props) {
+    constructor(props) {
         super(props);
         this.state = {
             tab: this.props.sustainabilityStatus.selected,
-			tabIndex: (this.props.sustainabilityStatus.selected === 'linq') ? (0) : ((this.props.sustainabilityStatus.selected === 'mylinq') ? (1) : (2)),
+            tabIndex: (this.props.sustainabilityStatus.selected === 'linq') ? (0) : ((this.props.sustainabilityStatus.selected === 'mylinq') ? (1) : (2)),
         };
-    }*/
+    }
 
     updateActiveTabState = (tab) => {
         if (tab === 0) {
@@ -108,15 +108,15 @@ class Home extends Component {
 
     render() {
         const { classes, temperature, localNewsHeadlines, houseData } = this.props;
-        const tab = this.state.tab;
+        const tab = this.state.tabIndex;
 
         return (
             <div className={ classes.root }>
 				<div className='subNavBarContainer'>
 					<Tabs
-						value={this.state.tabIndex}
-						onChange={this.handleTabChange}
-						classes={{indicator: classes.subNavBarIndicator}}
+						value={ tab }
+						onChange={ this.handleTabChange }
+						classes={{ indicator: classes.subNavBarIndicator }}
 						indicatorColor="secondary"
 						textColor="secondary"
 						centered
@@ -127,13 +127,13 @@ class Home extends Component {
 						<Tab label="District" classes={{ label: classes.subNavBarContainerTab, selected: classes.subNavBarContainerTabSelected }} />
 					</Tabs>
 					
-					<SwipeableViews index={this.state.tabIndex} onChangeIndex={this.handleTabChangeIndex} style={{overflow: 'hidden'}}>
+					<SwipeableViews index={ tab } onChangeIndex={ this.handleTabChangeIndex } style={{ overflow: 'hidden' }}>
 					
 						<div className='row no-margin'>
 							<div className={ classes.iconBox + ' col-3' }>
 								<Paper
-									className={classes.iconBoxPaper}
-									elevation={1}
+									className={ classes.iconBoxPaper }
+									elevation={ 1 }
 									square={true}
 								>
 									<div className={ classes.iconBoxContent }>

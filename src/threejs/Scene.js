@@ -3,11 +3,14 @@ import * as THREE from 'three';
 import OrbitControls  from 'three-orbitcontrols';
 import { MTLLoader, OBJLoader } from 'three-obj-mtl-loader';
 import { Easing, Tween } from 'es6-tween';
-// import * as TWEEN from '@tweenjs/tween.js';
+import GLTFLoader from 'three-gltf-loader';
 
 // Local import
 import objUrl from '../assets/models/linq_low_poly_web_app.obj';
 import mtlUrl from '../assets/models/linq_low_poly_web_app.mtl';
+import gltfUrl from '../assets/models/linq_low_poly_web_app.glb';
+// import gltfUrl from '../assets/models/Duck.glb';
+// import gltfUrl from '../assets/models/DamagedHelmet/DamagedHelmet.gltf';
 
 let levels = ['MY', 'LINQ', 'DISTRICT'];
 let selectedObject = null;
@@ -41,7 +44,7 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         }
     }
 
-    componentDidMount() {
+    componentDidMount() { // glTF implementation based on https://medium.com/@matthewmain/how-to-import-a-3d-blender-object-into-a-three-js-project-as-a-gltf-file-5a67290f65f2
         window.addEventListener('resize', this.resizeCanvas);
         this.canvas.addEventListener('touchstart', this.onClick);
         this.canvas.addEventListener('click', this.onClick);
@@ -105,26 +108,69 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         let districtObjects = [];
 
         // let loadedObject = null;
-        let mtlLoader = new MTLLoader();
-        let objLoader = new OBJLoader();
-        // let mtlLoader = new this.THREE.MTLLoader();
-        // let objLoader = new this.THREE.OBJLoader();
+        let gltfLoader = new GLTFLoader();
+        // let mtlLoader = new MTLLoader();
+        // let objLoader = new OBJLoader();
 
-        mtlLoader.load(mtlUrl, (materials) => {
+        gltfLoader.load(gltfUrl,
+            // called when resource is loaded
+            (gltf) => {
+                /*console.log(gltf.scene.children[13]);
+                gltf.scene.children[13].children[0].material.transparent = true;
+                gltf.scene.children[13].children[1].material.transparent = true;
+                gltf.scene.children[13].children[2].material.transparent = true;
+                gltf.scene.children[13].children[0].material.opacity = 0.25;
+                gltf.scene.children[13].children[1].material.opacity = 0.25;
+                gltf.scene.children[13].children[2].material.opacity = 0.25;*/
+
+                gltf.scene.traverse((node) => {
+                    if (node instanceof THREE.Mesh) {
+                        // enable casting shadows
+                        // node.castShadow = true;
+                        // node.receiveShadow = true;
+
+                        // store objects in correct array for levels
+                        /*if (node.name.includes(levels[0])) {
+                            mylinqObjects.push(node);
+                            node.userData.parent = MYLINQ_GROUP;
+                        } else if (node.name.includes(levels[1])) {
+                            linqObjects.push(node);
+                            node.userData.parent = LINQ_GROUP;
+                        } else if (node.name.includes(levels[2])) {
+                            districtObjects.push(node);
+                            node.userData.parent = DISTRICT_GROUP;
+                        } else {
+                            districtObjects.push(node);
+                            node.userData.parent = DISTRICT_GROUP;
+                        }*/
+                    }
+                } );
+
+                // add filled arrays to correct THREE.js group
+                MYLINQ_GROUP.children = mylinqObjects;
+                LINQ_GROUP.children = linqObjects;
+                DISTRICT_GROUP.children = districtObjects;
+
+                // this.selectLevel(this.props.sustainabilityStatus.selected);
+
+                scene.add(gltf.scene);
+            },
+            // called when loading is in progresses
+            /*(xhr) => {
+                console.log('Model ' + (xhr.loaded / xhr.total * 100) + '% loaded');
+            },*/
+            // called when loading has errors
+            (error) => {
+                console.log('An error happened: ' + error);
+            });
+
+        /*mtlLoader.load(mtlUrl, (materials) => {
             materials.preload();
             objLoader.setMaterials(materials);
 
             objLoader.load(objUrl,
                 // called when resource is loaded
                 (object) => {
-                    // loadedObject = object;
-
-                    // console.log(object.children[1]);
-                    /*for (let i = 0; i < object.children[1].material.length; i++) {
-                        object.children[1].material[i].transparent = true;
-                        object.children[1].material[i].opacity = 0.25;
-                    }*/
-
                     object.traverse((node) => {
                         if (node instanceof THREE.Mesh) {
                             // child.geometry.computeFaceNormals();
@@ -164,9 +210,9 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
 
                     console.log(object);
 
-                    /*object.position.x = 10;
-                    object.position.y = 10;
-                    object.scale.set(100,100,100);*/
+                    // object.position.x = 10;
+                    // object.position.y = 10;
+                    // object.scale.set(100,100,100);
                     scene.add(object);
                 },
                 // called when loading is in progresses
@@ -177,7 +223,7 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
                 (error) => {
                     console.log('An error happened: ' + error);
                 });
-        });
+        });*/
 
         /*let meshGround = new THREE.Mesh(
             new THREE.PlaneBufferGeometry(400, 400, 1, 1),
@@ -200,7 +246,8 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         scene.add(lights[0]);
 
 
-        lights[1] = new THREE.HemisphereLight(0x97D6EA, 0x080820, 1);
+        lights[1] = new THREE.HemisphereLight(0xffffff, 0x080820, 1);
+        // lights[1] = new THREE.HemisphereLight(0x97D6EA, 0x080820, 1);
         // lights[1] = new THREE.HemisphereLight(0xffffbb, 0x080820, 1);
         lights[1].position.set(0, 100, -25);
         /*lights[1] = new THREE.DirectionalLight(0xffffff, 0.6, 1000);

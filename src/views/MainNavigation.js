@@ -177,13 +177,15 @@ class MainNavigation extends Component {
                     </Card>
                 }
 
-				<div className='d-lg-none'>
-					<BottomNavigation value={ value } onChange={ this.handleChange } className={ classes.mobileNav } showLabels>
-						<BottomNavigationAction className={ classes.mobileNavItem } label='Home' value='home' icon={ <Icon>home</Icon> } />
-						<BottomNavigationAction className={ classes.mobileNavItem } label='Rooms' value='rooms' icon={ <Icon>dashboard</Icon> } />
-						<BottomNavigationAction className={ classes.mobileNavItem } label='Settings' value='settings' icon={ <Icon>settings</Icon> } />
-					</BottomNavigation>
-				</div>
+                { !sustainabilityStatus.fullscreen &&
+					<div className='d-lg-none'>
+						<BottomNavigation value={ value } onChange={ this.handleChange } className={ classes.mobileNav } showLabels>
+							<BottomNavigationAction className={ classes.mobileNavItem } label='Home' value='home' icon={ <Icon>home</Icon> } />
+							<BottomNavigationAction className={ classes.mobileNavItem } label='Rooms' value='rooms' icon={ <Icon>dashboard</Icon> } />
+							<BottomNavigationAction className={ classes.mobileNavItem } label='Settings' value='settings' icon={ <Icon>settings</Icon> } />
+						</BottomNavigation>
+					</div>
+                }
             </div>
         );
     }
