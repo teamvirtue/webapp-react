@@ -4,6 +4,8 @@ const server = 'http://192.168.0.50:8000';
 const user = 'django';
 const pass = 'P@ssw0rd';
 
+var runningIntervalId;
+
 
 export function getApiToken(callback) {
 	return dispatch => {
@@ -19,6 +21,9 @@ export function getApiToken(callback) {
 				if(callback){
 					callback();
 				}
+				
+				//Directly refresh temperature and humidity
+				dispatch(apiGetAtmoTemperature());
 			} else {
 				throw new Error(response.statusText);
 			}
@@ -67,10 +72,12 @@ export function apiGetSocketData(room, time) {
 }
 
 export function apiGetAtmoTemperature() {
+	console.log('checking temp');
 	return dispatch => {
-		return axios.get(server + "/room/1")
+		return axios.get(server + "/room/1/")
 		.then(response => {
 			if (response.status >= 200 && response.status < 300) {
+				console.log("Temperature: " + response.data.last_temperature + ", Humidity: " + response.data.last_humidity);
 				dispatch({			
 					type: 'UPDATE_ATMO_TEMPERATURE',
 					payload: {

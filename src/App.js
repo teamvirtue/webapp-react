@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import MomentUtils from 'material-ui-pickers/utils/moment-utils';
 import MuiPickersUtilsProvider from 'material-ui-pickers/utils/MuiPickersUtilsProvider';
+import materialIcons from 'material-design-icons/iconfont/material-icons.css';
+import "typeface-open-sans";
 import { defaults } from 'react-chartjs-2';
 
 // Local import
@@ -23,7 +25,7 @@ const theme = createMuiTheme({
 		},
 	},
 	typography: {
-		fontFamily: 'Roboto, Arial, Helvetica, sans-serif',
+		fontFamily: 'Open Sans, Arial, Helvetica, sans-serif',
 		fontSize: 20,
 	},
     overrides: {
@@ -71,21 +73,24 @@ defaults.global.elements.point.hitRadius = 15;
 class App extends Component {
 	
 	async componentDidMount() {
-		this.intervalId = setInterval(() => this.loadPublicData(), 15 * 60 * 1000);// Call Public API's every 15 minutes
-		this.loadPublicData();// also load one immediately
+		// Call Public API's every 15 minutes
+		this.loadPublicData();
+		this.intervalId = setInterval(() => this.loadPublicData(), 15 * 60 * 1000);
+
+		// Get API token
 		this.props.getApiToken();
 		
-		/* TODO: Only do this after receiving API token */
-		try {
-			this.props.apiGetAtmoTemperature();
-			setInterval(async () => {
-				this.props.apiGetAtmoTemperature();
-			}, 300000);
-		} catch(e) { console.log(e); }
+		// Load API data interval every 5 minutes
+		/* TODO: use promises to do this directly - and only do this - after successful retrieval of token (the call in asyncActions.js can then be removed too) */
+		setInterval(() => this.loadApiData(), 5 * 60 * 1000);
 	}
 
 	componentWillUnmount() {
 		clearInterval(this.intervalId);
+	}
+	
+	loadApiData() {
+		this.props.apiGetAtmoTemperature();
 	}
 
 	loadPublicData() {
