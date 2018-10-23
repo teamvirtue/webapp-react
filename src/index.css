@@ -1,3 +1,5 @@
+@import "~@fortawesome/fontawesome-free/css/all.css";
+
 html {
     overflow: hidden;
     height: 100%;
@@ -324,7 +326,9 @@ body {
     .subNavBarContainer {
         position: absolute;
         pointer-events: auto;
-        margin-top: -45px;
+        margin-top: -50px;
+		margin-left: -15px;
+		margin-right: -15px;
         width: 100vw;
     }
 

@@ -42,6 +42,11 @@ const styles = theme => ({
 		padding: '3.5vw',
 		display: 'table',
 		whiteSpace: 'nowrap',
+		/*'&:hover': {
+			'& .show': {
+				opacity: 1,
+			},
+		},*/
 	},
 	iconBoxPaper: {
         backgroundColor: '#f2693a',
@@ -78,13 +83,13 @@ const styles = theme => ({
 
 
 class Home extends Component {
-    /*constructor(props) {
+    constructor(props) {
         super(props);
         this.state = {
             tab: this.props.sustainabilityStatus.selected,
 			tabIndex: (this.props.sustainabilityStatus.selected === 'linq') ? (0) : ((this.props.sustainabilityStatus.selected === 'mylinq') ? (1) : (2)),
         };
-    }*/
+    }
 
     updateActiveTabState = (tab) => {
         if (tab === 0) {
@@ -167,12 +172,19 @@ class Home extends Component {
 									square={true}
 								>
 									<div className={ classes.iconBoxContent }>
-										<Badge badgeContent={'!'} color="secondary">
+										{houseData.showEatTogether ? (
+											<Badge badgeContent={'!'} color="secondary">
+												<span>
+													<Icon className={ classes.iconBoxContentBigger }>restaurant</Icon>
+													<span className={ classes.iconBoxContentBigger }> 2</span>
+												</span>
+											</Badge>
+										) : (
 											<span>
 												<Icon className={ classes.iconBoxContentBigger }>restaurant</Icon>
 												<span className={ classes.iconBoxContentBigger }> 2</span>
 											</span>
-										</Badge>
+										)}
 										<span className={ classes.iconCounterDescription }>eat together</span>
 									</div>
 								</Paper>
@@ -204,7 +216,7 @@ class Home extends Component {
 									<div className={ classes.iconBoxContent }>
 										<span>
 											<FontAwesome className={ classes.iconBoxContentBigger } name='thermometer-half' />
-											<span className={ classes.iconBoxContentBigger }> { houseData.indoorTemperature }°C</span>
+											<span className={ classes.iconBoxContentBigger }> { Math.round(houseData.indoorTemperature) }°C</span>
 										</span>
 										<span className={ classes.iconCounterDescription }>temperature</span>
 									</div>

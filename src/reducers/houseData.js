@@ -1,4 +1,5 @@
 const houseData = (state = {
+	showEatTogether: true, /* TODO: move this to other reducer (linqData??) */
 	indoorTemperature: 0,
 	indoorHumidity: 0,
 	room: {
@@ -264,9 +265,9 @@ const houseData = (state = {
 			
         case 'UPDATE_ATMO_TEMPERATURE':
 			return {
+                ...state,
 				indoorTemperature: [action.payload.temperature],
 				indoorHumidity: [action.payload.humidity],
-                ...state,
             };
 			
 		default:
