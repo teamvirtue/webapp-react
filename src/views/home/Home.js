@@ -94,8 +94,12 @@ class Home extends Component {
         super(props);
         this.state = {
             tab: this.props.sustainabilityStatus.selected,
+<<<<<<< HEAD
 			tabIndex: (this.props.sustainabilityStatus.selected === 'linq') ? (0) : ((this.props.sustainabilityStatus.selected === 'mylinq') ? (1) : (2)),
 			openDialog: false,
+=======
+            tabIndex: (this.props.sustainabilityStatus.selected === 'linq') ? (0) : ((this.props.sustainabilityStatus.selected === 'mylinq') ? (1) : (2)),
+>>>>>>> dffe83fab801b380c0da60cec0480ac0a3891f52
         };
     }
 
@@ -129,15 +133,15 @@ class Home extends Component {
 
     render() {
         const { classes, temperature, localNewsHeadlines, houseData } = this.props;
-        const tab = this.state.tab;
+        const tab = this.state.tabIndex;
 
         return (
             <div className={ classes.root }>
 				<div className='subNavBarContainer'>
 					<Tabs
-						value={this.state.tabIndex}
-						onChange={this.handleTabChange}
-						classes={{indicator: classes.subNavBarIndicator}}
+						value={ tab }
+						onChange={ this.handleTabChange }
+						classes={{ indicator: classes.subNavBarIndicator }}
 						indicatorColor="secondary"
 						textColor="secondary"
 						centered
@@ -148,13 +152,13 @@ class Home extends Component {
 						<Tab label="District" classes={{ label: classes.subNavBarContainerTab, selected: classes.subNavBarContainerTabSelected }} />
 					</Tabs>
 					
-					<SwipeableViews index={this.state.tabIndex} onChangeIndex={this.handleTabChangeIndex} style={{overflow: 'hidden'}}>
+					<SwipeableViews index={ tab } onChangeIndex={ this.handleTabChangeIndex } style={{ overflow: 'hidden' }}>
 					
 						<div className='row no-margin'>
 							<div className={ classes.iconBox + ' col-3' }>
 								<Paper
-									className={classes.iconBoxPaper}
-									elevation={1}
+									className={ classes.iconBoxPaper }
+									elevation={ 1 }
 									square={true}
 								>
 									<div className={ classes.iconBoxContent }>
