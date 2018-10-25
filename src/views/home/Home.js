@@ -94,12 +94,8 @@ class Home extends Component {
         super(props);
         this.state = {
             tab: this.props.sustainabilityStatus.selected,
-<<<<<<< HEAD
 			tabIndex: (this.props.sustainabilityStatus.selected === 'linq') ? (0) : ((this.props.sustainabilityStatus.selected === 'mylinq') ? (1) : (2)),
 			openDialog: false,
-=======
-            tabIndex: (this.props.sustainabilityStatus.selected === 'linq') ? (0) : ((this.props.sustainabilityStatus.selected === 'mylinq') ? (1) : (2)),
->>>>>>> dffe83fab801b380c0da60cec0480ac0a3891f52
         };
     }
 
