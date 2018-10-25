@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Icon from '@material-ui/core/Icon';
 import FontAwesome from 'react-fontawesome';
+import Dialog from '@material-ui/core/Dialog';
 import Paper from '@material-ui/core/Paper';
 import Badge from '@material-ui/core/Badge';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
+import Fade from '@material-ui/core/Fade';
 import SwipeableViews from 'react-swipeable-views';
 import Typography from '@material-ui/core/Typography';
 import { withTheme } from '@material-ui/core/styles';
@@ -82,12 +84,18 @@ const styles = theme => ({
 });
 
 
+function Transition(props) {
+	return <Fade {...props} />;
+}
+
+
 class Home extends Component {
     constructor(props) {
         super(props);
         this.state = {
             tab: this.props.sustainabilityStatus.selected,
 			tabIndex: (this.props.sustainabilityStatus.selected === 'linq') ? (0) : ((this.props.sustainabilityStatus.selected === 'mylinq') ? (1) : (2)),
+			openDialog: false,
         };
     }
 
@@ -110,6 +118,14 @@ class Home extends Component {
         this.setState({ tabIndex: index });
         this.updateActiveTabState(index);
     };
+	
+	handleDialogOpen = () => {
+		this.setState({ openDialog: true });
+	};
+
+	handleDialogClose = () => {
+		this.setState({ openDialog: false });
+	};
 
     render() {
         const { classes, temperature, localNewsHeadlines, houseData } = this.props;
@@ -166,28 +182,38 @@ class Home extends Component {
 								</Paper>
 							</div>
 							<div className={ classes.iconBox + ' col-3' }>
-								<Paper
-									className={classes.iconBoxPaper}
-									elevation={1}
-									square={true}
-								>
-									<div className={ classes.iconBoxContent }>
-										{houseData.showEatTogether ? (
+								{houseData.showEatTogether ? (
+									<Paper
+										className={classes.iconBoxPaper}
+										elevation={1}
+										square={true}
+										onClick={ this.handleDialogOpen }
+									>
+										<div className={ classes.iconBoxContent }>
 											<Badge badgeContent={'!'} color="secondary">
 												<span>
 													<Icon className={ classes.iconBoxContentBigger }>restaurant</Icon>
 													<span className={ classes.iconBoxContentBigger }> 2</span>
 												</span>
 											</Badge>
-										) : (
+											<span className={ classes.iconCounterDescription }>eat together</span>
+										</div>
+									</Paper>
+								) : (
+									<Paper
+										className={classes.iconBoxPaper}
+										elevation={1}
+										square={true}
+									>
+										<div className={ classes.iconBoxContent }>
 											<span>
 												<Icon className={ classes.iconBoxContentBigger }>restaurant</Icon>
 												<span className={ classes.iconBoxContentBigger }> 2</span>
 											</span>
-										)}
-										<span className={ classes.iconCounterDescription }>eat together</span>
-									</div>
-								</Paper>
+											<span className={ classes.iconCounterDescription }>eat together</span>
+										</div>
+									</Paper>
+								)}
 							</div>
 							<div className={ classes.iconBox + ' col-3' }>
 								<Paper
@@ -334,6 +360,17 @@ class Home extends Component {
 						
 					</SwipeableViews>
 				</div>
+				
+				
+				
+									
+				<Dialog
+					open={this.state.openDialog}
+					TransitionComponent={Transition}
+					onClose={this.handleDialogClose}
+				>
+					test
+				</Dialog>
 			</div>
         );
     }
