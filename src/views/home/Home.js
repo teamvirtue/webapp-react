@@ -3,15 +3,26 @@ import PropTypes from 'prop-types';
 import Icon from '@material-ui/core/Icon';
 import FontAwesome from 'react-fontawesome';
 import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
 import Paper from '@material-ui/core/Paper';
 import Badge from '@material-ui/core/Badge';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import Fade from '@material-ui/core/Fade';
+import Slide from '@material-ui/core/Slide';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import Divider from '@material-ui/core/Divider';
+import Avatar from '@material-ui/core/Avatar';
 import SwipeableViews from 'react-swipeable-views';
 import Typography from '@material-ui/core/Typography';
 import { withTheme } from '@material-ui/core/styles';
 import { withStyles } from '@material-ui/core/styles';
+
+import accountPicture1 from '../../assets/accounts/1.jpg';
+import accountPicture3 from '../../assets/accounts/3.jpg';
+import accountPicture4 from '../../assets/accounts/4.jpg';
+import accountPicture5 from '../../assets/accounts/5.jpg';
 
 const styles = theme => ({
     root: {
@@ -32,11 +43,8 @@ const styles = theme => ({
 	subNavBarIndicator:{
 		display: 'none',
 	},
-	subNavBarContainerTabSelected: {
-		'& span': {
-			fontWeight: 'bold',
-			fontSize: '3.5vw',
-		}
+	badgeIcon: {
+		fontSize: 10,
 	},
 	iconBox: {
 		marginTop: 10,
@@ -81,12 +89,34 @@ const styles = theme => ({
 		display: 'block',
 		color: '#ffd1bf',
 	},
+	dialogRoot: {
+		top: 'auto',
+		textAlign: 'center',
+	},
+	dialogActionContainer: {
+		display: 'flex',
+		justifyContent: 'center',
+	},
+	dialogAction: {
+		margin: 10,
+		'&:hover':{
+			cursor: 'pointer',
+		},
+	},
+	avatarSmall: {
+		width: 30,
+		height: 30,
+		marginRight: 10,
+		border: '2px solid white',
+	},
 });
 
 
 function Transition(props) {
-	return <Fade {...props} />;
+	return <Slide direction="up" {...props} />;
 }
+
+var current_timeout = 0;
 
 
 class Home extends Component {
@@ -102,10 +132,13 @@ class Home extends Component {
     updateActiveTabState = (tab) => {
         if (tab === 0) {
             this.props.updateSustainabilityStatus('linq');
+			this.setState({ tab: 'linq' });
         } else if(tab === 1) {
             this.props.updateSustainabilityStatus('mylinq');
+			this.setState({ tab: 'mylinq' });
         } else if(tab === 2) {
             this.props.updateSustainabilityStatus('district');
+			this.setState({ tab: 'district' });
         }
     };
 
@@ -127,15 +160,30 @@ class Home extends Component {
 		this.setState({ openDialog: false });
 	};
 
+    handleSubmitEatTogether = (status, close) => {
+		/*** Reset state after a while ***/
+		clearTimeout(current_timeout);
+        current_timeout = setTimeout(function(){
+			this.props.updateEatTogether('requested');
+        }.bind(this), 1000 * 30);//30 seconds
+		/*********************************/
+		
+		this.props.updateEatTogether(status);
+		if(close){
+			this.handleDialogClose();
+		}
+    };
+
     render() {
         const { classes, temperature, localNewsHeadlines, houseData } = this.props;
-        const tab = this.state.tabIndex;
+        const tab = this.state.tab;
+		const tabIndex = this.state.tabIndex;
 
         return (
             <div className={ classes.root }>
 				<div className='subNavBarContainer'>
 					<Tabs
-						value={ tab }
+						value={ tabIndex }
 						onChange={ this.handleTabChange }
 						classes={{ indicator: classes.subNavBarIndicator }}
 						indicatorColor="secondary"
@@ -143,12 +191,20 @@ class Home extends Component {
 						centered
 						fullWidth
 					>
-						<Tab label="LINQ" classes={{ label: classes.subNavBarContainerTab, selected: classes.subNavBarContainerTabSelected }} />
-						<Tab label="My LINQ" classes={{ label: classes.subNavBarContainerTab, selected: classes.subNavBarContainerTabSelected }} />
-						<Tab label="District" classes={{ label: classes.subNavBarContainerTab, selected: classes.subNavBarContainerTabSelected }} />
+						<Tab 
+							label={(houseData.eatTogether === 'requested' && tab!=='linq') ? (
+								<Badge badgeContent={<Icon className={ classes.badgeIcon }>restaurant</Icon>} color="secondary" style={{padding: '0 10px'}} classes={{badge: 'badge'}}>
+									LINQ
+								</Badge>
+							) : (
+								"LINQ" 
+							)}
+							classes={{ label: classes.subNavBarContainerTab, selected: 'subNavBarContainerTabSelected' }} />
+						<Tab label="My LINQ" classes={{ label: classes.subNavBarContainerTab, selected: 'subNavBarContainerTabSelected' }} />
+						<Tab label="District" classes={{ label: classes.subNavBarContainerTab, selected: 'subNavBarContainerTabSelected' }} />
 					</Tabs>
 					
-					<SwipeableViews index={ tab } onChangeIndex={ this.handleTabChangeIndex } style={{ overflow: 'hidden' }}>
+					<SwipeableViews index={ tabIndex } onChangeIndex={ this.handleTabChangeIndex } style={{ overflow: 'hidden' }}>
 					
 						<div className='row no-margin'>
 							<div className={ classes.iconBox + ' col-3' }>
@@ -182,38 +238,34 @@ class Home extends Component {
 								</Paper>
 							</div>
 							<div className={ classes.iconBox + ' col-3' }>
-								{houseData.showEatTogether ? (
-									<Paper
-										className={classes.iconBoxPaper}
-										elevation={1}
-										square={true}
-										onClick={ this.handleDialogOpen }
-									>
-										<div className={ classes.iconBoxContent }>
-											<Badge badgeContent={'!'} color="secondary">
+								<Paper
+									className={classes.iconBoxPaper}
+									elevation={1}
+									square={true}
+									onClick={ this.handleDialogOpen }
+								>
+									<div className={ classes.iconBoxContent }>
+										{houseData.eatTogether === 'requested' ? (
+											<div>
+												<Badge badgeContent={<Icon className={ classes.badgeIcon }>restaurant</Icon>} color="secondary">
+													<span>
+														<Icon className={ classes.iconBoxContentBigger }>restaurant</Icon>
+														<span className={ classes.iconBoxContentBigger }> 2</span>
+													</span>
+												</Badge>
+												<span className={ classes.iconCounterDescription }>eat together</span>
+											</div>
+										) : (
+											<div>
 												<span>
 													<Icon className={ classes.iconBoxContentBigger }>restaurant</Icon>
 													<span className={ classes.iconBoxContentBigger }> 2</span>
 												</span>
-											</Badge>
-											<span className={ classes.iconCounterDescription }>eat together</span>
-										</div>
-									</Paper>
-								) : (
-									<Paper
-										className={classes.iconBoxPaper}
-										elevation={1}
-										square={true}
-									>
-										<div className={ classes.iconBoxContent }>
-											<span>
-												<Icon className={ classes.iconBoxContentBigger }>restaurant</Icon>
-												<span className={ classes.iconBoxContentBigger }> 2</span>
-											</span>
-											<span className={ classes.iconCounterDescription }>eat together</span>
-										</div>
-									</Paper>
-								)}
+												<span className={ classes.iconCounterDescription }>eat together</span>
+											</div>
+										)}
+									</div>
+								</Paper>
 							</div>
 							<div className={ classes.iconBox + ' col-3' }>
 								<Paper
@@ -270,11 +322,19 @@ class Home extends Component {
 									square={true}
 								>
 									<div className={ classes.iconBoxContent }>
-										<span>
-											<Icon className={ classes.iconBoxContentBigger }>check</Icon>
-											<span className={ classes.iconBoxContentBigger }> </span>
-										</span>
-										<span className={ classes.iconCounterDescription }>energy usage</span>
+										{ houseData.indoorCO2 < 1000 ? 
+											<div>
+												<Icon className={ classes.iconBoxContentBigger }>cloud</Icon>
+												<span className={ classes.iconBoxContentBigger }><Icon>check</Icon></span>
+												<span className={ classes.iconCounterDescription }>healthy CO2</span>
+											</div>
+											: 
+											<div>
+												<Icon className={ classes.iconBoxContentBigger }>cloud</Icon>
+												<span className={ classes.iconBoxContentBigger }><Icon>close</Icon></span>
+												<span className={ classes.iconCounterDescription }><strong>unhealthy CO2</strong></span>
+											</div>
+										}
 									</div>
 								</Paper>
 							</div>
@@ -363,13 +423,59 @@ class Home extends Component {
 				
 				
 				
-									
+				
 				<Dialog
 					open={this.state.openDialog}
 					TransitionComponent={Transition}
 					onClose={this.handleDialogClose}
+					classes={{
+						root: classes.dialogRoot,
+					}}
 				>
-					test
+					<DialogContent>
+						<List>
+							<ListItem>
+								<Avatar alt="Abdul" src={accountPicture3} />
+								<ListItemText 
+									primary='Hey! Im free tonight, would someone like to cook and eat together around 19:00?'
+									secondary="Abdul, Today, 13:14 PM" />
+							</ListItem>
+						</List>
+						<Divider />
+						
+						{houseData.eatTogether === 'yes' ? (
+							<div>
+								<List>
+									<ListItem dense>
+										<Avatar alt="Mohamed" src={accountPicture4} className={classes.avatarSmall} /> 
+										<Avatar alt="Ana" src={accountPicture5} className={classes.avatarSmall} style={{marginLeft: '-28px'}} />
+										<Avatar alt="You" src={accountPicture1} className={classes.avatarSmall} style={{marginLeft: '-28px'}} />
+										<span><em>Ana, Mohammed and you are joining <a href="javascript:void(0);" onClick={ () => this.handleSubmitEatTogether('no', false) }>(cancel)</a></em></span>
+									</ListItem>
+								</List>
+							</div>
+						) : (
+							<div>
+								<List>
+									<ListItem dense>
+										<Avatar alt="Mohamed" src={accountPicture4} className={classes.avatarSmall} /> 
+										<Avatar alt="Ana" src={accountPicture5} className={classes.avatarSmall} style={{marginLeft: '-28px'}} />
+										<span><em>Ana and Mohammed are joining</em></span>
+									</ListItem>
+								</List>
+
+								<div className={classes.dialogActionContainer}>
+									<Avatar className={classes.dialogAction} style={{backgroundColor:'#03cea4'}} onClick={ () => this.handleSubmitEatTogether('yes', false) }>
+										<Icon>thumb_up_alt</Icon>
+									</Avatar>
+									<Avatar className={classes.dialogAction} style={{backgroundColor:'#e9190f'}} onClick={ () => this.handleSubmitEatTogether('no', true) }>
+										<Icon>thumb_down_alt</Icon>
+									</Avatar>
+								</div>
+							</div>
+						)}
+						
+					</DialogContent>
 				</Dialog>
 			</div>
         );

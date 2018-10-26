@@ -1,7 +1,8 @@
 const houseData = (state = {
-	showEatTogether: true, /* TODO: move this to other reducer (linqData??) */
+	eatTogether: 'requested', /* TODO: move this to other reducer (linqData??) */
 	indoorTemperature: 0,
 	indoorHumidity: 0,
+	indoorCO2: 0,
 	room: {
 		'All Rooms': {
 			airco: {
@@ -268,6 +269,13 @@ const houseData = (state = {
                 ...state,
 				indoorTemperature: [action.payload.temperature],
 				indoorHumidity: [action.payload.humidity],
+				indoorCO2: [action.payload.CO2]
+            };
+			
+        case 'UPDATE_EAT_TOGETHER':
+			return {
+                ...state,
+				eatTogether: action.payload.status,
             };
 			
 		default:

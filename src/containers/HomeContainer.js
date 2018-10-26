@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import Home from '../views/home/Home';
-import { updateSustainabilityStatus } from '../actions';
+import { updateSustainabilityStatus, updateEatTogether } from '../actions';
 
 const mapStateToProps = (state) => {
     // console.log(state);
@@ -14,6 +14,9 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = dispatch => ({
     updateSustainabilityStatus: (selected) => {
         dispatch(updateSustainabilityStatus(selected));
+    },
+    updateEatTogether: (status) => {
+        dispatch(updateEatTogether(status));
     }
 });
 

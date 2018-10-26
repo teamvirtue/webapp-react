@@ -83,6 +83,7 @@ export function apiGetAtmoTemperature() {
 					payload: {
 						temperature: response.data.last_temperature, 
 						humidity: response.data.last_humidity,
+						CO2: response.data.last_amount_CO2
 					}
 				});
 				return true;

@@ -527,15 +527,15 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
 
         switch(level) {
             case 'mylinq':
-                this.setTransparency(this.MYLINQ_GROUP.children[0], 0.3); // TODO: find roof group in a more flexible way
+                // this.setTransparency(this.MYLINQ_GROUP.children[0], 0.3); // TODO: find roof group in a more flexible way
                 this.animateCamera(this.camera, { x: 0, y: 75, z: 10 });
                 break;
             case 'linq':
-                this.setTransparency(this.MYLINQ_GROUP.children[0], 1);
+                // this.setTransparency(this.MYLINQ_GROUP.children[0], 1);
                 this.animateCamera(this.camera, { x: 100, y: 75, z: 100 });
                 break;
             case 'district':
-                this.setTransparency(this.MYLINQ_GROUP.children[0], 1);
+                // this.setTransparency(this.MYLINQ_GROUP.children[0], 1);
                 this.animateCamera(this.camera, { x: 100, y: 100, z: 100 }, 0.5);
 
                 break;

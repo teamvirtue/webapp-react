@@ -87,3 +87,8 @@ export const updateRoomsLightWarmth = (room, warmth) => ({
     type: 'UPDATE_ROOMS_LIGHT_WARMTH',
     payload: { room, warmth },
 });
+
+export const updateEatTogether = (status) => ({
+    type: 'UPDATE_EAT_TOGETHER',
+    payload: { status },
+});
