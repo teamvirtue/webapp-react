@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Icon from '@material-ui/core/Icon';
+import IconButton from '@material-ui/core/IconButton';
 import FontAwesome from 'react-fontawesome';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -99,9 +100,10 @@ const styles = theme => ({
 	},
 	dialogAction: {
 		margin: 10,
-		'&:hover':{
-			cursor: 'pointer',
-		},
+		transition: 'all 200ms',
+		width: 40,
+		height: 40,
+		color: 'white',
 	},
 	avatarSmall: {
 		width: 30,
@@ -126,6 +128,7 @@ class Home extends Component {
             tab: this.props.sustainabilityStatus.selected,
 			tabIndex: (this.props.sustainabilityStatus.selected === 'linq') ? (0) : ((this.props.sustainabilityStatus.selected === 'mylinq') ? (1) : (2)),
 			openDialog: false,
+			dialogContent: 'eattogether',
         };
     }
 
@@ -152,7 +155,8 @@ class Home extends Component {
         this.updateActiveTabState(index);
     };
 	
-	handleDialogOpen = () => {
+	handleDialogOpen = (content) => {
+		this.setState({ dialogContent: content });
 		this.setState({ openDialog: true });
 	};
 
@@ -242,7 +246,7 @@ class Home extends Component {
 									className={classes.iconBoxPaper}
 									elevation={1}
 									square={true}
-									onClick={ this.handleDialogOpen }
+									onClick={ () => this.handleDialogOpen('eattogether') }
 								>
 									<div className={ classes.iconBoxContent }>
 										{houseData.eatTogether === 'requested' ? (
@@ -320,6 +324,7 @@ class Home extends Component {
 									className={classes.iconBoxPaper}
 									elevation={1}
 									square={true}
+									onClick={ () => this.handleDialogOpen('CO2') }
 								>
 									<div className={ classes.iconBoxContent }>
 										{ houseData.indoorCO2 < 1000 ? 
@@ -433,47 +438,72 @@ class Home extends Component {
 					}}
 				>
 					<DialogContent>
-						<List>
-							<ListItem>
-								<Avatar alt="Abdul" src={accountPicture3} />
-								<ListItemText 
-									primary='Hey! Im free tonight, would someone like to cook and eat together around 19:00?'
-									secondary="Abdul, Today, 13:14 PM" />
-							</ListItem>
-						</List>
-						<Divider />
-						
-						{houseData.eatTogether === 'yes' ? (
+					
+						{this.state.dialogContent === 'eattogether' &&
 							<div>
 								<List>
-									<ListItem dense>
-										<Avatar alt="Mohamed" src={accountPicture4} className={classes.avatarSmall} /> 
-										<Avatar alt="Ana" src={accountPicture5} className={classes.avatarSmall} style={{marginLeft: '-28px'}} />
-										<Avatar alt="You" src={accountPicture1} className={classes.avatarSmall} style={{marginLeft: '-28px'}} />
-										<span><em>Ana, Mohammed and you are joining <a href="javascript:void(0);" onClick={ () => this.handleSubmitEatTogether('no', false) }>(cancel)</a></em></span>
+									<ListItem>
+										<Avatar alt="Abdul" src={accountPicture3} />
+										<ListItemText 
+											primary='Hey! Im free tonight, would someone like to cook and eat together around 19:00?'
+											secondary="Abdul, today at 13:14 PM" />
 									</ListItem>
 								</List>
-							</div>
-						) : (
-							<div>
-								<List>
-									<ListItem dense>
-										<Avatar alt="Mohamed" src={accountPicture4} className={classes.avatarSmall} /> 
-										<Avatar alt="Ana" src={accountPicture5} className={classes.avatarSmall} style={{marginLeft: '-28px'}} />
-										<span><em>Ana and Mohammed are joining</em></span>
-									</ListItem>
-								</List>
+								<Divider />
+								
+								{houseData.eatTogether === 'yes' ? (
+									<List>
+										<ListItem dense>
+											<Avatar alt="Mohamed" src={accountPicture4} className={classes.avatarSmall} /> 
+											<Avatar alt="Ana" src={accountPicture5} className={classes.avatarSmall} style={{marginLeft: '-28px'}} />
+											<Avatar alt="You" src={accountPicture1} className={classes.avatarSmall} style={{marginLeft: '-28px'}} />
+											<span><em>Ana, Mohammed and you are joining</em></span>
+										</ListItem>
+									</List>
+								) : (
+									<List>
+										<ListItem dense>
+											<Avatar alt="Mohamed" src={accountPicture4} className={classes.avatarSmall} /> 
+											<Avatar alt="Ana" src={accountPicture5} className={classes.avatarSmall} style={{marginLeft: '-28px'}} />
+											<span><em>Ana and Mohammed are joining</em></span>
+										</ListItem>
+									</List>
+								)}
 
 								<div className={classes.dialogActionContainer}>
-									<Avatar className={classes.dialogAction} style={{backgroundColor:'#03cea4'}} onClick={ () => this.handleSubmitEatTogether('yes', false) }>
+									<IconButton className={classes.dialogAction} style={{backgroundColor: (houseData.eatTogether === 'no' ? '#bdbdbd' : '#03cea4')}} onClick={ () => this.handleSubmitEatTogether('yes', false) }>
 										<Icon>thumb_up_alt</Icon>
-									</Avatar>
-									<Avatar className={classes.dialogAction} style={{backgroundColor:'#e9190f'}} onClick={ () => this.handleSubmitEatTogether('no', true) }>
+									</IconButton>
+									<IconButton className={classes.dialogAction} style={{backgroundColor: (houseData.eatTogether === 'yes' ? '#bdbdbd' : '#e9190f')}} onClick={ () => this.handleSubmitEatTogether('no', true) }>
 										<Icon>thumb_down_alt</Icon>
-									</Avatar>
+									</IconButton>
 								</div>
 							</div>
-						)}
+						}
+						
+						{this.state.dialogContent === 'CO2' &&
+							<div>
+								<ul className='CO2Line'>
+									<li>
+										Good
+										<span>250-350</span>
+									</li>
+									<li>
+										Excellent
+										<span>350-1,000</span>
+									</li>
+									<li>
+										Poor
+										<span>1,000-2,000</span>
+									</li>
+									<li>
+										Very poor
+										<span>2,000 and higher</span>
+									</li>
+								</ul>
+								Current: { houseData.indoorCO2 }
+							</div>
+						}
 						
 					</DialogContent>
 				</Dialog>

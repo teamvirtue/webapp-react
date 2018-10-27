@@ -172,30 +172,13 @@ body {
     top: 50%;
     margin: -11vw 0 0 -11vw;
     transition: all 300ms ease;
+	border-radius:50%;
+	overflow:hidden;
 }
 
 .sustainabilityStatusCircleContainer:hover {
 	cursor: pointer;
 }
-
-.sustainabilityStatusCircleContainer.positive div {
-    /*-webkit-box-shadow: 0px 0px 30px 10px rgba(3,206,164,0.6);
-    -moz-box-shadow: 0px 0px 30px 10px rgba(3,206,164,0.6);
-    box-shadow: 0px 0px 30px 10px rgba(3,206,164,0.6);*/
-}
-.sustainabilityStatusCircleContainer.positive svg { stroke: #03cea4; }
-.sustainabilityStatusCircleContainer.neutral div {
-    /*-webkit-box-shadow: 0px 0px 30px 10px rgba(255,174,3,0.6);
-    -moz-box-shadow: 0px 0px 30px 10px rgba(255,174,3,0.6);
-    box-shadow: 0px 0px 30px 10px rgba(255,174,3,0.6);*/
-}
-.sustainabilityStatusCircleContainer.neutral svg { stroke: #ffae03; }
-.sustainabilityStatusCircleContainer.negative div {
-    /*-webkit-box-shadow: 0px 0px 30px 10px rgba(233,25,15,0.6);
-    -moz-box-shadow: 0px 0px 30px 10px rgba(233,25,15,0.6);
-    box-shadow: 0px 0px 30px 10px rgba(233,25,15,0.6);*/
-}
-.sustainabilityStatusCircleContainer.negative svg { stroke: #e9190f; }
 
 .sustainabilityStatusCircle{
 	position: absolute;
@@ -204,7 +187,84 @@ body {
 	overflow: hidden;
 	border-radius: 50%;
 	transition: all 300ms ease;
-	border:5px solid #f77638;
+	-webkit-font-smoothing: antialiased;
+}
+
+.sustainabilityStatusCircle:after,
+.sustainabilityStatusCircle:before{
+	content:"";
+	border-radius:100%;
+	position:absolute;
+	top:0; 
+	left:0;
+	width:100%;
+	height:100%;
+	transform-origin:center center;
+	transition: all 300ms ease;
+}
+
+.sustainabilityStatusCircleContainer.positive .sustainabilityStatusCircle:before,
+.sustainabilityStatusCircleContainer.positive .sustainabilityStatusCircle:after{
+	box-shadow: inset 0 3vw 0 rgba(3, 206, 164, 0.6),
+				inset 3vw 0 0 rgba(95, 173, 86, 0.6),
+				inset 0 -3vw 0 rgba(78, 166, 153, 0.6),
+				inset -3vw 0 0 rgba(68, 175, 105, 0.6);
+}
+
+.sustainabilityStatusCircleContainer.neutral .sustainabilityStatusCircle:before,
+.sustainabilityStatusCircleContainer.neutral .sustainabilityStatusCircle:after{
+	box-shadow: inset 0 3vw 0 rgba(255, 174, 3, 0.6),
+				inset 3vw 0 0 rgba(255, 242, 117, 0.6),
+				inset 0 -3vw 0 rgba(255, 140, 66, 0.6),
+				inset -3vw 0 0 rgba(247, 240, 82, 0.6);
+}
+
+.sustainabilityStatusCircleContainer.negative .sustainabilityStatusCircle:before,
+.sustainabilityStatusCircleContainer.negative .sustainabilityStatusCircle:after{
+	box-shadow: inset 0 3vw 0 rgba(233, 25, 15, 0.6),
+				inset 3vw 0 0 rgba(116, 18, 29, 0.6),
+				inset 0 -3vw 0 rgba(254, 95, 85, 0.6),
+				inset -3vw 0 0 rgba(163, 22, 33, 0.6);
+}
+
+.sustainabilityStatusCircle:before{
+	animation: rotateCircleBorderIz 25s ease-in-out infinite;
+}
+
+.sustainabilityStatusCircle:after{
+	animation: rotateCircleBorder 10s -0.5s linear infinite;
+}
+
+ul.CO2Line {
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+	display: block;
+}
+
+ul.CO2Line li {
+	padding: 15px;
+	background: #fff;
+	border-left: 1px solid #000;
+	position: relative;
+	text-align: left;
+}
+
+ul.CO2Line li::before {
+	content: '';
+	position: absolute;
+	bottom: 16px;
+	left: -6px;
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+	border: 1px solid #000;
+	background: inherit;
+}
+
+ul.CO2Line li span{
+	display: block;
+	color: grey;
 }
 
 /*** FULLSCREEN MODEL ***/
@@ -221,11 +281,17 @@ body {
 	overflow: hidden;
 	left:0;
 	top:0;
+	border-radius: 0;
 }
 
 .fullscreen .wrapper .sustainabilityStatusCircleContainer .sustainabilityStatusCircle{
 	border-radius: 0;
 	border:0;
+}
+
+.fullscreen .wrapper .sustainabilityStatusCircleContainer .sustainabilityStatusCircle:after,
+.fullscreen .wrapper .sustainabilityStatusCircleContainer .sustainabilityStatusCircle:before{
+	display:none;
 }
 /*** END FULLSCREEN MODEL ***/
 
@@ -299,6 +365,7 @@ body {
         width: 40vh;
         height: 40vh;
         margin-top: 15vh;
+		margin-bottom:15px;
     }
     .home .headerBg { /*TODO: implement cubic-bezier*/
 		background-color: rgb(249, 130, 63);
@@ -392,11 +459,26 @@ body {
 }
 
 /* Animations */
-@keyframes circleProgress {
-    0%{
-        transform:rotate(0deg);
-    }
-    100% {
-        transform:rotate(360deg);
-    }
+@keyframes rotateCircleBorder{
+	0%{
+		transform:rotateZ(0deg) scaleX(1) scaleY(1);
+	}
+	50%{
+		transform:rotateZ(180deg);
+	}
+	100%{
+		transform:rotateZ(360deg) scaleX(1) scaleY(1);
+	}
+}
+
+@keyframes rotateCircleBorderIz{
+	0%{
+		transform:rotateZ(0deg);
+	}
+	8%{
+		transform:rotateZ(-360deg);
+	}
+	100%{
+		transform:rotateZ(-360deg);
+	}
 }

@@ -20,24 +20,6 @@ const styles = theme => ({
         left: 0,
         bottom: 'auto',
     },
-    circleBorder: {
-        cursor: 'pointer',
-        position: 'absolute',
-        height: '100%',
-        width: '100%',
-        left: '0',
-        top: '0',
-        fill: 'none',
-		borderRadius: '47%',
-        strokeWidth: '6',
-        strokeDasharray: '0',
-        strokeDashoffset: '0',
-        strokeLinecap: 'square',
-        animation: 'circleProgress 12s linear infinite',
-        animationFillMode: 'forwards',
-        pointerEvents: 'none',
-        transition: 'all 1s',
-    },
     subNavBarContainerTab: {
         textAlign: 'center',
         lineHeight: '24px',
@@ -91,11 +73,6 @@ class SustainabilityStatusCircle extends Component {
                     <div className={ 'sustainabilityStatusCircle' }>
                         <SceneContainer setClick={ click => this.clickChild = click } />
                     </div>
-					{ !sustainabilityStatus.fullscreen &&
-						<svg className={ classes.circleBorder } version='1.1' id='L1' xmlns='http://www.w3.org/2000/svg' x='0px' y='0px' viewBox='0 0 100 100'>
-							<circle cx='50' cy='50' r='48'/>
-						</svg>
-					}
                 </div>
 
                 { sustainabilityStatus.fullscreen &&
