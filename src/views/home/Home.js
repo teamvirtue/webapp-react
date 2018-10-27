@@ -177,6 +177,59 @@ class Home extends Component {
 			this.handleDialogClose();
 		}
     };
+	
+	renderCO2Message(){
+		if (this.props.houseData.indoorCO2 >= 0 && this.props.houseData.indoorCO2 < 600) {
+			return (
+				<div>
+					<h3>The level of CO2 is good ({ this.props.houseData.indoorCO2 })</h3>
+					<p>That's great! Controlling ventilation is good for your health and it will increase productivity.</p>
+				</div>
+			);
+		} else if (this.props.houseData.indoorCO2 >= 600 && this.props.houseData.indoorCO2 < 1000) {
+			return (
+				<div>
+					<h3>The level of CO2 is okay ({ this.props.houseData.indoorCO2 })</h3>
+					<p>That's good but you might consider to open a window or turn the air conditioning higher. Controlling ventilation is good for your health and it will increase productivity.</p>
+				</div>
+			);
+		} else if (this.props.houseData.indoorCO2 >= 1000 && this.props.houseData.indoorCO2 < 2500) {
+			return (
+				<div>
+					<h3>The level of CO2 should be improved ({ this.props.houseData.indoorCO2 })</h3>
+					<p>Elevated levels of CO2 decrease productivity and performance and increase headaches and rates of absenteeism. You must ventilate rooms by turning the air conditioning on or opening a window!</p>
+				</div>
+			);
+		} else if (this.props.houseData.indoorCO2 >= 2500 && this.props.houseData.indoorCO2 < 5000) {
+			return (
+				<div>
+					<h3>The level of CO2 is bad ({ this.props.houseData.indoorCO2 })</h3>
+					<p>This might have to do with poorly ventilated rooms or many people in the house. You must ventilate rooms by turning the air conditioning on or opening a window.</p>
+				</div>
+			);
+		} else if (this.props.houseData.indoorCO2 >= 5000) {
+			return (
+				<div>
+					<h3>The level of CO2 is terribly bad ({ this.props.houseData.indoorCO2 })</h3>
+					<p>You must <strong>immediately</strong> ventilate rooms by turning the air conditioning on or opening a window!</p>
+				</div>
+			);
+		}
+	}
+	
+	renderCO2LineProgress(){
+		if (this.props.houseData.indoorCO2 >= 0 && this.props.houseData.indoorCO2 < 600) {
+			return '12.5%';
+		} else if (this.props.houseData.indoorCO2 >= 600 && this.props.houseData.indoorCO2 < 1000) {
+			return '37.5%';
+		} else if (this.props.houseData.indoorCO2 >= 1000 && this.props.houseData.indoorCO2 < 2500) {
+			return '62.5%';
+		} else if (this.props.houseData.indoorCO2 >= 2500 && this.props.houseData.indoorCO2 < 5000) {
+			return '87.5%';
+		} else if (this.props.houseData.indoorCO2 >= 5000) {
+			return '100%';
+		}
+	}
 
     render() {
         const { classes, temperature, localNewsHeadlines, houseData } = this.props;
@@ -263,7 +316,7 @@ class Home extends Component {
 											<div>
 												<span>
 													<Icon className={ classes.iconBoxContentBigger }>restaurant</Icon>
-													<span className={ classes.iconBoxContentBigger }> 2</span>
+													<span className={ classes.iconBoxContentBigger }> { (houseData.eatTogether === 'yes' ? 3 : 2 ) }</span>
 												</span>
 												<span className={ classes.iconCounterDescription }>eat together</span>
 											</div>
@@ -436,6 +489,7 @@ class Home extends Component {
 					classes={{
 						root: classes.dialogRoot,
 					}}
+					fullWidth
 				>
 					<DialogContent>
 					
@@ -482,26 +536,30 @@ class Home extends Component {
 						}
 						
 						{this.state.dialogContent === 'CO2' &&
-							<div>
-								<ul className='CO2Line'>
-									<li>
-										Good
-										<span>250-350</span>
-									</li>
-									<li>
+							<div className='CO2Container'>
+								<div className='CO2Line'>
+									<div className='dot'>
 										Excellent
-										<span>350-1,000</span>
-									</li>
-									<li>
-										Poor
-										<span>1,000-2,000</span>
-									</li>
-									<li>
-										Very poor
-										<span>2,000 and higher</span>
-									</li>
-								</ul>
-								Current: { houseData.indoorCO2 }
+										<span>0-600</span>
+									</div>
+									<div className='dot'>
+										Good
+										<span>600-1,000</span>
+									</div>
+									<div className='dot'>
+										Medium
+										<span>1,000-2,500</span>
+									</div>
+									<div className='dot'>
+										Bad
+										<span>2,500 and higher</span>
+									</div>
+								</div>
+								<div className='line'>
+									<div className='lineProgress' style={{ width: this.renderCO2LineProgress() }}></div>
+								</div>
+								
+								{ this.renderCO2Message() }
 							</div>
 						}
 						
