@@ -17,8 +17,11 @@ import Divider from '@material-ui/core/Divider';
 import Avatar from '@material-ui/core/Avatar';
 import SwipeableViews from 'react-swipeable-views';
 import Typography from '@material-ui/core/Typography';
+import TextField from '@material-ui/core/TextField';
 import { withTheme } from '@material-ui/core/styles';
 import { withStyles } from '@material-ui/core/styles';
+import { CSSTransitionGroup } from 'react-transition-group';
+import '../../animations.css';
 
 import accountPicture2 from '../../assets/accounts/2.jpg';
 import accountPicture3 from '../../assets/accounts/3.jpg';
@@ -94,16 +97,45 @@ const styles = theme => ({
 		top: 'auto',
 		textAlign: 'center',
 	},
+	dialogPaperRoot: {
+		backgroundColor: '#f9f9f9',
+	},
+	dialogHeader: {
+		backgroundColor: 'white',
+		textAlign: 'center',
+		paddingTop: 20,
+		paddingBottom: 10,
+	},
+	dialogHeaderIcon: {
+		fontSize: 32, 
+		verticalAlign: 'middle',
+		marginRight: 10,
+		marginTop: -3,
+	},
+	dialogHeaderHeading: {
+		display: 'inline-block',
+	},
 	dialogActionContainer: {
 		display: 'flex',
 		justifyContent: 'center',
 	},
 	dialogAction: {
-		margin: 10,
+		margin: '10px 5px',
 		transition: 'all 200ms',
 		width: 40,
 		height: 40,
-		color: 'white',
+		color: 'white', 
+	},
+	eatTogetherNewMessage: {
+		borderRadius: 25,
+		background: '#f9f9f9',
+		padding: '0 20px',
+		marginTop: 10,
+		border: '1px solid #dbdbdb',
+		flexGrow: 2,
+		'& div': {
+			padding: '5px 0',
+		},
 	},
 	avatarSmall: {
 		width: 30,
@@ -129,6 +161,7 @@ class Home extends Component {
 			tabIndex: (this.props.sustainabilityStatus.selected === 'linq') ? (0) : ((this.props.sustainabilityStatus.selected === 'mylinq') ? (1) : (2)),
 			openDialog: false,
 			dialogContent: 'eattogether',
+			newMessageInput: '',
         };
     }
 
@@ -164,15 +197,25 @@ class Home extends Component {
 		this.setState({ openDialog: false });
 	};
 
-    handleSubmitEatTogether = (status, close) => {
+	handleNewMessageInput = (e) => {
+		this.setState({ newMessageInput: e.target.value });
+	};
+
+    handleSubmitEatTogetherStatus = (status, close) => {
 		/*** Reset state after a while ***/
 		clearTimeout(current_timeout);
         current_timeout = setTimeout(function(){
-			this.props.updateEatTogether('requested');
+			this.props.updateEatTogetherStatus('requested');
+			this.props.resetEatTogetherMessage();
         }.bind(this), 1000 * 30);//30 seconds
 		/*********************************/
 		
-		this.props.updateEatTogether(status);
+		this.props.updateEatTogetherStatus(status);
+		this.setState({ newMessageInput: '' });
+		
+		if(this.state.newMessageInput){
+			this.props.updateEatTogetherMessage(this.state.newMessageInput);
+		}
 		if(close){
 			this.handleDialogClose();
 		}
@@ -182,35 +225,35 @@ class Home extends Component {
 		if (this.props.houseData.indoorCO2 >= 0 && this.props.houseData.indoorCO2 < 600) {
 			return (
 				<div>
-					<h3>The level of CO2 is good ({ this.props.houseData.indoorCO2 })</h3>
+					<h3>The level of CO2 is good</h3>
 					<p>That's great! Controlling ventilation is good for your health and it will increase productivity.</p>
 				</div>
 			);
 		} else if (this.props.houseData.indoorCO2 >= 600 && this.props.houseData.indoorCO2 < 1000) {
 			return (
 				<div>
-					<h3>The level of CO2 is okay ({ this.props.houseData.indoorCO2 })</h3>
+					<h3>The level of CO2 is okay</h3>
 					<p>That's good but you might consider to open a window or turn the air conditioning higher. Controlling ventilation is good for your health and it will increase productivity.</p>
 				</div>
 			);
 		} else if (this.props.houseData.indoorCO2 >= 1000 && this.props.houseData.indoorCO2 < 2500) {
 			return (
 				<div>
-					<h3>The level of CO2 should be improved ({ this.props.houseData.indoorCO2 })</h3>
+					<h3>The level of CO2 should be improved</h3>
 					<p>Elevated levels of CO2 decrease productivity and performance and increase headaches and rates of absenteeism. You must ventilate rooms by turning the air conditioning on or opening a window!</p>
 				</div>
 			);
 		} else if (this.props.houseData.indoorCO2 >= 2500 && this.props.houseData.indoorCO2 < 5000) {
 			return (
 				<div>
-					<h3>The level of CO2 is bad ({ this.props.houseData.indoorCO2 })</h3>
+					<h3>The level of CO2 is bad</h3>
 					<p>This might have to do with poorly ventilated rooms or many people in the house. You must ventilate rooms by turning the air conditioning on or opening a window.</p>
 				</div>
 			);
 		} else if (this.props.houseData.indoorCO2 >= 5000) {
 			return (
 				<div>
-					<h3>The level of CO2 is terribly bad ({ this.props.houseData.indoorCO2 })</h3>
+					<h3>The level of CO2 is terribly bad</h3>
 					<p>You must <strong>immediately</strong> ventilate rooms by turning the air conditioning on or opening a window!</p>
 				</div>
 			);
@@ -230,6 +273,8 @@ class Home extends Component {
 			return '100%';
 		}
 	}
+	
+	
 
     render() {
         const { classes, temperature, localNewsHeadlines, houseData } = this.props;
@@ -249,7 +294,7 @@ class Home extends Component {
 						fullWidth
 					>
 						<Tab 
-							label={(houseData.eatTogether === 'requested' && tab!=='linq') ? (
+							label={(houseData.eatTogetherStatus === 'requested' && tab!=='linq') ? (
 								<Badge badgeContent={<Icon className={ classes.badgeIcon }>restaurant</Icon>} color="secondary" style={{padding: '0 10px'}} classes={{badge: 'badge'}}>
 									LINQ
 								</Badge>
@@ -302,7 +347,7 @@ class Home extends Component {
 									onClick={ () => this.handleDialogOpen('eattogether') }
 								>
 									<div className={ classes.iconBoxContent }>
-										{houseData.eatTogether === 'requested' ? (
+										{houseData.eatTogetherStatus === 'requested' ? (
 											<div>
 												<Badge badgeContent={<Icon className={ classes.badgeIcon }>restaurant</Icon>} color="secondary">
 													<span>
@@ -316,7 +361,7 @@ class Home extends Component {
 											<div>
 												<span>
 													<Icon className={ classes.iconBoxContentBigger }>restaurant</Icon>
-													<span className={ classes.iconBoxContentBigger }> { (houseData.eatTogether === 'yes' ? 3 : 2 ) }</span>
+													<span className={ classes.iconBoxContentBigger }> { (houseData.eatTogetherStatus === 'yes' ? 3 : 2 ) }</span>
 												</span>
 												<span className={ classes.iconCounterDescription }>eat together</span>
 											</div>
@@ -362,6 +407,7 @@ class Home extends Component {
 									className={classes.iconBoxPaper}
 									elevation={1}
 									square={true}
+									//onClick={ () => this.handleDialogOpen('humidity') }
 								>
 									<div className={ classes.iconBoxContent }>
 										<span>
@@ -488,56 +534,102 @@ class Home extends Component {
 					onClose={this.handleDialogClose}
 					classes={{
 						root: classes.dialogRoot,
+						paper: classes.dialogPaperRoot,
 					}}
 					fullWidth
 				>
-					<DialogContent>
 					
-						{this.state.dialogContent === 'eattogether' &&
-							<div>
+					{this.state.dialogContent === 'eattogether' &&
+						<DialogContent>
+							<List>
+								<ListItem>
+									<Avatar alt="Abdul" src={accountPicture3} />
+									<ListItemText 
+										primary='Hey! Im free tonight, would someone like to cook and eat together around 19:00?'
+										secondary="Abdul, 1 hour ago" />
+								</ListItem>
+								<ListItem>
+									<Avatar alt="Jamil" src={accountPicture4} />
+									<ListItemText 
+										primary='Cool, I&#39;m in! I can help after 18:30.'
+										secondary="Mar, 45 minutes ago" />
+								</ListItem>
+								<CSSTransitionGroup
+									transitionName='messageAnimation'
+									transitionAppear={ true }
+									transitionAppearTimeout={ 500 }
+									transitionEnterTimeout={ 350 }
+									transitionLeaveTimeout={ 350 }
+								>
+									{ houseData.eatTogetherMessage.map((message, i) => {
+											return (
+												<ListItem>
+													<Avatar alt="You" src={accountPicture2} />
+													<ListItemText 
+														primary={message}
+														secondary="You, just now" />
+												</ListItem>
+											);
+										}
+									) }
+								</CSSTransitionGroup>
+							</List>
+							
+							<Divider />
+							
+							{houseData.eatTogetherStatus === 'yes' ? (
 								<List>
-									<ListItem>
-										<Avatar alt="Abdul" src={accountPicture3} />
-										<ListItemText 
-											primary='Hey! Im free tonight, would someone like to cook and eat together around 19:00?'
-											secondary="Abdul, today at 13:14 PM" />
+									<ListItem dense>
+										<Avatar alt="Mohamed" src={accountPicture4} className={classes.avatarSmall} /> 
+										<Avatar alt="Ana" src={accountPicture5} className={classes.avatarSmall} style={{marginLeft: '-28px'}} />
+										<Avatar alt="You" src={accountPicture2} className={classes.avatarSmall} style={{marginLeft: '-28px'}} />
+										<span><em>Ana, Mohammed and you are joining</em></span>
 									</ListItem>
 								</List>
-								<Divider />
-								
-								{houseData.eatTogether === 'yes' ? (
-									<List>
-										<ListItem dense>
-											<Avatar alt="Mohamed" src={accountPicture4} className={classes.avatarSmall} /> 
-											<Avatar alt="Ana" src={accountPicture5} className={classes.avatarSmall} style={{marginLeft: '-28px'}} />
-											<Avatar alt="You" src={accountPicture2} className={classes.avatarSmall} style={{marginLeft: '-28px'}} />
-											<span><em>Ana, Mohammed and you are joining</em></span>
-										</ListItem>
-									</List>
-								) : (
-									<List>
-										<ListItem dense>
-											<Avatar alt="Mohamed" src={accountPicture4} className={classes.avatarSmall} /> 
-											<Avatar alt="Ana" src={accountPicture5} className={classes.avatarSmall} style={{marginLeft: '-28px'}} />
-											<span><em>Ana and Mohammed are joining</em></span>
-										</ListItem>
-									</List>
-								)}
+							) : (
+								<List>
+									<ListItem dense>
+										<Avatar alt="Mohamed" src={accountPicture4} className={classes.avatarSmall} /> 
+										<Avatar alt="Ana" src={accountPicture5} className={classes.avatarSmall} style={{marginLeft: '-28px'}} />
+										<span><em>Ana and Mohammed are joining</em></span>
+									</ListItem>
+								</List>
+							)}
 
-								<div className={classes.dialogActionContainer}>
-									<IconButton className={classes.dialogAction} style={{backgroundColor: (houseData.eatTogether === 'no' ? '#bdbdbd' : '#03cea4')}} onClick={ () => this.handleSubmitEatTogether('yes', false) }>
-										<Icon>thumb_up_alt</Icon>
-									</IconButton>
-									<IconButton className={classes.dialogAction} style={{backgroundColor: (houseData.eatTogether === 'yes' ? '#bdbdbd' : '#e9190f')}} onClick={ () => this.handleSubmitEatTogether('no', true) }>
-										<Icon>thumb_down_alt</Icon>
-									</IconButton>
-								</div>
+							<div className={classes.dialogActionContainer}>
+								<TextField
+									id="filled-dense"
+									placeholder="Message"
+									className={classes.eatTogetherNewMessage}
+									margin="normal"
+									variant="filled"
+									InputProps={{
+										disableUnderline: true
+									}}
+									onChange={ this.handleNewMessageInput }
+									value={this.state.newMessageInput}
+									ref={el => this.input = el}
+								/>
+								<IconButton className={classes.dialogAction} style={{backgroundColor: (houseData.eatTogetherStatus === 'no' ? '#d7d7d7' : '#03cea4')}} onClick={ () => this.handleSubmitEatTogetherStatus('yes', false) }>
+									<Icon>{ houseData.eatTogetherStatus === 'yes' ? 'mode_comment' : 'thumb_up_alt' }</Icon>
+								</IconButton>
+								<IconButton className={classes.dialogAction} style={{backgroundColor: (houseData.eatTogetherStatus === 'yes' ? '#d7d7d7' : '#e9190f')}} onClick={ () => this.handleSubmitEatTogetherStatus('no', false) }>
+									<Icon>{ houseData.eatTogetherStatus === 'no' ? 'mode_comment' : 'thumb_down_alt' }</Icon>
+								</IconButton>
 							</div>
-						}
-						
-						{this.state.dialogContent === 'CO2' &&
-							<div className='CO2Container'>
-								<div className='CO2Line'>
+						</DialogContent>
+					}
+					
+					{this.state.dialogContent === 'CO2' &&
+						<div className='ProgressContainer'>
+							<div className={ classes.dialogHeader }>
+								<Icon color='primary' className={ classes.dialogHeaderIcon }>cloud</Icon>
+								<Typography className={ classes.dialogHeaderHeading } variant="title" gutterBottom>
+									CO2: { this.props.houseData.indoorCO2 } ppm
+								</Typography>
+							</div>
+							<DialogContent>
+								<div className='ProgressLine'>
 									<div className='dot'>
 										Excellent
 										<span>0-600</span>
@@ -556,14 +648,41 @@ class Home extends Component {
 									</div>
 								</div>
 								<div className='line'>
-									<div className='lineProgress' style={{ width: this.renderCO2LineProgress() }}></div>
+									<div className='lineFill' style={{ width: this.renderCO2LineProgress() }}></div>
 								</div>
 								
 								{ this.renderCO2Message() }
+							</DialogContent>
+						</div>
+					}
+					
+					{/*this.state.dialogContent === 'humidity' &&
+						<div className='ProgressContainer'>
+							<div className='ProgressLine'>
+								<div className='dot'>
+									<span>10%</span>
+								</div>
+								<div className='dot'>
+									<span>30%</span>
+								</div>
+								<div className='dot'>
+									<span>50%</span>
+								</div>
+								<div className='dot'>
+									<span>70%</span>
+								</div>
+								<div className='dot'>
+									<span>90%</span>
+								</div>
 							</div>
-						}
+							<div className='line'>
+								<div className='lineFill' style={{ width: houseData.indoorHumidity + '%' }}></div>
+							</div>
+							
+							{ this.renderHumidityMessage() }
+						</div>*/
+					}
 						
-					</DialogContent>
 				</Dialog>
 			</div>
         );

@@ -146,7 +146,7 @@ class NotificationsDialog extends Component {
 											</CardContainer> : null
 									}
 								) }
-								{ (Object.keys(advices.byId).length === 0) && <div>asdfasdfasdf</div> }
+								{ /* (Object.keys(advices.byId).length === 0) && <div>asdfasdfasdf</div> */ }
 							</CSSTransitionGroup>
 							
 							{/*<div className={ classes.cardContainer }>

@@ -1,7 +1,8 @@
 const houseData = (state = {
-	eatTogether: 'requested', /* TODO: move this to other reducer (linqData??) */
+	eatTogetherStatus: 'requested', 	/* }	TODO: move this to other reducer (linqData??) */
+	eatTogetherMessage: [], 			/* } 	*/
 	indoorTemperature: 0,
-	indoorHumidity: 0,
+	indoorHumidity: 20,
 	indoorCO2: 0,
 	room: {
 		'All Rooms': {
@@ -272,10 +273,22 @@ const houseData = (state = {
 				indoorCO2: [action.payload.CO2]
             };
 			
-        case 'UPDATE_EAT_TOGETHER':
+        case 'UPDATE_EAT_TOGETHER_STATUS':
 			return {
                 ...state,
-				eatTogether: action.payload.status,
+				eatTogetherStatus: action.payload.status,
+            };
+			
+        case 'UPDATE_EAT_TOGETHER_MESSAGE':
+			return {
+                ...state,
+				eatTogetherMessage: [...state.eatTogetherMessage, action.payload.message],
+            };
+			
+        case 'RESET_EAT_TOGETHER_MESSAGE':
+			return {
+                ...state,
+				eatTogetherMessage: [],
             };
 			
 		default:

@@ -235,27 +235,27 @@ body {
 	animation: rotateCircleBorder 10s -0.5s linear infinite;
 }
 
-.CO2Container .CO2Line {
+.ProgressContainer .ProgressLine {
 	margin: 0;
+	margin-top: 20px;
 	padding: 0;
 	list-style-type: none;
 	display: flex;
 	position:relative;
 }
 
-.CO2Container .CO2Line .dot {
-	background: #fff;
+.ProgressContainer .ProgressLine .dot {
 	border: 50%;
 	flex-grow: 1;
 	flex-basis: 0;
 }
 
-.CO2Container .CO2Line .dot span{
+.ProgressContainer .ProgressLine .dot span{
 	display:block;
 	color:#999999;
 }
 
-.CO2Container .CO2Line .dot::after{
+.ProgressContainer .ProgressLine .dot::after{
 	content: "";
 	width:14px;
 	height:14px;
@@ -268,7 +268,7 @@ body {
 	z-index:2;
 }
 
-.CO2Container .line {
+.ProgressContainer .line {
 	width: 100%;
 	border: 2px solid #999999;
 	border-radius:4px;
@@ -277,7 +277,7 @@ body {
 	position:relative;
 }
 
-.CO2Container .lineProgress {
+.ProgressContainer .lineFill {
 	position:absolute;
 	left:-2px;
 	top:-2px;
@@ -285,7 +285,7 @@ body {
 	border:2px solid #f15b27;
 }
 
-.CO2Container h3{
+.ProgressContainer h3{
 	margin-bottom:0;
 }
 
