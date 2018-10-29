@@ -18,9 +18,9 @@ const advices = (state = {
                 ...state,
                 byId: {
                     ...state.byId,
-                    [action.payload]: {
-                        ...state.byId[action.payload],
-                        visible: false,
+                    [action.payload.id]: {
+                        ...state.byId[action.payload.id],
+                        visible: action.payload.visibility,
                     },
                 },
                 //allIds: [...state.allIds, action.payload],

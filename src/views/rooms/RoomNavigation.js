@@ -12,7 +12,7 @@ import Fade from '@material-ui/core/Fade';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 
-import AllRooms from './rooms/AllRooms';
+import Apartment from './rooms/Apartment';
 import LivingRoom from './rooms/LivingRoom';
 import DinnerRoom from './rooms/DinnerRoom';
 import Bedroom from './rooms/Bedroom';
@@ -86,7 +86,7 @@ const styles = theme => ({
 });
 		
 let rooms = [
-	{ id: 1, value: 'All Rooms', icon: 'home', component: AllRooms, diffColor: true },
+	{ id: 1, value: 'Apartment', icon: 'home', component: Apartment, diffColor: true },
 	{ id: 2, value: 'Living Room', icon: 'weekend', component: LivingRoom, },
 	{ id: 3, value: 'Dinner Room', icon: 'local_dining', component: DinnerRoom, },
 	{ id: 4, value: 'Bedroom', icon: 'hotel', component: Bedroom, },

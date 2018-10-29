@@ -34,7 +34,7 @@ export function getApiToken(callback) {
 
 export function apiGetSocketData(room, time) {
 	return dispatch => {
-		/*setInterval(() => {
+		setInterval(() => {
 			dispatch({
 				type: 'UPDATE_ENERGY_USAGE',
 				payload: {
@@ -42,7 +42,7 @@ export function apiGetSocketData(room, time) {
 					energyUsageAll: [0, 0, 0, 10, 30, 0, 0],
 				}
 			});
-		}, 2000);*/
+		}, 2000);
 		return axios.get(server + "/socket_reading/" + room + "/" + time + "/")
 		.then(response => {
 			if (response.status >= 200 && response.status < 300) {

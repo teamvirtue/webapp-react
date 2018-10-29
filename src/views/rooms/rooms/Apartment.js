@@ -11,7 +11,7 @@ import ApplianceEnergy from '../controlComponents/ApplianceEnergy';
 
 import { apiGetSocketData } from '../../../actions/asyncActions';
 
-class AllRooms extends Component {
+class Apartment extends Component {
 	
     componentDidMount() {
         this.props.apiGetSocketData('All Rooms', 'all');
@@ -49,4 +49,4 @@ const mapDispatchToProps = dispatch => ({
 	}
 });
 
-export default connect(null, mapDispatchToProps)(AllRooms);
+export default connect(null, mapDispatchToProps)(Apartment);

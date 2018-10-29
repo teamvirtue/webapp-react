@@ -20,7 +20,7 @@ import Typography from '@material-ui/core/Typography';
 import { withTheme } from '@material-ui/core/styles';
 import { withStyles } from '@material-ui/core/styles';
 
-import accountPicture1 from '../../assets/accounts/1.jpg';
+import accountPicture2 from '../../assets/accounts/2.jpg';
 import accountPicture3 from '../../assets/accounts/3.jpg';
 import accountPicture4 from '../../assets/accounts/4.jpg';
 import accountPicture5 from '../../assets/accounts/5.jpg';
@@ -510,7 +510,7 @@ class Home extends Component {
 										<ListItem dense>
 											<Avatar alt="Mohamed" src={accountPicture4} className={classes.avatarSmall} /> 
 											<Avatar alt="Ana" src={accountPicture5} className={classes.avatarSmall} style={{marginLeft: '-28px'}} />
-											<Avatar alt="You" src={accountPicture1} className={classes.avatarSmall} style={{marginLeft: '-28px'}} />
+											<Avatar alt="You" src={accountPicture2} className={classes.avatarSmall} style={{marginLeft: '-28px'}} />
 											<span><em>Ana, Mohammed and you are joining</em></span>
 										</ListItem>
 									</List>

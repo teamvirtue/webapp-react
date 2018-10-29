@@ -38,6 +38,9 @@ const styles = theme => ({
 	},
 });
 
+var current_timeout = 0;
+
+
 class AdviceCard extends Component {
 	constructor() {
 		super();
@@ -49,8 +52,15 @@ class AdviceCard extends Component {
 		this.updateCardHeight();
 	}
 
-    handleDismissCard = (event, id) => {
-        this.props.dispatch(id);
+    handleDismissCard = (event, id, visibility) => {
+		/*** Reset state after a while ***/
+		clearTimeout(current_timeout);
+        current_timeout = setTimeout(function(){
+			this.props.dispatch(id, true);
+        }.bind(this), 1000 * 30);//30 seconds
+		/*********************************/
+
+        this.props.dispatch(id, visibility);
         // console.log(event, id);
         // this.props.onDismissCard(this.props.id);
     };
@@ -81,7 +91,7 @@ class AdviceCard extends Component {
 						{ this.props.buttonText !== '' && 
 							<Button
 								className={ classes.button }
-								onClick={ (event) => this.handleDismissCard(event, id) }
+								onClick={ (event) => this.handleDismissCard(event, id, false) }
 								variant='contained'
 								color='primary'
 							>
@@ -90,7 +100,7 @@ class AdviceCard extends Component {
 							</Button>
 						}
                         <Button
-                            onClick={ (event) => this.handleDismissCard(event, id) }
+                            onClick={ (event) => this.handleDismissCard(event, id, false) }
                             color='primary'
                         >
                             Close

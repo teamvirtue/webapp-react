@@ -1,6 +1,6 @@
-export const dismissCard = (id) => ({
+export const dismissCard = (id, visibility) => ({
     type: 'DISMISS_CARD',
-    payload: id,
+    payload: { id, visibility },
 });
 
 export const updateAccountName = (name, id) => ({
