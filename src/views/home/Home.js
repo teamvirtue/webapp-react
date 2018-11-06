@@ -13,7 +13,6 @@ import Slide from '@material-ui/core/Slide';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import Divider from '@material-ui/core/Divider';
 import Avatar from '@material-ui/core/Avatar';
 import SwipeableViews from 'react-swipeable-views';
 import Typography from '@material-ui/core/Typography';
@@ -22,6 +21,7 @@ import { withTheme } from '@material-ui/core/styles';
 import { withStyles } from '@material-ui/core/styles';
 import { CSSTransitionGroup } from 'react-transition-group';
 import '../../animations.css';
+import moment from 'moment';
 
 import accountPicture2 from '../../assets/accounts/2.jpg';
 import accountPicture3 from '../../assets/accounts/3.jpg';
@@ -105,12 +105,14 @@ const styles = theme => ({
 		textAlign: 'center',
 		paddingTop: 20,
 		paddingBottom: 10,
+		marginBottom: 20,
 	},
 	dialogHeaderIcon: {
 		fontSize: 32, 
 		verticalAlign: 'middle',
 		marginRight: 10,
 		marginTop: -3,
+		color: theme.palette.primary.main,
 	},
 	dialogHeaderHeading: {
 		display: 'inline-block',
@@ -128,7 +130,7 @@ const styles = theme => ({
 	},
 	eatTogetherNewMessage: {
 		borderRadius: 25,
-		background: '#f9f9f9',
+		background: 'white',
 		padding: '0 20px',
 		marginTop: 10,
 		border: '1px solid #dbdbdb',
@@ -136,6 +138,14 @@ const styles = theme => ({
 		'& div': {
 			padding: '5px 0',
 		},
+	},
+	eatTogetherJoining: {
+		border: '1px solid #dbdbdb',
+		color: '#707070',
+		fontSize: '90%',
+	},
+	eatTogetherJoiningCancel: {
+		color: 'black',
 	},
 	avatarSmall: {
 		width: 30,
@@ -207,7 +217,7 @@ class Home extends Component {
         current_timeout = setTimeout(function(){
 			this.props.updateEatTogetherStatus('requested');
 			this.props.resetEatTogetherMessage();
-        }.bind(this), 1000 * 30);//30 seconds
+        }.bind(this), 1000 * 45);//45 seconds
 		/*********************************/
 		
 		this.props.updateEatTogetherStatus(status);
@@ -221,40 +231,95 @@ class Home extends Component {
 		}
     };
 	
+	renderWashingMachineMessage(){
+		let sunrise = moment.unix(this.props.temperature.outside.sunrise);
+		let sunset = moment.unix(this.props.temperature.outside.sunset);
+		let forecast3h = moment.unix(this.props.temperature.outside.forecast3hDatetime);
+		let forecast6h = moment.unix(this.props.temperature.outside.forecast6hDatetime);
+		let now = moment();
+		
+		let warning = '';
+		let positive = '';
+		
+		if(now.isSameOrBefore(sunrise, 'hour')){// if before sunrise hour
+			let warning = 'Because the sun hasn\'t fully risen yet, you can beter wait for a while.';
+		}else{
+			if(now.isSameOrAfter(sunset, 'hour')){// if after sunset hour
+				let warning = 'Because the sun is already set, you can beter wait for tomorrow.';
+			}else{
+				if(this.props.temperature.outside.description !== 'Clear sky'){//if currently not clear sky
+					if( this.props.temperature.outside.forecast3hDescription === 'Clear sky' &&
+						forecast3h.isSameOrBefore(sunset, 'hour')
+					){//if sun is shining within next forecast time
+						warning = 'You can better wait until ' + moment(forecast3h).format("HH") + 'u. It seems like the sun is shining then!';
+					}else{
+						if( this.props.temperature.outside.forecast6hDescription === 'Clear sky' &&
+							forecast6h.isSameOrBefore(sunset, 'hour')
+						){//if sun is shining within 2nd forecast time
+							warning = 'You can better wait until ' + moment(forecast6h).format("HH") + 'u. It seems like the sun is shining then!';
+						}else{
+							positive = 'The sun isn\'t shining but the forecast aren\'t any better. It\'s fine to use the washing machine now.';
+						}
+					}
+				}else{//everything looks fine now
+					positive = 'The weather is currently sunny enough to use the washing machines efficiently!';
+				}
+				//if(this.props.temperature.outside.forecast3hDescription)
+			}
+		}
+
+		return (
+			<div>
+				There is currently <strong>1</strong> out of <strong>3</strong> shared washing machines available.
+				<br /><br />
+				{ positive  &&
+					<div className={ 'notificationPositive' }>
+						{ positive }
+					</div>
+				}
+				{ warning  &&
+					<div className={ 'notificationWarning' }>
+						{ warning }
+					</div>
+				}
+			</div>
+		);
+	}
+	
 	renderCO2Message(){
 		if (this.props.houseData.indoorCO2 >= 0 && this.props.houseData.indoorCO2 < 600) {
 			return (
 				<div>
-					<h3>The level of CO2 is good</h3>
-					<p>That's great! Controlling ventilation is good for your health and it will increase productivity.</p>
+					<h3>The level of CO2 is excellent</h3>
+					<p className='notificationPositive'>That's great! Controlling ventilation is good for your health and increases productivity.</p>
 				</div>
 			);
 		} else if (this.props.houseData.indoorCO2 >= 600 && this.props.houseData.indoorCO2 < 1000) {
 			return (
 				<div>
-					<h3>The level of CO2 is okay</h3>
-					<p>That's good but you might consider to open a window or turn the air conditioning higher. Controlling ventilation is good for your health and it will increase productivity.</p>
+					<h3>The level of CO2 is good</h3>
+					<p className='notificationPositive'>That's good but you might consider to open a window or turn the air conditioning higher. Controlling ventilation is good for your health and it will increase productivity.</p>
 				</div>
 			);
 		} else if (this.props.houseData.indoorCO2 >= 1000 && this.props.houseData.indoorCO2 < 2500) {
 			return (
 				<div>
 					<h3>The level of CO2 should be improved</h3>
-					<p>Elevated levels of CO2 decrease productivity and performance and increase headaches and rates of absenteeism. You must ventilate rooms by turning the air conditioning on or opening a window!</p>
+					<p className='notificationWarning'>Elevated levels of CO2 decrease productivity and performance and increase headaches and rates of absenteeism. You must ventilate rooms by turning the air conditioning on or opening a window!</p>
 				</div>
 			);
 		} else if (this.props.houseData.indoorCO2 >= 2500 && this.props.houseData.indoorCO2 < 5000) {
 			return (
 				<div>
 					<h3>The level of CO2 is bad</h3>
-					<p>This might have to do with poorly ventilated rooms or many people in the house. You must ventilate rooms by turning the air conditioning on or opening a window.</p>
+					<p className='notificationWarning'>This might have to do with poorly ventilated rooms or many people in the house. You must ventilate rooms by turning the air conditioning on or opening a window.</p>
 				</div>
 			);
 		} else if (this.props.houseData.indoorCO2 >= 5000) {
 			return (
 				<div>
 					<h3>The level of CO2 is terribly bad</h3>
-					<p>You must <strong>immediately</strong> ventilate rooms by turning the air conditioning on or opening a window!</p>
+					<p className='notificationWarning'>You must <strong>immediately</strong> ventilate rooms by turning the air conditioning on or opening a window!</p>
 				</div>
 			);
 		}
@@ -271,6 +336,42 @@ class Home extends Component {
 			return '87.5%';
 		} else if (this.props.houseData.indoorCO2 >= 5000) {
 			return '100%';
+		}
+	}
+	
+	renderHumidityMessage(){
+		if (this.props.houseData.indoorHumidity >= 0 && this.props.houseData.indoorHumidity < 35) {
+			return (
+				<div>
+					<h3>The level of humidity is too low</h3>
+					<p className='notificationWarning'>Although it feels comfortable, a low level of humidity is bad for your health and for the condition of materials in the house. Consider buying a humidifier.</p>
+				</div>
+			);
+		} else if (this.props.houseData.indoorHumidity >= 35 && this.props.houseData.indoorHumidity <= 50) {
+			return (
+				<div>
+					<h3>The level of humidity is excellent</h3>
+					<p className='notificationPositive'>That's great, both for your own health and for the condition of materials in the house. Let\'s keep it like this!</p>
+				</div>
+			);
+		} else if (this.props.houseData.indoorHumidity > 50) {
+			return (
+				<div>
+					<h3>The level of humidity is too high</h3>
+					<p className='notificationWarning'>You might consider opening a door. Also, make sure to close the door when you are taking a shower.</p>
+				</div>
+			);
+		}
+	}
+	
+	renderTemperatureMessage(){
+		if (this.props.houseData.indoorTemperature <= 23) {
+			return (
+				<div>
+					<h3>The level of humidity is too low</h3>
+					<p className='notificationWarning'>Although it might feel comfortable, a low level of humidity is bad for your own health and for the condition of materials in the house.</p>
+				</div>
+			);
 		}
 	}
 	
@@ -329,6 +430,7 @@ class Home extends Component {
 									className={classes.iconBoxPaper}
 									elevation={1}
 									square={true}
+									onClick={ () => this.handleDialogOpen('washingmachine') }
 								>
 									<div className={ classes.iconBoxContent }>
 										<span>
@@ -392,6 +494,7 @@ class Home extends Component {
 									className={classes.iconBoxPaper}
 									elevation={1}
 									square={true}
+									onClick={ () => this.handleDialogOpen('temperature') }
 								>
 									<div className={ classes.iconBoxContent }>
 										<span>
@@ -407,7 +510,7 @@ class Home extends Component {
 									className={classes.iconBoxPaper}
 									elevation={1}
 									square={true}
-									//onClick={ () => this.handleDialogOpen('humidity') }
+									onClick={ () => this.handleDialogOpen('humidity') }
 								>
 									<div className={ classes.iconBoxContent }>
 										<span>
@@ -539,6 +642,20 @@ class Home extends Component {
 					fullWidth
 				>
 					
+					{this.state.dialogContent === 'washingmachine' &&
+						<div>
+							<div className={ classes.dialogHeader }>
+								<Icon className={ classes.dialogHeaderIcon }>local_laundry_service</Icon>
+								<Typography className={ classes.dialogHeaderHeading } variant="title" gutterBottom>
+									Shared washing machines
+								</Typography>
+							</div>
+							<DialogContent>
+								{ this.renderWashingMachineMessage() }
+							</DialogContent>
+						</div>
+					}
+					
 					{this.state.dialogContent === 'eattogether' &&
 						<DialogContent>
 							<List>
@@ -575,23 +692,31 @@ class Home extends Component {
 								</CSSTransitionGroup>
 							</List>
 							
-							<Divider />
-							
 							{houseData.eatTogetherStatus === 'yes' ? (
 								<List>
-									<ListItem dense>
+									<ListItem dense className={classes.eatTogetherJoining + ' notificationPositive'}>
 										<Avatar alt="Mohamed" src={accountPicture4} className={classes.avatarSmall} /> 
 										<Avatar alt="Ana" src={accountPicture5} className={classes.avatarSmall} style={{marginLeft: '-28px'}} />
 										<Avatar alt="You" src={accountPicture2} className={classes.avatarSmall} style={{marginLeft: '-28px'}} />
-										<span><em>Ana, Mohammed and you are joining</em></span>
+										<span>
+											<em>Ana, Mohammed and you are joining. </em>
+											<a href="javascript:void(0)" className={classes.eatTogetherJoiningCancel} onClick={ () => this.handleSubmitEatTogetherStatus('requested', false) }><em>Cancel</em></a>
+										</span>
 									</ListItem>
 								</List>
 							) : (
 								<List>
-									<ListItem dense>
+									<ListItem dense className={classes.eatTogetherJoining + (houseData.eatTogetherStatus === 'no' ? ' notificationNegative' : '')}>
 										<Avatar alt="Mohamed" src={accountPicture4} className={classes.avatarSmall} /> 
 										<Avatar alt="Ana" src={accountPicture5} className={classes.avatarSmall} style={{marginLeft: '-28px'}} />
-										<span><em>Ana and Mohammed are joining</em></span>
+										{houseData.eatTogetherStatus === 'no' ? (
+											<span>
+												<em>Ana and Mohammed are joining. You are not. </em>
+												<a href="javascript:void(0)" className={classes.eatTogetherJoiningCancel} onClick={ () => this.handleSubmitEatTogetherStatus('requested', false) }><em>Cancel</em></a>
+											</span>
+										) : (
+											<span><em>Ana and Mohammed are joining.</em></span>
+										)}
 									</ListItem>
 								</List>
 							)}
@@ -610,12 +735,22 @@ class Home extends Component {
 									value={this.state.newMessageInput}
 									ref={el => this.input = el}
 								/>
-								<IconButton className={classes.dialogAction} style={{backgroundColor: (houseData.eatTogetherStatus === 'no' ? '#d7d7d7' : '#03cea4')}} onClick={ () => this.handleSubmitEatTogetherStatus('yes', false) }>
-									<Icon>{ houseData.eatTogetherStatus === 'yes' ? 'mode_comment' : 'thumb_up_alt' }</Icon>
-								</IconButton>
-								<IconButton className={classes.dialogAction} style={{backgroundColor: (houseData.eatTogetherStatus === 'yes' ? '#d7d7d7' : '#e9190f')}} onClick={ () => this.handleSubmitEatTogetherStatus('no', false) }>
-									<Icon>{ houseData.eatTogetherStatus === 'no' ? 'mode_comment' : 'thumb_down_alt' }</Icon>
-								</IconButton>
+								{houseData.eatTogetherStatus === 'requested' ? (
+									<div>
+										<IconButton className={classes.dialogAction} style={{backgroundColor: '#03cea4'}} onClick={ () => this.handleSubmitEatTogetherStatus('yes', false) }>
+											<Icon>thumb_up_alt</Icon>
+										</IconButton>
+										<IconButton className={classes.dialogAction} style={{backgroundColor: '#e9190f'}} onClick={ () => this.handleSubmitEatTogetherStatus('no', false) }>
+											<Icon>thumb_down_alt</Icon>
+										</IconButton>
+									</div>
+								) : (
+									<div>
+										<IconButton className={classes.dialogAction} style={{backgroundColor: '#bcbcbc'}} onClick={ () => this.handleSubmitEatTogetherStatus('yes', false) }>
+											<Icon>mode_comment</Icon>
+										</IconButton>
+									</div>
+								)}
 							</div>
 						</DialogContent>
 					}
@@ -656,31 +791,58 @@ class Home extends Component {
 						</div>
 					}
 					
-					{/*this.state.dialogContent === 'humidity' &&
+					{this.state.dialogContent === 'humidity' &&
 						<div className='ProgressContainer'>
-							<div className='ProgressLine'>
-								<div className='dot'>
-									<span>10%</span>
-								</div>
-								<div className='dot'>
-									<span>30%</span>
-								</div>
-								<div className='dot'>
-									<span>50%</span>
-								</div>
-								<div className='dot'>
-									<span>70%</span>
-								</div>
-								<div className='dot'>
-									<span>90%</span>
-								</div>
+							<div className={ classes.dialogHeader }>
+								<FontAwesome className={ classes.dialogHeaderIcon } name='tint' />
+								<Typography className={ classes.dialogHeaderHeading } variant="title" gutterBottom>
+									Humidity: { this.props.houseData.indoorHumidity }%
+								</Typography>
 							</div>
-							<div className='line'>
-								<div className='lineFill' style={{ width: houseData.indoorHumidity + '%' }}></div>
+							<DialogContent>
+								<div className='ProgressLine'>
+									<div className='dot'>
+										Very low
+										<span>10%</span>
+									</div>
+									<div className='dot'>
+										Low
+										<span>30%</span>
+									</div>
+									<div className='dot'>
+										Excellent
+										<span>50%</span>
+									</div>
+									<div className='dot'>
+										High
+										<span>70%</span>
+									</div>
+									<div className='dot'>
+										Very high
+										<span>90%</span>
+									</div>
+								</div>
+								<div className='line'>
+									<div className='lineFill' style={{ width: houseData.indoorHumidity + '%' }}></div>
+								</div>
+								
+								{ this.renderHumidityMessage() }
+							</DialogContent>
+						</div>
+					}
+					
+					{this.state.dialogContent === 'temperature' &&
+						<div>
+							<div className={ classes.dialogHeader }>
+								<FontAwesome className={ classes.dialogHeaderIcon } name='thermometer-half' />
+								<Typography className={ classes.dialogHeaderHeading } variant="title" gutterBottom>
+									Temperature: { this.props.houseData.indoorTemperature }°C
+								</Typography>
 							</div>
-							
-							{ this.renderHumidityMessage() }
-						</div>*/
+							<DialogContent>
+								{ this.renderTemperatureMessage() }
+							</DialogContent>
+						</div>
 					}
 						
 				</Dialog>

@@ -165,7 +165,7 @@ body {
 
 .sustainabilityStatusCircleContainer {
     position: fixed;
-    display: inline-block;
+    display: block;
     width: 22vw;
     height: 22vw;
 	left: 32%;
@@ -205,22 +205,47 @@ body {
 
 .sustainabilityStatusCircleContainer.positive .sustainabilityStatusCircle:before,
 .sustainabilityStatusCircleContainer.positive .sustainabilityStatusCircle:after{
+	box-shadow: inset 0 2.0vw 0 rgba(3, 206, 164, 0.6),
+				inset 2.0vw 0 0 rgba(95, 173, 86, 0.6),
+				inset 0 -2.0vw 0 rgba(78, 166, 153, 0.6),
+				inset -2.0vw 0 0 rgba(68, 175, 105, 0.6);
+}
+
+.sustainabilityStatusCircleContainer.neutral .sustainabilityStatusCircle:before,
+.sustainabilityStatusCircleContainer.neutral .sustainabilityStatusCircle:after{
+	box-shadow: inset 0 2.0vw 0 rgba(255, 174, 3, 0.6),
+				inset 2.0vw 0 0 rgba(255, 242, 117, 0.6),
+				inset 0 -2.0vw 0 rgba(255, 140, 66, 0.6),
+				inset -2.0vw 0 0 rgba(247, 240, 82, 0.6);
+}
+
+.sustainabilityStatusCircleContainer.negative .sustainabilityStatusCircle:before,
+.sustainabilityStatusCircleContainer.negative .sustainabilityStatusCircle:after{
+	box-shadow: inset 0 2.0vw 0 rgba(233, 25, 15, 0.6),
+				inset 2.0vw 0 0 rgba(116, 18, 29, 0.6),
+				inset 0 -2.0vw 0 rgba(254, 95, 85, 0.6),
+				inset -2.0vw 0 0 rgba(163, 22, 33, 0.6);
+}
+
+/* Fix this at a later time in percentage */
+.home .sustainabilityStatusCircleContainer.positive .sustainabilityStatusCircle:before,
+.home .sustainabilityStatusCircleContainer.positive .sustainabilityStatusCircle:after{
 	box-shadow: inset 0 3.5vw 0 rgba(3, 206, 164, 0.6),
 				inset 3.5vw 0 0 rgba(95, 173, 86, 0.6),
 				inset 0 -3.5vw 0 rgba(78, 166, 153, 0.6),
 				inset -3.5vw 0 0 rgba(68, 175, 105, 0.6);
 }
 
-.sustainabilityStatusCircleContainer.neutral .sustainabilityStatusCircle:before,
-.sustainabilityStatusCircleContainer.neutral .sustainabilityStatusCircle:after{
+.home .sustainabilityStatusCircleContainer.neutral .sustainabilityStatusCircle:before,
+.home .sustainabilityStatusCircleContainer.neutral .sustainabilityStatusCircle:after{
 	box-shadow: inset 0 3.5vw 0 rgba(255, 174, 3, 0.6),
 				inset 3.5vw 0 0 rgba(255, 242, 117, 0.6),
 				inset 0 -3.5vw 0 rgba(255, 140, 66, 0.6),
 				inset -3.5vw 0 0 rgba(247, 240, 82, 0.6);
 }
 
-.sustainabilityStatusCircleContainer.negative .sustainabilityStatusCircle:before,
-.sustainabilityStatusCircleContainer.negative .sustainabilityStatusCircle:after{
+.home .sustainabilityStatusCircleContainer.negative .sustainabilityStatusCircle:before,
+.home .sustainabilityStatusCircleContainer.negative .sustainabilityStatusCircle:after{
 	box-shadow: inset 0 3.5vw 0 rgba(233, 25, 15, 0.6),
 				inset 3.5vw 0 0 rgba(116, 18, 29, 0.6),
 				inset 0 -3.5vw 0 rgba(254, 95, 85, 0.6),
@@ -237,7 +262,6 @@ body {
 
 .ProgressContainer .ProgressLine {
 	margin: 0;
-	margin-top: 20px;
 	padding: 0;
 	list-style-type: none;
 	display: flex;
@@ -345,12 +369,22 @@ body {
     font-weight: 600;
 }
 
-.notification{
+.notificationMargin{
+	margin: 10px auto 30px auto;
+}
+
+.notificationWarning, .notificationNegative{
 	outline: 2px dashed #f15b27;
 	background-color: #fce1d7;
 	padding: 10px;
 	width: 100%;
-	margin: 10px auto 30px auto;
+}
+
+.notificationPositive{
+	outline: 2px dashed #53a264;
+	background-color: #d0e5d4;
+	padding: 10px;
+	width: 100%;
 }
 
 .row.no-margin {

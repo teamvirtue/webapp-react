@@ -2,13 +2,13 @@ const houseData = (state = {
 	eatTogetherStatus: 'requested', 	/* }	TODO: move this to other reducer (linqData??) */
 	eatTogetherMessage: [], 			/* } 	*/
 	indoorTemperature: 0,
-	indoorHumidity: 20,
+	indoorHumidity: 0,
 	indoorCO2: 0,
 	room: {
 		'All Rooms': {
 			airco: {
 				onOff: false,
-				temperature: 20,
+				temperature: 24,
 			},
 			energyUsageRealtime: 0,
 			energyUsageAll: [0, 0, 0, 10, 0, 0, 0],

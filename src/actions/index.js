@@ -48,9 +48,14 @@ export const updateNotificationsDesktop = (check) => ({
     payload: { check },
 });
 
-export const updateWeatherData = (celsius, description) => ({
+export const updateWeatherData = (celsius, description, sunrise, sunset) => ({
 	type: 'UPDATE_WEATHER_DATA',
-	payload: { celsius, description },
+	payload: { celsius, description, sunrise, sunset },
+});
+
+export const updateWeatherForecastData = (forecast3hDatetime, forecast3hCelsius, forecast3hDescription, forecast6hDatetime, forecast6hCelsius, forecast6hDescription) => ({
+	type: 'UPDATE_WEATHER_FORECAST_DATA',
+	payload: { forecast3hDatetime, forecast3hCelsius, forecast3hDescription, forecast6hDatetime, forecast6hCelsius, forecast6hDescription },
 });
 
 export const updateSustainabilityStatus = (selected) => ({

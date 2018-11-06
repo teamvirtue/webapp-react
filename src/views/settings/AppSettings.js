@@ -256,6 +256,7 @@ class Settings extends Component {
 						</CardContent>
 					</Card>
 					
+					{ /*
 					<Typography variant="subheading" gutterBottom>App Settings</Typography>
 					<Card className={classes.card}>
 						<CardContent>
@@ -282,6 +283,7 @@ class Settings extends Component {
 							</List>
 						</CardContent>
 					</Card>
+					*/ }
 
 					{/*
 					<List subheader={ <ListSubheader disableSticky="true">Clock</ListSubheader> }>

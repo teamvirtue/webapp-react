@@ -18,26 +18,16 @@ class Apartment extends Component {
     };
 
     render() {
-		const selectedTab = this.props.tab;
-		
         return (
             <List>
-				{ selectedTab === 'appliances' && 
-					<div>
-						<div className='notification'>This is a mock-up. Appliance controls are disabled during tours.</div>
-						<Temperature />
-					</div>
-				}
-				
-				{ selectedTab === 'statistics' && 
-					<div>
-						<NetEnergy forRoom='All Rooms' />
+				<div className='notificationWarning notificationMargin'>This is a mock-up. Appliance controls are disabled during tours.</div>
+				<Temperature />
 
-						<WaterUsage />
-						
-						<ApplianceEnergy />
-					</div>
-				}
+				<NetEnergy forRoom='All Rooms' />
+
+				<WaterUsage />
+				
+				<ApplianceEnergy />
             </List>
         );
     }

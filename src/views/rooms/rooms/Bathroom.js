@@ -9,20 +9,12 @@ import Light from '../controlComponents/Light';
 class Bathroom extends Component {
 
     render() {
-		const selectedTab = this.props.tab;
-		
         return (
 			<List>
-				{ selectedTab === 'appliances' && 
-					<div>
-						<div className='notification'>This is a mock-up. Appliance controls are disabled during tours.</div>
-						<Light forRoom='Bathroom' />
-					</div>
-				}
-				
-				{ selectedTab === 'statistics' && 
-					<div></div>
-				}
+				<div>
+					<div className='notificationWarning notificationMargin'>This is a mock-up. Appliance controls are disabled during tours.</div>
+					<Light forRoom='Bathroom' />
+				</div>
 			</List>
         );
     }

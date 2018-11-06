@@ -73,9 +73,9 @@ defaults.global.elements.point.hitRadius = 15;
 class App extends Component {
 	
 	async componentDidMount() {
-		// Call Public API's every 15 minutes
+		// Call Public API's every 5 minutes
 		this.loadPublicData();
-		this.intervalId = setInterval(() => this.loadPublicData(), 15 * 60 * 1000);
+		this.intervalId = setInterval(() => this.loadPublicData(), 5 * 60 * 1000);
 
 		// Get API token
 		this.props.getApiToken();
@@ -103,19 +103,43 @@ class App extends Component {
 		
 		// Current Weather
 		let weatherURL = 'https://api.openweathermap.org/data/2.5/weather?id=292223&APPID=1473962c711c59e516b01eb4065ce872&units=metric';
-		weatherURL = '';//temporarily disable for dev
 		fetch(weatherURL)
 			.then(res => res.json())
 			.then(
 				(result) => {
-					let currentTemperature = Math.ceil(result.main.temp);
-					let weatherDescription = result.weather[0].description;
-					weatherDescription = weatherDescription.charAt(0).toUpperCase() + weatherDescription.slice(1);
+					let celcius = Math.ceil(result.main.temp);
+					let description = result.weather[0].description;
+					description = description.charAt(0).toUpperCase() + description.slice(1);
+					let sunrise = result.sys.sunrise;
+					let sunset = result.sys.sunset;
 					
-					this.props.updateWeatherData(currentTemperature, weatherDescription);
+					this.props.updateWeatherData(celcius, description, sunrise, sunset);
 				},
 				(error) => {
 					console.log('Error fetching current temperature [OpenWeatherMap API]');
+				}
+			);
+		
+		// Forecast Weather
+		let weatherForecastURL = 'https://api.openweathermap.org/data/2.5/forecast?id=292223&APPID=1473962c711c59e516b01eb4065ce872&units=metric';
+		fetch(weatherForecastURL)
+			.then(res => res.json())
+			.then(
+				(result) => {
+					let forecast3hDatetime = result.list[0].dt;
+					let forecast3hCelsius = Math.ceil(result.list[0].main.temp);
+					let forecast3hDescription = result.list[0].weather[0].description;
+					let forecast6hDatetime = result.list[1].dt;
+					let forecast6hCelsius = Math.ceil(result.list[1].main.temp);
+					let forecast6hDescription = result.list[1].weather[0].description;
+					
+					forecast3hDescription = forecast3hDescription.charAt(0).toUpperCase() + forecast3hDescription.slice(1);
+					forecast6hDescription = forecast6hDescription.charAt(0).toUpperCase() + forecast6hDescription.slice(1);
+					
+					this.props.updateWeatherForecastData(forecast3hDatetime, forecast3hCelsius, forecast3hDescription, forecast6hDatetime, forecast6hCelsius, forecast6hDescription);
+				},
+				(error) => {
+					console.log('Error fetching forecast temperature [OpenWeatherMap API]');
 				}
 			);
 	}

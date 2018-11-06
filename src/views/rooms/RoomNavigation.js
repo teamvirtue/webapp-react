@@ -9,8 +9,6 @@ import DialogContent from '@material-ui/core/DialogContent';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
 import IconButton from '@material-ui/core/IconButton';
 import Fade from '@material-ui/core/Fade';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
 
 import Apartment from './rooms/Apartment';
 import LivingRoom from './rooms/LivingRoom';
@@ -64,12 +62,12 @@ const styles = theme => ({
 		paddingTop: 20,
 		paddingBottom: 10,
 	},
-	dialogNav: {
+	/*dialogNav: {
 		backgroundColor: 'white',
 		borderBottom: '1px solid #eaeaea',
 		textAlign: 'center',
 		marginBottom: 15,
-	},
+	},*/
 	dialogHeaderHeading: {
 		display: 'inline-block',
 	},
@@ -107,7 +105,6 @@ class RoomNavigation extends Component {
         this.state = {
             currentId: 1,
 			openDialog: false,
-			selectedTab: 'appliances',
         };
     }
 
@@ -123,18 +120,12 @@ class RoomNavigation extends Component {
 
 	handleDialogClose = () => {
 		this.setState({ openDialog: false });
-		this.setState({ selectedTab: 'appliances' });
 	};
-	
-	handleSelectedTab = (event, value) => {
-		this.setState({ selectedTab: value });
-	}
 
     render() {
 		const { fullScreen } = this.props;
         const { classes } = this.props;
         const currentId = this.state.currentId;
-		const selectedTab = this.state.selectedTab;
 
         return (
 			<div>
@@ -193,7 +184,7 @@ class RoomNavigation extends Component {
 											{ data.value }
 										</Typography>
 									</div>
-									<div className={ classes.dialogNav }>
+									{/*<div className={ classes.dialogNav }>
 										<Tabs
 										  value={selectedTab}
 										  indicatorColor="primary"
@@ -204,9 +195,9 @@ class RoomNavigation extends Component {
 											<Tab value="appliances" label="Appliances" />
 											<Tab value="statistics" label="Statistics" />
 										</Tabs>
-									</div>
+									</div>*/}
 									<DialogContent>
-										<data.component tab={selectedTab} />
+										<data.component />
 									</DialogContent>
 								</div>
 							);
