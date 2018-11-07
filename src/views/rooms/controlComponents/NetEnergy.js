@@ -12,6 +12,12 @@ const styles = theme => ({
 	card: {
 		marginBottom: 25,
 	},
+	title: {
+		marginBottom: 20,
+		textAlign: 'center',
+		textTransform: 'uppercase',
+		letterSpacing: 1,
+	},
 });
 
 class NetEnergy extends Component {
@@ -21,9 +27,9 @@ class NetEnergy extends Component {
 		
 		return (
 			<div>
-				<Typography variant="subheading" gutterBottom>Net Energy (kWh)</Typography>
 				<Card className={classes.card}>
 					<CardContent>
+						<Typography variant="subheading" className={classes.title}>Net Energy (kWh)</Typography>
 						<ListItem disableGutters={true}>
 							<LineChart type='energy' data={ houseData.room[forRoom].energyUsageAll } />
 						</ListItem>

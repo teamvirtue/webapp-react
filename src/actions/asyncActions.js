@@ -34,26 +34,38 @@ export function getApiToken(callback) {
 
 export function apiGetSocketData(room, time) {
 	return dispatch => {
-		/*setInterval(() => {
+		setInterval(() => {
 			dispatch({
-				type: 'UPDATE_ENERGY_USAGE',
+				type: 'UPDATE_ENERGY_USAGE_ALL',
 				payload: {
 					room: room, 
-					energyUsageAll: [0, 0, 0, 10, 30, 0, 0],
+					energyUsageAll: [10, 20, 30, 35, 60, 10, 15, 3, 12, 19, 36, 45, 12, 10, 20, 32, 35, 40, 38, 15, 6, 12, 19, 33, 25, 62],
 				}
 			});
-		}, 2000);*/
+		}, 2000);
 		return axios.get(server + "/socket_reading/" + room + "/" + time + "/")
 		.then(response => {
 			if (response.status >= 200 && response.status < 300) {
 				//console.log(response.data);
-				dispatch({			
-					type: 'UPDATE_ENERGY_USAGE',
-					payload: {
-						room: room, 
-						energyUsageAll: [0, 0, 0, 10, 30, 0, 0],
-					}
-				});
+				if(time=='all'){
+					dispatch({			
+						type: 'UPDATE_ENERGY_USAGE_ALL',
+						payload: {
+							room: room, 
+							energyUsageAll: [0, 0, 0, 10, 30, 0, 0],
+						}
+					});
+				}
+				
+				if(time=='realtime'){
+					dispatch({			
+						type: 'UPDATE_ENERGY_USAGE_REALTIME',
+						payload: {
+							room: room, 
+							energyUsageAll: 0,
+						}
+					});
+				}
 				return true;
 			} else {
 				throw new Error(response.statusText);

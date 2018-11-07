@@ -9,10 +9,8 @@ import DialogContent from '@material-ui/core/DialogContent';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
 import IconButton from '@material-ui/core/IconButton';
 import Fade from '@material-ui/core/Fade';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
 
-import AllRooms from './rooms/AllRooms';
+import Apartment from './rooms/Apartment';
 import LivingRoom from './rooms/LivingRoom';
 import DinnerRoom from './rooms/DinnerRoom';
 import Bedroom from './rooms/Bedroom';
@@ -61,23 +59,26 @@ const styles = theme => ({
 	dialogHeader: {
 		backgroundColor: 'white',
 		textAlign: 'center',
+		textTransform: 'uppercase',
 		paddingTop: 20,
 		paddingBottom: 10,
+		marginBottom: 20,
 	},
-	dialogNav: {
+	/*dialogNav: {
 		backgroundColor: 'white',
 		borderBottom: '1px solid #eaeaea',
 		textAlign: 'center',
 		marginBottom: 15,
-	},
+	},*/
 	dialogHeaderHeading: {
 		display: 'inline-block',
+		fontWeight: 700,
 	},
 	dialogHeaderIcon: {
 		fontSize: 32, 
 		verticalAlign: 'middle',
 		marginRight: 10,
-		marginTop: -3,
+		marginTop: -6,
 	},
 	dialogCloseButton: {
 		position: 'absolute',
@@ -86,15 +87,15 @@ const styles = theme => ({
 });
 		
 let rooms = [
-	{ id: 1, value: 'All Rooms', icon: 'home', component: AllRooms, diffColor: true },
+	{ id: 1, value: 'Apartment', icon: 'home', component: Apartment, diffColor: true },
 	{ id: 2, value: 'Living Room', icon: 'weekend', component: LivingRoom, },
-	{ id: 3, value: 'Dinner Room', icon: 'local_dining', component: DinnerRoom, },
-	{ id: 4, value: 'Bedroom', icon: 'hotel', component: Bedroom, },
-	{ id: 5, value: 'Bathroom', icon: 'hot_tub', component: Bathroom, },
-	{ id: 6, value: 'Hallway', icon: 'transfer_within_a_station', component: Hallway, },
-	{ id: 7, value: 'Kitchen', icon: 'room_service', component: Kitchen, },
-	{ id: 8, value: 'Outdoor', icon: 'local_florist', component: Outdoor, },
-	{ id: 9, value: 'Technical Room', icon: 'power', component: TechnicalRoom, },
+	{ id: 3, value: 'Kitchen', icon: 'room_service', component: Kitchen, },
+	{ id: 4, value: 'Dinner Room', icon: 'local_dining', component: DinnerRoom, },
+	{ id: 5, value: 'Bedroom', icon: 'hotel', component: Bedroom, },
+	{ id: 6, value: 'Bathroom', icon: 'hot_tub', component: Bathroom, },
+	{ id: 7, value: 'Hallway', icon: 'transfer_within_a_station', component: Hallway, },
+	{ id: 8, value: 'Technical Room', icon: 'power', component: TechnicalRoom, },
+	{ id: 9, value: 'Outdoor', icon: 'local_florist', component: Outdoor, },
 ];
 
 function Transition(props) {
@@ -107,7 +108,6 @@ class RoomNavigation extends Component {
         this.state = {
             currentId: 1,
 			openDialog: false,
-			selectedTab: 'appliances',
         };
     }
 
@@ -123,18 +123,12 @@ class RoomNavigation extends Component {
 
 	handleDialogClose = () => {
 		this.setState({ openDialog: false });
-		this.setState({ selectedTab: 'appliances' });
 	};
-	
-	handleSelectedTab = (event, value) => {
-		this.setState({ selectedTab: value });
-	}
 
     render() {
 		const { fullScreen } = this.props;
         const { classes } = this.props;
         const currentId = this.state.currentId;
-		const selectedTab = this.state.selectedTab;
 
         return (
 			<div>
@@ -188,12 +182,12 @@ class RoomNavigation extends Component {
 							return (
 								<div key={ data.id } className={ classes.flex + " h3-bold" }>
 									<div className={ classes.dialogHeader }>
-										<Icon color='primary' className={ classes.dialogHeaderIcon }>{ data.icon }</Icon>
+										{ /* <Icon color='primary' className={ classes.dialogHeaderIcon }>{ data.icon }</Icon> */ }
 										<Typography className={ classes.dialogHeaderHeading } variant="title" gutterBottom>
 											{ data.value }
 										</Typography>
 									</div>
-									<div className={ classes.dialogNav }>
+									{/*<div className={ classes.dialogNav }>
 										<Tabs
 										  value={selectedTab}
 										  indicatorColor="primary"
@@ -204,9 +198,9 @@ class RoomNavigation extends Component {
 											<Tab value="appliances" label="Appliances" />
 											<Tab value="statistics" label="Statistics" />
 										</Tabs>
-									</div>
+									</div>*/}
 									<DialogContent>
-										<data.component tab={selectedTab} />
+										<data.component />
 									</DialogContent>
 								</div>
 							);

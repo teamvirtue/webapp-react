@@ -1,6 +1,6 @@
-export const dismissCard = (id) => ({
+export const dismissCard = (id, visibility) => ({
     type: 'DISMISS_CARD',
-    payload: id,
+    payload: { id, visibility },
 });
 
 export const updateAccountName = (name, id) => ({
@@ -48,9 +48,14 @@ export const updateNotificationsDesktop = (check) => ({
     payload: { check },
 });
 
-export const updateWeatherData = (celsius, description) => ({
+export const updateWeatherData = (celsius, description, sunrise, sunset) => ({
 	type: 'UPDATE_WEATHER_DATA',
-	payload: { celsius, description },
+	payload: { celsius, description, sunrise, sunset },
+});
+
+export const updateWeatherForecastData = (forecast3hDatetime, forecast3hCelsius, forecast3hDescription, forecast6hDatetime, forecast6hCelsius, forecast6hDescription) => ({
+	type: 'UPDATE_WEATHER_FORECAST_DATA',
+	payload: { forecast3hDatetime, forecast3hCelsius, forecast3hDescription, forecast6hDatetime, forecast6hCelsius, forecast6hDescription },
 });
 
 export const updateSustainabilityStatus = (selected) => ({
@@ -88,7 +93,17 @@ export const updateRoomsLightWarmth = (room, warmth) => ({
     payload: { room, warmth },
 });
 
-export const updateEatTogether = (status) => ({
-    type: 'UPDATE_EAT_TOGETHER',
+export const updateEatTogetherStatus = (status) => ({
+    type: 'UPDATE_EAT_TOGETHER_STATUS',
     payload: { status },
+});
+
+export const updateEatTogetherMessage = (message) => ({
+    type: 'UPDATE_EAT_TOGETHER_MESSAGE',
+    payload: { message },
+});
+
+export const resetEatTogetherMessage = () => ({
+    type: 'RESET_EAT_TOGETHER_MESSAGE',
+    payload: { },
 });

@@ -52,14 +52,26 @@ const styles = theme => ({
 	},
 });
 
+
 class NotificationsDialog extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
 			openNotificationsPopup: false,
+			advicesCount: 0,
         };
     }
+	
+	getAdvicesCount = (advices) => {
+		var newAdvicesCount = 0;
+		Object.keys(advices).forEach((key) => {
+			if (advices[key].visible) {
+				newAdvicesCount += 1;
+			}
+		});
+		this.setState({ advicesCount: newAdvicesCount });
+	}
 
 	handleNotificationsPopupOpen = () => {
 		this.setState({ openNotificationsPopup: true });
@@ -68,24 +80,29 @@ class NotificationsDialog extends Component {
 	handleNotificationsPopupClose = () => {
 		this.setState({ openNotificationsPopup: false });
 	};
+	
+	componentWillMount(){
+		this.getAdvicesCount(this.props.advices.byId);
+	}
+	
+	componentWillReceiveProps(nextProps) {
+		this.getAdvicesCount(nextProps.advices.byId);
+		
+		if(this.state.advicesCount <= 0) {//close popup if all cards are dismissed
+			this.handleNotificationsPopupClose();
+		}
+	}
 
     render() {
 		const { classes, advices } = this.props;
 
-		var advicesCount = 0;
-		Object.keys(advices.byId).forEach(function(key) {
-			if (advices.byId[key].visible) {
-				advicesCount += 1;
-			}
-		});
-
         return (
             <div className={ classes.root }>
-				{ advicesCount > 0 && 
+				{ this.state.advicesCount > 0 && 
 					<div>
 						<div className='notificationsIcon' onClick={ this.handleNotificationsPopupOpen }>
 							<IconButton>
-								<Badge classes={{ badge: classes.badge }} badgeContent={ advicesCount } color="secondary">
+								<Badge classes={{ badge: classes.badge }} badgeContent={ this.state.advicesCount } color="secondary">
 									<Icon className={ classes.badgeIcon }>notifications</Icon>
 								</Badge>
 							</IconButton>
@@ -129,7 +146,7 @@ class NotificationsDialog extends Component {
 											</CardContainer> : null
 									}
 								) }
-								{ (Object.keys(advices.byId).length === 0) && <div>asdfasdfasdf</div> }
+								{ /* (Object.keys(advices.byId).length === 0) && <div>asdfasdfasdf</div> */ }
 							</CSSTransitionGroup>
 							
 							{/*<div className={ classes.cardContainer }>

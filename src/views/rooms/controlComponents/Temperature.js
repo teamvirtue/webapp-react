@@ -19,6 +19,12 @@ const styles = theme => ({
 	card: {
 		marginBottom: 25,
 	},
+	title: {
+		marginBottom: 20,
+		textAlign: 'center',
+		textTransform: 'uppercase',
+		letterSpacing: 1,
+	},
 });
 
 const Handle = Slider.Handle;
@@ -54,10 +60,9 @@ class Temperature extends Component {
 		
 		return (
 			<div>
-				{ houseData.room['Kitchen'].energyUsage }
-				<Typography variant="subheading" gutterBottom>Air conditioning</Typography>
 				<Card className={classes.card}>
 					<CardContent>
+						<Typography variant="subheading" className={classes.title}>Air conditioning</Typography>
 						<ListItem disableGutters={true}>
 							<ListItemIcon>
 								<Icon>power_settings_new</Icon>
@@ -79,8 +84,8 @@ class Temperature extends Component {
 							<div className='listitem-secondaryflex'>
 								<ListItemText primary='Temperature' />
 								<Slider
-									min={ 10 }
-									max={ 25 }
+									min={ 15 }
+									max={ 28 }
 									defaultValue={ houseData.room['All Rooms'].airco.temperature }
 									onChange={ this.handleAircoTemperature() }
 									trackStyle={{ backgroundColor: theme.palette.primary.main }}

@@ -3,26 +3,26 @@ import React, { Component } from 'react';
 import List from '@material-ui/core/List';
 
 // Local import
-// import Temperature from '../controlComponents/Temperature';
 import Light from '../controlComponents/Light';
+import RealtimeEnergyMeter from '../controlComponents/RealtimeEnergyMeter';
+import NetEnergy from '../controlComponents/NetEnergy';
 
 class Bedroom extends Component {
 
     render() {
-		const selectedTab = this.props.tab;
-		
         return (
-			<List>
-				{ selectedTab === 'appliances' && 
-					<div>
-						<div className='notification'>This is a mock-up. Appliance controls are disabled during tours.</div>
-						<Light forRoom='Bedroom' />
-					</div>
-				}
+			<List className='row'>
+				<div className='col-6'>
+					<Light forRoom='Bedroom' />
+				</div>
 				
-				{ selectedTab === 'statistics' && 
-					<div></div>
-				}
+				<div className='col-6'>
+					<RealtimeEnergyMeter forRoom={[{'roomname': 'Bedroom', 'energyname': 'Sockets'}]} />
+				</div>
+
+				<div className='col-12'>
+					<NetEnergy forRoom='Bedroom' />
+				</div>
 			</List>
         );
     }

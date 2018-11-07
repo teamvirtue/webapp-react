@@ -20,6 +20,12 @@ const styles = theme => ({
 	card: {
 		marginBottom: 25,
 	},
+	title: {
+		marginBottom: 20,
+		textAlign: 'center',
+		textTransform: 'uppercase',
+		letterSpacing: 1,
+	},
 });
 
 class Light extends Component {
@@ -41,9 +47,9 @@ class Light extends Component {
 		
 		return (
 			<div>
-				<Typography variant="subheading" gutterBottom>Lights</Typography>
 				<Card className={classes.card}>
 					<CardContent>
+						<Typography variant="subheading" className={classes.title}>Lights</Typography>
 						<ListItem disableGutters={true}>
 							<ListItemIcon>
 								<Icon>power_settings_new</Icon>
@@ -77,6 +83,7 @@ class Light extends Component {
 								/>
 							</div>
 						</ListItem>
+						{ /*
 						<ListItem disableGutters={true}>
 							<ListItemIcon>
 								<Icon>colorize</Icon>
@@ -96,7 +103,8 @@ class Light extends Component {
 									railStyle={{ backgroundColor: 'lightgray' }}
 								/>
 							</div>
-						</ListItem>
+						</ListItem> 
+						*/}
 					</CardContent>
 				</Card>
 			</div>

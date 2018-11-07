@@ -1,3 +1,4 @@
+/* CARD */
 .cardAnimation-enter {
 	opacity: 0.01;
 	height:0;
@@ -30,4 +31,33 @@
 	opacity: 1;
 	transform: translateY(0);
 	transition: all 300ms ease-out;
+}
+
+
+/* MESSAGE */
+.messageAnimation-enter {
+	opacity: 0.01;
+	height:0;
+	margin:20px 0;
+	margin-right:-20px;
+	margin-top:0;
+}
+
+.messageAnimation-enter.messageAnimation-enter-active {
+	opacity: 1;
+	transition: 500ms;
+	margin:20px 0;
+	margin-right:-20px;
+	margin-top:20px;
+}
+
+.messageAnimation-appear {
+	opacity: 0.01;
+	transform: translateY(50px);
+}
+
+.messageAnimation-appear.messageAnimation-appear-active {
+	opacity: 1;
+	transform: translateY(0);
+	transition: all 400ms ease-out;
 }

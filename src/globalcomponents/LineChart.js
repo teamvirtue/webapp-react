@@ -4,20 +4,22 @@ import Radio  from '@material-ui/core/Radio';
 import RadioGroup  from '@material-ui/core/RadioGroup';
 import FormControlLabel  from '@material-ui/core/FormControlLabel';
 import { Line } from 'react-chartjs-2';
+import moment from 'moment';
 
+let dataRealtime = [];
+let dataDay = [];
+let dataWeek = [];
+let dataMonth = [];
+let dataYear = [];
 
-let dataDay = [0, 0, 0, 0, 0, 0, 0];
-let dataWeek = [0, 0, 0, 0, 0, 0, 0];
-let dataMonths = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-let dataYears = [0, 0, 0, 0, 0];
-
-const DAY = ['00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00', '08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00'];
-const WEEK = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-const MONTHS = ['Jan', 'Feb', 'Mrt', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-const YEARS = ['2014', '2015', '2016', '2017', '2018'];
+const LABELS_REALTIME = [];
+const LABELS_DAY = ['00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00', '08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00'];
+const LABELS_WEEK = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+const LABELS_MONTHS = ['Jan', 'Feb', 'Mrt', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+const LABELS_YEARS = ['2014', '2015', '2016', '2017', '2018'];
 
 const energyGraph = {
-	labels: DAY,
+	labels: LABELS_DAY,
 	datasets: [{
 		label: 'Energy Usage',
 		fill: true,
@@ -39,7 +41,7 @@ const energyGraph = {
 };
 
 const waterGraph = {
-	labels: DAY,
+	labels: LABELS_DAY,
 	datasets: [{
 		label: 'Water Usage',
 		fill: true,
@@ -78,48 +80,48 @@ class LineChart extends Component{
     constructor(props){
         super(props);
         this.state = {
-            value: 'day',
+            timespan: 'day',
             type: props.type,
 			data: energyGraph,
         };
     }
 
+	//switch timespan
     handleChange = (event, value) => {
-        this.setState({ value });
-        let selectedLabel;
-        const oldDataSet = this.state.datasets[0];
-        let newData = [];
+        this.setState({ timespan: value });
+		let selectedLabel = LABELS_REALTIME;
 
         switch(value) {
+            case 'realtime':
+                selectedLabel = LABELS_REALTIME;
+                break;
             case 'day':
-                selectedLabel = DAY;
-                newData.push(...dataDay);
+                selectedLabel = LABELS_DAY;
                 break;
             case 'week':
-                selectedLabel = WEEK;
-                newData.push(...dataWeek);
+                selectedLabel = LABELS_WEEK;
                 break;
             case 'month':
-                selectedLabel = MONTHS;
-                newData.push(...dataMonths);
+                selectedLabel = LABELS_MONTHS;
                 break;
             case 'year':
-                selectedLabel = YEARS;
-                newData.push(...dataYears);
+                selectedLabel = LABELS_YEARS;
                 break;
-            default:
-                selectedLabel = DAY;
-                newData.push(...dataDay);
+				
+			default:
+				selectedLabel = LABELS_REALTIME;
+				break;
         }
+		
+		var datasetsCopy = this.state.data.datasets.slice(0);
+		var dataCopy = datasetsCopy[0].data.slice(0);
+		dataCopy = this.props.data;
+		datasetsCopy[0].data = dataCopy;
 
-        let newDataSet = { ...oldDataSet };
-
-        newDataSet.data = newData;
-
-        this.setState({
-            labels: selectedLabel,
-            datasets: [newDataSet]
-        });
+		var newData = Object.assign( {}, this.state.data, { labels: selectedLabel, datasets: datasetsCopy } );
+		this.setState({
+			data: newData
+		});
     };
 
     componentWillMount() {
@@ -135,14 +137,52 @@ class LineChart extends Component{
     };
 
     componentWillReceiveProps() {
+		//okay, so new data retrieved. Now update the array data correctly.
+		var newData = this.props.data;
+		var now = moment();
+		
+		//REALTIME
+		newData.map( function(item) {
+			if(moment(item.created).isSame(now, 'day')){
+				
+			}
+		})
+		//console.log(moment('2018-10-10T13:55:42.233856Z'));
+		
+		dataRealtime = this.props.data;
+		
+		//DAY
+		dataDay = this.props.data;
+		
+		//WEEK
+		dataWeek = this.props.data;
+		
+		//MONTH
+		dataMonth = this.props.data;
+		
+		//YEAR
+		dataYear = this.props.data;
+
 		var datasetsCopy = this.state.data.datasets.slice(0);
 		var dataCopy = datasetsCopy[0].data.slice(0);
-		dataCopy = this.props.data;
+		
+		if(this.state.timespan === 'realtime'){
+			dataCopy = dataRealtime;
+		}else if (this.state.timespan === 'day'){
+			dataCopy = dataDay;
+		}else if (this.state.timespan === 'week'){
+			dataCopy = dataWeek;
+		}else if (this.state.timespan === 'month'){
+			dataCopy = dataMonth;
+		}else if (this.state.timespan === 'year'){
+			dataCopy = dataYear;
+		}
+		
 		datasetsCopy[0].data = dataCopy;
 
-		var newData = Object.assign( {}, this.state.data, { datasets: datasetsCopy } );
+		var finalData = Object.assign( {}, this.state.data, { datasets: datasetsCopy } );
 		this.setState({
-			data: newData
+			data: finalData
 		});
     };
 	
@@ -158,10 +198,16 @@ class LineChart extends Component{
                     aria-label='time'
                     name='time'
                     className={ classes.radioGroup }
-                    value={ this.state.value }
+                    value={ this.state.timespan }
                     onChange={ this.handleChange }
                     row
                 >
+                    <FormControlLabel className={ classes.radioButton } value='realtime' control={
+                        <Radio color="primary" classes={{
+                            root: this.state.type === 'water' && classes.water,
+                            checked: this.state.type === 'water' && classes.checked,
+                        }}/>
+                    } label='Realtime'/>
                     <FormControlLabel className={ classes.radioButton } value='day' control={
                         <Radio color="primary" classes={{
                             root: this.state.type === 'water' && classes.water,
