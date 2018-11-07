@@ -42,7 +42,7 @@ const styles = theme => ({
 		borderBottom: '3px solid transparent',
 		padding: '10px 0',
 		textTransform: 'none',
-		fontWeight: 400,
+		fontWeight: 700,
 	},
 	subNavBarIndicator:{
 		display: 'none',
@@ -117,6 +117,13 @@ const styles = theme => ({
 	},
 	dialogHeaderHeading: {
 		display: 'inline-block',
+		fontWeight: 700,
+	},
+	dialogContentIcon: {
+		fontSize: 32, 
+		verticalAlign: 'middle',
+		marginBottom: 7,
+		color: theme.palette.primary.main,
 	},
 	dialogActionContainer: {
 		display: 'flex',
@@ -153,6 +160,12 @@ const styles = theme => ({
 		height: 30,
 		marginRight: 10,
 		border: '2px solid white',
+	},
+	center: {
+		textAlign: 'center',
+	},
+	publicTransportDelay: {
+		color: 'red',
 	},
 });
 
@@ -290,37 +303,37 @@ class Home extends Component {
 	renderCO2Message(){
 		if (this.props.houseData.indoorCO2 >= 0 && this.props.houseData.indoorCO2 < 600) {
 			return (
-				<div>
+				<div className='notificationPositive'>
 					<h3>The level of CO2 is excellent</h3>
-					<p className='notificationPositive'>That's great! Controlling ventilation is good for your health and increases productivity.</p>
+					That's great! Controlling ventilation is good for your health and increases productivity.
 				</div>
 			);
 		} else if (this.props.houseData.indoorCO2 >= 600 && this.props.houseData.indoorCO2 < 1000) {
 			return (
-				<div>
+				<div className='notificationPositive'>
 					<h3>The level of CO2 is good</h3>
-					<p className='notificationPositive'>That's good but you might consider to open a window or turn the air conditioning higher. Controlling ventilation is good for your health and it will increase productivity.</p>
+					That's good but you might consider to open a window or turn the air conditioning higher. Controlling ventilation is good for your health and it will increase productivity.
 				</div>
 			);
 		} else if (this.props.houseData.indoorCO2 >= 1000 && this.props.houseData.indoorCO2 < 2500) {
 			return (
-				<div>
+				<div className='notificationWarning'>
 					<h3>The level of CO2 should be improved</h3>
-					<p className='notificationWarning'>Elevated levels of CO2 decrease productivity and performance and increase headaches and rates of absenteeism. You must ventilate rooms by turning the air conditioning on or opening a window!</p>
+					Elevated levels of CO2 decrease productivity and performance and increase headaches and rates of absenteeism. You must ventilate rooms by turning the air conditioning on or opening a window!
 				</div>
 			);
 		} else if (this.props.houseData.indoorCO2 >= 2500 && this.props.houseData.indoorCO2 < 5000) {
 			return (
-				<div>
+				<div className='notificationWarning'>
 					<h3>The level of CO2 is bad</h3>
-					<p className='notificationWarning'>This might have to do with poorly ventilated rooms or many people in the house. You must ventilate rooms by turning the air conditioning on or opening a window.</p>
+					This might have to do with poorly ventilated rooms or many people in the house. You must ventilate rooms by turning the air conditioning on or opening a window.
 				</div>
 			);
 		} else if (this.props.houseData.indoorCO2 >= 5000) {
 			return (
-				<div>
+				<div className='notificationWarning'>
 					<h3>The level of CO2 is terribly bad</h3>
-					<p className='notificationWarning'>You must <strong>immediately</strong> ventilate rooms by turning the air conditioning on or opening a window!</p>
+					You must <strong>immediately</strong> ventilate rooms by turning the air conditioning on or opening a window!
 				</div>
 			);
 		}
@@ -343,23 +356,23 @@ class Home extends Component {
 	renderHumidityMessage(){
 		if (this.props.houseData.indoorHumidity >= 0 && this.props.houseData.indoorHumidity < 35) {
 			return (
-				<div>
+				<div className='notificationWarning'>
 					<h3>The level of humidity is too low</h3>
-					<p className='notificationWarning'>Although it feels comfortable, a low level of humidity is bad for your health and for the condition of materials in the house. Consider buying a humidifier.</p>
+					Although it feels comfortable, a low level of humidity is bad for your health and for the condition of materials in the house. Consider buying a humidifier.
 				</div>
 			);
 		} else if (this.props.houseData.indoorHumidity >= 35 && this.props.houseData.indoorHumidity <= 50) {
 			return (
-				<div>
+				<div className='notificationPositive'>
 					<h3>The level of humidity is excellent</h3>
-					<p className='notificationPositive'>That's great, both for your own health and for the condition of materials in the house. Let\'s keep it like this!</p>
+					That's great, both for your own health and for the condition of materials in the house. Let\'s keep it like this!
 				</div>
 			);
 		} else if (this.props.houseData.indoorHumidity > 50) {
 			return (
-				<div>
+				<div className='notificationWarning'>
 					<h3>The level of humidity is too high</h3>
-					<p className='notificationWarning'>You might consider opening a door. Also, make sure to close the door when you are taking a shower.</p>
+					You might consider opening a door. Also, make sure to close the door when you are taking a shower.
 				</div>
 			);
 		}
@@ -369,8 +382,6 @@ class Home extends Component {
 		if (this.props.houseData.indoorTemperature <= 23) {
 			return (
 				<div>
-					<h3>The level of humidity is too low</h3>
-					<p className='notificationWarning'>Although it might feel comfortable, a low level of humidity is bad for your own health and for the condition of materials in the house.</p>
 				</div>
 			);
 		}
@@ -420,9 +431,9 @@ class Home extends Component {
 									<div className={ classes.iconBoxContent }>
 										<span>
 											<Icon className={ classes.iconBoxContentBigger }>directions_bike</Icon>
-											<span className={ classes.iconBoxContentBigger }> 6</span>
+											<span className={ classes.iconBoxContentBigger }> 5</span>
 										</span>
-										<span className={ classes.iconCounterDescription }>bikes</span>
+										<span className={ classes.iconCounterDescription }>available bikes</span>
 									</div>
 								</Paper>
 							</div>
@@ -495,7 +506,7 @@ class Home extends Component {
 									className={classes.iconBoxPaper}
 									elevation={1}
 									square={true}
-									onClick={ () => this.handleDialogOpen('temperature') }
+									onClick={ () => this.handleDialogOpen('temperatureindoor') }
 								>
 									<div className={ classes.iconBoxContent }>
 										<span>
@@ -533,13 +544,11 @@ class Home extends Component {
 										{ houseData.indoorCO2 < 1000 ? 
 											<div>
 												<Icon className={ classes.iconBoxContentBigger }>cloud</Icon>
-												<span className={ classes.iconBoxContentBigger }><Icon>check</Icon></span>
 												<span className={ classes.iconCounterDescription }>healthy CO2</span>
 											</div>
 											: 
 											<div>
 												<Icon className={ classes.iconBoxContentBigger }>cloud</Icon>
-												<span className={ classes.iconBoxContentBigger }><Icon>close</Icon></span>
 												<span className={ classes.iconCounterDescription }><strong>unhealthy CO2</strong></span>
 											</div>
 										}
@@ -554,10 +563,10 @@ class Home extends Component {
 								>
 									<div className={ classes.iconBoxContent }>
 										<span>
-											<Icon className={ classes.iconBoxContentBigger }>check</Icon>
-											<span className={ classes.iconBoxContentBigger }> </span>
+											<Icon className={ classes.iconBoxContentBigger }>power</Icon>
+											<span className={ classes.iconBoxContentBigger }>{ houseData.room['All Rooms'].energyUsageRealtime }</span>
 										</span>
-										<span className={ classes.iconCounterDescription }>water usage</span>
+										<span className={ classes.iconCounterDescription }>kWh energy</span>
 									</div>
 								</Paper>
 							</div>
@@ -569,6 +578,7 @@ class Home extends Component {
 									className={classes.iconBoxPaper}
 									elevation={1}
 									square={true}
+									onClick={ () => this.handleDialogOpen('temperatureoutside') }
 								>
 									<div className={ classes.iconBoxContent }>
 										<span>
@@ -584,6 +594,7 @@ class Home extends Component {
 									className={classes.iconBoxPaper}
 									elevation={1}
 									square={true}
+									onClick={ () => this.handleDialogOpen('publictransport') }
 								>
 									<div className={ classes.iconBoxContent }>
 										<span>
@@ -599,6 +610,7 @@ class Home extends Component {
 									className={classes.iconBoxPaper}
 									elevation={1}
 									square={true}
+									onClick={ () => this.handleDialogOpen('publictransport') }
 								>
 									<div className={ classes.iconBoxContent }>
 										<span>
@@ -614,6 +626,7 @@ class Home extends Component {
 									className={classes.iconBoxPaper}
 									elevation={1}
 									square={true}
+									onClick={ () => this.handleDialogOpen('publictransport') }
 								>
 									<div className={ classes.iconBoxContent }>
 										<span>
@@ -756,6 +769,20 @@ class Home extends Component {
 						</DialogContent>
 					}
 					
+					{this.state.dialogContent === 'temperatureindoor' &&
+						<div>
+							<div className={ classes.dialogHeader }>
+								<FontAwesome className={ classes.dialogHeaderIcon } name='thermometer-half' />
+								<Typography className={ classes.dialogHeaderHeading } variant="title" gutterBottom>
+									Temperature: { this.props.houseData.indoorTemperature }°C
+								</Typography>
+							</div>
+							<DialogContent>
+								{ this.renderTemperatureMessage() }
+							</DialogContent>
+						</div>
+					}
+					
 					{this.state.dialogContent === 'CO2' &&
 						<div className='ProgressContainer'>
 							<div className={ classes.dialogHeader }>
@@ -832,16 +859,72 @@ class Home extends Component {
 						</div>
 					}
 					
-					{this.state.dialogContent === 'temperature' &&
+					{this.state.dialogContent === 'temperatureoutside' &&
 						<div>
 							<div className={ classes.dialogHeader }>
 								<FontAwesome className={ classes.dialogHeaderIcon } name='thermometer-half' />
 								<Typography className={ classes.dialogHeaderHeading } variant="title" gutterBottom>
-									Temperature: { this.props.houseData.indoorTemperature }°C
+									Temperature: { temperature.outside.celsius }°C ({ temperature.outside.description })
 								</Typography>
 							</div>
-							<DialogContent>
-								{ this.renderTemperatureMessage() }
+							<DialogContent className={ classes.center }>
+								<div className='row'>
+									<div className='col-6'>
+										<FontAwesome className={ classes.dialogContentIcon } name='sun' />
+										<br />
+										Sunrise: { moment.unix(temperature.outside.sunrise).format("HH:mm") }
+										<br />
+										Sunset: { moment.unix(temperature.outside.sunset).format("HH:mm") }
+									</div>
+									<div className='col-6'>
+										<FontAwesome className={ classes.dialogContentIcon } name='cloud' />
+										<br />
+										{ moment.unix(temperature.outside.forecast3hDatetime).format("HH:mm") }: {temperature.outside.forecast3hDescription} ({temperature.outside.forecast3hCelsius}°C)
+										<br />
+										{ moment.unix(temperature.outside.forecast6hDatetime).format("HH:mm") }: {temperature.outside.forecast6hDescription} ({temperature.outside.forecast6hCelsius}°C)
+									</div>
+								</div>
+							</DialogContent>
+						</div>
+					}
+					
+					{this.state.dialogContent === 'publictransport' &&
+						<div>
+							<div className={ classes.dialogHeader }>
+								<Typography className={ classes.dialogHeaderHeading } variant="title" gutterBottom>
+									Public transport
+								</Typography>
+							</div>
+							<DialogContent className={ classes.center }>
+								<div className='row'>
+									<div className='col-4'>
+										<Icon className={ classes.dialogContentIcon }>directions_bus</Icon>
+										<br />
+										<strong>Next bus</strong>
+										<br />
+										7m<br />
+										12m<br />
+										18m<br />
+									</div>
+									<div className='col-4'>
+										<Icon className={ classes.dialogContentIcon }>directions_subway</Icon>
+										<br />
+										<strong>Next metro</strong>
+										<br />
+										9m<br />
+										14m<br />
+										19m<br />
+									</div>
+									<div className='col-4'>
+										<Icon className={ classes.dialogContentIcon }>tram</Icon>
+										<br />
+										<strong>Next tram</strong>
+										<br />
+										14m<br />
+										20m<br />
+										29m <span className={classes.publicTransportDelay}>(+3)</span><br />
+									</div>
+								</div>
 							</DialogContent>
 						</div>
 					}

@@ -72,6 +72,7 @@ const styles = theme => ({
 	},*/
 	dialogHeaderHeading: {
 		display: 'inline-block',
+		fontWeight: 700,
 	},
 	dialogHeaderIcon: {
 		fontSize: 32, 
@@ -181,7 +182,7 @@ class RoomNavigation extends Component {
 							return (
 								<div key={ data.id } className={ classes.flex + " h3-bold" }>
 									<div className={ classes.dialogHeader }>
-										<Icon color='primary' className={ classes.dialogHeaderIcon }>{ data.icon }</Icon>
+										{ /* <Icon color='primary' className={ classes.dialogHeaderIcon }>{ data.icon }</Icon> */ }
 										<Typography className={ classes.dialogHeaderHeading } variant="title" gutterBottom>
 											{ data.value }
 										</Typography>

@@ -47,6 +47,11 @@ const styles = theme => ({
         paddingBottom: 16,
         textAlign: 'center',
     },
+	title: {
+		marginBottom: 20,
+		textTransform: 'uppercase',
+		letterSpacing: 1,
+	},
 });
 
 class ListMenu extends Component {
@@ -162,9 +167,9 @@ class Settings extends Component {
 
     render() {
 		const { classes, theme, settings } = this.props;
-        // const currentUserId = settings.accounts.byId[settings.accounts.currentUser].id;
-        // const currentUser = settings.accounts.byId[settings.accounts.currentUser].name;
-        // const currentUser = settings.accounts.currentUser;
+		
+        const currentUserId = settings.accounts.byId[settings.accounts.currentUser].id;
+        const currentUserName = settings.accounts.byId[settings.accounts.currentUser].name;
 
         return (
             <div className={classes.root}>
@@ -173,10 +178,11 @@ class Settings extends Component {
 						<h1 className={ classes.pageTitle }>Change your settings</h1>
 					</div>
 
-					<Typography variant="subheading" gutterBottom>Profile</Typography>
 					<Card className={classes.card}>
 						<CardContent>
 							<List>
+								<Typography variant="subheading" className={classes.title}>Profile</Typography>
+								
 								<UserDialogContainer
 									// user={{ id: currentUserId, name: currentUser }}
 									// family={ settings.accounts.byId }
@@ -250,7 +256,7 @@ class Settings extends Component {
 										<Icon>exit_to_app</Icon>
 									</ListItemIcon>
 
-									<ListItemText primary='Sign out' secondary='Signed in as Jane Doe. Apartment building 70 LINQ Dubai' />
+									<ListItemText primary='Sign out' secondary={'Signed in as ' + currentUserName + '. Apartment building 70 LINQ, Dubai'} />
 								</ListItem>
 							</List>
 						</CardContent>
@@ -320,10 +326,10 @@ class Settings extends Component {
 
 					<Divider />*/}
 
-					<Typography variant="subheading" gutterBottom>Notifications</Typography>
 					<Card className={classes.card}>
 						<CardContent>
 							<List>
+								<Typography variant="subheading" className={classes.title}>Notifications</Typography>
 								<ListItem>
 									<ListItemIcon>
 										<Icon>volume_up</Icon>
@@ -396,11 +402,11 @@ class Settings extends Component {
 					</Card>
 
 
-					<Typography variant="subheading" gutterBottom>About</Typography>
 					<Card className={classes.card}>
 						<CardContent>
 							{/*TODO: add licences and dependencies*/}
 							<List>
+								<Typography variant="subheading" className={classes.title}>About</Typography>
 								<ListItem
 									button
 									aria-haspopup='true'
