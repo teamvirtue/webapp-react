@@ -138,7 +138,7 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
                         // node.material.opacity = 0.25;
 
                         // store objects in correct array for levels
-                        /*if (node.name.includes(levels[0])) {
+                        if (node.name.includes(levels[0])) {
                             mylinqObjects.push(node);
                             node.userData.parent = MYLINQ_GROUP;
                         } else if (node.name.includes(levels[1])) {
@@ -150,7 +150,7 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
                         } else {
                             districtObjects.push(node);
                             node.userData.parent = DISTRICT_GROUP;
-                        }*/
+                        }
                     }
                 } );
 
@@ -159,7 +159,7 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
                 LINQ_GROUP.children = linqObjects;
                 DISTRICT_GROUP.children = districtObjects;
 
-                // this.selectLevel(this.props.sustainabilityStatus.selected);
+                this.selectLevel(this.props.sustainabilityStatus.selected);
 
                 scene.add(gltf.scene);
             },
@@ -541,17 +541,17 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
 
         switch(level) {
             case 'mylinq':
-                // this.setTransparency(this.MYLINQ_GROUP.children[0], 0.3); // TODO: find roof group in a more flexible way
+                this.setTransparency(this.MYLINQ_GROUP.children[2], 0.3); // TODO: find roof group in a more flexible way + Make indicator transparant
                 this.animateCamera(this.camera, { x: 0, y: 500, z: 100 });
                 // this.animateCamera(this.camera, { x: 0, y: 75, z: 10 });
                 break;
             case 'linq':
-                // this.setTransparency(this.MYLINQ_GROUP.children[0], 1);
+                this.setTransparency(this.MYLINQ_GROUP.children[2], 1);
                 this.animateCamera(this.camera, { x: 600, y: 500, z: 600 });
                 // this.animateCamera(this.camera, { x: 100, y: 75, z: 100 });
                 break;
             case 'district':
-                // this.setTransparency(this.MYLINQ_GROUP.children[0], 1);
+                this.setTransparency(this.MYLINQ_GROUP.children[2], 1);
                 this.animateCamera(this.camera, { x: 600, y: 600, z: 600 }, 0.30);
                 // this.animateCamera(this.camera, { x: 100, y: 100, z: 100 }, 0.5);
 
@@ -586,7 +586,8 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
     };
 
     setTransparency = (object, opacity) => {
-        let currentOpacity = object.material[0].opacity;
+        let currentOpacity = object.material.opacity;
+        // let currentOpacity = object.material[0].opacity;
         let finalOpacity = opacity;
         let value = { o: currentOpacity };
 
@@ -598,12 +599,15 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
                 // console.log(`Opacity: ${ x }`);
                 // console.log(Object.values({x})[0]);
 
-                this.MYLINQ_GROUP.children[0].material[0].transparent = true;
+                object.material.transparent = true;
+                object.material.opacity = Object.values({ o })[0];
+
+                /*this.MYLINQ_GROUP.children[0].material[0].transparent = true;
                 this.MYLINQ_GROUP.children[0].material[1].transparent = true;
                 this.MYLINQ_GROUP.children[0].material[2].transparent = true;
                 this.MYLINQ_GROUP.children[0].material[0].opacity = Object.values({ o })[0];
                 this.MYLINQ_GROUP.children[0].material[1].opacity = Object.values({ o })[0];
-                this.MYLINQ_GROUP.children[0].material[2].opacity = Object.values({ o })[0];
+                this.MYLINQ_GROUP.children[0].material[2].opacity = Object.values({ o })[0];*/
             });
         opacityTween.start();
 
