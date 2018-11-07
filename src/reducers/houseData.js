@@ -7,7 +7,7 @@ const houseData = (state = {
 	room: {
 		'All Rooms': {
 			airco: {
-				onOff: false,
+				onOff: true,
 				temperature: 24,
 			},
 			energyUsageRealtime: 0,
@@ -21,8 +21,8 @@ const houseData = (state = {
 		},
 		'Living Room': {
 			lights: {
-				onOff: false,
-				intensity: 5,
+				onOff: true,
+				intensity: 10,
 				warmth: 0,
 			},
 			energyUsageRealtime: 0,
@@ -37,7 +37,7 @@ const houseData = (state = {
 		'Dinner Room': {
 			lights: {
 				onOff: false,
-				intensity: 5,
+				intensity: 10,
 				warmth: 0,
 			},
 			energyUsageRealtime: 0,
@@ -49,7 +49,7 @@ const houseData = (state = {
 		'Bedroom': {
 			lights: {
 				onOff: false,
-				intensity: 5,
+				intensity: 10,
 				warmth: 0,
 			},
 			energyUsageRealtime: 0,
@@ -67,7 +67,7 @@ const houseData = (state = {
 		'Bathroom': {
 			lights: {
 				onOff: false,
-				intensity: 5,
+				intensity: 10,
 				warmth: 0,
 			},
 			energyUsageRealtime: 0,
@@ -86,11 +86,17 @@ const houseData = (state = {
 		'Hallway': {
 			lights: {
 				onOff: false,
-				intensity: 5,
+				intensity: 10,
 				warmth: 0,
 			},
 			energyUsageRealtime: 0,
 			energyUsageAll: [],
+			energyUsageSocket: {
+				'F16': {
+					energyUsageRealtime: 0,
+					energyUsageAll: [],
+				},
+			},
 			movement: {
 				movementDataAll: [],
 			},
@@ -98,7 +104,7 @@ const houseData = (state = {
 		'Kitchen': {
 			lights: {
 				onOff: false,
-				intensity: 5,
+				intensity: 10,
 				warmth: 0,
 			},
 			energyUsageRealtime: 0,
@@ -116,10 +122,6 @@ const houseData = (state = {
 					energyUsageRealtime: 0,
 					energyUsageAll: [],
 				},
-				'F16': {
-					energyUsageRealtime: 0,
-					energyUsageAll: [],
-				},
 				'F19': {
 					energyUsageRealtime: 0,
 					energyUsageAll: [],
@@ -129,7 +131,7 @@ const houseData = (state = {
 		'Outdoor': {
 			lights: {
 				onOff: false,
-				intensity: 5,
+				intensity: 10,
 				warmth: 0,
 			},
 			energyUsageRealtime: 0,
@@ -144,7 +146,7 @@ const houseData = (state = {
 		'Technical Room': {
 			lights: {
 				onOff: false,
-				intensity: 5,
+				intensity: 10,
 				warmth: 0,
 			},
 			energyUsageRealtime: 0,
@@ -253,7 +255,7 @@ const houseData = (state = {
 				}
             };
 			
-        case 'UPDATE_ENERGY_USAGE':
+        case 'UPDATE_ENERGY_USAGE_ALL':
 			return {
                 ...state,
 				room: {
@@ -261,6 +263,18 @@ const houseData = (state = {
 					[action.payload.room]: {
 						...state.room[action.payload.room],
 						energyUsageAll: action.payload.energyUsageAll,
+					}
+				}
+            };
+			
+        case 'UPDATE_ENERGY_USAGE_REALTIME':
+			return {
+                ...state,
+				room: {
+					...state.room,
+					[action.payload.room]: {
+						...state.room[action.payload.room],
+						energyUsageRealtime: action.payload.energyUsageRealtime,
 					}
 				}
             };

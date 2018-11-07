@@ -103,6 +103,7 @@ const styles = theme => ({
 	dialogHeader: {
 		backgroundColor: 'white',
 		textAlign: 'center',
+		textTransform: 'uppercase',
 		paddingTop: 20,
 		paddingBottom: 10,
 		marginBottom: 20,
@@ -111,7 +112,7 @@ const styles = theme => ({
 		fontSize: 32, 
 		verticalAlign: 'middle',
 		marginRight: 10,
-		marginTop: -3,
+		marginTop: -6,
 		color: theme.palette.primary.main,
 	},
 	dialogHeaderHeading: {
@@ -251,14 +252,14 @@ class Home extends Component {
 					if( this.props.temperature.outside.forecast3hDescription === 'Clear sky' &&
 						forecast3h.isSameOrBefore(sunset, 'hour')
 					){//if sun is shining within next forecast time
-						warning = 'You can better wait until ' + moment(forecast3h).format("HH") + 'u. It seems like the sun is shining then!';
+						warning = 'You can better wait doing your laundry until ' + moment(forecast3h).format("HH") + 'u. The sky will be clearer and more energy is generated!';
 					}else{
 						if( this.props.temperature.outside.forecast6hDescription === 'Clear sky' &&
 							forecast6h.isSameOrBefore(sunset, 'hour')
 						){//if sun is shining within 2nd forecast time
-							warning = 'You can better wait until ' + moment(forecast6h).format("HH") + 'u. It seems like the sun is shining then!';
+							warning = 'You can better wait doing your laundry until ' + moment(forecast6h).format("HH") + 'u. The sky will be clearer and more energy is generated!';
 						}else{
-							positive = 'The sun isn\'t shining but the forecast aren\'t any better. It\'s fine to use the washing machine now.';
+							positive = 'The solar panels aren\'t generating lots of energy but the forecasts aren\'t any better. It\'s fine to use the washing machine now.';
 						}
 					}
 				}else{//everything looks fine now
@@ -403,8 +404,8 @@ class Home extends Component {
 								"LINQ" 
 							)}
 							classes={{ label: classes.subNavBarContainerTab, selected: 'subNavBarContainerTabSelected' }} />
-						<Tab label="My LINQ" classes={{ label: classes.subNavBarContainerTab, selected: 'subNavBarContainerTabSelected' }} />
-						<Tab label="District" classes={{ label: classes.subNavBarContainerTab, selected: 'subNavBarContainerTabSelected' }} />
+						<Tab label="MY LINQ" classes={{ label: classes.subNavBarContainerTab, selected: 'subNavBarContainerTabSelected' }} />
+						<Tab label="DISTRICT" classes={{ label: classes.subNavBarContainerTab, selected: 'subNavBarContainerTabSelected' }} />
 					</Tabs>
 					
 					<SwipeableViews index={ tabIndex } onChangeIndex={ this.handleTabChangeIndex } style={{ overflow: 'hidden' }}>

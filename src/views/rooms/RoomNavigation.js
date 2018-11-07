@@ -59,8 +59,10 @@ const styles = theme => ({
 	dialogHeader: {
 		backgroundColor: 'white',
 		textAlign: 'center',
+		textTransform: 'uppercase',
 		paddingTop: 20,
 		paddingBottom: 10,
+		marginBottom: 20,
 	},
 	/*dialogNav: {
 		backgroundColor: 'white',
@@ -75,7 +77,7 @@ const styles = theme => ({
 		fontSize: 32, 
 		verticalAlign: 'middle',
 		marginRight: 10,
-		marginTop: -3,
+		marginTop: -6,
 	},
 	dialogCloseButton: {
 		position: 'absolute',
@@ -86,13 +88,13 @@ const styles = theme => ({
 let rooms = [
 	{ id: 1, value: 'Apartment', icon: 'home', component: Apartment, diffColor: true },
 	{ id: 2, value: 'Living Room', icon: 'weekend', component: LivingRoom, },
-	{ id: 3, value: 'Dinner Room', icon: 'local_dining', component: DinnerRoom, },
-	{ id: 4, value: 'Bedroom', icon: 'hotel', component: Bedroom, },
-	{ id: 5, value: 'Bathroom', icon: 'hot_tub', component: Bathroom, },
-	{ id: 6, value: 'Hallway', icon: 'transfer_within_a_station', component: Hallway, },
-	{ id: 7, value: 'Kitchen', icon: 'room_service', component: Kitchen, },
-	{ id: 8, value: 'Outdoor', icon: 'local_florist', component: Outdoor, },
-	{ id: 9, value: 'Technical Room', icon: 'power', component: TechnicalRoom, },
+	{ id: 3, value: 'Kitchen', icon: 'room_service', component: Kitchen, },
+	{ id: 4, value: 'Dinner Room', icon: 'local_dining', component: DinnerRoom, },
+	{ id: 5, value: 'Bedroom', icon: 'hotel', component: Bedroom, },
+	{ id: 6, value: 'Bathroom', icon: 'hot_tub', component: Bathroom, },
+	{ id: 7, value: 'Hallway', icon: 'transfer_within_a_station', component: Hallway, },
+	{ id: 8, value: 'Technical Room', icon: 'power', component: TechnicalRoom, },
+	{ id: 9, value: 'Outdoor', icon: 'local_florist', component: Outdoor, },
 ];
 
 function Transition(props) {

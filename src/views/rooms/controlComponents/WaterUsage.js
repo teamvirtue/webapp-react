@@ -11,6 +11,12 @@ const styles = theme => ({
 	card: {
 		marginBottom: 25,
 	},
+	title: {
+		marginBottom: 20,
+		textAlign: 'center',
+		textTransform: 'uppercase',
+		letterSpacing: 1,
+	},
 });
 
 class WaterUsage extends Component {
@@ -20,9 +26,9 @@ class WaterUsage extends Component {
 		
 		return (
 			<div>
-				<Typography variant="subheading" gutterBottom>Water Usage (L)</Typography>
 				<Card className={classes.card}>
 					<CardContent>
+						<Typography variant="subheading" className={classes.title}>Water Usage (L)</Typography>
 						<ListItem disableGutters={true}>
 							{/* <LineChart type='water' /> */}
 						</ListItem>

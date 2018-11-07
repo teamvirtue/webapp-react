@@ -3,19 +3,38 @@ import React, { Component } from 'react';
 import List from '@material-ui/core/List';
 
 // Local import
-// import Temperature from '../controlComponents/Temperature';
 import Light from '../controlComponents/Light';
+import RealtimeEnergyMeter from '../controlComponents/RealtimeEnergyMeter';
+import NetEnergy from '../controlComponents/NetEnergy';
 
 class Kitchen extends Component {
 
     render() {
         return (
-			<List>
-				<div>
-					<div className='notificationWarning notificationMargin'>This is a mock-up. Appliance controls are disabled during tours.</div>
+			<List className='row'>
+				<div className='col-6'>
 					<Light forRoom='Kitchen' />
-					{ /* Washer-Dryer, Dishwasher, Oven, Refrigerator */ }
 				</div>
+				
+				<div className='col-6'>
+					<RealtimeEnergyMeter forRoom={[{'roomname': 'Kitchen'}]} forSocket={[ 
+																		{'name': 'Fridge', id: 'F10'},
+																		{'name': 'Induction Cooker', id: 'F11'},
+																	  ]} />
+				</div>
+				
+				<div className='col-6'>
+					<RealtimeEnergyMeter forRoom={[{'roomname': 'Kitchen'}]} forSocket={[ 
+																		{'name': 'Dishwasher', id: 'F15'},
+																		{'name': 'Oven', id: 'F19'},
+																	  ]} />
+				</div>
+
+				<div className='col-12'>
+					<NetEnergy forRoom='Kitchen' />
+				</div>
+				
+				{ /* Washer-Dryer, Dishwasher, Oven, Refrigerator */ }
 			</List>
         );
     }

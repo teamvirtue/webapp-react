@@ -12,7 +12,7 @@ class DinnerRoom extends Component {
         return (
 			<List>
 				<div>
-					<div className='notificationWarning notificationMargin'>This is a mock-up. Appliance controls are disabled during tours.</div>
+					{ /* <div className='notificationWarning notificationMargin'>This is a mock-up. Appliance controls are disabled during tours.</div> */ }
 					<Light forRoom='Dinner Room' />
 				</div>
 			</List>

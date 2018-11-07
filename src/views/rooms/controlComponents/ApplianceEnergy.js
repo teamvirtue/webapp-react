@@ -11,6 +11,12 @@ const styles = theme => ({
 	card: {
 		marginBottom: 25,
 	},
+	title: {
+		marginBottom: 20,
+		textAlign: 'center',
+		textTransform: 'uppercase',
+		letterSpacing: 1,
+	},
 });
 
 class ApplianceEnergy extends Component {
@@ -20,9 +26,9 @@ class ApplianceEnergy extends Component {
 		
 		return (
 			<div>
-				<Typography variant="subheading" gutterBottom>Appliance Energy (kWh)</Typography>
 				<Card className={classes.card}>
 					<CardContent>
+						<Typography variant="subheading" className={classes.title}>Appliance Energy (kWh)</Typography>
 						<ListItem disableGutters={true}>
 							<BarChart />
 						</ListItem>
