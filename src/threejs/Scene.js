@@ -9,6 +9,8 @@ import GLTFLoader from 'three-gltf-loader';
 import objUrl from '../assets/models/linq_low_poly_web_app.obj';
 import mtlUrl from '../assets/models/linq_low_poly_web_app.mtl';
 import gltfUrl from '../assets/models/linq_low_poly_web_app.glb';
+// import gltfUrl from '../assets/models/linq_low_poly_web_app.gltf';
+// import gltfUrl from '../assets/models/aircraft.glb';
 // import gltfUrl from '../assets/models/Duck.glb';
 // import gltfUrl from '../assets/models/DamagedHelmet/DamagedHelmet.gltf';
 
@@ -64,10 +66,11 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         const DPR = window.devicePixelRatio ? window.devicePixelRatio : 1;
         renderer.setPixelRatio(DPR);
         renderer.setSize(width, height);
-        renderer.shadowMap.enabled = true; // TODO: fix light from inside LINQ
-        renderer.shadowMap.type = THREE.PCFSoftShadowMap; // softer shadows
+        // renderer.shadowMap.enabled = true; // TODO: fix light from inside LINQ
+        // renderer.shadowMap.type = THREE.PCFSoftShadowMap; // softer shadows
         // renderer.shadowMap.type = THREE.BasicShadowMap;
-        renderer.shadowMap.enabled = true;
+        // renderer.shadowMap.enabled = true;
+
         // renderer.shadowMap.renderReverseSided = true;
         // renderer.setClearColor( scene.fog.color );
         // renderer.gammaInput = true;
@@ -80,8 +83,8 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
             width / 2,
             height / 2,
             height / -2,
-            1,
-            1000
+            0,
+            5000
         );
         /*const camera = new THREE.PerspectiveCamera(
             fieldOfView,
@@ -89,9 +92,11 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
             near,
             far
         );*/
-        camera.position.set(0, 75, 10);
+        camera.position.set(0, 500, 100);
+        // camera.zoom = 1.3;
+        // camera.position.set(0, 75, 10);
         camera.lookAt(0, 0, 0);
-        scene.add(camera);
+        // scene.add(camera);
 
         let MYLINQ_GROUP = new THREE.Group();
         let LINQ_GROUP = new THREE.Group();
@@ -128,6 +133,9 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
                         // enable casting shadows
                         // node.castShadow = true;
                         // node.receiveShadow = true;
+
+
+                        // node.material.opacity = 0.25;
 
                         // store objects in correct array for levels
                         /*if (node.name.includes(levels[0])) {
@@ -275,6 +283,8 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         controls.enableDamping = true;
         controls.dampingFactor = 0.25;
         controls.enableZoom = true;
+        controls.minZoom = 0.1;
+        controls.maxPolarAngle = Math.PI * 0.4;
 
         let axesHelper = new THREE.AxesHelper(5);
         scene.add(axesHelper);
@@ -368,6 +378,10 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         if (cameraTween) {
             cameraTween.update();
         }
+
+       /* if (this.camera) {
+            console.log(this.camera.zoom);
+        }*/
 
         /*if (this.lights[1]) {
             alpha += 0.05;
@@ -528,15 +542,18 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         switch(level) {
             case 'mylinq':
                 // this.setTransparency(this.MYLINQ_GROUP.children[0], 0.3); // TODO: find roof group in a more flexible way
-                this.animateCamera(this.camera, { x: 0, y: 75, z: 10 });
+                this.animateCamera(this.camera, { x: 0, y: 500, z: 100 });
+                // this.animateCamera(this.camera, { x: 0, y: 75, z: 10 });
                 break;
             case 'linq':
                 // this.setTransparency(this.MYLINQ_GROUP.children[0], 1);
-                this.animateCamera(this.camera, { x: 100, y: 75, z: 100 });
+                this.animateCamera(this.camera, { x: 600, y: 500, z: 600 });
+                // this.animateCamera(this.camera, { x: 100, y: 75, z: 100 });
                 break;
             case 'district':
                 // this.setTransparency(this.MYLINQ_GROUP.children[0], 1);
-                this.animateCamera(this.camera, { x: 100, y: 100, z: 100 }, 0.5);
+                this.animateCamera(this.camera, { x: 600, y: 600, z: 600 }, 0.30);
+                // this.animateCamera(this.camera, { x: 100, y: 100, z: 100 }, 0.5);
 
                 break;
         }
