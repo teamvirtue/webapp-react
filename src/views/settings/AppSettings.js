@@ -41,6 +41,7 @@ const optionsNightmode = [
 const styles = theme => ({
     root: {
         // backgroundColor: theme.palette.primary.main,
+		marginTop: 10,
     },
     pageTitle: {
         paddingTop: 48,

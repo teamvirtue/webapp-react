@@ -48,7 +48,7 @@ const styles = theme => ({
 		display: 'none',
 	},
 	badgeIcon: {
-		fontSize: 10,
+		fontSize: 11,
 	},
 	iconBox: {
 		marginTop: 10,
@@ -256,10 +256,10 @@ class Home extends Component {
 		let positive = '';
 		
 		if(now.isSameOrBefore(sunrise, 'hour')){// if before sunrise hour
-			let warning = 'Because the sun hasn\'t fully risen yet, you can beter wait for a while.';
+			warning = 'Because the sun hasn\'t fully risen yet, you can beter wait for a while.';
 		}else{
 			if(now.isSameOrAfter(sunset, 'hour')){// if after sunset hour
-				let warning = 'Because the sun is already set, you can beter wait for tomorrow.';
+				warning = 'Because the sun is already set, you can beter wait for tomorrow.';
 			}else{
 				if(this.props.temperature.outside.description !== 'Clear sky'){//if currently not clear sky
 					if( this.props.temperature.outside.forecast3hDescription === 'Clear sky' &&
@@ -278,21 +278,23 @@ class Home extends Component {
 				}else{//everything looks fine now
 					positive = 'The weather is currently sunny enough to use the washing machines efficiently!';
 				}
-				//if(this.props.temperature.outside.forecast3hDescription)
 			}
 		}
 
 		return (
 			<div>
-				There is currently <strong>1</strong> out of <strong>3</strong> shared washing machines available.
+				<strong>Shared Washing Machines</strong><br />
+				Using the shared washing machines during sunlight hours is very energy efficient and it prevents extreme peak hours.
 				<br /><br />
-				{ positive  &&
+				{ positive &&
 					<div className={ 'notificationPositive' }>
+						There is currently <strong>1</strong> out of <strong>3</strong> shared washing machines available.&nbsp;
 						{ positive }
 					</div>
 				}
-				{ warning  &&
+				{ warning &&
 					<div className={ 'notificationWarning' }>
+						There is currently <strong>1</strong> out of <strong>3</strong> shared washing machines available.&nbsp;
 						{ warning }
 					</div>
 				}
@@ -304,35 +306,35 @@ class Home extends Component {
 		if (this.props.houseData.indoorCO2 >= 0 && this.props.houseData.indoorCO2 < 600) {
 			return (
 				<div className='notificationPositive'>
-					<h3>The level of CO2 is excellent</h3>
+					<strong>The level of CO2 is excellent</strong><br />
 					That's great! Controlling ventilation is good for your health and increases productivity.
 				</div>
 			);
 		} else if (this.props.houseData.indoorCO2 >= 600 && this.props.houseData.indoorCO2 < 1000) {
 			return (
 				<div className='notificationPositive'>
-					<h3>The level of CO2 is good</h3>
+					<strong>The level of CO2 is good</strong><br />
 					That's good but you might consider to open a window or turn the air conditioning higher. Controlling ventilation is good for your health and it will increase productivity.
 				</div>
 			);
 		} else if (this.props.houseData.indoorCO2 >= 1000 && this.props.houseData.indoorCO2 < 2500) {
 			return (
 				<div className='notificationWarning'>
-					<h3>The level of CO2 should be improved</h3>
+					<strong>The level of CO2 should be improved</strong><br />
 					Elevated levels of CO2 decrease productivity and performance and increase headaches and rates of absenteeism. You must ventilate rooms by turning the air conditioning on or opening a window!
 				</div>
 			);
 		} else if (this.props.houseData.indoorCO2 >= 2500 && this.props.houseData.indoorCO2 < 5000) {
 			return (
 				<div className='notificationWarning'>
-					<h3>The level of CO2 is bad</h3>
+					<strong>The level of CO2 is bad</strong><br />
 					This might have to do with poorly ventilated rooms or many people in the house. You must ventilate rooms by turning the air conditioning on or opening a window.
 				</div>
 			);
 		} else if (this.props.houseData.indoorCO2 >= 5000) {
 			return (
 				<div className='notificationWarning'>
-					<h3>The level of CO2 is terribly bad</h3>
+					<strong>The level of CO2 is terribly bad</strong><br />
 					You must <strong>immediately</strong> ventilate rooms by turning the air conditioning on or opening a window!
 				</div>
 			);
@@ -357,21 +359,21 @@ class Home extends Component {
 		if (this.props.houseData.indoorHumidity >= 0 && this.props.houseData.indoorHumidity < 35) {
 			return (
 				<div className='notificationWarning'>
-					<h3>The level of humidity is too low</h3>
+					<strong>The level of humidity is too low</strong><br />
 					Although it feels comfortable, a low level of humidity is bad for your health and for the condition of materials in the house. Consider buying a humidifier.
 				</div>
 			);
 		} else if (this.props.houseData.indoorHumidity >= 35 && this.props.houseData.indoorHumidity <= 50) {
 			return (
 				<div className='notificationPositive'>
-					<h3>The level of humidity is excellent</h3>
+					<strong>The level of humidity is excellent</strong><br />
 					That's great, both for your own health and for the condition of materials in the house. Let\'s keep it like this!
 				</div>
 			);
 		} else if (this.props.houseData.indoorHumidity > 50) {
 			return (
 				<div className='notificationWarning'>
-					<h3>The level of humidity is too high</h3>
+					<strong>The level of humidity is too high</strong><br />
 					You might consider opening a door. Also, make sure to close the door when you are taking a shower.
 				</div>
 			);
@@ -379,9 +381,35 @@ class Home extends Component {
 	}
 	
 	renderTemperatureMessage(){
-		if (this.props.houseData.indoorTemperature <= 23) {
+		if (
+			this.props.houseData.indoorTemperature <= 23 &&
+			this.props.houseData.room['All Rooms'].airco.onOff === true &&
+			this.props.houseData.room['All Rooms'].airco.temperature <= 23
+		) {
 			return (
-				<div>
+				<div className='notificationWarning'>
+					DEWA recommends to set your AC to 24°C. Each degree can mean up to 9% savings on cooling costs.
+				</div>
+			);
+		}else if (
+			this.props.houseData.indoorTemperature <= 23 &&
+			this.props.houseData.room['All Rooms'].airco.onOff === true &&
+			this.props.houseData.room['All Rooms'].airco.temperature >= 24
+		) {
+			return (
+				<div className='notificationPositive'>
+					It is currently {this.props.houseData.indoorTemperature}°C.
+					DEWA recommends to set your AC to 24°C, but you already did. 
+					The temperature in the room should be corrected soon.
+					Each extra degree can mean up to 9% savings on cooling costs.
+				</div>
+			);
+		}else{
+			return (
+				<div className='notificationPositive'>
+					The HVAC is a huge energy consumer. It is currently disabled. 
+					If you do not feel comfortable you might consider turning it on.
+					DEWA recommends to set your AC to 24°C. Each extra degree can mean up to 9% savings on cooling costs.
 				</div>
 			);
 		}
@@ -427,13 +455,30 @@ class Home extends Component {
 									className={ classes.iconBoxPaper }
 									elevation={ 1 }
 									square={true}
+									onClick={ () => this.handleDialogOpen('bikes') }
 								>
 									<div className={ classes.iconBoxContent }>
 										<span>
 											<Icon className={ classes.iconBoxContentBigger }>directions_bike</Icon>
 											<span className={ classes.iconBoxContentBigger }> 5</span>
 										</span>
-										<span className={ classes.iconCounterDescription }>available bikes</span>
+										<span className={ classes.iconCounterDescription }>Available bikes</span>
+									</div>
+								</Paper>
+							</div>
+							<div className={ classes.iconBox + ' col-3' }>
+								<Paper
+									className={classes.iconBoxPaper}
+									elevation={1}
+									square={true}
+									onClick={ () => this.handleDialogOpen('solarcar') }
+								>
+									<div className={ classes.iconBoxContent }>
+										<span>
+											<FontAwesome className={ classes.iconBoxContentBigger } name='car' />
+											<span className={ classes.iconBoxContentBigger }> 1</span>
+										</span>
+										<span className={ classes.iconCounterDescription }>Available solar car</span>
 									</div>
 								</Paper>
 							</div>
@@ -449,7 +494,7 @@ class Home extends Component {
 											<Icon className={ classes.iconBoxContentBigger }>local_laundry_service</Icon>
 											<span className={ classes.iconBoxContentBigger }> 1</span>
 										</span>
-										<span className={ classes.iconCounterDescription }>available machine</span>
+										<span className={ classes.iconCounterDescription }>Available machine</span>
 									</div>
 								</Paper>
 							</div>
@@ -469,7 +514,7 @@ class Home extends Component {
 														<span className={ classes.iconBoxContentBigger }> 2</span>
 													</span>
 												</Badge>
-												<span className={ classes.iconCounterDescription }>eat together</span>
+												<span className={ classes.iconCounterDescription }>Eat together</span>
 											</div>
 										) : (
 											<div>
@@ -477,24 +522,9 @@ class Home extends Component {
 													<Icon className={ classes.iconBoxContentBigger }>restaurant</Icon>
 													<span className={ classes.iconBoxContentBigger }> { (houseData.eatTogetherStatus === 'yes' ? 3 : 2 ) }</span>
 												</span>
-												<span className={ classes.iconCounterDescription }>eat together</span>
+												<span className={ classes.iconCounterDescription }>Eat together</span>
 											</div>
 										)}
-									</div>
-								</Paper>
-							</div>
-							<div className={ classes.iconBox + ' col-3' }>
-								<Paper
-									className={classes.iconBoxPaper}
-									elevation={1}
-									square={true}
-								>
-									<div className={ classes.iconBoxContent }>
-										<span>
-											<Icon className={ classes.iconBoxContentBigger }>fitness_center</Icon>
-											<span className={ classes.iconBoxContentBigger }> 4</span>
-										</span>
-										<span className={ classes.iconCounterDescription }>people sporting</span>
 									</div>
 								</Paper>
 							</div>
@@ -513,7 +543,7 @@ class Home extends Component {
 											<FontAwesome className={ classes.iconBoxContentBigger } name='thermometer-half' />
 											<span className={ classes.iconBoxContentBigger }> { Math.round(houseData.indoorTemperature) }°C</span>
 										</span>
-										<span className={ classes.iconCounterDescription }>temperature</span>
+										<span className={ classes.iconCounterDescription }>Temperature</span>
 									</div>
 								</Paper>
 							</div>
@@ -529,7 +559,7 @@ class Home extends Component {
 											<FontAwesome className={ classes.iconBoxContentBigger } name='tint' />
 											<span className={ classes.iconBoxContentBigger }> { houseData.indoorHumidity }%</span>
 										</span>
-										<span className={ classes.iconCounterDescription }>humidity</span>
+										<span className={ classes.iconCounterDescription }>Humidity</span>
 									</div>
 								</Paper>
 							</div>
@@ -541,17 +571,17 @@ class Home extends Component {
 									onClick={ () => this.handleDialogOpen('CO2') }
 								>
 									<div className={ classes.iconBoxContent }>
-										{ houseData.indoorCO2 < 1000 ? 
-											<div>
+										<div>
+											<span>
 												<Icon className={ classes.iconBoxContentBigger }>cloud</Icon>
-												<span className={ classes.iconCounterDescription }>healthy CO2</span>
-											</div>
-											: 
-											<div>
-												<Icon className={ classes.iconBoxContentBigger }>cloud</Icon>
-												<span className={ classes.iconCounterDescription }><strong>unhealthy CO2</strong></span>
-											</div>
-										}
+												<span className={ classes.iconBoxContentBigger }> { houseData.indoorCO2 }</span>
+											</span>
+											{ houseData.indoorCO2 < 1000 ? 
+												<span className={ classes.iconCounterDescription }>Healthy CO2</span>
+											:
+												<span className={ classes.iconCounterDescription }><strong>Unhealthy CO2</strong></span>
+											}
+										</div>
 									</div>
 								</Paper>
 							</div>
@@ -560,6 +590,7 @@ class Home extends Component {
 									className={classes.iconBoxPaper}
 									elevation={1}
 									square={true}
+									onClick={ () => this.handleDialogOpen('energyusage') }
 								>
 									<div className={ classes.iconBoxContent }>
 										<span>
@@ -601,7 +632,7 @@ class Home extends Component {
 											<Icon className={ classes.iconBoxContentBigger }>directions_bus</Icon>
 											<span className={ classes.iconBoxContentBigger }> 7m</span>
 										</span>
-										<span className={ classes.iconCounterDescription }>next bus</span>
+										<span className={ classes.iconCounterDescription }>Next bus</span>
 									</div>
 								</Paper>
 							</div>
@@ -617,7 +648,7 @@ class Home extends Component {
 											<Icon className={ classes.iconBoxContentBigger }>directions_subway</Icon>
 											<span className={ classes.iconBoxContentBigger }> 9m</span>
 										</span>
-										<span className={ classes.iconCounterDescription }>next metro</span>
+										<span className={ classes.iconCounterDescription }>Next metro</span>
 									</div>
 								</Paper>
 							</div>
@@ -633,7 +664,7 @@ class Home extends Component {
 											<Icon className={ classes.iconBoxContentBigger }>tram</Icon>
 											<span className={ classes.iconBoxContentBigger }> 14m</span>
 										</span>
-										<span className={ classes.iconCounterDescription }>next tram</span>
+										<span className={ classes.iconCounterDescription }>Next tram</span>
 									</div>
 								</Paper>
 							</div>
@@ -656,12 +687,50 @@ class Home extends Component {
 					fullWidth
 				>
 					
+					{this.state.dialogContent === 'bikes' &&
+						<div>
+							<div className={ classes.dialogHeader }>
+								<Icon className={ classes.dialogHeaderIcon }>directions_bike</Icon>
+								<Typography className={ classes.dialogHeaderHeading } variant="title" gutterBottom>
+									Bike Shed
+								</Typography>
+							</div>
+							<DialogContent>
+								<strong>Shared Bikes</strong><br />
+								Biking is fast, cheap, reduces stress and anxiety, improves sleep patterns, and is better for the environment!
+								<br /><br />
+								<div className='notificationPositive'>
+									There are <strong>5</strong> bikes available in the shared bike shed.
+								</div>
+							</DialogContent>
+						</div>
+					}
+					
+					{this.state.dialogContent === 'solarcar' &&
+						<div>
+							<div className={ classes.dialogHeader }>
+								<FontAwesome className={ classes.dialogHeaderIcon } name='car' />
+								<Typography className={ classes.dialogHeaderHeading } variant="title" gutterBottom>
+									Garage
+								</Typography>
+							</div>
+							<DialogContent>
+								<strong>Shared Solar Cars</strong><br />
+								Using a solar-powered car is fast, cheap and much better for the environment!
+								<br /><br />
+								<div className='notificationPositive'>
+									There is currently <strong>1</strong> solar car available in the shared garage.
+								</div>
+							</DialogContent>
+						</div>
+					}
+					
 					{this.state.dialogContent === 'washingmachine' &&
 						<div>
 							<div className={ classes.dialogHeader }>
 								<Icon className={ classes.dialogHeaderIcon }>local_laundry_service</Icon>
 								<Typography className={ classes.dialogHeaderHeading } variant="title" gutterBottom>
-									Shared washing machines
+									Laundry Room
 								</Typography>
 							</div>
 							<DialogContent>
@@ -855,6 +924,22 @@ class Home extends Component {
 								</div>
 								
 								{ this.renderHumidityMessage() }
+							</DialogContent>
+						</div>
+					}
+					
+					{this.state.dialogContent === 'energyusage' &&
+						<div>
+							<div className={ classes.dialogHeader }>
+								<Icon className={ classes.dialogHeaderIcon }>power</Icon>
+								<Typography className={ classes.dialogHeaderHeading } variant="title" gutterBottom>
+									Energy usage: { houseData.room['All Rooms'].energyUsageRealtime } kWh
+								</Typography>
+							</div>
+							<DialogContent>
+								<div className={ 'notificationPositive' }>
+									A smart way to use solar energy wisely is to run energy-hungry appliances, such as the dishwasher, washing machine and dryer, during sunny hours.
+								</div>
 							</DialogContent>
 						</div>
 					}

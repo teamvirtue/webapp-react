@@ -6,7 +6,6 @@ import List from '@material-ui/core/List';
 import Light from '../controlComponents/Light';
 import RealtimeEnergyMeter from '../controlComponents/RealtimeEnergyMeter';
 import NetEnergy from '../controlComponents/NetEnergy';
-import ApplianceEnergy from '../controlComponents/ApplianceEnergy';
 
 class LivingRoom extends Component {
 

@@ -8,7 +8,7 @@ import Temperature from '../controlComponents/Temperature';
 import RealtimeEnergyMeter from '../controlComponents/RealtimeEnergyMeter';
 import NetEnergy from '../controlComponents/NetEnergy';
 //import WaterUsage from '../controlComponents/WaterUsage';
-import ApplianceEnergy from '../controlComponents/ApplianceEnergy';
+import RealtimeEnergyBar from '../controlComponents/RealtimeEnergyBar';
 
 import { apiGetSocketData } from '../../../actions/asyncActions';
 
@@ -20,6 +20,7 @@ class Apartment extends Component {
     };
 
     render() {
+	
         return (
             <List className='row'>
 				{/* <div className='notificationWarning notificationMargin'>This is a mock-up. Appliance controls are disabled during tours.</div> */}
@@ -37,7 +38,7 @@ class Apartment extends Component {
 
 				{/*<WaterUsage />*/}
 				
-				<div className='col-12'><ApplianceEnergy /></div>
+				<div className='col-12'><RealtimeEnergyBar title='Usage per room (kWh)' showData={['Living Room', 'Kitchen', 'Dinner Room', 'Bedroom', 'Bathroom', 'Hallway', 'Technical Room', 'Outdoor']} /></div>
             </List>
         );
     }

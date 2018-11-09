@@ -3,7 +3,7 @@ const advices = (state = {
         'card1': {
             id: 'card1',
             title: 'The notifications area',
-            message: 'This notifications area highlights important information and warnings that require immediate response, such as a system failure.',
+            message: 'This notifications area highlights important information and warnings that require immediate response. Please be aware that this app resets itself every few minutes during public tours.',
             buttonIcon: '',
             buttonText: '',
             visible: true,

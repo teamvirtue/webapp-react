@@ -30,6 +30,7 @@ const styles = theme => ({
 	bg: {
 		backgroundImage: 'url("'+linqBg+'")',
 		backgroundSize: 'cover',
+		backgroundAttachment: 'fixed',
 	},
 	logo: {
 		position: 'absolute',
@@ -152,7 +153,7 @@ class MainNavigation extends Component {
 				<NotificationsDialogContainer />
 				
 				<div className={ 'wrapper ' + value }>
-					<div className={ 'row ' + (value === 'home' ? classes.bg : '') } style={{ position: 'relative' }}>
+					<div className={ 'row ' + classes.bg } style={{ position: 'relative' }}>
 						<div className={ 'col-lg-5 headerBg' } style={{ zIndex: sustainabilityStatus.fullscreen ? 10 : 0 }}>
 							<SustainabilityStatusCircleContainer />
 						</div>
