@@ -59,7 +59,7 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         const height = window.innerHeight;
         /*let width = this.canvas.clientWidth;
         let height = this.canvas.clientHeight;*/
-        let cameraFactor = (width / height) * 100;
+        let cameraFactor = (width / height) * 200;
 
         /*let fieldOfView = 45,
             aspectRatio = width / height,
@@ -396,7 +396,7 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         }*/
 
         if (this.camera) {
-            console.log(this.camera.position);
+            // console.log(this.camera.position);
         }
 
         /*if (this.lights[1]) {
@@ -575,22 +575,22 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
 
         switch(level) {
             case 'mylinq':
-                // this.setTransparency(this.MYLINQ_GROUP.children[2], 0.3); // TODO: find roof group in a more flexible way + Make indicator transparent
+                this.setTransparency(this.MYLINQ_GROUP.children[2], 0.3); // TODO: find roof group in a more flexible way + Make indicator transparent
                 this.animateCamera(this.camera, { x: 0, y: 100, z: 5 }, 1500);
                 this.controls.enabled = false;
                 // this.animateCamera(this.camera, { x: 0, y: 500, z: 100 });
                 // this.animateCamera(this.camera, { x: 0, y: 75, z: 10 });
                 break;
             case 'linq':
-                // this.setTransparency(this.MYLINQ_GROUP.children[2], 1);
-                this.animateCamera(this.camera, { x: 50, y: 10, z: 50 });
+                this.setTransparency(this.MYLINQ_GROUP.children[2], 1);
+                this.animateCamera(this.camera, { x: 50, y: 10, z: 50 }, 1500);
                 this.controls.enabled = false;
                 // this.animateCamera(this.camera, { x: 600, y: 500, z: 600 });
                 // this.animateCamera(this.camera, { x: 100, y: 75, z: 100 });
                 break;
             case 'district':
-                // this.setTransparency(this.MYLINQ_GROUP.children[2], 1);
-                this.animateCamera(this.camera, { x: 50, y: 20, z: 50 });
+                this.setTransparency(this.MYLINQ_GROUP.children[2], 1);
+                this.animateCamera(this.camera, { x: 50, y: 20, z: 50 }, 1500, 0.3);
                 this.controls.enabled = true;
                 // this.animateCamera(this.camera, { x: 600, y: 600, z: 600 }, 0.3);
                 // this.animateCamera(this.camera, { x: 100, y: 100, z: 100 }, 0.5);
@@ -602,7 +602,7 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         this.setActiveTab(level)();
     };
 
-    animateCamera = (camera, finalPosition, duration) => {
+    animateCamera = (camera, finalPosition, duration, zoom = 1) => {
         // Method from https://stackoverflow.com/questions/28091876/tween-camera-position-while-rotation-with-slerp-three-js
 
         let originalPosition = new THREE.Vector3().copy(camera.position); // original position
