@@ -71,12 +71,7 @@ class SustainabilityStatusCircle extends Component {
             <div className={ classes.root }>
                 <div className={'sustainabilityStatusCircleContainer ' + circleColorClass} onClick={ this.handleOpen }>
                     <div className={ 'sustainabilityStatusCircle' }>
-<<<<<<< HEAD
-                        <SceneContainer setClick={ click => this.clickChild = click } view={this.props.view} />
-=======
-                        <SceneContainer />
-                        {/*<SceneContainer setClick={ click => this.clickChild = click } />*/}
->>>>>>> 984f625af263637d82d5c8cb03374f898689d519
+                        <SceneContainer view={this.props.view} />
                     </div>
                 </div>
 
