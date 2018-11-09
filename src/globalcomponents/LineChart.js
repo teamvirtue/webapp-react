@@ -164,7 +164,7 @@ class LineChart extends Component{
 		dataYear = this.props.data;
 
 		var datasetsCopy = this.state.data.datasets.slice(0);
-		var dataCopy = datasetsCopy[0].data.slice(0);
+		var dataCopy;
 		
 		if(this.state.timespan === 'realtime'){
 			dataCopy = dataRealtime;

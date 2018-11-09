@@ -1,5 +1,5 @@
 const sustainabilityStatus = (state = {
-    fullscreen: true,
+    fullscreen: false,
 	selected: 'mylinq',
 	linq: {
 		efficiency: 'neutral',

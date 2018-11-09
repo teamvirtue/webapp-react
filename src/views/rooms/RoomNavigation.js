@@ -35,6 +35,7 @@ const styles = theme => ({
 		cursor: 'pointer',
 		display: 'table-cell',
 		paddingBottom: '100%',
+		position: 'relative',
 	},
 	subNavItemContent: {
 		position: 'absolute',
@@ -46,6 +47,21 @@ const styles = theme => ({
 		justifyContent: 'center',
 		alignItems: 'center',
 		flexDirection: 'column',
+	},
+	subNavItemRoomName: {
+		textTransform: 'capitalize',
+		marginTop: 5,
+		fontWeight: 600,
+	},
+	subNavItemHighlight: {
+		position: 'absolute',
+		top: '0',
+		right: '0',
+		width: '0',
+		height: '0',
+		borderLeft: '35px solid transparent',
+		borderBottom: '35px solid transparent',
+		borderTop: '35px solid #f15b27',
 	},
 	dialogPaperRoot: {
 		backgroundColor: '#f9f9f9',
@@ -87,7 +103,7 @@ const styles = theme => ({
 });
 		
 let rooms = [
-	{ id: 1, value: 'Apartment', icon: 'home', component: Apartment, diffColor: true },
+	{ id: 1, value: 'Apartment', icon: 'home', component: Apartment, highlight: true },
 	{ id: 2, value: 'Living Room', icon: 'weekend', component: LivingRoom, },
 	{ id: 3, value: 'Kitchen', icon: 'room_service', component: Kitchen, },
 	{ id: 4, value: 'Dinner Room', icon: 'local_dining', component: DinnerRoom, },
@@ -146,8 +162,9 @@ class RoomNavigation extends Component {
 									} }
 								>
 									<div className={ classes.subNavItemContent }>
-										<Icon color={ (data.diffColor === true ? 'secondary' : 'primary' ) } style={{ fontSize: 30 }}>{ data.icon }</Icon>
-										<Typography component='p'>
+										{data.highlight === true && <div className={classes.subNavItemHighlight}></div>}
+										<Icon color='primary' style={{ fontSize: 32 }}>{ data.icon }</Icon>
+										<Typography component='p' className={ classes.subNavItemRoomName }>
 											{ data.value }
 										</Typography>
 									</div>

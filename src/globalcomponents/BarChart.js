@@ -8,13 +8,28 @@ import 'chartjs-plugin-datalabels';
 
 // const Chart = require('chart.js');
 
-let dataWeek = [81, 80, 79, 65, 59, 45, 40, 33,];
-let dataMonths = [150, 145, 123, 135, 111, 107, 97, 90,];
-let dataYears = [330, 340, 325, 321, 318, 311, 301, 290,];
+let dataRealtime = [];
+let dataDay = [];
+let dataWeek = [];
+let dataMonth = [];
+let dataYear = [];
 
-let initialData = [81, 80, 79, 65, 59, 45, 40, 20, 15,]; // TODO: find way to insert initial array more efficient
+var labels = [];
 
-const labels = ['Washer dryer', 'Dishwasher', 'Fridge', 'Lights', 'Oven', 'Car', 'Media system', 'Laptop'];
+const energyGraph = {
+	labels: labels,
+	datasets:[{
+		label: 'Energy Usage',
+		data: [],
+		backgroundColor: 'rgba(241, 93, 39, 0.5)',
+		borderColor: '#f15b27',
+		datalabels: {
+			align: 'end',
+			anchor: 'end'
+		}
+	}]
+};
+
 
 const styles = {
     root: {
@@ -40,10 +55,11 @@ class BarChart extends Component{
         // Chart.defaults.global.defaultFontColor = 'red';
         this.state = {
             value: 'week',
+			data: energyGraph,
         };
     }
 
-    handleChange = (event, value) => {
+    /*handleChange = (event, value) => {
         this.setState({ value });
         const oldDataSet = this.state.datasets[0];
         let newData = [];
@@ -69,79 +85,39 @@ class BarChart extends Component{
         this.setState({
             datasets: [newDataSet]
         });
-    };
+    };*/
 
     componentWillMount() {
-        this.setState({
-            labels: labels,
-            datasets:[{
-                label: 'Appliance Usage',
-                data: initialData,
-                backgroundColor: 'rgba(241, 93, 39, 0.5)',
-                borderColor: '#f15b27',
-                datalabels: {
-                    align: 'end',
-                    anchor: 'end'
-                }
-            }]
-        });
+		if(labels.length < 1){
+			{ this.props.data.map(data => {
+				labels.push(data[0]);
+			})}
+		}
     };
+	
+	componentWillReceiveProps() {
+		//okay, so new data retrieved. Now update the array data correctly.
+		var datasetsCopy = this.state.data.datasets.slice(0);
+		
+		var dataCopy = [];
+		{ this.props.data.map(data => {
+			dataCopy.push(data[1]);
+		})}
+		
+		datasetsCopy[0].data = dataCopy;
+		var finalData = Object.assign( {}, this.state.data, { datasets: datasetsCopy } );
+		this.setState({
+			data: finalData
+		});
+	};
 
-    /*componentWillMount() {
-        Chart.pluginService.register({
-            afterDraw: (chart) => {
-                const meta = chart.controller.getDatasetMeta(0);
-
-                Chart.helpers.each(meta.data.forEach((bar, index) => {
-                    const label = chart.data.labels[index];
-                    const labelPositionX = 100;
-
-                    chart.chart.ctx.textBaseline = 'middle';
-                    chart.chart.ctx.textAlign = 'left';
-                    chart.chart.ctx.fillStyle = 'black';
-                    chart.chart.ctx.fillText(label, labelPositionX, bar._model.y);
-                }));
-            }
-        });
-    }*/
-
-    componentDidMount() { // TODO: replace with API call
-        this.timer = setInterval(
-            (value) => this.retrieve(this.state.value),
-            30000
-            //3000
-        );
-    };
-
-    componentWillUnmount() {
-        clearInterval(this.timer);
-    }
-
-    retrieve(value) {
-        let oldDataSet = this.state.datasets[0];
-        let newData = [];
-
-        for(let x = 0; x < this.state.labels.length; x++){
-            newData.push(Math.floor(Math.random() * 100));
-        }
-
-        let newDataSet = {
-            ...oldDataSet
-        };
-
-        newDataSet.data = newData;
-
-        this.setState({
-            datasets: [newDataSet]
-        });
-    }
 
     render(){
         const { classes } = this.props;
 
         return (
             <div className={ classes.root }>
-                <RadioGroup
+                { /* <RadioGroup
                     aria-label='time'
                     name='time'
                     className={ classes.radioGroup }
@@ -152,9 +128,9 @@ class BarChart extends Component{
                     <FormControlLabel className={ classes.radioButton } value='week' control={ <Radio color="primary" /> } label='Week'/>
                     <FormControlLabel className={ classes.radioButton } value='month' control={ <Radio color="primary" /> } label='Month'/>
                     <FormControlLabel className={ classes.radioButton } value='year' control={ <Radio color="primary" /> } label='Year'/>
-                </RadioGroup>
+                </RadioGroup> */ }
                 <HorizontalBar
-                    data={ this.state }
+                    data={ this.state.data }
                     options={{
                         tooltips: {
                             enabled: false

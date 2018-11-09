@@ -44,7 +44,7 @@ class RealtimeEnergyMeter extends Component {
 
 	render() {
 		const { classes, theme, houseData, forRoom, forSocket } = this.props;
-		console.log(forRoom);
+		
 		if(forRoom && !forSocket){
 			return (
 				<div>

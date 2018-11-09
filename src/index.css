@@ -356,7 +356,8 @@ body {
 }
 
 .content{
-    margin-bottom: 95px;
+    padding-bottom: 95px;
+	background-color: #f9f9f9;
 }
 
 .notificationsIcon {
@@ -379,6 +380,7 @@ body {
 	background-color: #fce1d7;
 	padding: 10px;
 	width: 100%;
+	margin-top: 3px;
 }
 
 .notificationPositive{
@@ -386,6 +388,7 @@ body {
 	background-color: #d0e5d4;
 	padding: 10px;
 	width: 100%;
+	margin-top: 3px;
 }
 
 .row.no-margin {
@@ -398,9 +401,13 @@ body {
     .home .headerBg {
         height: 100vh;
     }
-
+/*			#e4753b 30%, 
+			#f2612a 60%, */
     .headerBg {
-        background: linear-gradient(175deg, #f2612a 60%, transparent 25%);
+        background: linear-gradient(175deg, 
+			rgba(249, 130, 63, 0.9) 20%, 
+			rgba(241, 91, 39, 0.9) 60%, 
+			#f9f9f9 25%);
     }
     .sustainabilityStatusCircleContainer {
         position: relative;

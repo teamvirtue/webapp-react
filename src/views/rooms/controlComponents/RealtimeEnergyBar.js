@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { withTheme } from '@material-ui/core/styles';
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -19,18 +20,23 @@ const styles = theme => ({
 	},
 });
 
-class ApplianceEnergy extends Component {
+class RealtimeEnergyBar extends Component {
 	
 	render() {
-		const { classes } = this.props;
+		const { classes, houseData } = this.props;
+		
+		var barData = [];
+		{ this.props.showData.map(room => {
+			barData.push([room, houseData.room[room].energyUsageRealtime]);
+		})}
 		
 		return (
 			<div>
 				<Card className={classes.card}>
 					<CardContent>
-						<Typography variant="subheading" className={classes.title}>Appliance Energy (kWh)</Typography>
+						<Typography variant="subheading" className={classes.title}>{ this.props.title }</Typography>
 						<ListItem disableGutters={true}>
-							<BarChart />
+							<BarChart data={ barData } />
 						</ListItem>
 					</CardContent>
 				</Card>
@@ -39,4 +45,11 @@ class ApplianceEnergy extends Component {
 	}
 }
 
-export default withTheme()(withStyles(styles)(ApplianceEnergy));
+
+const mapStateToProps = (state) => {
+    return {
+		houseData: state.houseData,
+    }
+};
+
+export default connect(mapStateToProps, null)(withTheme()(withStyles(styles)(RealtimeEnergyBar)));
