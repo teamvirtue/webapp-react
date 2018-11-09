@@ -51,7 +51,6 @@ const styles = theme => ({
 	subNavItemRoomName: {
 		textTransform: 'capitalize',
 		marginTop: 5,
-		fontWeight: 600,
 	},
 	subNavItemHighlight: {
 		position: 'absolute',

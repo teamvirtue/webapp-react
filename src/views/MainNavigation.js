@@ -8,10 +8,6 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Icon from '@material-ui/core/Icon';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
 
 // local import
 import { HomeContainer } from '../containers/HomeContainer';
@@ -22,6 +18,7 @@ import { NotificationsDialogContainer } from '../containers/NotificationsDialogC
 import '../index.css';
 import logo from '../assets/linq_logo_white.png';
 import linqBg from '../assets/linq_top_down_view.jpg';
+import SustainabilityCards from '../globalcomponents/SustainabilityCards';
 
 const styles = theme => ({
     root: {
@@ -79,15 +76,6 @@ const styles = theme => ({
     },
     checked: {
 		backgroundColor: 'rgba(255,255,255,0.3) !important',
-    },
-    sustainabilityCard: {
-        position: 'absolute',
-        top: 'auto',
-        right: 0,
-        left: 'auto',
-        bottom: 12,
-        minWidth: 275,
-		zIndex: 15,
     },
 });
 
@@ -155,7 +143,7 @@ class MainNavigation extends Component {
 				<div className={ 'wrapper ' + value }>
 					<div className={ 'row ' + classes.bg } style={{ position: 'relative' }}>
 						<div className={ 'col-lg-5 headerBg' } style={{ zIndex: sustainabilityStatus.fullscreen ? 10 : 0 }}>
-							<SustainabilityStatusCircleContainer />
+							<SustainabilityStatusCircleContainer view={value} />
 						</div>
 						
 						<div className={ 'col-lg-7 content' }>
@@ -168,14 +156,7 @@ class MainNavigation extends Component {
 
                 {/*3D view cards*/}
 				{ sustainabilityStatus.fullscreen &&
-                    <Card className={ classes.sustainabilityCard }>
-                        <CardContent>
-                            Level: { sustainabilityStatus.selected }
-                        </CardContent>
-                        <CardActions>
-                            <Button size='small'>Learn More</Button>
-                        </CardActions>
-                    </Card>
+					<SustainabilityCards />
                 }
 
                 { !sustainabilityStatus.fullscreen &&

@@ -109,10 +109,10 @@ const styles = theme => ({
 		marginBottom: 20,
 	},
 	dialogHeaderIcon: {
-		fontSize: 32, 
+		fontSize: 34, 
 		verticalAlign: 'middle',
-		marginRight: 10,
 		marginTop: -6,
+		marginBottom: 5,
 		color: theme.palette.primary.main,
 	},
 	dialogHeaderHeading: {
@@ -690,7 +690,7 @@ class Home extends Component {
 					{this.state.dialogContent === 'bikes' &&
 						<div>
 							<div className={ classes.dialogHeader }>
-								<Icon className={ classes.dialogHeaderIcon }>directions_bike</Icon>
+								<Icon className={ classes.dialogHeaderIcon }>directions_bike</Icon><br />
 								<Typography className={ classes.dialogHeaderHeading } variant="title" gutterBottom>
 									Bike Shed
 								</Typography>
@@ -709,7 +709,7 @@ class Home extends Component {
 					{this.state.dialogContent === 'solarcar' &&
 						<div>
 							<div className={ classes.dialogHeader }>
-								<FontAwesome className={ classes.dialogHeaderIcon } name='car' />
+								<FontAwesome className={ classes.dialogHeaderIcon } name='car' /><br />
 								<Typography className={ classes.dialogHeaderHeading } variant="title" gutterBottom>
 									Garage
 								</Typography>
@@ -728,7 +728,7 @@ class Home extends Component {
 					{this.state.dialogContent === 'washingmachine' &&
 						<div>
 							<div className={ classes.dialogHeader }>
-								<Icon className={ classes.dialogHeaderIcon }>local_laundry_service</Icon>
+								<Icon className={ classes.dialogHeaderIcon }>local_laundry_service</Icon><br />
 								<Typography className={ classes.dialogHeaderHeading } variant="title" gutterBottom>
 									Laundry Room
 								</Typography>
@@ -841,7 +841,7 @@ class Home extends Component {
 					{this.state.dialogContent === 'temperatureindoor' &&
 						<div>
 							<div className={ classes.dialogHeader }>
-								<FontAwesome className={ classes.dialogHeaderIcon } name='thermometer-half' />
+								<FontAwesome className={ classes.dialogHeaderIcon } name='thermometer-half' /><br />
 								<Typography className={ classes.dialogHeaderHeading } variant="title" gutterBottom>
 									Temperature: { this.props.houseData.indoorTemperature }°C
 								</Typography>
@@ -855,7 +855,7 @@ class Home extends Component {
 					{this.state.dialogContent === 'CO2' &&
 						<div className='ProgressContainer'>
 							<div className={ classes.dialogHeader }>
-								<Icon color='primary' className={ classes.dialogHeaderIcon }>cloud</Icon>
+								<Icon color='primary' className={ classes.dialogHeaderIcon }>cloud</Icon><br />
 								<Typography className={ classes.dialogHeaderHeading } variant="title" gutterBottom>
 									CO2: { this.props.houseData.indoorCO2 } ppm
 								</Typography>
@@ -891,7 +891,7 @@ class Home extends Component {
 					{this.state.dialogContent === 'humidity' &&
 						<div className='ProgressContainer'>
 							<div className={ classes.dialogHeader }>
-								<FontAwesome className={ classes.dialogHeaderIcon } name='tint' />
+								<FontAwesome className={ classes.dialogHeaderIcon } name='tint' /><br />
 								<Typography className={ classes.dialogHeaderHeading } variant="title" gutterBottom>
 									Humidity: { this.props.houseData.indoorHumidity }%
 								</Typography>
@@ -931,7 +931,7 @@ class Home extends Component {
 					{this.state.dialogContent === 'energyusage' &&
 						<div>
 							<div className={ classes.dialogHeader }>
-								<Icon className={ classes.dialogHeaderIcon }>power</Icon>
+								<Icon className={ classes.dialogHeaderIcon }>power</Icon><br />
 								<Typography className={ classes.dialogHeaderHeading } variant="title" gutterBottom>
 									Energy usage: { houseData.room['All Rooms'].energyUsageRealtime } kWh
 								</Typography>
@@ -947,7 +947,7 @@ class Home extends Component {
 					{this.state.dialogContent === 'temperatureoutside' &&
 						<div>
 							<div className={ classes.dialogHeader }>
-								<FontAwesome className={ classes.dialogHeaderIcon } name='thermometer-half' />
+								<FontAwesome className={ classes.dialogHeaderIcon } name='thermometer-half' /><br />
 								<Typography className={ classes.dialogHeaderHeading } variant="title" gutterBottom>
 									Temperature: { temperature.outside.celsius }°C ({ temperature.outside.description })
 								</Typography>
