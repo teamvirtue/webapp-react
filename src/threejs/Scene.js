@@ -288,8 +288,9 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         let controls = new OrbitControls(camera, renderer.domElement);
         controls.enableDamping = true;
         controls.dampingFactor = 0.25;
-        controls.enableZoom = true;
-        controls.minZoom = 0.1;
+        controls.enableZoom = false;
+        controls.rotateSpeed = 0.75;
+        // controls.minZoom = 0.1;
         controls.maxPolarAngle = Math.PI * 0.4;
 
         let cameraHelper = new THREE.CameraHelper(camera);
@@ -602,14 +603,14 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         this.setActiveTab(level)();
     };
 
-    animateCamera = (camera, finalPosition, duration, zoom = 1) => {
+    animateCamera = (camera, targetPosition, duration, targetZoom = 1) => {
         // Method from https://stackoverflow.com/questions/28091876/tween-camera-position-while-rotation-with-slerp-three-js
 
         let originalPosition = new THREE.Vector3().copy(camera.position); // original position
         let originalRotation = new THREE.Euler().copy(camera.rotation); // original rotation
 
-        camera.position.set(finalPosition.x, finalPosition.y, finalPosition.z);
-        camera.lookAt(0, 0, 0);
+        camera.position.set(targetPosition.x, targetPosition.y, targetPosition.z);
+        // camera.lookAt(0, 0, 0);
         let targetRotation = new THREE.Euler().copy(camera.rotation);
 
         // Reset original position and rotation
@@ -619,31 +620,36 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         // Position Tweening
         cameraPositionTween = new Tween(camera.position)
             .to({
-                x: finalPosition.x,
-                y: finalPosition.y,
-                z: finalPosition.z
+                x: targetPosition.x,
+                y: targetPosition.y,
+                z: targetPosition.z,
+                zoom: targetZoom,
             }, duration)
-            .easing(Easing.Exponential.InOut);
+            .easing(Easing.Exponential.InOut)
+            .on('update', ({ x, y, z, zoom }) => {
+                console.log(x, y, z, zoom);
+                // camera.zoom = zoom;
+            });
 
-        // rotation (using slerp)
+        // Rotation Tweening (using slerp)
         let originalQuaternion = new THREE.Quaternion().copy(camera.quaternion);
         let targetQuaternion = new THREE.Quaternion().setFromEuler(targetRotation);
         let quaternion = new THREE.Quaternion();
 
-        let object = { t: 0 };
+        let object = { t:0 };
         cameraRotationTween = new Tween(object)
-            .to({ t: 1 }, duration)
+            .to({ t:1 }, duration)
             .easing(Easing.Exponential.InOut)
-            .on('update', ({ }) => {
-                THREE.Quaternion.slerp(originalQuaternion, targetQuaternion, quaternion, object.t);
+            .on('update', ({ t }) => {
+                THREE.Quaternion.slerp(originalQuaternion, targetQuaternion, quaternion, t);
                 camera.quaternion.set(quaternion.x, quaternion.y, quaternion.z, quaternion.w);
 
+                // camera.zoom = zoom;
                 camera.lookAt(0, 0, 0);
             });
 
         cameraPositionTween.start();
         cameraRotationTween.start();
-
     };
 
     /*animateCamera = (camera, position, zoom = 1) => {
