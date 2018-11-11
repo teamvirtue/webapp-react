@@ -68,6 +68,11 @@ export const updateFullscreenStatus = (fullscreen) => ({
     payload: { fullscreen },
 });
 
+export const updateAdvice = (id) => ({
+    type: 'UPDATE_ADVICE',
+    payload: { id },
+});
+
 export const updateRoomsAircoOnOff = (onOff) => ({
     type: 'UPDATE_ROOMS_AIRCO_ONOFF',
     payload: { onOff },

@@ -8,6 +8,8 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 
+import { updateAdvice } from '../actions';
+
 const styles = theme => ({
     sustainabilityCard: {
 		marginBottom: 80,
@@ -15,20 +17,29 @@ const styles = theme => ({
 });
 
 class SustainabilityCards extends Component {
+	
+	handleDismissAdvice = (event, id) => {
+		console.log(id);
+		this.props.updateAdvice(id);
+	};
 
     render() {
 		const { classes, sustainabilityStatus } = this.props;
 
         return (
             <div>
-				<Card className={ classes.sustainabilityCard }>
-					<CardContent>
-						The television is turned on but there is no movement detected.
-					</CardContent>
-					<CardActions>
-						<Button size='small'>Close</Button>
-					</CardActions>
-				</Card>
+				{ Object.keys(sustainabilityStatus.advices).map((id) => {
+					let advice = sustainabilityStatus.advices[id];
+					return advice.active ?
+						<Card className={ classes.sustainabilityCard } key={id}>
+							<CardContent>
+								CONTENT
+							</CardContent>
+							<CardActions>
+								<Button size='small' onClick={ (event) => this.handleDismissAdvice(event, id) }>Close</Button>
+							</CardActions>
+						</Card>: null
+				})}
             </div>
         );
     }
@@ -41,4 +52,11 @@ const mapStateToProps = (state) => {
     }
 };
 
-export default connect(mapStateToProps, null)(withTheme()(withStyles(styles)(SustainabilityCards)));
+const mapDispatchToProps = (dispatch) => ({
+    updateAdvice: (id) => {
+        dispatch(updateAdvice(id));
+    },
+});
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(withTheme()(withStyles(styles)(SustainabilityCards)));
