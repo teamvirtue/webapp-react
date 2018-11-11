@@ -11,9 +11,6 @@ import Button from '@material-ui/core/Button';
 import { updateAdvice } from '../actions';
 
 const styles = theme => ({
-    sustainabilityCard: {
-		marginBottom: 80,
-    },
 });
 
 class SustainabilityCards extends Component {
@@ -27,13 +24,14 @@ class SustainabilityCards extends Component {
 		const { classes, sustainabilityStatus } = this.props;
 
         return (
-            <div>
+            <div className='sustainabilityCardContainer'>
 				{ Object.keys(sustainabilityStatus.advices).map((id) => {
 					let advice = sustainabilityStatus.advices[id];
 					return advice.active ?
-						<Card className={ classes.sustainabilityCard } key={id}>
+						<Card className='sustainabilityCard' key={id}>
 							<CardContent>
-								CONTENT
+								<h3>{ advice.title }</h3>
+								{ advice.content }
 							</CardContent>
 							<CardActions>
 								<Button size='small' onClick={ (event) => this.handleDismissAdvice(event, id) }>Close</Button>

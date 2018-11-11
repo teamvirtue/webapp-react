@@ -4,7 +4,7 @@ import NotificationsDialog from '../views/NotificationsDialog';
 const mapStateToProps = (state) => {
     // console.log(state);
     return {
-        advices: state.advices,
+        notifications: state.notifications,
     }
 };
 
