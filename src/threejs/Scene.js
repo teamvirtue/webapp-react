@@ -408,7 +408,7 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         }
 
         if (this.camera) {
-            // console.log(this.camera.position);
+            //console.log(this.camera.position);
         }
 
         /*if (this.lights[1]) {

@@ -48,7 +48,6 @@ const styles = theme => ({
 		display: 'none',
 	},
 	badgeIcon: {
-		fontSize: 11,
 	},
 	iconBox: {
 		marginTop: 10,
@@ -67,6 +66,10 @@ const styles = theme => ({
 		cursor: 'pointer',
 		display: 'table-cell',
 		paddingBottom: '100%',
+		transition: 'transform 50ms ease-out',
+		'&:hover': {
+			transform: 'scale(0.97)',
+		},
 	},
 	iconBoxContent: {
 		position: 'absolute',
@@ -95,10 +98,29 @@ const styles = theme => ({
 	},
 	dialogRoot: {
 		top: 'auto',
-		textAlign: 'center',
+		textAlign: 'left',
 	},
 	dialogPaperRoot: {
-		backgroundColor: '#f9f9f9',
+		background: 'linear-gradient(90deg, #f9f9f9 50%, #ffffff 50%)',
+	},
+	dialogContent: {
+		display: 'flex',
+		alignItems: 'stretch',
+	},
+	dialogContentHasProgressContainer: {
+		paddingBottom: 120,
+	},
+	dialogLeftColumn: {
+		paddingTop: '20px',
+		paddingBottom: '20px',
+		display: 'flex',
+		alignItems: 'center',
+		flexWrap: 'wrap',
+	},
+	dialogRightColumn: {
+		display: 'flex',
+		alignItems: 'center',
+		justifyContent: 'center',
 	},
 	dialogHeader: {
 		backgroundColor: 'white',
@@ -113,11 +135,13 @@ const styles = theme => ({
 		verticalAlign: 'middle',
 		marginTop: -6,
 		marginBottom: 5,
+		marginRight: 5,
 		color: theme.palette.primary.main,
+		display: 'inline-block',
 	},
 	dialogHeaderHeading: {
-		display: 'inline-block',
 		fontWeight: 700,
+		display: 'inline-block',
 	},
 	dialogContentIcon: {
 		fontSize: 32, 
@@ -135,6 +159,11 @@ const styles = theme => ({
 		width: 40,
 		height: 40,
 		color: 'white', 
+	},
+	eatTogetherMessageListItem: {
+		backgroundColor: 'white',
+		borderRadius: 10,
+		marginTop: 10,
 	},
 	eatTogetherNewMessage: {
 		borderRadius: 25,
@@ -283,9 +312,6 @@ class Home extends Component {
 
 		return (
 			<div>
-				<strong>Shared Washing Machines</strong><br />
-				Using the shared washing machines during sunlight hours is very energy efficient and it prevents extreme peak hours.
-				<br /><br />
 				{ positive &&
 					<div className={ 'notificationPositive' }>
 						There is currently <strong>1</strong> out of <strong>3</strong> shared washing machines available.&nbsp;
@@ -307,7 +333,7 @@ class Home extends Component {
 			return (
 				<div className='notificationPositive'>
 					<strong>The level of CO2 is excellent</strong><br />
-					That's great! Controlling ventilation is good for your health and increases productivity.
+					That's great! Let's keep it under 600ppm.
 				</div>
 			);
 		} else if (this.props.houseData.indoorCO2 >= 600 && this.props.houseData.indoorCO2 < 1000) {
@@ -360,14 +386,14 @@ class Home extends Component {
 			return (
 				<div className='notificationWarning'>
 					<strong>The level of humidity is too low</strong><br />
-					Although it feels comfortable, a low level of humidity is bad for your health and for the condition of materials in the house. Consider buying a humidifier.
+					Although it feels comfortable, this level of humidity is too low! Consider buying a humidifier.
 				</div>
 			);
 		} else if (this.props.houseData.indoorHumidity >= 35 && this.props.houseData.indoorHumidity <= 50) {
 			return (
 				<div className='notificationPositive'>
 					<strong>The level of humidity is excellent</strong><br />
-					That's great, both for your own health and for the condition of materials in the house. Let\'s keep it like this!
+					That's great! Let's keep it between 35% and 50%.
 				</div>
 			);
 		} else if (this.props.houseData.indoorHumidity > 50) {
@@ -388,7 +414,7 @@ class Home extends Component {
 		) {
 			return (
 				<div className='notificationWarning'>
-					DEWA recommends to set your AC to 24°C. Each degree can mean up to 9% savings on cooling costs.
+					DEWA recommends to set your AC to 24°C.
 				</div>
 			);
 		}else if (
@@ -401,7 +427,6 @@ class Home extends Component {
 					It is currently {this.props.houseData.indoorTemperature}°C.
 					DEWA recommends to set your AC to 24°C, but you already did. 
 					The temperature in the room should be corrected soon.
-					Each extra degree can mean up to 9% savings on cooling costs.
 				</div>
 			);
 		}else{
@@ -409,7 +434,7 @@ class Home extends Component {
 				<div className='notificationPositive'>
 					The HVAC is a huge energy consumer. It is currently disabled. 
 					If you do not feel comfortable you might consider turning it on.
-					DEWA recommends to set your AC to 24°C. Each extra degree can mean up to 9% savings on cooling costs.
+					DEWA recommends to set your AC to 24°C.
 				</div>
 			);
 		}
@@ -436,7 +461,7 @@ class Home extends Component {
 					>
 						<Tab 
 							label={(houseData.eatTogetherStatus === 'requested' && tab!=='linq') ? (
-								<Badge badgeContent={<Icon className={ classes.badgeIcon }>restaurant</Icon>} color="secondary" style={{padding: '0 10px'}} classes={{badge: 'badge'}}>
+								<Badge badgeContent=/*{<Icon className={ classes.badgeIcon }>restaurant</Icon>}*/'1' color="secondary" style={{padding: '0 10px'}} classes={{badge: 'badge'}}>
 									LINQ
 								</Badge>
 							) : (
@@ -508,7 +533,7 @@ class Home extends Component {
 									<div className={ classes.iconBoxContent }>
 										{houseData.eatTogetherStatus === 'requested' ? (
 											<div>
-												<Badge badgeContent={<Icon className={ classes.badgeIcon }>restaurant</Icon>} color="secondary">
+												<Badge badgeContent=/*{<Icon className={ classes.badgeIcon }>restaurant</Icon>}*/'1' color="secondary">
 													<span>
 														<Icon className={ classes.iconBoxContentBigger }>restaurant</Icon>
 														<span className={ classes.iconBoxContentBigger }> 2</span>
@@ -688,67 +713,64 @@ class Home extends Component {
 				>
 					
 					{this.state.dialogContent === 'bikes' &&
-						<div>
-							<div className={ classes.dialogHeader }>
-								<Icon className={ classes.dialogHeaderIcon }>directions_bike</Icon><br />
+						<DialogContent className={'row no-margin ' + classes.dialogContent}>
+							<div className={'col-6 ' + classes.dialogLeftColumn}>
+								<Icon className={ classes.dialogHeaderIcon }>directions_bike</Icon>
 								<Typography className={ classes.dialogHeaderHeading } variant="title" gutterBottom>
 									Bike Shed
 								</Typography>
-							</div>
-							<DialogContent>
-								<strong>Shared Bikes</strong><br />
 								Biking is fast, cheap, reduces stress and anxiety, improves sleep patterns, and is better for the environment!
-								<br /><br />
+							</div>
+							<div className={'col-6 ' + classes.dialogRightColumn}>
 								<div className='notificationPositive'>
 									There are <strong>5</strong> bikes available in the shared bike shed.
 								</div>
-							</DialogContent>
-						</div>
+							</div>
+						</DialogContent>
 					}
 					
 					{this.state.dialogContent === 'solarcar' &&
-						<div>
-							<div className={ classes.dialogHeader }>
+						<DialogContent className={'row no-margin ' + classes.dialogContent}>
+							<div className={'col-6 ' + classes.dialogLeftColumn}>
 								<FontAwesome className={ classes.dialogHeaderIcon } name='car' /><br />
 								<Typography className={ classes.dialogHeaderHeading } variant="title" gutterBottom>
 									Garage
 								</Typography>
-							</div>
-							<DialogContent>
-								<strong>Shared Solar Cars</strong><br />
 								Using a solar-powered car is fast, cheap and much better for the environment!
-								<br /><br />
+							</div>
+							<div className={'col-6 ' + classes.dialogRightColumn}>
 								<div className='notificationPositive'>
 									There is currently <strong>1</strong> solar car available in the shared garage.
 								</div>
-							</DialogContent>
-						</div>
+							</div>
+						</DialogContent>
 					}
 					
 					{this.state.dialogContent === 'washingmachine' &&
-						<div>
-							<div className={ classes.dialogHeader }>
+						<DialogContent className={'row no-margin ' + classes.dialogContent}>
+							<div className={'col-6 ' + classes.dialogLeftColumn}>
 								<Icon className={ classes.dialogHeaderIcon }>local_laundry_service</Icon><br />
 								<Typography className={ classes.dialogHeaderHeading } variant="title" gutterBottom>
 									Laundry Room
 								</Typography>
+								Using the shared washing machines during sunlight hours is very energy efficient and it prevents extreme peak hours.
 							</div>
-							<DialogContent>
+							<div className={'col-6 ' + classes.dialogRightColumn}>
 								{ this.renderWashingMachineMessage() }
-							</DialogContent>
-						</div>
+							</div>
+						</DialogContent>
 					}
 					
 					{this.state.dialogContent === 'eattogether' &&
 						<DialogContent>
 							<List>
-								<ListItem>
+								<ListItem className={classes.eatTogetherMessageListItem}>
 									<Avatar alt="Abdul" src={accountPicture3} />
 									<ListItemText 
 										primary='Hey! Im free tonight, would someone like to cook and eat together around 19:00?'
 										secondary="Abdul, 1 hour ago" />
 								</ListItem>
-								<ListItem>
+								<ListItem className={classes.eatTogetherMessageListItem}>
 									<Avatar alt="Jamil" src={accountPicture4} />
 									<ListItemText 
 										primary='Cool, I&#39;m in! I can help after 18:30.'
@@ -763,7 +785,7 @@ class Home extends Component {
 								>
 									{ houseData.eatTogetherMessage.map((message, i) => {
 											return (
-												<ListItem>
+												<ListItem className={classes.eatTogetherMessageListItem}>
 													<Avatar alt="You" src={accountPicture2} />
 													<ListItemText 
 														primary={message}
@@ -839,64 +861,34 @@ class Home extends Component {
 					}
 					
 					{this.state.dialogContent === 'temperatureindoor' &&
-						<div>
-							<div className={ classes.dialogHeader }>
+						<DialogContent className={'row no-margin ' + classes.dialogContent}>
+							<div className={'col-6 ' + classes.dialogLeftColumn}>
 								<FontAwesome className={ classes.dialogHeaderIcon } name='thermometer-half' /><br />
 								<Typography className={ classes.dialogHeaderHeading } variant="title" gutterBottom>
-									Temperature: { this.props.houseData.indoorTemperature }°C
+									Temperature ({ this.props.houseData.indoorTemperature }°C)
 								</Typography>
+								Did you know that each extra degree can mean up to 9% savings on cooling costs?
 							</div>
-							<DialogContent>
+							<div className={'col-6 ' + classes.dialogRightColumn}>
 								{ this.renderTemperatureMessage() }
-							</DialogContent>
-						</div>
-					}
-					
-					{this.state.dialogContent === 'CO2' &&
-						<div className='ProgressContainer'>
-							<div className={ classes.dialogHeader }>
-								<Icon color='primary' className={ classes.dialogHeaderIcon }>cloud</Icon><br />
-								<Typography className={ classes.dialogHeaderHeading } variant="title" gutterBottom>
-									CO2: { this.props.houseData.indoorCO2 } ppm
-								</Typography>
 							</div>
-							<DialogContent>
-								<div className='ProgressLine'>
-									<div className='dot'>
-										Excellent
-										<span>0-600</span>
-									</div>
-									<div className='dot'>
-										Good
-										<span>600-1,000</span>
-									</div>
-									<div className='dot'>
-										Medium
-										<span>1,000-2,500</span>
-									</div>
-									<div className='dot'>
-										Bad
-										<span>2,500 and higher</span>
-									</div>
-								</div>
-								<div className='line'>
-									<div className='lineFill' style={{ width: this.renderCO2LineProgress() }}></div>
-								</div>
-								
-								{ this.renderCO2Message() }
-							</DialogContent>
-						</div>
+						</DialogContent>
 					}
 					
 					{this.state.dialogContent === 'humidity' &&
-						<div className='ProgressContainer'>
-							<div className={ classes.dialogHeader }>
+						<DialogContent className={'row no-margin ' + classes.dialogContent + ' ' + classes.dialogContentHasProgressContainer}>
+							<div className={'col-6 ' + classes.dialogLeftColumn}>
 								<FontAwesome className={ classes.dialogHeaderIcon } name='tint' /><br />
 								<Typography className={ classes.dialogHeaderHeading } variant="title" gutterBottom>
-									Humidity: { this.props.houseData.indoorHumidity }%
+									Humidity ({ this.props.houseData.indoorHumidity }%)
 								</Typography>
+								A good level of humidity is better for your health and for the condition of materials in the house.
 							</div>
-							<DialogContent>
+							<div className={'col-6 ' + classes.dialogRightColumn}>
+								{ this.renderHumidityMessage() }
+							</div>
+
+							<div className='ProgressContainer'>
 								<div className='ProgressLine'>
 									<div className='dot'>
 										Very low
@@ -922,70 +914,104 @@ class Home extends Component {
 								<div className='line'>
 									<div className='lineFill' style={{ width: houseData.indoorHumidity + '%' }}></div>
 								</div>
-								
-								{ this.renderHumidityMessage() }
-							</DialogContent>
-						</div>
+							</div>
+						</DialogContent>
+					}
+					
+					{this.state.dialogContent === 'CO2' &&
+						<DialogContent className={'row no-margin ' + classes.dialogContent + ' ' + classes.dialogContentHasProgressContainer}>
+							<div className={'col-6 ' + classes.dialogLeftColumn}>
+								<Icon color='primary' className={ classes.dialogHeaderIcon }>cloud</Icon><br />
+								<Typography className={ classes.dialogHeaderHeading } variant="title" gutterBottom>
+									CO2 ({ this.props.houseData.indoorCO2 } ppm)
+								</Typography>
+								Controlling ventilation is good for your health and increases productivity.
+							</div>
+							<div className={'col-6 ' + classes.dialogRightColumn}>
+								{ this.renderCO2Message() }
+							</div>
+
+							<div className='ProgressContainer'>
+								<div className='ProgressLine'>
+									<div className='dot'>
+										Excellent
+										<span>0-600</span>
+									</div>
+									<div className='dot'>
+										Good
+										<span>600-1,000</span>
+									</div>
+									<div className='dot'>
+										Medium
+										<span>1,000-2,500</span>
+									</div>
+									<div className='dot'>
+										Bad
+										<span>2,500 and higher</span>
+									</div>
+								</div>
+								<div className='line'>
+									<div className='lineFill' style={{ width: this.renderCO2LineProgress() }}></div>
+								</div>
+							</div>
+						</DialogContent>
 					}
 					
 					{this.state.dialogContent === 'energyusage' &&
-						<div>
-							<div className={ classes.dialogHeader }>
+						<DialogContent className={'row no-margin ' + classes.dialogContent}>
+							<div className={'col-6 ' + classes.dialogLeftColumn}>
 								<Icon className={ classes.dialogHeaderIcon }>power</Icon><br />
 								<Typography className={ classes.dialogHeaderHeading } variant="title" gutterBottom>
-									Energy usage: { houseData.room['All Rooms'].energyUsageRealtime } kWh
+									Energy usage ({ houseData.room['All Rooms'].energyUsageRealtime } kWh)
 								</Typography>
+								A smart way to use solar energy wisely is to run energy-hungry appliances, such as the dishwasher, washing machine and dryer, during sunny hours.
 							</div>
-							<DialogContent>
+							<div className={'col-6 ' + classes.dialogRightColumn}>
 								<div className={ 'notificationPositive' }>
-									A smart way to use solar energy wisely is to run energy-hungry appliances, such as the dishwasher, washing machine and dryer, during sunny hours.
+									Everything looks fine
 								</div>
-							</DialogContent>
-						</div>
+							</div>
+						</DialogContent>
 					}
 					
 					{this.state.dialogContent === 'temperatureoutside' &&
-						<div>
-							<div className={ classes.dialogHeader }>
+						<DialogContent className={'row no-margin ' + classes.dialogContent}>
+							<div className={'col-6 ' + classes.dialogLeftColumn}>
 								<FontAwesome className={ classes.dialogHeaderIcon } name='thermometer-half' /><br />
 								<Typography className={ classes.dialogHeaderHeading } variant="title" gutterBottom>
-									Temperature: { temperature.outside.celsius }°C ({ temperature.outside.description })
+									Temperature
 								</Typography>
+								<span>
+									It is currently <strong>{ temperature.outside.celsius }°C</strong> outside ({ temperature.outside.description.toLowerCase() }).
+									The sun goes down at { moment.unix(temperature.outside.sunset).format("HH:mm") } and rises at { moment.unix(temperature.outside.sunrise).format("HH:mm") }.
+								</span>
 							</div>
-							<DialogContent className={ classes.center }>
-								<div className='row'>
-									<div className='col-6'>
-										<FontAwesome className={ classes.dialogContentIcon } name='sun' />
-										<br />
-										Sunrise: { moment.unix(temperature.outside.sunrise).format("HH:mm") }
-										<br />
-										Sunset: { moment.unix(temperature.outside.sunset).format("HH:mm") }
-									</div>
-									<div className='col-6'>
-										<FontAwesome className={ classes.dialogContentIcon } name='cloud' />
-										<br />
-										{ moment.unix(temperature.outside.forecast3hDatetime).format("HH:mm") }: {temperature.outside.forecast3hDescription} ({temperature.outside.forecast3hCelsius}°C)
-										<br />
-										{ moment.unix(temperature.outside.forecast6hDatetime).format("HH:mm") }: {temperature.outside.forecast6hDescription} ({temperature.outside.forecast6hCelsius}°C)
-									</div>
+							<div className={'col-6 ' + classes.dialogRightColumn}>
+								<div className={ classes.center }>
+									<FontAwesome className={ classes.dialogContentIcon } name='cloud' /><br />
+									<strong>Forecast</strong><br />
+									{ moment.unix(temperature.outside.forecast3hDatetime).format("HH:mm") }: {temperature.outside.forecast3hDescription} ({temperature.outside.forecast3hCelsius}°C)
+									<br />
+									{ moment.unix(temperature.outside.forecast6hDatetime).format("HH:mm") }: {temperature.outside.forecast6hDescription} ({temperature.outside.forecast6hCelsius}°C)
 								</div>
-							</DialogContent>
-						</div>
+							</div>
+						</DialogContent>
 					}
 					
 					{this.state.dialogContent === 'publictransport' &&
-						<div>
-							<div className={ classes.dialogHeader }>
+						<DialogContent className={'row no-margin ' + classes.dialogContent}>
+							<div className={'col-6 ' + classes.dialogLeftColumn}>
 								<Typography className={ classes.dialogHeaderHeading } variant="title" gutterBottom>
 									Public transport
 								</Typography>
+								Using public transport brings more security, convenience, efficiency, money-saving, and physical fitness.
 							</div>
-							<DialogContent className={ classes.center }>
-								<div className='row'>
+							<div className={'col-6 ' + classes.dialogRightColumn}>
+								<div className={ 'row ' + classes.center }>
 									<div className='col-4'>
 										<Icon className={ classes.dialogContentIcon }>directions_bus</Icon>
 										<br />
-										<strong>Next bus</strong>
+										<strong>Bus</strong>
 										<br />
 										7m<br />
 										12m<br />
@@ -994,7 +1020,7 @@ class Home extends Component {
 									<div className='col-4'>
 										<Icon className={ classes.dialogContentIcon }>directions_subway</Icon>
 										<br />
-										<strong>Next metro</strong>
+										<strong>Metro</strong>
 										<br />
 										9m<br />
 										14m<br />
@@ -1003,15 +1029,15 @@ class Home extends Component {
 									<div className='col-4'>
 										<Icon className={ classes.dialogContentIcon }>tram</Icon>
 										<br />
-										<strong>Next tram</strong>
+										<strong>Tram</strong>
 										<br />
 										14m<br />
 										20m<br />
 										29m <span className={classes.publicTransportDelay}>(+3)</span><br />
 									</div>
 								</div>
-							</DialogContent>
-						</div>
+							</div>
+						</DialogContent>
 					}
 						
 				</Dialog>

@@ -8,7 +8,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
 import IconButton from '@material-ui/core/IconButton';
-import Fade from '@material-ui/core/Fade';
+import Slide from '@material-ui/core/Slide';
 
 import Apartment from './rooms/Apartment';
 import LivingRoom from './rooms/LivingRoom';
@@ -114,7 +114,7 @@ let rooms = [
 ];
 
 function Transition(props) {
-	return <Fade {...props} />;
+	return <Slide direction="up" {...props} />;
 }
 
 class RoomNavigation extends Component {
