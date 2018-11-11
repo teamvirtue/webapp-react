@@ -59,18 +59,18 @@ class NotificationsDialog extends Component {
 
         this.state = {
 			openNotificationsPopup: false,
-			advicesCount: 0,
+			notificationsCount: 0,
         };
     }
 	
-	getAdvicesCount = (advices) => {
-		var newAdvicesCount = 0;
-		Object.keys(advices).forEach((key) => {
-			if (advices[key].visible) {
-				newAdvicesCount += 1;
+	getNotificationsCount = (notifications) => {
+		var newNotificationsCount = 0;
+		Object.keys(notifications).forEach((key) => {
+			if (notifications[key].visible) {
+				newNotificationsCount += 1;
 			}
 		});
-		this.setState({ advicesCount: newAdvicesCount });
+		this.setState({ notificationsCount: newNotificationsCount });
 	}
 
 	handleNotificationsPopupOpen = () => {
@@ -82,27 +82,27 @@ class NotificationsDialog extends Component {
 	};
 	
 	componentWillMount(){
-		this.getAdvicesCount(this.props.advices.byId);
+		this.getNotificationsCount(this.props.notifications.byId);
 	}
 	
 	componentWillReceiveProps(nextProps) {
-		this.getAdvicesCount(nextProps.advices.byId);
+		this.getNotificationsCount(nextProps.notifications.byId);
 		
-		if(this.state.advicesCount <= 0) {//close popup if all cards are dismissed
+		if(this.state.notificationsCount <= 0) {//close popup if all cards are dismissed
 			this.handleNotificationsPopupClose();
 		}
 	}
 
     render() {
-		const { classes, advices } = this.props;
+		const { classes, notifications } = this.props;
 
         return (
             <div className={ classes.root }>
-				{ this.state.advicesCount > 0 && 
+				{ this.state.notificationsCount > 0 && 
 					<div>
 						<div className='notificationsIcon' onClick={ this.handleNotificationsPopupOpen }>
 							<IconButton>
-								<Badge classes={{ badge: classes.badge }} badgeContent={ this.state.advicesCount } color="secondary">
+								<Badge classes={{ badge: classes.badge }} badgeContent={ this.state.notificationsCount } color="secondary">
 									<Icon className={ classes.badgeIcon }>notifications</Icon>
 								</Badge>
 							</IconButton>
@@ -128,8 +128,8 @@ class NotificationsDialog extends Component {
 								transitionLeaveTimeout={ 350 }
 							>
 								
-								{ Object.keys(advices.byId).map((id) => {
-										let card = advices.byId[id];
+								{ Object.keys(notifications.byId).map((id) => {
+										let card = notifications.byId[id];
 										// let lastMessage = messageArray[messageArray.length - 1];
 
 										return card.visible ?
@@ -146,7 +146,7 @@ class NotificationsDialog extends Component {
 											</CardContainer> : null
 									}
 								) }
-								{ /* (Object.keys(advices.byId).length === 0) && <div>asdfasdfasdf</div> */ }
+								{ /* (Object.keys(notifications.byId).length === 0) && <div>asdfasdfasdf</div> */ }
 							</CSSTransitionGroup>
 							
 							{/*<div className={ classes.cardContainer }>

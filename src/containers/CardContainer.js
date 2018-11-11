@@ -1,11 +1,11 @@
 import { connect } from 'react-redux';
-import AdviceCard from '../globalcomponents/AdviceCard';
+import NotificationCard from '../globalcomponents/NotificationCard';
 import { dismissCard } from '../actions';
 
 const mapStateToProps = (state) => {
     // console.log(state);
     return {
-        advices: state.advices,
+        notifications: state.notifications,
     }
 };
 
@@ -18,4 +18,4 @@ const mapDispatchToProps = dispatch => ({
 export const CardContainer = connect(
     mapStateToProps, //() => {}
     mapDispatchToProps,
-)(AdviceCard);
+)(NotificationCard);

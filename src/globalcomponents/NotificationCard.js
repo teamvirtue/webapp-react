@@ -41,7 +41,7 @@ const styles = theme => ({
 var current_timeout = 0;
 
 
-class AdviceCard extends Component {
+class NotificationCard extends Component {
 	constructor() {
 		super();
 		this.state = { cardHeight: "" };
@@ -112,9 +112,9 @@ class AdviceCard extends Component {
     }
 }
 
-AdviceCard.propTypes = {
+NotificationCard.propTypes = {
     dispatch: PropTypes.func.isRequired,
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(AdviceCard);
+export default withStyles(styles)(NotificationCard);
