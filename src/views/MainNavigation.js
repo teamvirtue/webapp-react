@@ -18,7 +18,6 @@ import { NotificationsDialogContainer } from '../containers/NotificationsDialogC
 import '../index.css';
 import logo from '../assets/linq_logo_white.png';
 import linqBg from '../assets/linq_top_down_view.jpg';
-import SustainabilityCards from '../globalcomponents/SustainabilityCards';
 
 const styles = theme => ({
     root: {
@@ -153,11 +152,6 @@ class MainNavigation extends Component {
 						</div>
 					</div>
 				</div>
-
-                {/*3D view cards*/}
-				{ sustainabilityStatus.fullscreen &&
-					<SustainabilityCards />
-                }
 
                 { !sustainabilityStatus.fullscreen &&
 					<div className='d-lg-none'>

@@ -68,7 +68,7 @@ const styles = theme => ({
 		paddingBottom: '100%',
 		transition: 'transform 50ms ease-out',
 		'&:hover': {
-			transform: 'scale(0.97)',
+			transform: 'scale(0.95)',
 		},
 	},
 	iconBoxContent: {

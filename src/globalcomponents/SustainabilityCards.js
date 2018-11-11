@@ -10,12 +10,7 @@ import Button from '@material-ui/core/Button';
 
 const styles = theme => ({
     sustainabilityCard: {
-        position: 'absolute',
-		width: '75vw',
-        top: 'auto',
-		left: '12.5vw',
-        bottom: 12,
-		zIndex: 15,
+		marginBottom: 80,
     },
 });
 
@@ -28,10 +23,10 @@ class SustainabilityCards extends Component {
             <div>
 				<Card className={ classes.sustainabilityCard }>
 					<CardContent>
-						Level: { sustainabilityStatus.selected }
+						The television is turned on but there is no movement detected.
 					</CardContent>
 					<CardActions>
-						<Button size='small'>Learn More</Button>
+						<Button size='small'>Close</Button>
 					</CardActions>
 				</Card>
             </div>

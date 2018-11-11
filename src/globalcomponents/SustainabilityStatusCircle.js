@@ -6,12 +6,21 @@ import IconButton from '@material-ui/core/IconButton';
 
 // Local import
 import { SceneContainer } from '../containers/SceneContainer';
+import SustainabilityCards from '../globalcomponents/SustainabilityCards';
 // import Scene from '../threejs/Scene';
 // import ThreeEntryPoint from '../threejs/ThreeEntryPoint';
 
 const styles = theme => ({
 	root: {
 		overflow: 'hidden',
+	},
+	bottomContent: {
+        position: 'absolute',
+		width: '75vw',
+        top: 'auto',
+		left: '12.5vw',
+        bottom: 12,
+		zIndex: 15,
 	},
     backButton: {
         position: 'absolute',
@@ -76,17 +85,21 @@ class SustainabilityStatusCircle extends Component {
                 </div>
 
                 { sustainabilityStatus.fullscreen &&
-                    <div className='subNavBarContainerFullscreen'>
-                        <div className={ classes.subNavBarContainerTab + ' ' + ( tab === 'linq' ? classes.subNavBarContainerTabSelected : '' ) } onClick={ this.setActiveTab('linq') }>
-                            LINQ
-                        </div>
-                        <div className={ classes.subNavBarContainerTab + ' ' + ( tab === 'mylinq' ? classes.subNavBarContainerTabSelected : '' )} onClick={ this.setActiveTab('mylinq') }>
-                            My LINQ
-                        </div>
-                        <div className={ classes.subNavBarContainerTab + ' ' + ( tab === 'district' ? classes.subNavBarContainerTabSelected : '' )} onClick={ this.setActiveTab('district') }>
-                            District
-                        </div>
-                    </div>
+					<div className={ classes.bottomContent }>
+						<div className='subNavBarContainerFullscreen'>
+							<div className={ classes.subNavBarContainerTab + ' ' + ( tab === 'linq' ? classes.subNavBarContainerTabSelected : '' ) } onClick={ this.setActiveTab('linq') }>
+								LINQ
+							</div>
+							<div className={ classes.subNavBarContainerTab + ' ' + ( tab === 'mylinq' ? classes.subNavBarContainerTabSelected : '' )} onClick={ this.setActiveTab('mylinq') }>
+								My LINQ
+							</div>
+							<div className={ classes.subNavBarContainerTab + ' ' + ( tab === 'district' ? classes.subNavBarContainerTabSelected : '' )} onClick={ this.setActiveTab('district') }>
+								District
+							</div>
+						</div>
+						
+						<SustainabilityCards />
+					</div>
                 }
 
                 { sustainabilityStatus.fullscreen &&

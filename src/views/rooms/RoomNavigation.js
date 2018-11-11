@@ -36,6 +36,13 @@ const styles = theme => ({
 		display: 'table-cell',
 		paddingBottom: '100%',
 		position: 'relative',
+		transition: 'all 100ms',
+		'&:hover': {
+			backgroundColor: '#f2693a',
+			'& span, p':{
+				color: 'white !important',
+			},
+		},
 	},
 	subNavItemContent: {
 		position: 'absolute',
@@ -162,7 +169,7 @@ class RoomNavigation extends Component {
 								>
 									<div className={ classes.subNavItemContent }>
 										{data.highlight === true && <div className={classes.subNavItemHighlight}></div>}
-										<Icon color='primary' style={{ fontSize: 32 }}>{ data.icon }</Icon>
+										<Icon color='primary' style={{ fontSize: 40 }}>{ data.icon }</Icon>
 										<Typography component='p' className={ classes.subNavItemRoomName }>
 											{ data.value }
 										</Typography>
