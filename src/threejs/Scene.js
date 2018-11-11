@@ -8,9 +8,10 @@ import GLTFLoader from 'three-gltf-loader';
 // Local import
 import objUrl from '../assets/models/linq_low_poly_web_app.obj';
 import mtlUrl from '../assets/models/linq_low_poly_web_app.mtl';
-import gltfUrl from '../assets/models/linq_low_poly_web_app.glb';
+// import gltfUrl from '../assets/models/linq_low_poly_web_app.glb';
+import aoMap from '../assets/models/textures/AO_bake.jpg';
 // import gltfUrl from '../assets/models/linq_low_poly_web_app.gltf';
-// import gltfUrl from '../assets/models/aircraft.glb';
+import gltfUrl from '../assets/models/aircraft.glb';
 // import gltfUrl from '../assets/models/Duck.glb';
 // import gltfUrl from '../assets/models/DamagedHelmet/DamagedHelmet.gltf';
 
@@ -20,6 +21,7 @@ let alpha = 0;
 
 let opacityTween,
     cameraPositionTween,
+    cameraZoomTween,
     cameraRotationTween;
     // cameraTween;
 
@@ -136,11 +138,13 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
 
                 gltf.scene.traverse((node) => {
                     if (node instanceof THREE.Mesh) {
+                        // console.log(node);
+
+                        // node.material.aoMap
+
                         // enable casting shadows
                         // node.castShadow = true;
                         // node.receiveShadow = true;
-
-
                         // node.material.opacity = 0.25;
 
                         // store objects in correct array for levels
@@ -389,6 +393,9 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         if (cameraPositionTween) {
             cameraPositionTween.update();
         }
+        if (cameraZoomTween) {
+            cameraZoomTween.update();
+        }
         if (cameraRotationTween) {
             cameraRotationTween.update();
         }
@@ -576,21 +583,21 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
 
         switch(level) {
             case 'mylinq':
-                this.setTransparency(this.MYLINQ_GROUP.children[2], 0.3); // TODO: find roof group in a more flexible way + Make indicator transparent
+                // this.setTransparency(this.MYLINQ_GROUP.children[2], 0.3); // TODO: find roof group in a more flexible way + Make indicator transparent
                 this.animateCamera(this.camera, { x: 0, y: 100, z: 5 }, 1500);
-                this.controls.enabled = false;
+                // this.controls.enabled = false;
                 // this.animateCamera(this.camera, { x: 0, y: 500, z: 100 });
                 // this.animateCamera(this.camera, { x: 0, y: 75, z: 10 });
                 break;
             case 'linq':
-                this.setTransparency(this.MYLINQ_GROUP.children[2], 1);
+                // this.setTransparency(this.MYLINQ_GROUP.children[2], 1);
                 this.animateCamera(this.camera, { x: 50, y: 10, z: 50 }, 1500);
-                this.controls.enabled = false;
+                // this.controls.enabled = false;
                 // this.animateCamera(this.camera, { x: 600, y: 500, z: 600 });
                 // this.animateCamera(this.camera, { x: 100, y: 75, z: 100 });
                 break;
             case 'district':
-                this.setTransparency(this.MYLINQ_GROUP.children[2], 1);
+                // this.setTransparency(this.MYLINQ_GROUP.children[2], 1);
                 this.animateCamera(this.camera, { x: 50, y: 20, z: 50 }, 1500, 0.3);
                 this.controls.enabled = true;
                 // this.animateCamera(this.camera, { x: 600, y: 600, z: 600 }, 0.3);
@@ -617,18 +624,25 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         camera.position.set(originalPosition.x, originalPosition.y, originalPosition.z);
         camera.rotation.set(originalRotation.x, originalRotation.y, originalRotation.z);
 
+
         // Position Tweening
         cameraPositionTween = new Tween(camera.position)
             .to({
                 x: targetPosition.x,
                 y: targetPosition.y,
                 z: targetPosition.z,
-                zoom: targetZoom,
+                // zoom: targetZoom,
             }, duration)
             .easing(Easing.Exponential.InOut)
-            .on('update', ({ x, y, z, zoom }) => {
-                console.log(x, y, z, zoom);
+            .on('update', ({ x, y, z }) => {
                 // camera.zoom = zoom;
+            });
+
+        cameraZoomTween = new Tween({ zoom: camera.zoom })
+            .to({ zoom: targetZoom }, duration)
+            .easing(Easing.Exponential.InOut)
+            .on('update', ({ zoom }) => {
+                camera.zoom = zoom;
             });
 
         // Rotation Tweening (using slerp)
@@ -647,8 +661,9 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
                 // camera.zoom = zoom;
                 camera.lookAt(0, 0, 0);
             });
-
+        
         cameraPositionTween.start();
+        cameraZoomTween.start();
         cameraRotationTween.start();
     };
 
