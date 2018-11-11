@@ -360,9 +360,10 @@ body {
 
 .fullscreen .wrapper .sustainabilityStatusCircleContainer .sustainabilityStatusCircle:after,
 .fullscreen .wrapper .sustainabilityStatusCircleContainer .sustainabilityStatusCircle:before{
-	opacity:0;
-	border-radius:0;
-	animation:none;
+	opacity: 0;
+	border-radius: 0;
+	animation: none;
+	pointer-events: none;
 }
 /*** END FULLSCREEN MODEL ***/
 
