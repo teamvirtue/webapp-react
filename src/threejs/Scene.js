@@ -182,11 +182,11 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
             },
             // called when loading is in progresses
             (xhr) => {
-                // console.log('Model ' + (xhr.loaded / xhr.total * 100) + '% loaded'); // TODO: check Infinity
+                console.log('Model ' + (xhr.loaded / xhr.total * 100) + '% loaded'); // TODO: check Infinity
             },
             // called when loading has errors
             (error) => {
-                console.log(error);
+                console.log('Error ' + error);
             });
 
         /*mtlLoader.load(mtlUrl, (materials) => {
@@ -271,7 +271,7 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         scene.add(lights[0]);
 
 
-        lights[1] = new THREE.HemisphereLight(0xffffff, 0x080820, 1);
+        lights[1] = new THREE.HemisphereLight(0xffffff, 0x080820, 1.25);
         // lights[1] = new THREE.HemisphereLight(0x97D6EA, 0x080820, 1);
         // lights[1] = new THREE.HemisphereLight(0xffffbb, 0x080820, 1);
         lights[1].position.set(0, 100, -25);
@@ -299,10 +299,10 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         let controls = new OrbitControls(camera, renderer.domElement);
         controls.enableDamping = true;
         controls.dampingFactor = 0.25;
-        controls.enableZoom = false;
+        /*controls.enableZoom = false;
         controls.rotateSpeed = 0.75;
         // controls.minZoom = 0.1;
-        controls.maxPolarAngle = Math.PI * 0.4;
+        controls.maxPolarAngle = Math.PI * 0.4;*/
 
         let cameraHelper = new THREE.CameraHelper(camera);
         // scene.add(cameraHelper);
@@ -364,6 +364,7 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         // only update if fullscreen state has changed
         if (this.props.sustainabilityStatus.fullscreen !== previousProps.sustainabilityStatus.fullscreen) {
             this.setState({ transitioning: true });
+            this.selectLevel(this.props.sustainabilityStatus.selected);
 
             setTimeout(() => {
                 this.setState({ transitioning: false });
@@ -405,6 +406,10 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         }
         if (cameraRotationTween) {
             cameraRotationTween.update();
+        }
+
+        if (this.camera) {
+            // console.log(this.camera.position)
         }
 
         /*if (this.lights[1]) {
@@ -458,7 +463,7 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         }
     }
 
-    resizeCanvas = () => {
+    resizeCanvas = () => { // TODO: make responsive again
         this.canvas.style.width = window.innerWidth;
         this.canvas.style.height = window.innerHeight;
         this.canvas.width = window.innerWidth;
@@ -585,10 +590,13 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
 
         switch(level) {
             case 'mylinq':  // TODO: find roof group in a more flexible way > scene.getObjectByName/Id(object.name);?
+                this.setTransparency({ objects: [this.MYLINQ_GROUP.children[4], this.DISTRICT_GROUP.children[15]], opacity: [0.3, 0] });
+
                 if (this.props.sustainabilityStatus.fullscreen) {
-                    this.setTransparency({ objects: [this.MYLINQ_GROUP.children[4], this.DISTRICT_GROUP.children[15]], opacity: [0.3, 0] });
-                    // this.setTransparency([this.MYLINQ_GROUP.children[4], this.DISTRICT_GROUP.children[15]], 0.3);
                     this.animateCamera(this.camera, { x: 0, y: 50, z: 25 }, 1500, 2);
+
+                    console.log('hi')
+
                     // this.controls.enabled = false;
                     // this.animateCamera(this.camera, { x: 0, y: 500, z: 100 });
                     // this.animateCamera(this.camera, { x: 0, y: 75, z: 10 });
@@ -602,26 +610,29 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
                     // this.scene.remove(this.scene.getObjectById(26));
                     // console.log(this.DISTRICT_GROUP.getObjectByName('Indicator'));
                 } else {
-                    this.setTransparency({ objects: [this.MYLINQ_GROUP.children[4], this.DISTRICT_GROUP.children[15]], opacity: [0.3, 0] });
-                    this.animateCamera(this.camera, { x: 25, y: 50, z: 35 }, 1000, 2);
+                    this.animateCamera(this.camera, { x: 25, y: 50, z: 25 }, 1000, 0.5, { x: 5.5, y: 0, z: 2.5 });
+                    // this.camera.position.set(25, 5, 25)
                 }
                 break;
             case 'linq':
                 this.setTransparency({ objects: [this.MYLINQ_GROUP.children[4], this.DISTRICT_GROUP.children[15]], opacity: [1, 1] });
-                // this.setTransparency([this.MYLINQ_GROUP.children[4]], 1);
-                this.animateCamera(this.camera, { x: 35, y: 25, z: 35 }, 1500);
-                // this.controls.enabled = false;
-                // this.animateCamera(this.camera, { x: 600, y: 500, z: 600 });
-                // this.animateCamera(this.camera, { x: 100, y: 75, z: 100 });
+
+                if (this.props.sustainabilityStatus.fullscreen) {
+                    this.animateCamera(this.camera, { x: 35, y: 25, z: 35 }, 1500);
+                    // this.controls.enabled = false;
+                } else {
+                    this.animateCamera(this.camera, { x: 25, y: 25, z: 25 }, 1000, 0.25, { x: 10, y: -3, z: 7 });
+                }
                 break;
             case 'district':
                 this.setTransparency({ objects: [this.MYLINQ_GROUP.children[4], this.DISTRICT_GROUP.children[15]], opacity: [1, 1] });
-                // this.setTransparency([this.MYLINQ_GROUP.children[4]], 1);
-                this.animateCamera(this.camera, { x: 35, y: 45, z: 35 }, 1500, 0.3);
-                // this.controls.enabled = true;
-                // this.animateCamera(this.camera, { x: 600, y: 600, z: 600 }, 0.3);
-                // this.animateCamera(this.camera, { x: 100, y: 100, z: 100 }, 0.5);
 
+                if (this.props.sustainabilityStatus.fullscreen) {
+                    this.animateCamera(this.camera, { x: 35, y: 45, z: 35 }, 1500, 0.3);
+                    // this.controls.enabled = true;
+                } else {
+                    this.animateCamera(this.camera, { x: 25, y: 25, z: 25 }, 1000, 0.15, { x: 11, y: -17, z: 3});
+                }
                 break;
         }
 
@@ -629,7 +640,7 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         this.setActiveTab(level)();
     };
 
-    animateCamera = (camera, targetPosition, duration, targetZoom = 1) => {
+    animateCamera = (camera, targetPosition, duration, targetZoom = 1, lookAt = { x: 0, y: 0, z:0 }) => {
         // Method from https://stackoverflow.com/questions/28091876/tween-camera-position-while-rotation-with-slerp-three-js
 
         let originalPosition = new THREE.Vector3().copy(camera.position); // original position
@@ -643,7 +654,6 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         camera.position.set(originalPosition.x, originalPosition.y, originalPosition.z);
         camera.rotation.set(originalRotation.x, originalRotation.y, originalRotation.z);
 
-
         // Position Tweening
         cameraPositionTween = new Tween(camera.position)
             .to({
@@ -652,9 +662,12 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
                 z: targetPosition.z,
                 // zoom: targetZoom,
             }, duration)
-            .easing(Easing.Exponential.InOut);
-            /*.on('update', ({ x, y, z }) => {
-            });*/
+            .easing(Easing.Exponential.InOut)
+            .on('update', ({ x, y, z }) => {
+                // console.log(x, y, z);
+                camera.lookAt(lookAt.x, lookAt.y, lookAt.z);
+                // lookAtVector.applyQuaternion(camera.quaternion);
+            });
 
         cameraZoomTween = new Tween({ zoom: camera.zoom })
             .to({ zoom: targetZoom }, duration)
@@ -674,10 +687,10 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
             .easing(Easing.Exponential.InOut)
             .on('update', ({ t }) => {
                 THREE.Quaternion.slerp(originalQuaternion, targetQuaternion, quaternion, t);
+                quaternion.normalize();
                 camera.quaternion.set(quaternion.x, quaternion.y, quaternion.z, quaternion.w);
-
-                // camera.zoom = zoom;
-                camera.lookAt(0, 0, 0);
+;
+                camera.lookAt(lookAt.x, lookAt.y, lookAt.z);
             });
 
         cameraPositionTween.start();

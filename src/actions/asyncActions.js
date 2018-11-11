@@ -47,7 +47,7 @@ export function apiGetSocketData(room, time) {
 		.then(response => {
 			if (response.status >= 200 && response.status < 300) {
 				//console.log(response.data);
-				if(time=='all'){
+				if(time === 'all'){
 					dispatch({			
 						type: 'UPDATE_ENERGY_USAGE_ALL',
 						payload: {
@@ -57,7 +57,7 @@ export function apiGetSocketData(room, time) {
 					});
 				}
 				
-				if(time=='realtime'){
+				if(time === 'realtime'){
 					dispatch({			
 						type: 'UPDATE_ENERGY_USAGE_REALTIME',
 						payload: {
