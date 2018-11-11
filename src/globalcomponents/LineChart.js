@@ -139,29 +139,43 @@ class LineChart extends Component{
     componentWillReceiveProps() {
 		//okay, so new data retrieved. Now update the array data correctly.
 		var newData = this.props.data;
+		newData.reverse();//reverse array so old data becomes first.
 		var now = moment();
 		
-		//REALTIME
-		newData.map( function(item) {
+		/*** CALCULATE NEW DATA ***/
+		//REALTIME DATA
+		var dataRealtime = [];
+		var minusPowerConsumed;
+		var previousPowerConsumed = 0;
+		/*newData.map( function(item, i) {
 			if(moment(item.created).isSame(now, 'day')){
-				
+				if(!minusPowerConsumed){
+					//start power_consumed is previous value
+					minusPowerConsumed = newData[i - 1].power_consumed;
+				}
+				var powerConsumed = item.power_consumed - minusPowerConsumed - previousPowerConsumed;
+				dataRealtime.push(powerConsumed);
+				previousPowerConsumed = powerConsumed;
 			}
-		})
-		//console.log(moment('2018-10-10T13:55:42.233856Z'));
+		});*/
+		dataRealtime = newData;
 		
-		dataRealtime = this.props.data;
+		//DAY DATA
+		var dataDay = [];
+		dataDay = newData;
 		
-		//DAY
-		dataDay = this.props.data;
+		//WEEK DATA
+		var dataWeek = [];
+		dataWeek = newData;
 		
-		//WEEK
-		dataWeek = this.props.data;
+		//MONTH DATA
+		var dataMonth = [];
+		dataMonth = newData;
 		
-		//MONTH
-		dataMonth = this.props.data;
-		
-		//YEAR
-		dataYear = this.props.data;
+		//YEAR DATA
+		var dataYear = [];
+		dataYear = newData;
+		/*** END CALCULATE NEW DATA ***/
 
 		var datasetsCopy = this.state.data.datasets.slice(0);
 		var dataCopy;
