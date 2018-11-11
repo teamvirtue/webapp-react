@@ -407,10 +407,6 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
             cameraRotationTween.update();
         }
 
-        if (this.camera) {
-            //console.log(this.camera.position);
-        }
-
         /*if (this.lights[1]) {
             alpha += 0.05;
 
@@ -546,7 +542,7 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
 
                     /*this.setTransparency(selectedObject, 1);
                     this.animateCamera(this.camera, { x: 0, y: 75, z: 5 });*/
-                    // this.setColor(selectedObject, selectedObject.currentHex);
+                    this.setColor(selectedObject, selectedObject.currentHex);
                 }
                 // store reference to closest object as current intersection object
                 selectedObject = intersects[0].object;
@@ -564,7 +560,7 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
                     this.setTransparency(selectedObject, 1);
                     this.animateCamera(this.camera, { x: 100, y: 75, z: 100 });
                 }*/
-                // this.setColor(selectedObject, highlightColor);
+                this.setColor(selectedObject, highlightColor);
             }
         } else {
             // restore previous intersection object (if it exists) to its original color
@@ -585,17 +581,30 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
     // selectLevel = (object) => {
     // let level = object.userData.parent.name;
 
-        let linqRoof = this.MYLINQ_GROUP.children[4],
-            indicator = this.DISTRICT_GROUP.children[15];
+        // let indicator = this.DISTRICT_GROUP.getObjectByName('Indicator').clone();
 
         switch(level) {
             case 'mylinq':  // TODO: find roof group in a more flexible way > scene.getObjectByName/Id(object.name);?
-                this.setTransparency({ objects: [this.MYLINQ_GROUP.children[4], this.DISTRICT_GROUP.children[15]], opacity: [0.3, 0] });
-                // this.setTransparency([this.MYLINQ_GROUP.children[4], this.DISTRICT_GROUP.children[15]], 0.3);
-                this.animateCamera(this.camera, { x: 0, y: 50, z: 25 }, 1500, 2);
-                // this.controls.enabled = false;
-                // this.animateCamera(this.camera, { x: 0, y: 500, z: 100 });
-                // this.animateCamera(this.camera, { x: 0, y: 75, z: 10 });
+                if (this.props.sustainabilityStatus.fullscreen) {
+                    this.setTransparency({ objects: [this.MYLINQ_GROUP.children[4], this.DISTRICT_GROUP.children[15]], opacity: [0.3, 0] });
+                    // this.setTransparency([this.MYLINQ_GROUP.children[4], this.DISTRICT_GROUP.children[15]], 0.3);
+                    this.animateCamera(this.camera, { x: 0, y: 50, z: 25 }, 1500, 2);
+                    // this.controls.enabled = false;
+                    // this.animateCamera(this.camera, { x: 0, y: 500, z: 100 });
+                    // this.animateCamera(this.camera, { x: 0, y: 75, z: 10 });
+
+                    // this.MYLINQ_GROUP.remove(this.scene.getObjectById(26));
+
+                    /*for (var i = this.MYLINQ_GROUP.children.length - 1; i >= 0; i--) {
+                        this.MYLINQ_GROUP.remove(this.MYLINQ_GROUP.children[i]);
+                    }*/
+
+                    // this.scene.remove(this.scene.getObjectById(26));
+                    // console.log(this.DISTRICT_GROUP.getObjectByName('Indicator'));
+                } else {
+                    this.setTransparency({ objects: [this.MYLINQ_GROUP.children[4], this.DISTRICT_GROUP.children[15]], opacity: [0.3, 0] });
+                    this.animateCamera(this.camera, { x: 25, y: 50, z: 35 }, 1000, 2);
+                }
                 break;
             case 'linq':
                 this.setTransparency({ objects: [this.MYLINQ_GROUP.children[4], this.DISTRICT_GROUP.children[15]], opacity: [1, 1] });
@@ -643,7 +652,7 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
                 z: targetPosition.z,
                 // zoom: targetZoom,
             }, duration)
-            .easing(Easing.Exponential.InOut)
+            .easing(Easing.Exponential.InOut);
             /*.on('update', ({ x, y, z }) => {
             });*/
 
@@ -712,10 +721,10 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
             targetOpacity.push(targetProperties.opacity[i]);
         }
 
-        let currentOpacityObject = Object.assign({}, currentOpacity);
+        /*let currentOpacityObject = Object.assign({}, currentOpacity);
         let targetOpacityObject = Object.assign({}, targetOpacity);
 
-        console.log(currentOpacityObject, targetOpacityObject);
+        console.log(currentOpacityObject, targetOpacityObject);*/
 
         opacityTween = new Tween(Object.assign({}, currentOpacity))
             .to(Object.assign({}, targetOpacity), 500)
