@@ -8,9 +8,10 @@ import GLTFLoader from 'three-gltf-loader';
 // Local import
 import objUrl from '../assets/models/linq_low_poly_web_app.obj';
 import mtlUrl from '../assets/models/linq_low_poly_web_app.mtl';
-import gltfUrl from '../assets/models/linq_low_poly_web_app.glb';
+// import gltfUrl from '../assets/models/linq_low_poly_web_app.glb';
+import aoMap from '../assets/models/textures/AO_bake.jpg';
 // import gltfUrl from '../assets/models/linq_low_poly_web_app.gltf';
-// import gltfUrl from '../assets/models/aircraft.glb';
+import gltfUrl from '../assets/models/aircraft.glb';
 // import gltfUrl from '../assets/models/Duck.glb';
 // import gltfUrl from '../assets/models/DamagedHelmet/DamagedHelmet.gltf';
 
@@ -20,6 +21,7 @@ let alpha = 0;
 
 let opacityTween,
     cameraPositionTween,
+    cameraZoomTween,
     cameraRotationTween;
     // cameraTween;
 
@@ -59,7 +61,7 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         const height = window.innerHeight;
         /*let width = this.canvas.clientWidth;
         let height = this.canvas.clientHeight;*/
-        let cameraFactor = (width / height) * 100;
+        let cameraFactor = (width / height) * 200;
 
         /*let fieldOfView = 45,
             aspectRatio = width / height,
@@ -136,11 +138,13 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
 
                 gltf.scene.traverse((node) => {
                     if (node instanceof THREE.Mesh) {
+                        // console.log(node);
+
+                        // node.material.aoMap
+
                         // enable casting shadows
                         // node.castShadow = true;
                         // node.receiveShadow = true;
-
-
                         // node.material.opacity = 0.25;
 
                         // store objects in correct array for levels
@@ -288,8 +292,9 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         let controls = new OrbitControls(camera, renderer.domElement);
         controls.enableDamping = true;
         controls.dampingFactor = 0.25;
-        controls.enableZoom = true;
-        controls.minZoom = 0.1;
+        controls.enableZoom = false;
+        controls.rotateSpeed = 0.75;
+        // controls.minZoom = 0.1;
         controls.maxPolarAngle = Math.PI * 0.4;
 
         let cameraHelper = new THREE.CameraHelper(camera);
@@ -387,6 +392,9 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         }
         if (cameraPositionTween) {
             cameraPositionTween.update();
+        }
+        if (cameraZoomTween) {
+            cameraZoomTween.update();
         }
         if (cameraRotationTween) {
             cameraRotationTween.update();
@@ -577,20 +585,20 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
             case 'mylinq':
                 // this.setTransparency(this.MYLINQ_GROUP.children[2], 0.3); // TODO: find roof group in a more flexible way + Make indicator transparent
                 this.animateCamera(this.camera, { x: 0, y: 100, z: 5 }, 1500);
-                this.controls.enabled = false;
+                // this.controls.enabled = false;
                 // this.animateCamera(this.camera, { x: 0, y: 500, z: 100 });
                 // this.animateCamera(this.camera, { x: 0, y: 75, z: 10 });
                 break;
             case 'linq':
                 // this.setTransparency(this.MYLINQ_GROUP.children[2], 1);
-                this.animateCamera(this.camera, { x: 50, y: 10, z: 50 });
-                this.controls.enabled = false;
+                this.animateCamera(this.camera, { x: 50, y: 10, z: 50 }, 1500);
+                // this.controls.enabled = false;
                 // this.animateCamera(this.camera, { x: 600, y: 500, z: 600 });
                 // this.animateCamera(this.camera, { x: 100, y: 75, z: 100 });
                 break;
             case 'district':
                 // this.setTransparency(this.MYLINQ_GROUP.children[2], 1);
-                this.animateCamera(this.camera, { x: 50, y: 20, z: 50 });
+                this.animateCamera(this.camera, { x: 50, y: 20, z: 50 }, 1500, 0.3);
                 this.controls.enabled = true;
                 // this.animateCamera(this.camera, { x: 600, y: 600, z: 600 }, 0.3);
                 // this.animateCamera(this.camera, { x: 100, y: 100, z: 100 }, 0.5);
@@ -602,48 +610,61 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         this.setActiveTab(level)();
     };
 
-    animateCamera = (camera, finalPosition, duration) => {
+    animateCamera = (camera, targetPosition, duration, targetZoom = 1) => {
         // Method from https://stackoverflow.com/questions/28091876/tween-camera-position-while-rotation-with-slerp-three-js
 
         let originalPosition = new THREE.Vector3().copy(camera.position); // original position
         let originalRotation = new THREE.Euler().copy(camera.rotation); // original rotation
 
-        camera.position.set(finalPosition.x, finalPosition.y, finalPosition.z);
-        camera.lookAt(0, 0, 0);
+        camera.position.set(targetPosition.x, targetPosition.y, targetPosition.z);
+        // camera.lookAt(0, 0, 0);
         let targetRotation = new THREE.Euler().copy(camera.rotation);
 
         // Reset original position and rotation
         camera.position.set(originalPosition.x, originalPosition.y, originalPosition.z);
         camera.rotation.set(originalRotation.x, originalRotation.y, originalRotation.z);
 
+
         // Position Tweening
         cameraPositionTween = new Tween(camera.position)
             .to({
-                x: finalPosition.x,
-                y: finalPosition.y,
-                z: finalPosition.z
+                x: targetPosition.x,
+                y: targetPosition.y,
+                z: targetPosition.z,
+                // zoom: targetZoom,
             }, duration)
-            .easing(Easing.Exponential.InOut);
+            .easing(Easing.Exponential.InOut)
+            .on('update', ({ x, y, z }) => {
+                // camera.zoom = zoom;
+            });
 
-        // rotation (using slerp)
+        cameraZoomTween = new Tween({ zoom: camera.zoom })
+            .to({ zoom: targetZoom }, duration)
+            .easing(Easing.Exponential.InOut)
+            .on('update', ({ zoom }) => {
+                camera.zoom = zoom;
+            });
+
+        // Rotation Tweening (using slerp)
         let originalQuaternion = new THREE.Quaternion().copy(camera.quaternion);
         let targetQuaternion = new THREE.Quaternion().setFromEuler(targetRotation);
         let quaternion = new THREE.Quaternion();
 
-        let object = { t: 0 };
+        let object = { t:0 };
         cameraRotationTween = new Tween(object)
-            .to({ t: 1 }, duration)
+            .to({ t:1 }, duration)
             .easing(Easing.Exponential.InOut)
-            .on('update', ({ }) => {
-                THREE.Quaternion.slerp(originalQuaternion, targetQuaternion, quaternion, object.t);
+            .on('update', ({ t }) => {
+                THREE.Quaternion.slerp(originalQuaternion, targetQuaternion, quaternion, t);
                 camera.quaternion.set(quaternion.x, quaternion.y, quaternion.z, quaternion.w);
 
+                // camera.zoom = zoom;
                 camera.lookAt(0, 0, 0);
             });
-
+        
         cameraPositionTween.start();
+        cameraZoomTween.start();
         cameraRotationTween.start();
-
     };
 
     /*animateCamera = (camera, position, zoom = 1) => {
