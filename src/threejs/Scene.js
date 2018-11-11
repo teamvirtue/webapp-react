@@ -9,9 +9,10 @@ import GLTFLoader from 'three-gltf-loader';
 import objUrl from '../assets/models/linq_low_poly_web_app.obj';
 import mtlUrl from '../assets/models/linq_low_poly_web_app.mtl';
 // import gltfUrl from '../assets/models/linq_low_poly_web_app.glb';
-import aoMap from '../assets/models/textures/AO_bake.jpg';
+import aoUrl from '../assets/models/textures/ao2.png';
 // import gltfUrl from '../assets/models/linq_low_poly_web_app.gltf';
-import gltfUrl from '../assets/models/aircraft.glb';
+import gltfUrl from '../assets/models/gun.glb';
+// import gltfUrl from '../assets/models/aircraft.glb';
 // import gltfUrl from '../assets/models/Duck.glb';
 // import gltfUrl from '../assets/models/DamagedHelmet/DamagedHelmet.gltf';
 
@@ -125,6 +126,8 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         // let mtlLoader = new MTLLoader();
         // let objLoader = new OBJLoader();
 
+        let texture = new THREE.TextureLoader().load(aoUrl);
+
         gltfLoader.load(gltfUrl,
             // called when resource is loaded
             (gltf) => {
@@ -140,7 +143,10 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
                     if (node instanceof THREE.Mesh) {
                         // console.log(node);
 
-                        // node.material.aoMap
+                        node.material = new THREE.MeshStandardMaterial({color: 0xffffff});
+
+                        /*texture.flipY = false;
+                        node.material.aoMap = texture;*/
 
                         // enable casting shadows
                         // node.castShadow = true;
@@ -599,7 +605,7 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
             case 'district':
                 // this.setTransparency(this.MYLINQ_GROUP.children[2], 1);
                 this.animateCamera(this.camera, { x: 50, y: 20, z: 50 }, 1500, 0.3);
-                this.controls.enabled = true;
+                // this.controls.enabled = true;
                 // this.animateCamera(this.camera, { x: 600, y: 600, z: 600 }, 0.3);
                 // this.animateCamera(this.camera, { x: 100, y: 100, z: 100 }, 0.5);
 
@@ -661,7 +667,7 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
                 // camera.zoom = zoom;
                 camera.lookAt(0, 0, 0);
             });
-        
+
         cameraPositionTween.start();
         cameraZoomTween.start();
         cameraRotationTween.start();
