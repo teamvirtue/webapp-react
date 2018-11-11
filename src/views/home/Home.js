@@ -211,7 +211,6 @@ class Home extends Component {
         super(props);
         this.state = {
             tab: this.props.sustainabilityStatus.selected,
-			tabIndex: (this.props.sustainabilityStatus.selected === 'linq') ? (0) : ((this.props.sustainabilityStatus.selected === 'mylinq') ? (1) : (2)),
 			openDialog: false,
 			dialogContent: 'eattogether',
 			newMessageInput: '',
@@ -232,12 +231,10 @@ class Home extends Component {
     };
 
     handleTabChange = (event, tabIndex) => {
-        this.setState({ tabIndex });
         this.updateActiveTabState(tabIndex);
     };
 
     handleTabChangeIndex = index => {
-        this.setState({ tabIndex: index });
         this.updateActiveTabState(index);
     };
 	
@@ -445,13 +442,12 @@ class Home extends Component {
     render() {
         const { classes, temperature, localNewsHeadlines, houseData } = this.props;
         const tab = this.state.tab;
-		const tabIndex = this.state.tabIndex;
 
         return (
             <div className={ classes.root }>
 				<div className='subNavBarContainer'>
 					<Tabs
-						value={ tabIndex }
+						value={ (this.props.sustainabilityStatus.selected === 'linq') ? (0) : ((this.props.sustainabilityStatus.selected === 'mylinq') ? (1) : (2)) }
 						onChange={ this.handleTabChange }
 						classes={{ indicator: classes.subNavBarIndicator }}
 						indicatorColor="secondary"
@@ -472,7 +468,7 @@ class Home extends Component {
 						<Tab label="DISTRICT" classes={{ label: classes.subNavBarContainerTab, selected: 'subNavBarContainerTabSelected' }} />
 					</Tabs>
 					
-					<SwipeableViews index={ tabIndex } onChangeIndex={ this.handleTabChangeIndex } style={{ overflow: 'hidden' }}>
+					<SwipeableViews index={ (this.props.sustainabilityStatus.selected === 'linq') ? (0) : ((this.props.sustainabilityStatus.selected === 'mylinq') ? (1) : (2)) } onChangeIndex={ this.handleTabChangeIndex } style={{ overflow: 'hidden' }}>
 					
 						<div className='row no-margin'>
 							<div className={ classes.iconBox + ' col-3' }>

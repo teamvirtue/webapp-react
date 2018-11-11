@@ -310,6 +310,31 @@ body {
 }
 
 
+/* Sustainability Cards */
+.sustainabilityCardContainer{
+	bottom: 80px;
+	position:relative;
+}
+
+.sustainabilityCard{
+	z-index:10;
+	transition:all 200ms, margin 0ms;
+	opacity:1;
+}
+
+.sustainabilityCard:not(:first-child) {
+	position:absolute;
+	width: calc(100% - 20px);
+	margin-left:10px;
+	top:10px;
+	z-index:-1;
+}
+
+.sustainabilityCard:nth-child(n+3){
+	opacity:0;
+}
+
+
 /*** FULLSCREEN MODEL ***/
 .fullscreen .wrapper .headerBg{
 	overflow:hidden;

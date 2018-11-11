@@ -13,14 +13,32 @@ const sustainabilityStatus = (state = {
 	advices: {
 		1: {
 			id: '1',
-			title: 'test1',
-			content: 'asdf1',
+			title: 'Television',
+			content: 'The television is on but no movement is detected. You can better turn it off.',
 			active: true,
 		},
 		2: {
 			id: '2',
-			title: 'test2',
-			content: 'asdf2',
+			title: 'Low humidity!',
+			content: 'The humidity in the living room is too low. Buy a humidifier to improve this.',
+			active: true,
+		},
+		3: {
+			id: '3',
+			title: 'Low humidity!',
+			content: 'The humidity in the living room is too low. Buy a humidifier to improve this.',
+			active: true,
+		},
+		4: {
+			id: '4',
+			title: 'Low humidity!',
+			content: 'The humidity in the living room is too low. Buy a humidifier to improve this.',
+			active: true,
+		},
+		5: {
+			id: '5',
+			title: 'Low humidity!',
+			content: 'The humidity in the living room is too low. Buy a humidifier to improve this.',
 			active: true,
 		},
 	},
