@@ -12,9 +12,9 @@ class TechnicalRoom extends Component {
     render() {
         return (
 			<List className='row'>
-				<div className='col-6'>
+				{/*<div className='col-6'>
 					<Light forRoom='Technical Room' />
-				</div>
+				</div>*/}
 				
 				<div className='col-6'>
 					<RealtimeEnergyMeter forRoom={[{'roomname': 'Technical Room'}]} forSocket={[ 
