@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
 import * as THREE from 'three';
 import OrbitControls  from 'three-orbitcontrols';
-import { MTLLoader, OBJLoader } from 'three-obj-mtl-loader';
+// import { MTLLoader, OBJLoader } from 'three-obj-mtl-loader';
 import { Easing, Tween } from 'es6-tween';
 import GLTFLoader from 'three-gltf-loader';
 
 // Local import
-import objUrl from '../assets/models/linq_low_poly_web_app.obj';
-import mtlUrl from '../assets/models/linq_low_poly_web_app.mtl';
-// import gltfUrl from '../assets/models/linq_low_poly_web_app.glb';
-import aoMap from '../assets/models/textures/AO_bake.jpg';
+// import objUrl from '../assets/models/linq_low_poly_web_app.obj';
+// import mtlUrl from '../assets/models/linq_low_poly_web_app.mtl';
+import gltfUrl from '../assets/models/linq_low_poly_web_app.glb';
+// import aoUrl from '../assets/models/textures/ao2.png';
 // import gltfUrl from '../assets/models/linq_low_poly_web_app.gltf';
-import gltfUrl from '../assets/models/aircraft.glb';
+// import gltfUrl from '../assets/models/gun.glb';
+// import gltfUrl from '../assets/models/aircraft.glb';
 // import gltfUrl from '../assets/models/Duck.glb';
 // import gltfUrl from '../assets/models/DamagedHelmet/DamagedHelmet.gltf';
 
@@ -61,7 +62,8 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         const height = window.innerHeight;
         /*let width = this.canvas.clientWidth;
         let height = this.canvas.clientHeight;*/
-        let cameraFactor = (width / height) * 200;
+        let cameraFactor = (width / height) * 350;
+        // let cameraFactor = (width / height) * 200;
 
         /*let fieldOfView = 45,
             aspectRatio = width / height,
@@ -125,6 +127,8 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         // let mtlLoader = new MTLLoader();
         // let objLoader = new OBJLoader();
 
+        // let texture = new THREE.TextureLoader().load(aoUrl);
+
         gltfLoader.load(gltfUrl,
             // called when resource is loaded
             (gltf) => {
@@ -138,9 +142,12 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
 
                 gltf.scene.traverse((node) => {
                     if (node instanceof THREE.Mesh) {
-                        // console.log(node);
+                        // console.log(node.material);
 
-                        // node.material.aoMap
+                        node.material = new THREE.MeshStandardMaterial({color: 0xffffff});
+
+                        /*texture.flipY = false;
+                        node.material.aoMap = texture;*/
 
                         // enable casting shadows
                         // node.castShadow = true;
@@ -399,9 +406,6 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         if (cameraRotationTween) {
             cameraRotationTween.update();
         }
-        /*if (cameraTween) {
-            cameraTween.update();
-        }*/
 
         if (this.camera) {
             //console.log(this.camera.position);
@@ -581,25 +585,31 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
     // selectLevel = (object) => {
     // let level = object.userData.parent.name;
 
+        let linqRoof = this.MYLINQ_GROUP.children[4],
+            indicator = this.DISTRICT_GROUP.children[15];
+
         switch(level) {
-            case 'mylinq':
-                // this.setTransparency(this.MYLINQ_GROUP.children[2], 0.3); // TODO: find roof group in a more flexible way + Make indicator transparent
-                this.animateCamera(this.camera, { x: 0, y: 100, z: 5 }, 1500);
+            case 'mylinq':  // TODO: find roof group in a more flexible way > scene.getObjectByName/Id(object.name);?
+                this.setTransparency({ objects: [this.MYLINQ_GROUP.children[4], this.DISTRICT_GROUP.children[15]], opacity: [0.3, 0] });
+                // this.setTransparency([this.MYLINQ_GROUP.children[4], this.DISTRICT_GROUP.children[15]], 0.3);
+                this.animateCamera(this.camera, { x: 0, y: 50, z: 25 }, 1500, 2);
                 // this.controls.enabled = false;
                 // this.animateCamera(this.camera, { x: 0, y: 500, z: 100 });
                 // this.animateCamera(this.camera, { x: 0, y: 75, z: 10 });
                 break;
             case 'linq':
-                // this.setTransparency(this.MYLINQ_GROUP.children[2], 1);
-                this.animateCamera(this.camera, { x: 50, y: 10, z: 50 }, 1500);
+                this.setTransparency({ objects: [this.MYLINQ_GROUP.children[4], this.DISTRICT_GROUP.children[15]], opacity: [1, 1] });
+                // this.setTransparency([this.MYLINQ_GROUP.children[4]], 1);
+                this.animateCamera(this.camera, { x: 35, y: 25, z: 35 }, 1500);
                 // this.controls.enabled = false;
                 // this.animateCamera(this.camera, { x: 600, y: 500, z: 600 });
                 // this.animateCamera(this.camera, { x: 100, y: 75, z: 100 });
                 break;
             case 'district':
-                // this.setTransparency(this.MYLINQ_GROUP.children[2], 1);
-                this.animateCamera(this.camera, { x: 50, y: 20, z: 50 }, 1500, 0.3);
-                this.controls.enabled = true;
+                this.setTransparency({ objects: [this.MYLINQ_GROUP.children[4], this.DISTRICT_GROUP.children[15]], opacity: [1, 1] });
+                // this.setTransparency([this.MYLINQ_GROUP.children[4]], 1);
+                this.animateCamera(this.camera, { x: 35, y: 45, z: 35 }, 1500, 0.3);
+                // this.controls.enabled = true;
                 // this.animateCamera(this.camera, { x: 600, y: 600, z: 600 }, 0.3);
                 // this.animateCamera(this.camera, { x: 100, y: 100, z: 100 }, 0.5);
 
@@ -634,9 +644,8 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
                 // zoom: targetZoom,
             }, duration)
             .easing(Easing.Exponential.InOut)
-            .on('update', ({ x, y, z }) => {
-                // camera.zoom = zoom;
-            });
+            /*.on('update', ({ x, y, z }) => {
+            });*/
 
         cameraZoomTween = new Tween({ zoom: camera.zoom })
             .to({ zoom: targetZoom }, duration)
@@ -650,9 +659,9 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         let targetQuaternion = new THREE.Quaternion().setFromEuler(targetRotation);
         let quaternion = new THREE.Quaternion();
 
-        let object = { t:0 };
+        let object = { t: 0 };
         cameraRotationTween = new Tween(object)
-            .to({ t:1 }, duration)
+            .to({ t: 1 }, duration)
             .easing(Easing.Exponential.InOut)
             .on('update', ({ t }) => {
                 THREE.Quaternion.slerp(originalQuaternion, targetQuaternion, quaternion, t);
@@ -661,7 +670,7 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
                 // camera.zoom = zoom;
                 camera.lookAt(0, 0, 0);
             });
-        
+
         cameraPositionTween.start();
         cameraZoomTween.start();
         cameraRotationTween.start();
@@ -690,7 +699,65 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         cameraTween.start();
     };*/
 
-    setTransparency = (object, opacity) => {
+    setTransparency = (targetProperties) => {
+        let currentOpacity = [];
+        let targetOpacity = [];
+        // let currentOpacity = targetProperties.objects;
+        // console.log(currentOpacity)
+
+        for (let i = 0; i < targetProperties.objects.length; i++) {
+            currentOpacity.push(targetProperties.objects[i].material.opacity);
+        }
+        for (let i = 0; i < targetProperties.opacity.length; i++) {
+            targetOpacity.push(targetProperties.opacity[i]);
+        }
+
+        let currentOpacityObject = Object.assign({}, currentOpacity);
+        let targetOpacityObject = Object.assign({}, targetOpacity);
+
+        console.log(currentOpacityObject, targetOpacityObject);
+
+        opacityTween = new Tween(Object.assign({}, currentOpacity))
+            .to(Object.assign({}, targetOpacity), 500)
+            .delay(500)
+            .on('update', (o) => {
+                for (let i = 0; i < targetProperties.objects.length; i++) {
+                    targetProperties.objects[i].material.transparent = true;
+                    targetProperties.objects[i].material.opacity = o[i];
+                    // targetProperties.objects[i].material.opacity = opacityObject[index];
+                }
+            });
+        opacityTween.start();
+    };
+
+    /*setTransparency = (objectArray, targetOpacity) => {
+        let currentOpacity = [];
+
+        for (let i in objectArray) {
+            currentOpacity.push(objectArray[i].material.opacity)
+        }
+
+        let currentOpacityObject = Object.assign({}, currentOpacity);
+        // let size = Object.size(currentOpacity);
+        let targetOpacityObject = { 0:targetOpacity, 1:targetOpacity };
+        // let targetOpacityObject = Object.assign(currentOpacity, targetOpacity);
+
+        // console.log(currentOpacityObject, targetOpacityObject)
+
+        opacityTween = new Tween(currentOpacityObject)
+            .to(targetOpacityObject , 500)
+            .delay(500)
+            .on('update', (opacityObject) => {
+                objectArray.forEach((object, index) => {
+                    object.material.transparent = true;
+                    object.material.opacity = opacityObject[index];
+                    // object.material.opacity = Object.values({ o })[index];
+                })
+            });
+        opacityTween.start();
+    };*/
+
+    /*setTransparency = (object, opacity) => {
         let currentOpacity = object.material.opacity;
         // let currentOpacity = object.material[0].opacity;
         let finalOpacity = opacity;
@@ -707,17 +774,17 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
                 object.material.transparent = true;
                 object.material.opacity = Object.values({ o })[0];
 
-                /*this.MYLINQ_GROUP.children[0].material[0].transparent = true;
+                /!*this.MYLINQ_GROUP.children[0].material[0].transparent = true;
                 this.MYLINQ_GROUP.children[0].material[1].transparent = true;
                 this.MYLINQ_GROUP.children[0].material[2].transparent = true;
                 this.MYLINQ_GROUP.children[0].material[0].opacity = Object.values({ o })[0];
                 this.MYLINQ_GROUP.children[0].material[1].opacity = Object.values({ o })[0];
-                this.MYLINQ_GROUP.children[0].material[2].opacity = Object.values({ o })[0];*/
+                this.MYLINQ_GROUP.children[0].material[2].opacity = Object.values({ o })[0];*!/
             });
         opacityTween.start();
 
         // check if object has multiple materials (i.e. not the ground) and opacity is already set
-        /*if (object.material instanceof Array && opacity !== object.material[0].opacity) {
+        /!*if (object.material instanceof Array && opacity !== object.material[0].opacity) {
             // let coordinates = { x: 0, y: 0 };
             let currentOpacity = opacity === 1 ? 0.25 : 1;
             let value = { x: currentOpacity };
@@ -735,8 +802,8 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
                     this.MYLINQ_GROUP.children[1].material[1].opacity = Object.values({x})[0];
                 });
             opacityTween.start();
-        }*/
-    };
+        }*!/
+    };*/
 
     setColor = (object, color) => {
         if (object.material instanceof Array) {
