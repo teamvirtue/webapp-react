@@ -14,7 +14,7 @@ import './index.css';
 const theme = createMuiTheme({
     palette: {
 		primary: {
-			main: '#f15b27',
+			main: '#f15b27', /* ADJUST THEME COLOR HERE */
 		},
 		secondary: {
 			main: '#181818',
@@ -91,6 +91,25 @@ class App extends Component {
 	
 	loadApiData() {
 		this.props.apiGetAtmoTemperature();
+		
+        /*this.props.apiGetSocketData('All Rooms', 'all');
+		this.props.apiGetSocketData('All Rooms', 'realtime'); <<<------ kan je niet gewoon laatste value pakken van 'all'??
+        this.props.apiGetSocketData('Technical Room', 'all');
+		this.props.apiGetSocketData('Technical Room', 'realtime');
+        this.props.apiGetSocketData('Outdoor', 'all');
+		this.props.apiGetSocketData('Outdoor', 'realtime');
+        this.props.apiGetSocketData('Living Room', 'all');
+		this.props.apiGetSocketData('Living Room', 'realtime');
+        this.props.apiGetSocketData('Kitchen', 'all');
+		this.props.apiGetSocketData('Kitchen', 'realtime');
+        this.props.apiGetSocketData('Hallway', 'all');
+		this.props.apiGetSocketData('Hallway', 'realtime');
+        this.props.apiGetSocketData('Dinner Room', 'all');
+		this.props.apiGetSocketData('Dinner Room', 'realtime');
+        this.props.apiGetSocketData('Bedroom', 'all');
+		this.props.apiGetSocketData('Bedroom', 'realtime');
+        this.props.apiGetSocketData('Bathroom', 'all');
+		this.props.apiGetSocketData('Bathroom', 'realtime');*/
 	}
 
 	loadPublicData() {

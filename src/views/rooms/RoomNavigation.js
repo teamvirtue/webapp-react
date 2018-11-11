@@ -25,8 +25,7 @@ const styles = theme => ({
 		flex: 1
 	},
     subNavItem: {
-		marginTop: 10,
-		marginBottom: 10,
+		marginBottom: 30,
 		display: 'table',
 		whiteSpace: 'nowrap',
     },
@@ -112,7 +111,7 @@ let rooms = [
 	{ id: 1, value: 'Apartment', icon: 'home', component: Apartment, highlight: true },
 	{ id: 2, value: 'Living Room', icon: 'weekend', component: LivingRoom, },
 	{ id: 3, value: 'Kitchen', icon: 'room_service', component: Kitchen, },
-	{ id: 4, value: 'Dinner Room', icon: 'local_dining', component: DinnerRoom, },
+	//{ id: 4, value: 'Dinner Room', icon: 'local_dining', component: DinnerRoom, },
 	{ id: 5, value: 'Bedroom', icon: 'hotel', component: Bedroom, },
 	{ id: 6, value: 'Bathroom', icon: 'hot_tub', component: Bathroom, },
 	{ id: 7, value: 'Hallway', icon: 'transfer_within_a_station', component: Hallway, },

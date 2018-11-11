@@ -243,7 +243,7 @@ class Settings extends Component {
 									</ListItem>
 								}
 
-								<ListMenu label='Food preferences' title='Food preferences' options={ optionsFood } icon='restaurant'/>
+								{ /* <ListMenu label='Food preferences' title='Food preferences' options={ optionsFood } icon='restaurant'/> */ }
 								
 								<ListItem
 									button

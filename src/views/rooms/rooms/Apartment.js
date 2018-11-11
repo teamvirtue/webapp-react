@@ -13,11 +13,6 @@ import RealtimeEnergyBar from '../controlComponents/RealtimeEnergyBar';
 import { apiGetSocketData } from '../../../actions/asyncActions';
 
 class Apartment extends Component {
-	
-    componentDidMount() {
-        this.props.apiGetSocketData('All Rooms', 'all');
-		this.props.apiGetSocketData('All Rooms', 'realtime');
-    };
 
     render() {
 	

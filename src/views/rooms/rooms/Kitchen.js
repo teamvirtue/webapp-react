@@ -6,6 +6,7 @@ import List from '@material-ui/core/List';
 import Light from '../controlComponents/Light';
 import RealtimeEnergyMeter from '../controlComponents/RealtimeEnergyMeter';
 import NetEnergy from '../controlComponents/NetEnergy';
+import AirQuality from '../controlComponents/AirQuality';
 
 class Kitchen extends Component {
 
@@ -28,6 +29,10 @@ class Kitchen extends Component {
 																		{'name': 'Dishwasher', id: 'F15'},
 																		{'name': 'Oven', id: 'F19'},
 																	  ]} />
+				</div>
+				
+				<div className='col-6'>
+					<AirQuality />
 				</div>
 
 				<div className='col-12'>
