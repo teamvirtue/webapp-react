@@ -64,7 +64,7 @@ class SustainabilityStatusCircle extends Component {
         // this.setState({ fullscreen: false });
 	};
 
-    setActiveTab = (tab) => (event) => {
+    setActiveTab = (tab) => (event) => { // TODO: check event variable
         // this.setState({ tab });
         this.props.updateSustainabilityStatus(tab);
     };
@@ -75,6 +75,8 @@ class SustainabilityStatusCircle extends Component {
 
 		const circleColorClass = sustainabilityStatus[sustainabilityStatus.selected]['efficiency'];
 		// const fullscreenClass = sustainabilityStatus.fullscreen ? ' fullscreen' : '';
+
+        // console.log(this.props.sustainabilityStatus.fullscreen);
 
         return (
             <div className={ classes.root }>

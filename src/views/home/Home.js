@@ -842,16 +842,16 @@ class Home extends Component {
 								/>
 								{houseData.eatTogetherStatus === 'requested' ? (
 									<div>
-										<IconButton className={classes.dialogAction} style={{backgroundColor: '#03cea4'}} onClick={ () => this.handleSubmitEatTogetherStatus('yes', false) }>
+										<IconButton className={ classes.dialogAction } style={{ backgroundColor: '#03cea4' }} onClick={ () => this.handleSubmitEatTogetherStatus('yes', false) }>
 											<Icon>thumb_up_alt</Icon>
 										</IconButton>
-										<IconButton className={classes.dialogAction} style={{backgroundColor: '#e9190f'}} onClick={ () => this.handleSubmitEatTogetherStatus('no', false) }>
+										<IconButton className={ classes.dialogAction } style={{ backgroundColor: '#e9190f' }} onClick={ () => this.handleSubmitEatTogetherStatus('no', false) }>
 											<Icon>thumb_down_alt</Icon>
 										</IconButton>
 									</div>
 								) : (
 									<div>
-										<IconButton className={classes.dialogAction} style={{backgroundColor: '#bcbcbc'}} onClick={ () => this.handleSubmitEatTogetherStatus('yes', false) }>
+										<IconButton className={ classes.dialogAction } style={{ backgroundColor: '#bcbcbc' }} onClick={ () => this.handleSubmitEatTogetherStatus('yes', false) }>
 											<Icon>mode_comment</Icon>
 										</IconButton>
 									</div>
@@ -912,13 +912,13 @@ class Home extends Component {
 									</div>
 								</div>
 								<div className='line'>
-									<div className='lineFill' style={{ width: houseData.indoorHumidity + '%' }}></div>
+									<div className='lineFill' style={{ width: houseData.indoorHumidity + '%' }} />
 								</div>
 							</div>
 						</DialogContent>
 					}
 					
-					{this.state.dialogContent === 'CO2' &&
+					{ this.state.dialogContent === 'CO2' &&
 						<DialogContent className={'row no-margin ' + classes.dialogContent + ' ' + classes.dialogContentHasProgressContainer}>
 							<div className={'col-6 ' + classes.dialogLeftColumn}>
 								<Icon color='primary' className={ classes.dialogHeaderIcon }>cloud</Icon><br />
@@ -951,13 +951,13 @@ class Home extends Component {
 									</div>
 								</div>
 								<div className='line'>
-									<div className='lineFill' style={{ width: this.renderCO2LineProgress() }}></div>
+									<div className='lineFill' style={{ width: this.renderCO2LineProgress() }} />
 								</div>
 							</div>
 						</DialogContent>
 					}
 					
-					{this.state.dialogContent === 'energyusage' &&
+					{ this.state.dialogContent === 'energyusage' &&
 						<DialogContent className={'row no-margin ' + classes.dialogContent}>
 							<div className={'col-6 ' + classes.dialogLeftColumn}>
 								<Icon className={ classes.dialogHeaderIcon }>power</Icon><br />
@@ -974,7 +974,7 @@ class Home extends Component {
 						</DialogContent>
 					}
 					
-					{this.state.dialogContent === 'temperatureoutside' &&
+					{ this.state.dialogContent === 'temperatureoutside' &&
 						<DialogContent className={'row no-margin ' + classes.dialogContent}>
 							<div className={'col-6 ' + classes.dialogLeftColumn}>
 								<FontAwesome className={ classes.dialogHeaderIcon } name='thermometer-half' /><br />
@@ -998,7 +998,7 @@ class Home extends Component {
 						</DialogContent>
 					}
 					
-					{this.state.dialogContent === 'publictransport' &&
+					{ this.state.dialogContent === 'publictransport' &&
 						<DialogContent className={'row no-margin ' + classes.dialogContent}>
 							<div className={'col-6 ' + classes.dialogLeftColumn}>
 								<Typography className={ classes.dialogHeaderHeading } variant="title" gutterBottom>
