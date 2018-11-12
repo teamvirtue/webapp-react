@@ -22,11 +22,14 @@ let levels = ['MY', 'LINQ', 'DISTRICT'];
 let selectedObject = null;
 // let alpha = 0;
 let highlightColor = 0xff0000;
+let markers = [];
+let markerHeight = 1.25;
 
 let opacityTween,
     cameraPositionTween,
     cameraZoomTween,
-    cameraRotationTween;
+    cameraRotationTween,
+    markerTween;
     // cameraTween;
 
 // let currentOpacity = opacity === 1 ? 0.25 : 1;
@@ -222,7 +225,8 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
                 // geometry.center();
                 object = new THREE.Mesh(geometry, material);
                 object.scale.multiplyScalar(0.5);
-                object.rotation.set(-0.5, 0, 0);
+                object.rotation.set(0, 0.5, 0);
+                object.rotateX(Math.PI * -0.1);
 
                 object.name = 'Marker';
 
@@ -401,11 +405,11 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         /* for debugging */
         let controls = new OrbitControls(camera, renderer.domElement);
         controls.enableDamping = true;
-        controls.dampingFactor = 0.25;
-        /*controls.enableZoom = false;
+        controls.dampingFactor = 0.5;
+        controls.enableZoom = false;
         controls.rotateSpeed = 0.75;
         // controls.minZoom = 0.1;
-        controls.maxPolarAngle = Math.PI * 0.4;*/
+        controls.maxPolarAngle = Math.PI * 0.4;
 
         /*let cameraHelper = new THREE.CameraHelper(camera);
         scene.add(cameraHelper);*/
@@ -511,6 +515,9 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         }
         if (cameraRotationTween) {
             cameraRotationTween.update();
+        }
+        if (markerTween) {
+            markerTween.update();
         }
 
         if (this.camera) {
@@ -639,6 +646,8 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         // let intersects = this.raycaster.intersectObjects(this.scene.children);
         // let firstObject = intersects[0].object;
 
+        // let marker = this.scene.getObjectByName('Marker');
+
         // check if there are 1 or more intersections and the first object has group data
         if (intersects.length > 0 && Object.keys(intersects[0].object.userData).length !== 0) {
             // check if the closest object intersected is not the currently stored intersection object
@@ -646,15 +655,21 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
                 // restore previous intersection object (if it exists) to its original color
                 if (selectedObject) {
                     this.selectLevel(selectedObject.userData.parent.name);
-                    // this.selectLevel(selectedObject);
 
                     /*this.setTransparency(selectedObject, 1);
                     this.animateCamera(this.camera, { x: 0, y: 75, z: 5 });*/
                     this.setColor(selectedObject, selectedObject.currentHex);
-                    this.setMarker(selectedObject);
+                    // this.setMarker(selectedObject);
                 }
                 // store reference to closest object as current intersection object
                 selectedObject = intersects[0].object;
+
+                console.log(selectedObject.name)
+
+                /*if (selectedObject.name = 'Marker') {
+                    console.log('hi')
+                }*/
+
                 // store color of closest object (for later restoration)
                 selectedObject.currentHex = this.getColor(selectedObject);
 
@@ -662,23 +677,16 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
                 // this.selectLevel(selectedObject);
 
                 // set a new color for closest object
-                /*if (selectedObject.userData.parent.name === 'mylinq') {
-                    this.setTransparency(selectedObject, 0.3);
-                    this.animateCamera(this.camera, { x: 0, y: 75, z: 10 });
-                } else {
-                    this.setTransparency(selectedObject, 1);
-                    this.animateCamera(this.camera, { x: 100, y: 75, z: 100 });
-                }*/
                 this.setColor(selectedObject, highlightColor);
-                this.setMarker(selectedObject);
+                // this.setMarker(selectedObject);
             }
         } else {
             // restore previous intersection object (if it exists) to its original color
-            /*if (selectedObject) {
-                this.setTransparency(selectedObject, 1);
-                this.animateCamera(this.camera, { x: 0, y: 75, z: 10 });
-                // this.setColor(selectedObject, selectedObject.currentHex);
-            }*/
+            if (selectedObject) {
+                // this.setTransparency(selectedObject, 1);
+                // this.animateCamera(this.camera, { x: 0, y: 75, z: 10 });
+                this.setColor(selectedObject, selectedObject.currentHex);
+            }
             selectedObject = null;
         }
     };
@@ -687,20 +695,20 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         this.props.updateSustainabilityStatus(tab);
     };
 
-    selectLevel = (level) => {
-    // selectLevel = (object) => {
-    // let level = object.userData.parent.name;
+    selectLevel = (level) => { // TODO: check if level is already selected? + Make marker object global
+        // let level = object.userData.parent.name;
 
         let indicator = this.OTHER_GROUP.getObjectByName('Indicator');
         let marker = this.scene.getObjectByName('Marker');
         let roof = this.MYLINQ_GROUP.getObjectByName('MYLINQ_roof_solar_panels_3_0');
         let laptop = this.OTHER_GROUP.getObjectByName('Laptop');
         let tv = this.OTHER_GROUP.getObjectByName('TV');
+        let washingMachine = this.OTHER_GROUP.getObjectByName('Washing_machine');
 
         // console.log(marker);
 
         switch(level) {
-            case 'mylinq':  // TODO: find roof group in a more flexible way > scene.getObjectByName/Id(object.name);?
+            case 'mylinq':
                 this.setTransparency({ objects: [roof, indicator, marker], opacity: [0, 0, 1] });
                 this.setMarker(laptop);
                 this.setColor(laptop, highlightColor);
@@ -708,11 +716,20 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
                 this.setMarker(tv);
                 this.setColor(tv, highlightColor);
 
+                this.setMarker(washingMachine);
+                this.setColor(washingMachine, highlightColor);
+
+                // roof.position.setY(10);
+
+                // this.animateMarker()
+
                 // this.MYLINQ_GROUP.remove(roof);
                 // this.scene.remove(this.MYLINQ_GROUP)
 
                 if (this.props.sustainabilityStatus.fullscreen) {
-                    this.animateCamera(this.camera, { x: 0, y: 50, z: 30 }, 1500, 2);
+                    this.animateCamera(this.camera, { x: 15, y: 50, z: 30 }, 1500, 2);
+
+                    this.animateMarker(markers);
 
                     // this.controls.enabled = false;
                     // this.animateCamera(this.camera, { x: 0, y: 500, z: 100 });
@@ -757,6 +774,11 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
 
         // update Redux state
         this.setActiveTab(level)();
+
+        /*if (this.props.sustainabilityStatus.selected) {
+            // update Redux state
+            this.setActiveTab(level)();
+        }*/
     };
 
     animateCamera = (camera, targetPosition, duration, targetZoom = 1, lookAt = { x: 0, y: 0, z:0 }) => {
@@ -845,9 +867,12 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         // let currentOpacity = targetProperties.objects;
         // console.log(currentOpacity)
 
-        for (let i = 0; i < targetProperties.objects.length; i++) {
-            currentOpacity.push(targetProperties.objects[i].material.opacity);
+        if (targetProperties.objects[0]) {
+            for (let i = 0; i < targetProperties.objects.length; i++) {
+                currentOpacity.push(targetProperties.objects[i].material.opacity);
+            }
         }
+
         for (let i = 0; i < targetProperties.opacity.length; i++) {
             targetOpacity.push(targetProperties.opacity[i]);
         }
@@ -946,7 +971,7 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
     };*/
 
     setColor = (object, color) => {
-        console.log(object)
+        // console.log(object)
 
         if (object.material instanceof Array) {
             object.material[0].color.set(color); //setHex
@@ -961,22 +986,6 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         }
     };
 
-    setMarker = (object) => {
-        // store object position to be highlighted and add ~10 to the z coordinate
-        // animate marker (Tween bounce?)
-        let position = object.position;
-
-        let marker = this.scene.getObjectByName('Marker').clone();
-        marker.position.set(position.x, position.y + 1.25, position.z);
-
-        this.scene.add(marker);
-        // this.markerObject.position.set(0, 2, 0);
-
-        /*let marker1 = markerObject.clone();
-        marker1.position.set(5, 0, 0); // or any other coordinates
-        scene.add(marker1);*/
-    };
-
     getColor = (object) => {
         if (object.material instanceof Array) {
             // console.log('Array');
@@ -985,6 +994,57 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
             // console.log('No array');
             return object.material.color.getHex();
         }
+    };
+
+    setMarker = (object) => {
+        // store object position to be highlighted and add ~10 to the z coordinate
+        // animate marker (Tween bounce?)
+        let position = object.position;
+
+        if (!object.userData.marker) {
+            let marker = this.scene.getObjectByName('Marker').clone();
+            marker.position.set(position.x, markerHeight , position.z);
+
+            this.scene.add(marker);
+
+            markers.push(marker);
+        }
+
+        object.userData.marker = true;
+    };
+
+    animateMarker = (markerArray) => {
+        let currentYCoordinates = [];
+        let bounceYCoordinates = [];
+
+        for (let i = 0; i < markerArray.length; i++) {
+            currentYCoordinates.push(markerHeight);
+        }
+
+        for (let i = 0; i < markerArray.length; i++) {
+            bounceYCoordinates.push(markerArray[i].position.y + 1);
+        }
+
+        markerTween = new Tween(Object.assign({}, bounceYCoordinates))
+            .to(Object.assign({}, currentYCoordinates), 2000)
+            .easing(Easing.Bounce.Out)
+            .on('update', (y) => {
+                for (let i = 0; i < markerArray.length; i++) {
+                    markerArray[i].position.setY(y[i]);
+                }
+            });
+        markerTween.start();
+
+        /*let position = marker.position;
+        let bouncePosition = position.y + 2;
+
+        markerTween = new Tween({ y: position.y })
+            .to({ y: bouncePosition }, 2000)
+            .easing(Easing.Bounce.Out)
+            .on('update', ({ y }) => {
+                marker.position.set(position.x, y, position.z)
+            });
+        markerTween.start();*/
     };
 
     render() {

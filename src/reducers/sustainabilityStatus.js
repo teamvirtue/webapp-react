@@ -33,7 +33,7 @@ const sustainabilityStatus = (state = {
 			1: {
 				id: '1',
 				title: 'Television',
-				highlight: 'television',
+				highlight: 'TV',
 				content: 'The television is on but no movement is detected. You can better turn it off.',
 				icon: 'power',
 				active: true,
@@ -41,7 +41,7 @@ const sustainabilityStatus = (state = {
 			2: {
 				id: '2',
 				title: 'Low humidity!',
-				highlight: 'television',
+				highlight: 'Laptop',
 				content: 'The humidity in the living room is too low. Buy a humidifier to improve this.',
 				icon: 'power',
 				active: true,
