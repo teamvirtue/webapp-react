@@ -14,7 +14,14 @@ let dataYear = [];
 
 const LABELS_REALTIME = [];
 const LABELS_DAY = ['00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00', '08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00'];
-const LABELS_WEEK = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+const LABELS_WEEK = [	moment().subtract(6, 'days').format('dddd'),
+						moment().subtract(5, 'days').format('dddd'),
+						moment().subtract(4, 'days').format('dddd'),
+						moment().subtract(3, 'days').format('dddd'),
+						moment().subtract(2, 'days').format('dddd'),
+						moment().subtract(1, 'days').format('dddd'),
+						moment().format('dddd'),
+					];
 const LABELS_MONTHS = ['Jan', 'Feb', 'Mrt', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 const LABELS_YEARS = ['2014', '2015', '2016', '2017', '2018'];
 
@@ -142,39 +149,118 @@ class LineChart extends Component{
 		newData.reverse();//reverse array so old data becomes first.
 		var now = moment();
 		
+		
 		/*** CALCULATE NEW DATA ***/
+		
+		
+		
 		//REALTIME DATA
-		var dataRealtime = [];
-		var minusPowerConsumed;
-		var previousPowerConsumed = 0;
-		/*newData.map( function(item, i) {
-			if(moment(item.created).isSame(now, 'day')){
-				if(!minusPowerConsumed){
-					//start power_consumed is previous value
-					minusPowerConsumed = newData[i - 1].power_consumed;
-				}
-				var powerConsumed = item.power_consumed - minusPowerConsumed - previousPowerConsumed;
-				dataRealtime.push(powerConsumed);
-				previousPowerConsumed = powerConsumed;
-			}
-		});*/
-		dataRealtime = newData;
+				var dataRealtime = [];
+				var minusPowerConsumed;
+				var previousPowerConsumed = 0;
+				/*newData.map( function(item, i) {
+					if(moment(item.created).isSame(now, 'day')){
+						if(!minusPowerConsumed){
+							//start power_consumed is previous value
+							minusPowerConsumed = newData[i - 1].power_consumed;
+						}
+						var powerConsumed = item.power_consumed - minusPowerConsumed - previousPowerConsumed;
+						dataRealtime.push(powerConsumed);
+						previousPowerConsumed = powerConsumed;
+					}
+				});*/
+				dataRealtime = newData;
+		
+		
 		
 		//DAY DATA
-		var dataDay = [];
-		dataDay = newData;
+				var dataDay = [];
+				var minusPowerConsumed;
+				var previousPowerConsumed = 0;
+				
+				var latestCalculatedHour = 0;
+				var powerConsumedHourBeginning = 0;
+				var thisHourCalculated = 0;
+				
+				/*newData.map( function(item, i) {
+					if(moment(item.created).isSame(moment(), 'day')){//okay, data is from today
+						if(!minusPowerConsumed){
+							//start power_consumed is last value from yesterday
+							minusPowerConsumed = newData[i - 1].power_consumed;
+						}
+						
+						//add data point when  A)an entire hour is looped through  B)it is the last data point
+						if(latestCalculatedHour !== moment(item.created).hour() || (!newData[i + 1])){
+							//okay, new hour can be calculated. Add data point.
+							dataRealtime.push(thisHourCalculated);
+							
+							//reset variables
+							latestCalculatedHour = moment(item.created).hour();
+							powerConsumedHourBeginning = 0;
+							thisHourCalculated = 0;
+						}
+						
+						//update variables
+						if(powerConsumedHourBeginning === 0){
+							powerConsumedHourBeginning = item.power_consumed;
+						}
+						thisHourCalculated = thisHourCalculated + item.power_consumed;
+					}
+				});*/
+				dataDay = newData;
+		
+		
 		
 		//WEEK DATA
-		var dataWeek = [];
-		dataWeek = newData;
+				var dataWeek = [];
+				var minusPowerConsumed;
+				var previousPowerConsumed = 0;
+				
+				var latestCalculatedDay = 0;
+				var powerConsumedDayBeginning = 0;
+				var thisDayCalculated = 0;
+				
+				/*newData.map( function(item, i) {
+					if(moment(item.created).isSameOrAfter(moment().subtract(6, 'days'))){//okay, data is from last 7 days
+						if(!minusPowerConsumed){
+							//start power_consumed is last value from yesterday
+							minusPowerConsumed = newData[i - 1].power_consumed;
+						}
+						
+						//add data point when  A)an entire day is looped through  B)it is the last data point
+						if(latestCalculatedDay !== moment(item.created).day() || (!newData[i + 1])){
+							//okay, new day can be calculated. Add data point.
+							dataRealtime.push(thisDayCalculated);
+							
+							//reset variables
+							latestCalculatedDay = moment(item.created).day();
+							powerConsumedDayBeginning = 0;
+							thisDayCalculated = 0;
+						}
+						
+						//update variables
+						if(powerConsumedDayBeginning === 0){
+							powerConsumedDayBeginning = item.power_consumed;
+						}
+						thisDayCalculated = thisDayCalculated + item.power_consumed;
+					}
+				});*/
+				dataWeek = newData;
+		
+		
 		
 		//MONTH DATA
-		var dataMonth = [];
-		dataMonth = newData;
+				var dataMonth = [];
+				dataMonth = newData;
+		
+		
 		
 		//YEAR DATA
-		var dataYear = [];
-		dataYear = newData;
+				var dataYear = [];
+				dataYear = newData;
+		
+		
+		
 		/*** END CALCULATE NEW DATA ***/
 
 		var datasetsCopy = this.state.data.datasets.slice(0);

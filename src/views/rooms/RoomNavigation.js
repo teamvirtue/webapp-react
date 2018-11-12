@@ -25,9 +25,9 @@ const styles = theme => ({
 		flex: 1
 	},
     subNavItem: {
-		marginBottom: 30,
 		display: 'table',
 		whiteSpace: 'nowrap',
+		padding: 5,
     },
     subNavItemPaper: {
         backgroundColor: 'white',

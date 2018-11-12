@@ -7,16 +7,16 @@
 	.st1{fill:#FFFFFF;}
 	.st2{filter:url(#Adobe_OpacityMaskFilter);}
 	.st3{opacity:0.25;mask:url(#SVGID_1_);}
-	.st4{fill:none;stroke:#F15B27;stroke-linecap:round;stroke-miterlimit:10;}
+	.st4{fill:none;stroke:#f15b27;stroke-linecap:round;stroke-miterlimit:10;}
 	.st5{fill:none;stroke:#FFFFFF;stroke-width:10;stroke-miterlimit:10;}
 	.st6{fill:#B2B2B2;}
 	.st7{fill-opacity:0;}
 	.st8{opacity:0.9;}
 	.st9{opacity:0.9;fill:#FFFFFF;}
 	.st10{fill:none;}
-	.st11{fill:none;stroke:#F15B27;stroke-width:3;stroke-miterlimit:10;}
+	.st11{fill:none;stroke:#f15b27;stroke-width:3;stroke-miterlimit:10;}
 	.st12{fill:none;stroke:#BDBDBD;stroke-miterlimit:10;}
-	.st13{fill:#F15B27;}
+	.st13{fill:#f15b27;}
 	.st14{fill:none;stroke:#4E4D4D;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
 	.st15{fill:none;stroke:#CCCCCC;stroke-linecap:round;stroke-miterlimit:10;}
 	.st16{clip-path:url(#SVGID_3_);}
@@ -56,12 +56,12 @@
 	.st50{opacity:0.25;mask:url(#SVGID_23_);}
 	.st51{fill:none;stroke:#000000;stroke-width:0.5;stroke-miterlimit:10;}
 	.st52{fill:none;stroke:#E0E0E0;stroke-width:2;stroke-linejoin:round;stroke-miterlimit:10;}
-	.st53{opacity:0.2;fill:#F15B27;}
-	.st54{fill:none;stroke:#F15B27;stroke-width:2;stroke-linejoin:round;stroke-miterlimit:10;}
+	.st53{opacity:0.2;fill:#f15b27;}
+	.st54{fill:none;stroke:#f15b27;stroke-width:2;stroke-linejoin:round;stroke-miterlimit:10;}
 	.st55{fill:none;stroke:#4D4D4D;stroke-width:2;stroke-linejoin:round;stroke-miterlimit:10;}
 	.st56{clip-path:url(#SVGID_25_);}
 	.st57{fill:#E0E0E0;}
-	.st58{fill:none;stroke:#F15B27;stroke-miterlimit:10;}
+	.st58{fill:none;stroke:#f15b27;stroke-miterlimit:10;}
 	.st59{fill:none;stroke:#E0E0E0;stroke-width:0.75;stroke-miterlimit:10;}
 	.st60{filter:url(#Adobe_OpacityMaskFilter_9_);}
 	.st61{opacity:0.25;mask:url(#SVGID_26_);}
@@ -70,10 +70,10 @@
 	.st64{opacity:0.12;}
 	.st65{opacity:8.000000e-02;fill:none;}
 	.st66{fill:none;stroke:#BDBDBD;stroke-width:2;stroke-miterlimit:10;}
-	.st67{fill:none;stroke:#F15B27;stroke-width:2;stroke-miterlimit:10;}
+	.st67{fill:none;stroke:#f15b27;stroke-width:2;stroke-miterlimit:10;}
 	.st68{fill:#B0AFAF;}
 	.st69{fill:#F1F1F1;}
-	.st70{opacity:0.5;fill:#F15B27;}
+	.st70{opacity:0.5;fill:#f15b27;}
 	.st71{fill:none;stroke:#E0E0E0;stroke-linecap:round;stroke-miterlimit:10;}
 	.st72{fill:none;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
 	.st73{fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:10;}

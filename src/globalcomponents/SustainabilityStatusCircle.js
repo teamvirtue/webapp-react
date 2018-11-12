@@ -86,29 +86,31 @@ class SustainabilityStatusCircle extends Component {
                     </div>
                 </div>
 
-                { sustainabilityStatus.fullscreen &&
-					<div className={ classes.bottomContent }>
-						<div className='subNavBarContainerFullscreen'>
-							<div className={ classes.subNavBarContainerTab + ' ' + ( tab === 'linq' ? classes.subNavBarContainerTabSelected : '' ) } onClick={ this.setActiveTab('linq') }>
-								LINQ
+				<div className='sustainabilityStatusCircleFullscreen'>
+					{ sustainabilityStatus.fullscreen &&
+						<div>
+							<div className={ classes.bottomContent }>
+								<div className='subNavBarContainerFullscreen'>
+									<div className={ classes.subNavBarContainerTab + ' ' + ( tab === 'linq' ? classes.subNavBarContainerTabSelected : '' ) } onClick={ this.setActiveTab('linq') }>
+										LINQ
+									</div>
+									<div className={ classes.subNavBarContainerTab + ' ' + ( tab === 'mylinq' ? classes.subNavBarContainerTabSelected : '' )} onClick={ this.setActiveTab('mylinq') }>
+										My LINQ
+									</div>
+									<div className={ classes.subNavBarContainerTab + ' ' + ( tab === 'district' ? classes.subNavBarContainerTabSelected : '' )} onClick={ this.setActiveTab('district') }>
+										District
+									</div>
+								</div>
+								
+								<SustainabilityCards />
 							</div>
-							<div className={ classes.subNavBarContainerTab + ' ' + ( tab === 'mylinq' ? classes.subNavBarContainerTabSelected : '' )} onClick={ this.setActiveTab('mylinq') }>
-								My LINQ
-							</div>
-							<div className={ classes.subNavBarContainerTab + ' ' + ( tab === 'district' ? classes.subNavBarContainerTabSelected : '' )} onClick={ this.setActiveTab('district') }>
-								District
-							</div>
-						</div>
-						
-						<SustainabilityCards />
-					</div>
-                }
 
-                { sustainabilityStatus.fullscreen &&
-                    <IconButton className={ classes.backButton } onClick={ this.handleClose } aria-label='Back'>
-                        <Icon>arrow_back</Icon>
-                    </IconButton>
-                }
+							<IconButton className={ classes.backButton } onClick={ this.handleClose } aria-label='Back'>
+								<Icon>arrow_back</Icon>
+							</IconButton>
+						</div>
+					}
+				</div>
             </div>
         );
     }

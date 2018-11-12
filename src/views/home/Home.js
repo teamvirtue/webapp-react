@@ -34,6 +34,12 @@ const styles = theme => ({
         transition: 'all 1s ease-in-out',
 		marginBottom: 10,
     },
+	subNavBar: {
+		zIndex: 20,
+	},
+	subNavBarIndicator:{
+		display: 'none',
+	},
 	subNavBarContainerTab: {
 		color: 'white',
 		textAlign: 'center',
@@ -44,17 +50,12 @@ const styles = theme => ({
 		textTransform: 'none',
 		fontWeight: 700,
 	},
-	subNavBarIndicator:{
-		display: 'none',
-	},
 	badgeIcon: {
 	},
 	iconBox: {
-		marginTop: 10,
-		marginBottom: 10,
-		padding: '3.5vw',
 		display: 'table',
 		whiteSpace: 'nowrap',
+		padding: 0,
 		/*'&:hover': {
 			'& .show': {
 				opacity: 1,
@@ -62,7 +63,9 @@ const styles = theme => ({
 		},*/
 	},
 	iconBoxPaper: {
-        backgroundColor: '#f2693a',
+        /*backgroundColor: '#f2693a',*/
+		backgroundColor: 'transparent',
+		boxShadow: 'none',
 		cursor: 'pointer',
 		display: 'table-cell',
 		paddingBottom: '100%',
@@ -162,7 +165,7 @@ const styles = theme => ({
 	},
 	eatTogetherMessageListItem: {
 		backgroundColor: 'white',
-		borderRadius: 10,
+		borderRadius: 30,
 		marginTop: 10,
 	},
 	eatTogetherNewMessage: {
@@ -411,7 +414,7 @@ class Home extends Component {
 		) {
 			return (
 				<div className='notificationWarning'>
-					DEWA recommends to set your AC to 24°C.
+					It is recommended to set your AC to 24°C.
 				</div>
 			);
 		}else if (
@@ -422,8 +425,8 @@ class Home extends Component {
 			return (
 				<div className='notificationPositive'>
 					It is currently {this.props.houseData.indoorTemperature}°C.
-					DEWA recommends to set your AC to 24°C, but you already did. 
-					The temperature in the room should be corrected soon.
+					You already set the AC to 24°C. 
+					The temperature in the room will be adjusted soon.
 				</div>
 			);
 		}else{
@@ -431,7 +434,7 @@ class Home extends Component {
 				<div className='notificationPositive'>
 					The HVAC is a huge energy consumer. It is currently disabled. 
 					If you do not feel comfortable you might consider turning it on.
-					DEWA recommends to set your AC to 24°C.
+					It is recommended to set your AC to 24°C.
 				</div>
 			);
 		}
@@ -449,7 +452,7 @@ class Home extends Component {
 					<Tabs
 						value={ (this.props.sustainabilityStatus.selected === 'linq') ? (0) : ((this.props.sustainabilityStatus.selected === 'mylinq') ? (1) : (2)) }
 						onChange={ this.handleTabChange }
-						classes={{ indicator: classes.subNavBarIndicator }}
+						classes={{ root: classes.subNavBar, indicator: classes.subNavBarIndicator }}
 						indicatorColor="secondary"
 						textColor="secondary"
 						centered
@@ -758,18 +761,18 @@ class Home extends Component {
 					}
 					
 					{this.state.dialogContent === 'eattogether' &&
-						<DialogContent>
+						<DialogContent style={{backgroundColor: '#f9f9f9',}}>
 							<List>
 								<ListItem className={classes.eatTogetherMessageListItem}>
 									<Avatar alt="Abdul" src={accountPicture3} />
 									<ListItemText 
-										primary='Hey! Im free tonight, would someone like to cook and eat together around 19:00?'
+										primary='Hellooo! Would someone like to cook and eat together tonight?'
 										secondary="Abdul, 1 hour ago" />
 								</ListItem>
 								<ListItem className={classes.eatTogetherMessageListItem}>
 									<Avatar alt="Jamil" src={accountPicture4} />
 									<ListItemText 
-										primary='Cool, I&#39;m in! I can help after 18:30.'
+										primary='Cool, I&#39;m in! I can help around 19h?'
 										secondary="Mar, 45 minutes ago" />
 								</ListItem>
 								<CSSTransitionGroup
