@@ -406,9 +406,10 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         let controls = new OrbitControls(camera, renderer.domElement);
         controls.enableDamping = true;
         controls.dampingFactor = 0.5;
-        controls.enableZoom = false;
+        // controls.enableZoom = false;
         controls.rotateSpeed = 0.75;
-        // controls.minZoom = 0.1;
+        controls.minZoom = 0.05;
+        controls.maxZoom = 8;
         controls.maxPolarAngle = Math.PI * 0.4;
 
         /*let cameraHelper = new THREE.CameraHelper(camera);
@@ -520,9 +521,9 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
             markerTween.update();
         }
 
-        if (this.camera) {
-            // console.log(this.camera.position)
-        }
+        /*if (this.camera) {
+            console.log(this.camera.zoom)
+        }*/
 
         /*if (this.lights[1]) {
             alpha += 0.05;
@@ -654,7 +655,7 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
             if (intersects[0].object !== selectedObject) {
                 // restore previous intersection object (if it exists) to its original color
                 if (selectedObject) {
-                    this.selectLevel(selectedObject.userData.parent.name);
+                    // this.selectLevel(selectedObject.userData.parent.name);
 
                     /*this.setTransparency(selectedObject, 1);
                     this.animateCamera(this.camera, { x: 0, y: 75, z: 5 });*/
@@ -664,7 +665,7 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
                 // store reference to closest object as current intersection object
                 selectedObject = intersects[0].object;
 
-                console.log(selectedObject.name)
+                // console.log(selectedObject.name);
 
                 /*if (selectedObject.name = 'Marker') {
                     console.log('hi')
@@ -673,8 +674,7 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
                 // store color of closest object (for later restoration)
                 selectedObject.currentHex = this.getColor(selectedObject);
 
-                this.selectLevel(selectedObject.userData.parent.name);
-                // this.selectLevel(selectedObject);
+                // this.selectLevel(selectedObject.userData.parent.name);
 
                 // set a new color for closest object
                 this.setColor(selectedObject, highlightColor);
