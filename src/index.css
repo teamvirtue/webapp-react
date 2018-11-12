@@ -244,6 +244,15 @@ body {
 	animation: rotateCircleBorder 10s -0.5s linear infinite;
 }
 
+.sustainabilityStatusCircleFullscreen{
+	opacity: 0;
+	transition: all 500ms ease-in 200ms;
+}
+
+.fullscreen .sustainabilityStatusCircleFullscreen{
+	opacity: 1;
+}
+
 .ProgressContainer{
 	position:absolute;
 	left:10%;
@@ -441,7 +450,7 @@ body {
         position: relative;
 		left: auto;
         top: 0;
-        margin: 20px auto 0 auto;
+        margin: 40px auto 0 auto;
 		transform: scale(0.4);
 		transform-origin: top center;
     }
@@ -473,9 +482,9 @@ body {
     .home .content {
         position: absolute;
         bottom: 0;
-		margin-bottom:50px;
+		margin-bottom:25px;
         pointer-events: none;
-		background-color: rgba(0, 0, 0, 0.1);
+		background-color: rgba(0, 0, 0, 0.15);
 		border-top: 1px solid rgba(0,0,0,0.1);
 		height:22vh;
     }
