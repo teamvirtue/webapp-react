@@ -153,11 +153,11 @@ class BarChart extends Component{
                                     display: false,
                                     offsetGridLines : true,
                                     drawBorder: false,
-                                },
-                                ticks: {
-                                    fontFamily: "'Roboto'",
-                                    fontColor: 'gray',
                                 },*/
+                                ticks: {
+                                    fontFamily: "inherit",
+                                    fontColor: 'gray',
+                                },
                             }],
                             yAxes: [{
                                 // barThickness: 17,
@@ -168,7 +168,7 @@ class BarChart extends Component{
                                 ticks: {
                                     //beginAtZero: false,
                                     suggestedMin: 0,    // minimum will be 0, unless there is a lower value
-                                    fontFamily: "'Roboto'",
+                                    fontFamily: "inherit",
                                     fontColor: 'gray',
                                 },
                             }]

@@ -365,7 +365,7 @@ class LineChart extends Component{
                                 },
                                 ticks: {
                                     minRotation: 90,
-                                    fontFamily: "'Roboto'",
+                                    fontFamily: "inherit",
                                     fontColor: 'gray',
                                 },
                             }],
@@ -383,6 +383,7 @@ class LineChart extends Component{
                                 ticks: {
                                     display: true,
 									beginAtZero:true,
+									fontFamily: "inherit",
                                     /*suggestedMin: 0,    // minimum will be 0, unless there is a lower value
                                     fontFamily: "'Roboto'",
                                     fontColor: 'gray',*/

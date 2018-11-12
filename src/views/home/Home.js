@@ -167,6 +167,7 @@ const styles = theme => ({
 		backgroundColor: 'white',
 		borderRadius: 30,
 		marginTop: 10,
+		border: '1px solid #e7e7e7',
 	},
 	eatTogetherNewMessage: {
 		borderRadius: 25,
@@ -180,9 +181,10 @@ const styles = theme => ({
 		},
 	},
 	eatTogetherJoining: {
-		border: '1px solid #dbdbdb',
 		color: '#707070',
 		fontSize: '90%',
+		padding: 0,
+		paddingLeft: 10,
 	},
 	eatTogetherJoiningCancel: {
 		color: 'black',
@@ -312,15 +314,16 @@ class Home extends Component {
 
 		return (
 			<div>
+				<div className={ 'notificationPositive' }>
+					There is currently <strong>1</strong> shared washing machine available.
+				</div>
 				{ positive &&
 					<div className={ 'notificationPositive' }>
-						There is currently <strong>1</strong> out of <strong>3</strong> shared washing machines available.&nbsp;
 						{ positive }
 					</div>
 				}
 				{ warning &&
 					<div className={ 'notificationWarning' }>
-						There is currently <strong>1</strong> out of <strong>3</strong> shared washing machines available.&nbsp;
 						{ warning }
 					</div>
 				}

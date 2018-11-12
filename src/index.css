@@ -173,7 +173,7 @@ body {
     top: 50%;
     margin: -11vw 0 0 -11vw;
     /*transition: all 300ms linear;*/
-	transition: all 200ms ease-out;
+	transition: all 500ms ease-out;
 	/*backface-visibility: hidden !important;
 	-webkit-backface-visibility: hidden;
 	-webkit-transform-style: preserve-3d;
@@ -195,7 +195,7 @@ body {
 	height: 100%;
 	width: 100%;
 	overflow: hidden;
-	transition: all 200ms linear;
+	transition: all 500ms linear;
 	-webkit-font-smoothing: antialiased;
 }
 
@@ -209,7 +209,7 @@ body {
 	overflow:hidden;
 	top:0; 
 	left:0;
-	transition: all 200ms linear;
+	transition: all 200ms linear, opacity 200ms linear 500ms;
 }
 
 .sustainabilityStatusCircleContainer.positive .sustainabilityStatusCircle:before,
@@ -254,10 +254,10 @@ body {
 }
 
 .ProgressContainer{
+	border-top: 2px solid lightgrey;
 	position:absolute;
-	left:10%;
 	bottom:0;
-	width:80%;
+	width:92%;
 	text-align:center;
 	padding:5px 10px;
 	margin-bottom:10px;
@@ -321,26 +321,50 @@ body {
 
 /* Sustainability Cards */
 .sustainabilityCardContainer{
-	bottom: 80px;
 	position:relative;
 }
 
 .sustainabilityCard{
 	z-index:10;
-	transition:all 200ms, margin 0ms;
+	transition:all 200ms;
 	opacity:1;
+	display: flex;
+	flex-direction: row;
+}
+
+.sustainabilityCard > [class^="col-"],
+.sustainabilityCard > [class*=" col-"] {
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 .sustainabilityCard:not(:first-child) {
 	position:absolute;
-	width: calc(100% - 20px);
-	margin-left:10px;
-	top:10px;
+	width:100%;
+	transform: scale(0.95);
+	top:15px;
 	z-index:-1;
 }
 
 .sustainabilityCard:nth-child(n+3){
 	opacity:0;
+}
+
+.sustainabilityCardContent{
+	text-align:left;
+}
+
+.sustainabilityCardGraphic{
+	background-color:#f15b27;
+}
+
+.sustainabilityCardIcon{
+	padding: 0 30px;
+	text-align: center;
+	color: white;
+	width:auto !important;
+	height:auto !important;
 }
 
 
@@ -354,7 +378,7 @@ body {
 .fullscreen .wrapper .sustainabilityStatusCircleContainer{
 	width:100%;
 	height:100vh;
-	margin:0;
+	margin-top:0;
 	overflow: hidden;
 	left:0;
 	top:0;
@@ -391,7 +415,7 @@ body {
 .content{
     padding-bottom: 95px;
 	background-color: #f9f9f9;
-	transition: margin 300ms;
+	transition: margin 200ms linear;
 }
 
 .notificationsIcon {
@@ -425,6 +449,10 @@ body {
 	margin-top: 3px;
 }
 
+.notificationPositive + .notificationPositive{
+	margin-top:15px;
+}
+
 .row.no-margin {
 	margin-left:0;
 	margin-right:0;
@@ -438,7 +466,7 @@ body {
 			rgba(241, 91, 39, 0.9) 60%, 
 			#f9f9f9 25%);
 		height: 20vh;
-		transition: all 200ms ease-in-out;
+		transition: all 500ms ease-out;
     }
 	
     .home .headerBg {
@@ -504,13 +532,12 @@ body {
 	}
 
     .subNavBarContainerFullscreen {
-        position: absolute;
         display: flex;
         justify-content: center;
-        bottom: 0;
         width: 100%;
         height: 50px;
         pointer-events: auto;
+		margin-bottom:20px;
     }
 	
 	.homeInfoBox{
