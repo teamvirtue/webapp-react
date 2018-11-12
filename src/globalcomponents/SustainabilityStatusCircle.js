@@ -72,8 +72,11 @@ class SustainabilityStatusCircle extends Component {
     render() {
 		const { classes, sustainabilityStatus } = this.props;
         const tab = this.props.sustainabilityStatus.selected;
+        let circleColorClass = sustainabilityStatus[sustainabilityStatus.selected]['efficiency'];;
 
-		const circleColorClass = sustainabilityStatus[sustainabilityStatus.selected]['efficiency'];
+        /*if (sustainabilityStatus.selected) {
+            const circleColorClass = sustainabilityStatus[sustainabilityStatus.selected]['efficiency'];
+        }*/
 		// const fullscreenClass = sustainabilityStatus.fullscreen ? ' fullscreen' : '';
 
         // console.log(this.props.sustainabilityStatus.fullscreen);

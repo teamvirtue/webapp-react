@@ -23,6 +23,7 @@ let selectedObject = null;
 // let alpha = 0;
 let highlightColor = 0xff0000;
 let markers = [];
+let markerHeight = 1.25;
 
 let opacityTween,
     cameraPositionTween,
@@ -404,11 +405,11 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         /* for debugging */
         let controls = new OrbitControls(camera, renderer.domElement);
         controls.enableDamping = true;
-        controls.dampingFactor = 0.25;
-        /*controls.enableZoom = false;
+        controls.dampingFactor = 0.5;
+        controls.enableZoom = false;
         controls.rotateSpeed = 0.75;
         // controls.minZoom = 0.1;
-        controls.maxPolarAngle = Math.PI * 0.4;*/
+        controls.maxPolarAngle = Math.PI * 0.4;
 
         /*let cameraHelper = new THREE.CameraHelper(camera);
         scene.add(cameraHelper);*/
@@ -645,6 +646,8 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         // let intersects = this.raycaster.intersectObjects(this.scene.children);
         // let firstObject = intersects[0].object;
 
+        // let marker = this.scene.getObjectByName('Marker');
+
         // check if there are 1 or more intersections and the first object has group data
         if (intersects.length > 0 && Object.keys(intersects[0].object.userData).length !== 0) {
             // check if the closest object intersected is not the currently stored intersection object
@@ -652,7 +655,6 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
                 // restore previous intersection object (if it exists) to its original color
                 if (selectedObject) {
                     this.selectLevel(selectedObject.userData.parent.name);
-                    // this.selectLevel(selectedObject);
 
                     /*this.setTransparency(selectedObject, 1);
                     this.animateCamera(this.camera, { x: 0, y: 75, z: 5 });*/
@@ -661,6 +663,13 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
                 }
                 // store reference to closest object as current intersection object
                 selectedObject = intersects[0].object;
+
+                console.log(selectedObject.name)
+
+                /*if (selectedObject.name = 'Marker') {
+                    console.log('hi')
+                }*/
+
                 // store color of closest object (for later restoration)
                 selectedObject.currentHex = this.getColor(selectedObject);
 
@@ -668,23 +677,16 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
                 // this.selectLevel(selectedObject);
 
                 // set a new color for closest object
-                /*if (selectedObject.userData.parent.name === 'mylinq') {
-                    this.setTransparency(selectedObject, 0.3);
-                    this.animateCamera(this.camera, { x: 0, y: 75, z: 10 });
-                } else {
-                    this.setTransparency(selectedObject, 1);
-                    this.animateCamera(this.camera, { x: 100, y: 75, z: 100 });
-                }*/
                 this.setColor(selectedObject, highlightColor);
                 // this.setMarker(selectedObject);
             }
         } else {
             // restore previous intersection object (if it exists) to its original color
-            /*if (selectedObject) {
-                this.setTransparency(selectedObject, 1);
-                this.animateCamera(this.camera, { x: 0, y: 75, z: 10 });
-                // this.setColor(selectedObject, selectedObject.currentHex);
-            }*/
+            if (selectedObject) {
+                // this.setTransparency(selectedObject, 1);
+                // this.animateCamera(this.camera, { x: 0, y: 75, z: 10 });
+                this.setColor(selectedObject, selectedObject.currentHex);
+            }
             selectedObject = null;
         }
     };
@@ -693,9 +695,8 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         this.props.updateSustainabilityStatus(tab);
     };
 
-    selectLevel = (level) => {
-    // selectLevel = (object) => {
-    // let level = object.userData.parent.name;
+    selectLevel = (level) => { // TODO: check if level is already selected? + Make marker object global
+        // let level = object.userData.parent.name;
 
         let indicator = this.OTHER_GROUP.getObjectByName('Indicator');
         let marker = this.scene.getObjectByName('Marker');
@@ -707,7 +708,7 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         // console.log(marker);
 
         switch(level) {
-            case 'mylinq':  // TODO: find roof group in a more flexible way > scene.getObjectByName/Id(object.name);?
+            case 'mylinq':
                 this.setTransparency({ objects: [roof, indicator, marker], opacity: [0, 0, 1] });
                 this.setMarker(laptop);
                 this.setColor(laptop, highlightColor);
@@ -773,6 +774,11 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
 
         // update Redux state
         this.setActiveTab(level)();
+
+        /*if (this.props.sustainabilityStatus.selected) {
+            // update Redux state
+            this.setActiveTab(level)();
+        }*/
     };
 
     animateCamera = (camera, targetPosition, duration, targetZoom = 1, lookAt = { x: 0, y: 0, z:0 }) => {
@@ -861,9 +867,12 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         // let currentOpacity = targetProperties.objects;
         // console.log(currentOpacity)
 
-        for (let i = 0; i < targetProperties.objects.length; i++) {
-            currentOpacity.push(targetProperties.objects[i].material.opacity);
+        if (targetProperties.objects[0]) {
+            for (let i = 0; i < targetProperties.objects.length; i++) {
+                currentOpacity.push(targetProperties.objects[i].material.opacity);
+            }
         }
+
         for (let i = 0; i < targetProperties.opacity.length; i++) {
             targetOpacity.push(targetProperties.opacity[i]);
         }
@@ -994,20 +1003,14 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
 
         if (!object.userData.marker) {
             let marker = this.scene.getObjectByName('Marker').clone();
-            marker.position.set(position.x, position.y + 1.25, position.z);
+            marker.position.set(position.x, markerHeight , position.z);
 
             this.scene.add(marker);
 
             markers.push(marker);
         }
 
-        console.log(markers);
-
         object.userData.marker = true;
-
-        /*for (let i = 0; i < markers.length; i++) {
-            markers.push(marker);
-        }*/
     };
 
     animateMarker = (markerArray) => {
@@ -1015,7 +1018,7 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         let bounceYCoordinates = [];
 
         for (let i = 0; i < markerArray.length; i++) {
-            currentYCoordinates.push(markerArray[i].position.y);
+            currentYCoordinates.push(markerHeight);
         }
 
         for (let i = 0; i < markerArray.length; i++) {
@@ -1043,45 +1046,6 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
             });
         markerTween.start();*/
     };
-
-    /*animateMarker = (markerArray) => {
-        if (markers.length !== 0) {
-            let currentYCoordinates = [];
-            let bounceYCoordinates = [];
-
-            for (let i = 0; i < markerArray.length; i++) {
-                currentYCoordinates.push(markerArray[i].position.y);
-            }
-
-            for (let i = 0; i < markerArray.length; i++) {
-                bounceYCoordinates.push(markerArray[i].position.y + 1);
-            }
-
-            // console.log(currentYCoordinates, bounceYCoordinates);
-
-            markerTween = new Tween(Object.assign({}, bounceYCoordinates))
-                .to(Object.assign({}, currentYCoordinates), 2000)
-                // .delay(500)
-                .easing(Easing.Bounce.Out)
-                .on('update', (y) => {
-                    for (let i = 0; i < markerArray.length; i++) {
-                        markerArray[i].position.setY(y[i]);
-                    }
-                });
-            markerTween.start();
-
-            /!*let position = marker.position;
-            let bouncePosition = position.y + 2;
-
-            markerTween = new Tween({ y: position.y })
-                .to({ y: bouncePosition }, 2000)
-                .easing(Easing.Bounce.Out)
-                .on('update', ({ y }) => {
-                    marker.position.set(position.x, y, position.z)
-                });
-            markerTween.start();*!/
-        }
-    };*/
 
     render() {
         // const { classes } = this.props;
