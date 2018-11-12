@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import * as THREE from 'three';
 import OrbitControls  from 'three-orbitcontrols';
-// import { MTLLoader, OBJLoader } from 'three-obj-mtl-loader';
+import { MTLLoader, OBJLoader } from 'three-obj-mtl-loader';
 import { Easing, Tween } from 'es6-tween';
 import GLTFLoader from 'three-gltf-loader';
 
 // Local import
-// import objUrl from '../assets/models/linq_low_poly_web_app.obj';
-// import mtlUrl from '../assets/models/linq_low_poly_web_app.mtl';
+import objUrl from '../assets/models/marker_web_app.obj';
+import mtlUrl from '../assets/models/marker_web_app.mtl';
+import aoTextureUrl from '../assets/models/textures/Marker.jpg';
+// import crateTextureUrl from '../assets/models/textures/crate_diffuse.png';
 import gltfUrl from '../assets/models/linq_low_poly_web_app.glb';
 // import aoUrl from '../assets/models/textures/ao2.png';
 // import gltfUrl from '../assets/models/linq_low_poly_web_app.gltf';
@@ -124,8 +126,8 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
 
         // let loadedObject = null;
         let gltfLoader = new GLTFLoader();
-        // let mtlLoader = new MTLLoader();
-        // let objLoader = new OBJLoader();
+        let mtlLoader = new MTLLoader();
+        let objLoader = new OBJLoader();
 
         // let texture = new THREE.TextureLoader().load(aoUrl);
 
@@ -169,7 +171,7 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
                             node.userData.parent = DISTRICT_GROUP;
                         }
                     }
-                } );
+                });
 
                 // add filled arrays to correct THREE.js group
                 MYLINQ_GROUP.children = mylinqObjects;
@@ -178,7 +180,7 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
 
                 this.selectLevel(this.props.sustainabilityStatus.selected);
 
-                scene.add(gltf.scene);
+                // scene.add(gltf.scene);
             },
             // called when loading is in progresses
             (xhr) => {
@@ -188,6 +190,93 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
             (error) => {
                 console.log('Error ' + error);
             });
+
+        // Texture Loading
+        let textureLoader = new THREE.TextureLoader();
+        // let crateTexture = textureLoader.load(crateTextureUrl);
+        // let crateBumpMap = textureLoader.load('textures/crate_bump.png');
+        // let crateNormalMap = textureLoader.load('textures/crate_normal.png');
+
+        let aoMap = textureLoader.load(aoTextureUrl);
+        let material = new THREE.MeshStandardMaterial({
+            color: 0xff0000,
+            aoMap: aoMap,
+            aoMapIntensity: 1,
+        });
+        let mesh;
+
+        objLoader.load(objUrl,
+            (object) => {
+                let geometry = object.children[0].geometry;
+                geometry.attributes.uv2 = geometry.attributes.uv;
+                geometry.center();
+                mesh = new THREE.Mesh(geometry, material);
+                // mesh.scale.multiplyScalar(1);
+                scene.add(mesh);
+
+                /*object.traverse((node) => {
+                    if (node instanceof THREE.Mesh) {
+                        node.material.flatShading = true;
+                        node.material.shininess = 0;
+
+                        new THREE.MeshStandardMaterial({
+                            color: 0xf15b27,
+                            aoMap: aoMap,
+                            aoMapIntensity: 1,
+                        })
+                    }
+                });*/
+
+                /*scene.add(object);
+                object.position.set(0, 0, 0);*/
+
+                // this.setTransparency({ objects: [object], opacity: [0] });
+            },
+            // called when loading is in progresses
+            (xhr) => {
+                console.log('Marker ' + (xhr.loaded / xhr.total * 100) + '% loaded');
+            },
+            // called when loading has errors
+            (error) => {
+                console.log('Error ' + error);
+            });
+
+        // Create mesh with these textures
+        /*let crate = new THREE.Mesh(
+            new THREE.BoxGeometry(3, 3, 3),
+            new THREE.MeshPhongMaterial({
+                color: 0xf15b27,
+
+                // aoMap: crateTexture,
+                map: crateTexture,
+                // bumpMap: crateBumpMap,
+                // normalMap: crateNormalMap
+            })
+        );
+
+        console.log(crate);
+        scene.add(crate);
+        crate.position.set(2.5, 3/2, 2.5);*/
+
+        /*mtlLoader.load(mtlUrl, (materials) => {
+            materials.preload();
+
+            objLoader.setMaterials(materials);
+            objLoader.load(objUrl, (object) => {
+                scene.add(object);
+                object.position.set(0, 0, 0);
+
+                // this.setTransparency({ objects: [object], opacity: [0] });
+                },
+                // called when loading is in progresses
+                (xhr) => {
+                    console.log('Marker ' + (xhr.loaded / xhr.total * 100) + '% loaded');
+                },
+                // called when loading has errors
+                (error) => {
+                    console.log('Error ' + error);
+            });
+        });*/
 
         /*mtlLoader.load(mtlUrl, (materials) => {
             materials.preload();
@@ -594,8 +683,6 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
 
                 if (this.props.sustainabilityStatus.fullscreen) {
                     this.animateCamera(this.camera, { x: 0, y: 50, z: 25 }, 1500, 2);
-
-                    console.log('hi')
 
                     // this.controls.enabled = false;
                     // this.animateCamera(this.camera, { x: 0, y: 500, z: 100 });
