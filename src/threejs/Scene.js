@@ -718,6 +718,8 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
                 this.setMarker(washingMachine);
                 this.setColor(washingMachine, highlightColor);
 
+                // roof.position.setY(10);
+
                 // this.animateMarker()
 
                 // this.MYLINQ_GROUP.remove(roof);
@@ -990,14 +992,59 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         // animate marker (Tween bounce?)
         let position = object.position;
 
-        let marker = this.scene.getObjectByName('Marker').clone();
-        marker.position.set(position.x, position.y + 1.25, position.z);
+        if (!object.userData.marker) {
+            let marker = this.scene.getObjectByName('Marker').clone();
+            marker.position.set(position.x, position.y + 1.25, position.z);
 
-        this.scene.add(marker);
-        markers.push(marker);
+            this.scene.add(marker);
+
+            markers.push(marker);
+        }
+
+        console.log(markers);
+
+        object.userData.marker = true;
+
+        /*for (let i = 0; i < markers.length; i++) {
+            markers.push(marker);
+        }*/
     };
 
     animateMarker = (markerArray) => {
+        let currentYCoordinates = [];
+        let bounceYCoordinates = [];
+
+        for (let i = 0; i < markerArray.length; i++) {
+            currentYCoordinates.push(markerArray[i].position.y);
+        }
+
+        for (let i = 0; i < markerArray.length; i++) {
+            bounceYCoordinates.push(markerArray[i].position.y + 1);
+        }
+
+        markerTween = new Tween(Object.assign({}, bounceYCoordinates))
+            .to(Object.assign({}, currentYCoordinates), 2000)
+            .easing(Easing.Bounce.Out)
+            .on('update', (y) => {
+                for (let i = 0; i < markerArray.length; i++) {
+                    markerArray[i].position.setY(y[i]);
+                }
+            });
+        markerTween.start();
+
+        /*let position = marker.position;
+        let bouncePosition = position.y + 2;
+
+        markerTween = new Tween({ y: position.y })
+            .to({ y: bouncePosition }, 2000)
+            .easing(Easing.Bounce.Out)
+            .on('update', ({ y }) => {
+                marker.position.set(position.x, y, position.z)
+            });
+        markerTween.start();*/
+    };
+
+    /*animateMarker = (markerArray) => {
         if (markers.length !== 0) {
             let currentYCoordinates = [];
             let bounceYCoordinates = [];
@@ -1010,10 +1057,10 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
                 bounceYCoordinates.push(markerArray[i].position.y + 1);
             }
 
-            console.log(currentYCoordinates, bounceYCoordinates);
+            // console.log(currentYCoordinates, bounceYCoordinates);
 
             markerTween = new Tween(Object.assign({}, bounceYCoordinates))
-                .to(Object.assign({}, currentYCoordinates), 1500)
+                .to(Object.assign({}, currentYCoordinates), 2000)
                 // .delay(500)
                 .easing(Easing.Bounce.Out)
                 .on('update', (y) => {
@@ -1023,7 +1070,7 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
                 });
             markerTween.start();
 
-            /*let position = marker.position;
+            /!*let position = marker.position;
             let bouncePosition = position.y + 2;
 
             markerTween = new Tween({ y: position.y })
@@ -1032,9 +1079,9 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
                 .on('update', ({ y }) => {
                     marker.position.set(position.x, y, position.z)
                 });
-            markerTween.start();*/
+            markerTween.start();*!/
         }
-    };
+    };*/
 
     render() {
         // const { classes } = this.props;
