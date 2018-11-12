@@ -18,9 +18,13 @@ const styles = theme => ({
 
 class SustainabilityCards extends Component {
 	
-	handleDismissAdvice = (event, level, id) => {
-		console.log(id);
-		this.props.updateAdvice(level, id);
+	handleDismissAdvice = (event, level, id, active) => {
+		this.props.updateAdvice(level, id, active);
+		
+		//set timer to re-add after a while
+        setTimeout(function(){
+			this.props.updateAdvice(level, id, true);
+        }.bind(this), 1000 * 60);//60 seconds
 	};
 
     render() {
@@ -30,7 +34,7 @@ class SustainabilityCards extends Component {
             <div className='sustainabilityCardContainer'>
 				<CSSTransitionGroup
 					transitionName='adviceCardAnimation'
-					transitionAppear={ true }
+					transitionAppear={ false }
 					transitionAppearTimeout={ 500 }
 					transitionEnterTimeout={ 350 }
 					transitionLeaveTimeout={ 350 }
@@ -39,23 +43,28 @@ class SustainabilityCards extends Component {
 						let advice = sustainabilityStatus.advices[sustainabilityStatus.selected][id];
 						return advice.active ?
 							<Card className='sustainabilityCard row no-margin' key={id}>
-								<div className='col-8'>
+								<div className='col-9'>
 									<div>
 										<CardContent className='sustainabilityCardContent'>
 											<h3>{ advice.title }</h3>
 											{ advice.content }
 										</CardContent>
 										<CardActions>
-											<Button  color="primary" onClick={ (event) => this.handleDismissAdvice(event, sustainabilityStatus.selected, id) }>Close</Button>
+											<Button  color="primary" onClick={ (event) => this.handleDismissAdvice(event, sustainabilityStatus.selected, id, false) }>Close</Button>
 										</CardActions>
 									</div>
 								</div>
-								<div className='sustainabilityCardGraphic col-4'>
-									<Icon className='sustainabilityCardIcon' style={{fontSize: 48}}>directions_bike</Icon>
+								<div className='sustainabilityCardGraphic col-3'>
+									<Icon className='sustainabilityCardIcon' style={{fontSize: 48}}>{ advice.icon }</Icon>
 								</div>
 							</Card>
 						: null
 					})}
+					<Card className='sustainabilityCard sustainabilityCardLastOne'>
+						<CardContent className='sustainabilityCardContent'>
+							<Icon style={{marginBottom: '-7px', color: 'green'}}>check_circle</Icon> There are no cards left.
+						</CardContent>
+					</Card>
 				</CSSTransitionGroup>
             </div>
         );
@@ -70,8 +79,8 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-    updateAdvice: (level, id) => {
-        dispatch(updateAdvice(level, id));
+    updateAdvice: (level, id, active) => {
+        dispatch(updateAdvice(level, id, active));
     },
 });
 

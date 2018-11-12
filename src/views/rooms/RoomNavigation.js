@@ -35,7 +35,6 @@ const styles = theme => ({
 		display: 'table-cell',
 		paddingBottom: '100%',
 		position: 'relative',
-		transition: 'all 50ms',
 		'&:hover': {
 			backgroundColor: '#f2693a',
 			'& span, p':{

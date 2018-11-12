@@ -19,7 +19,7 @@ const styles = theme => ({
 		width: '75vw',
         top: 'auto',
 		left: '12.5vw',
-        bottom: 12,
+        bottom: 30,
 		zIndex: 15,
 	},
     backButton: {
