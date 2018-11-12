@@ -11,35 +11,59 @@ const sustainabilityStatus = (state = {
 		efficiency: 'negative',
 	},
 	advices: {
-		1: {
-			id: '1',
-			title: 'Television',
-			content: 'The television is on but no movement is detected. You can better turn it off.',
-			active: true,
+		linq: {
+			1: {
+				id: '1',
+				title: 'Television',
+				highlight: 'television',
+				content: 'The television is on but no movement is detected. You can better turn it off.',
+				icon: 'power',
+				active: true,
+			},
+			2: {
+				id: '2',
+				title: 'Low humidity!',
+				highlight: 'television',
+				content: 'The humidity in the living room is too low. Buy a humidifier to improve this.',
+				icon: 'power',
+				active: true,
+			},
 		},
-		2: {
-			id: '2',
-			title: 'Low humidity!',
-			content: 'The humidity in the living room is too low. Buy a humidifier to improve this.',
-			active: true,
+		mylinq: {
+			1: {
+				id: '1',
+				title: 'Television',
+				highlight: 'television',
+				content: 'The television is on but no movement is detected. You can better turn it off.',
+				icon: 'power',
+				active: true,
+			},
+			2: {
+				id: '2',
+				title: 'Low humidity!',
+				highlight: 'television',
+				content: 'The humidity in the living room is too low. Buy a humidifier to improve this.',
+				icon: 'power',
+				active: true,
+			},
 		},
-		3: {
-			id: '3',
-			title: 'Low humidity!',
-			content: 'The humidity in the living room is too low. Buy a humidifier to improve this.',
-			active: true,
-		},
-		4: {
-			id: '4',
-			title: 'Low humidity!',
-			content: 'The humidity in the living room is too low. Buy a humidifier to improve this.',
-			active: true,
-		},
-		5: {
-			id: '5',
-			title: 'Low humidity!',
-			content: 'The humidity in the living room is too low. Buy a humidifier to improve this.',
-			active: true,
+		district: {
+			1: {
+				id: '1',
+				title: 'asdf',
+				highlight: 'television',
+				content: 'asdfasdfasdfasdf',
+				icon: 'power',
+				active: true,
+			},
+			2: {
+				id: '2',
+				title: 'asdfasdf',
+				highlight: 'television',
+				content: 'asdfasdfasdfasdf',
+				icon: 'power',
+				active: true,
+			},
 		},
 	},
 }, action) => {
@@ -59,9 +83,12 @@ const sustainabilityStatus = (state = {
                 ...state,
 				advices: {
 					...state.advices,
-					[action.payload.id]: {
-						...state.advices[action.payload.id],
-						active: false,
+					[action.payload.level]: {	
+						...state.advices[action.payload.level],
+						[action.payload.id]: {
+							...state.advices[action.payload.level][action.payload.id],
+							active: false,
+						}
 					}
 				}
             };

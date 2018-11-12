@@ -1,20 +1,20 @@
-/* CARD */
-.cardAnimation-enter {
+/* NOTIFICATION CARD */
+.notificationCardAnimation-enter {
 	opacity: 0.01;
 	height:0;
 }
 
-.cardAnimation-enter.cardAnimation-enter-active {
+.notificationCardAnimation-enter.notificationCardAnimation-enter-active {
 	opacity: 1;
 	transition: 300ms;
 }
 
-.cardAnimation-leave {
+.notificationCardAnimation-leave {
 	opacity: 1;
 	transition: opacity 300ms ease, all 350ms ease;
 }
 
-.cardAnimation-leave.cardAnimation-leave-active {
+.notificationCardAnimation-leave.notificationCardAnimation-leave-active {
 	opacity: 0.01;
 	transition: 300ms;
 	transform: translateX(500px);
@@ -22,12 +22,36 @@
 	margin-bottom: 0;
 }
 
-.cardAnimation-appear {
+.notificationCardAnimation-appear {
 	opacity: 0.01;
 	transform: translateY(50px);
 }
 
-.cardAnimation-appear.cardAnimation-appear-active {
+.notificationCardAnimation-appear.notificationCardAnimation-appear-active {
+	opacity: 1;
+	transform: translateY(0);
+	transition: all 300ms ease-out;
+}
+
+
+/* ADVICE CARD */
+.adviceCardAnimation-leave {
+	opacity: 1;
+	transition: opacity 300ms ease, all 350ms ease;
+}
+
+.adviceCardAnimation-leave.adviceCardAnimation-leave-active {
+	opacity: 0.01;
+	transition: 300ms;
+	transform: translateX(500px);
+}
+
+.adviceCardAnimation-appear {
+	opacity: 0.01;
+	transform: translateY(50px);
+}
+
+.adviceCardAnimation-appear.adviceCardAnimation-appear-active {
 	opacity: 1;
 	transform: translateY(0);
 	transition: all 300ms ease-out;

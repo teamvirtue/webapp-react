@@ -27,7 +27,7 @@ const styles = theme => ({
     subNavItem: {
 		display: 'table',
 		whiteSpace: 'nowrap',
-		padding: 5,
+		padding: 15,
     },
     subNavItemPaper: {
         backgroundColor: 'white',
@@ -40,6 +40,7 @@ const styles = theme => ({
 			backgroundColor: '#f2693a',
 			'& span, p':{
 				color: 'white !important',
+				fontSize: '110%',
 			},
 		},
 	},

@@ -121,7 +121,7 @@ class NotificationsDialog extends Component {
 							</Typography>
 															
 							<CSSTransitionGroup
-								transitionName='cardAnimation'
+								transitionName='notificationCardAnimation'
 								transitionAppear={ true }
 								transitionAppearTimeout={ 500 }
 								transitionEnterTimeout={ 350 }
