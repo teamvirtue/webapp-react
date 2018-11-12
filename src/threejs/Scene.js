@@ -22,11 +22,13 @@ let levels = ['MY', 'LINQ', 'DISTRICT'];
 let selectedObject = null;
 // let alpha = 0;
 let highlightColor = 0xff0000;
+let markers = [];
 
 let opacityTween,
     cameraPositionTween,
     cameraZoomTween,
-    cameraRotationTween;
+    cameraRotationTween,
+    markerTween;
     // cameraTween;
 
 // let currentOpacity = opacity === 1 ? 0.25 : 1;
@@ -222,7 +224,8 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
                 // geometry.center();
                 object = new THREE.Mesh(geometry, material);
                 object.scale.multiplyScalar(0.5);
-                object.rotation.set(-0.5, 0, 0);
+                object.rotation.set(0, 0.5, 0);
+                object.rotateX(Math.PI * -0.1);
 
                 object.name = 'Marker';
 
@@ -512,6 +515,9 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         if (cameraRotationTween) {
             cameraRotationTween.update();
         }
+        if (markerTween) {
+            markerTween.update();
+        }
 
         if (this.camera) {
             // console.log(this.camera.position)
@@ -651,7 +657,7 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
                     /*this.setTransparency(selectedObject, 1);
                     this.animateCamera(this.camera, { x: 0, y: 75, z: 5 });*/
                     this.setColor(selectedObject, selectedObject.currentHex);
-                    this.setMarker(selectedObject);
+                    // this.setMarker(selectedObject);
                 }
                 // store reference to closest object as current intersection object
                 selectedObject = intersects[0].object;
@@ -670,7 +676,7 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
                     this.animateCamera(this.camera, { x: 100, y: 75, z: 100 });
                 }*/
                 this.setColor(selectedObject, highlightColor);
-                this.setMarker(selectedObject);
+                // this.setMarker(selectedObject);
             }
         } else {
             // restore previous intersection object (if it exists) to its original color
@@ -696,6 +702,7 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         let roof = this.MYLINQ_GROUP.getObjectByName('MYLINQ_roof_solar_panels_3_0');
         let laptop = this.OTHER_GROUP.getObjectByName('Laptop');
         let tv = this.OTHER_GROUP.getObjectByName('TV');
+        let washingMachine = this.OTHER_GROUP.getObjectByName('Washing_machine');
 
         // console.log(marker);
 
@@ -708,11 +715,18 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
                 this.setMarker(tv);
                 this.setColor(tv, highlightColor);
 
+                this.setMarker(washingMachine);
+                this.setColor(washingMachine, highlightColor);
+
+                // this.animateMarker()
+
                 // this.MYLINQ_GROUP.remove(roof);
                 // this.scene.remove(this.MYLINQ_GROUP)
 
                 if (this.props.sustainabilityStatus.fullscreen) {
-                    this.animateCamera(this.camera, { x: 0, y: 50, z: 30 }, 1500, 2);
+                    this.animateCamera(this.camera, { x: 15, y: 50, z: 30 }, 1500, 2);
+
+                    this.animateMarker(markers);
 
                     // this.controls.enabled = false;
                     // this.animateCamera(this.camera, { x: 0, y: 500, z: 100 });
@@ -946,7 +960,7 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
     };*/
 
     setColor = (object, color) => {
-        console.log(object)
+        // console.log(object)
 
         if (object.material instanceof Array) {
             object.material[0].color.set(color); //setHex
@@ -961,6 +975,16 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         }
     };
 
+    getColor = (object) => {
+        if (object.material instanceof Array) {
+            // console.log('Array');
+            return object.material[0].color.getHex();
+        } else {
+            // console.log('No array');
+            return object.material.color.getHex();
+        }
+    };
+
     setMarker = (object) => {
         // store object position to be highlighted and add ~10 to the z coordinate
         // animate marker (Tween bounce?)
@@ -970,20 +994,45 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         marker.position.set(position.x, position.y + 1.25, position.z);
 
         this.scene.add(marker);
-        // this.markerObject.position.set(0, 2, 0);
-
-        /*let marker1 = markerObject.clone();
-        marker1.position.set(5, 0, 0); // or any other coordinates
-        scene.add(marker1);*/
+        markers.push(marker);
     };
 
-    getColor = (object) => {
-        if (object.material instanceof Array) {
-            // console.log('Array');
-            return object.material[0].color.getHex();
-        } else {
-            // console.log('No array');
-            return object.material.color.getHex();
+    animateMarker = (markerArray) => {
+        if (markers.length !== 0) {
+            let currentYCoordinates = [];
+            let bounceYCoordinates = [];
+
+            for (let i = 0; i < markerArray.length; i++) {
+                currentYCoordinates.push(markerArray[i].position.y);
+            }
+
+            for (let i = 0; i < markerArray.length; i++) {
+                bounceYCoordinates.push(markerArray[i].position.y + 1);
+            }
+
+            console.log(currentYCoordinates, bounceYCoordinates);
+
+            markerTween = new Tween(Object.assign({}, bounceYCoordinates))
+                .to(Object.assign({}, currentYCoordinates), 1500)
+                // .delay(500)
+                .easing(Easing.Bounce.Out)
+                .on('update', (y) => {
+                    for (let i = 0; i < markerArray.length; i++) {
+                        markerArray[i].position.setY(y[i]);
+                    }
+                });
+            markerTween.start();
+
+            /*let position = marker.position;
+            let bouncePosition = position.y + 2;
+
+            markerTween = new Tween({ y: position.y })
+                .to({ y: bouncePosition }, 2000)
+                .easing(Easing.Bounce.Out)
+                .on('update', ({ y }) => {
+                    marker.position.set(position.x, y, position.z)
+                });
+            markerTween.start();*/
         }
     };
 
