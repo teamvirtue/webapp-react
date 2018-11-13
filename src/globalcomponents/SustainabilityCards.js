@@ -50,7 +50,7 @@ class SustainabilityCards extends Component {
 											{ advice.content }
 										</CardContent>
 										<CardActions style={{paddingLeft: 0}}>
-											<Button  color="primary" onClick={ (event) => this.handleDismissAdvice(event, sustainabilityStatus.selected, id, false) }>Next</Button>
+											<Button color="primary" onClick={ (event) => this.handleDismissAdvice(event, sustainabilityStatus.selected, id, false) }>Next</Button>
 										</CardActions>
 									</div>
 								</div>
