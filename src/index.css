@@ -318,6 +318,31 @@ body {
 	margin-bottom:5px;
 }
 
+/* Tooltips */
+.tooltiptext {
+    width: 100px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+	top:20px;
+    position: absolute;
+    z-index: 1;
+	animation: tooltipCatchAttention 3s infinite;
+}
+
+.tooltiptext::after {
+    content: " ";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: black transparent transparent transparent;
+}
+
 
 /* Sustainability Cards */
 .sustainabilityCardContainer{
@@ -332,6 +357,7 @@ body {
 	display: flex;
 	flex-direction: row;
 	margin-bottom:0 !important;
+	position:absolute;
 }
 
 .sustainabilityCard > [class^="col-"],
@@ -342,15 +368,14 @@ body {
 }
 
 .sustainabilityCard:not(:first-child) {
-	position:absolute;
 	width:100%;
 	transform: scale(0.95);
-	top:15px;
-	z-index:-1;
+	margin-top:15px;
+	z-index:3;
 }
 
 .sustainabilityCard:nth-child(n+3){
-	opacity:0;
+	opacity:1;
 }
 
 .sustainabilityCardContent{
@@ -369,13 +394,15 @@ body {
 	height:auto !important;
 }
 
-.sustainabilityCardLastOne{
-	background-color:rgba(255,255,255,0.5) !important;
+.sustainabilityCardEverythingFine{
+	background-color:rgba(255,255,255,1) !important;
 	display:block;
-	z-index:5;
+	z-index:-2 !important;
+	width:100%;
+	background-color: #f6fff6;
 }
 
-.sustainabilityCardLastOne .sustainabilityCardContent{
+.sustainabilityCardEverythingFine .sustainabilityCardContent{
 	text-align:center;
 }
 
@@ -624,4 +651,12 @@ body {
 	100%{
 		transform:rotateZ(-360deg);
 	}
+}
+
+@keyframes tooltipCatchAttention {
+	0%   { top:0px; }
+	6%  { top:25px; }
+	10%  { top:20px; }
+	90%  { top:20px; }
+	100% { top:0px; }
 }

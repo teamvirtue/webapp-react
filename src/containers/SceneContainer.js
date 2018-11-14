@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import Scene from '../threejs/Scene';
-import { updateSustainabilityStatus, reorderAdvice } from '../actions';
+import { updateSustainabilityStatus } from '../actions';
 
 const mapStateToProps = (state) => {
     return {
@@ -11,9 +11,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = dispatch => ({
     updateSustainabilityStatus: (selected) => {
         dispatch(updateSustainabilityStatus(selected));
-    },
-    reorderAdvice: (advices) => {
-        dispatch(reorderAdvice(advices));
     }
 });
 

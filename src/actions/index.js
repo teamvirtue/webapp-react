@@ -73,11 +73,6 @@ export const updateAdvice = (level, id, active) => ({
     payload: { level, id, active },
 });
 
-export const reorderAdvice = (advices) => ({
-    type: 'REORDER_ADVICE',
-    payload: { advices },
-});
-
 export const updateRoomsAircoOnOff = (onOff) => ({
     type: 'UPDATE_ROOMS_AIRCO_ONOFF',
     payload: { onOff },

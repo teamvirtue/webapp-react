@@ -93,14 +93,6 @@ const sustainabilityStatus = (state = {
 					}
 				}
             };
-        case 'REORDER_ADVICE':
-			return {
-                ...state,
-				advices: {
-					...state.advices,
-					advices: action.payload.advices,
-				}
-            };
 		default:
 			return state;
 	}
