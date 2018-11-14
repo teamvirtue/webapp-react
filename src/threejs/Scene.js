@@ -151,9 +151,18 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
 
                 gltf.scene.traverse((node) => {
                     if (node instanceof THREE.Mesh) {
-                        // console.log(node.material);
+                        node.material.transparent = true;
+                        node.material.color.setHex(0xffffff);
+                        node.material.aoMap = node.material.map;
+                        node.material.aoMapIntensity = 0.75;
+                        node.material.map = null;
+                        node.geometry.attributes.uv2 = node.geometry.attributes.uv;
 
-                        node.material = new THREE.MeshStandardMaterial({color: 0xffffff});
+                        console.log(node.material);
+
+                        // node.material.aoMapIntensity = 2;
+
+                        // node.material = new THREE.MeshStandardMaterial({color: 0xffffff});
 
                         /*texture.flipY = false;
                         node.material.aoMap = texture;*/
@@ -185,6 +194,8 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
                 LINQ_GROUP.children = linqObjects;
                 DISTRICT_GROUP.children = districtObjects;
                 OTHER_GROUP.children = otherObjects;
+
+                console.log(MYLINQ_GROUP);
 
                 this.selectLevel(this.props.sustainabilityStatus.selected);
 
@@ -308,7 +319,7 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
                             // child.geometry.computeFaceNormals();
                             // node.material = new THREE.MeshLambertMaterial({ color: 0xf15b27, flatShading: true });
                             // node.material.side = THREE.DoubleSide;
-                            node.material.flatShading = true; // TODO: make group for shading?
+                            node.material.flatShading = true;
                             node.material.shininess = 0;
 
                             // console.log(node);
@@ -415,8 +426,8 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         /*let cameraHelper = new THREE.CameraHelper(camera);
         scene.add(cameraHelper);*/
 
-        let axesHelper = new THREE.AxesHelper(5);
-        scene.add(axesHelper);
+        /*let axesHelper = new THREE.AxesHelper(5);
+        scene.add(axesHelper);*/
 
         /*let gridHelper = new THREE.GridHelper(100, 100);
         scene.add(gridHelper);*/
@@ -520,6 +531,8 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         if (markerTween) {
             markerTween.update();
         }
+
+        // console.log(this.MYLINQ_GROUP.getObjectByName('MYLINQ_roof_solar_panels'));
 
         /*if (this.camera) {
             console.log(this.camera.zoom)
@@ -700,7 +713,7 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
 
         let indicator = this.OTHER_GROUP.getObjectByName('Indicator');
         let marker = this.scene.getObjectByName('Marker');
-        let roof = this.MYLINQ_GROUP.getObjectByName('MYLINQ_roof_solar_panels_3_0');
+        let roof = this.MYLINQ_GROUP.getObjectByName('MYLINQ_roof_solar_panels');
         let laptop = this.OTHER_GROUP.getObjectByName('Laptop');
         let tv = this.OTHER_GROUP.getObjectByName('TV');
         let washingMachine = this.OTHER_GROUP.getObjectByName('Washing_machine');
@@ -887,10 +900,15 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
             .delay(500)
             .on('update', (o) => {
                 for (let i = 0; i < targetProperties.objects.length; i++) {
-                    targetProperties.objects[i].material.transparent = true;
+                    // targetProperties.objects[i].material.transparent = true;
                     targetProperties.objects[i].material.opacity = o[i];
+                    // targetProperties.objects[i].material.alphaTest = 0.5;
+                    // targetProperties.objects[i].material.visible = false;
                     // targetProperties.objects[i].material.opacity = opacityObject[index];
                 }
+            })
+            .on('complete', (x) => {
+                console.log(x);
             });
         opacityTween.start();
     };
