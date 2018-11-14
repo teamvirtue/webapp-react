@@ -158,7 +158,7 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
                         node.material.map = null;
                         node.geometry.attributes.uv2 = node.geometry.attributes.uv;
 
-                        console.log(node.material);
+                        // console.log(node.material);
 
                         // node.material.aoMapIntensity = 2;
 
@@ -908,7 +908,7 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
                 }
             })
             .on('complete', (x) => {
-                console.log(x);
+                // console.log(x);
             });
         opacityTween.start();
     };
