@@ -26,6 +26,11 @@ class SustainabilityCards extends Component {
 			this.props.updateAdvice(level, id, true);
         }.bind(this), 1000 * 60);//60 seconds
 	};
+	
+	componentDidUpdate(prevProps){
+		//if marker is selected 
+		
+	}
 
     render() {
 		const { classes, sustainabilityStatus } = this.props;
@@ -50,7 +55,7 @@ class SustainabilityCards extends Component {
 											{ advice.content }
 										</CardContent>
 										<CardActions style={{paddingLeft: 0}}>
-											<Button  color="primary" onClick={ (event) => this.handleDismissAdvice(event, sustainabilityStatus.selected, id, false) }>Next</Button>
+											<Button color="primary" onClick={ (event) => this.handleDismissAdvice(event, sustainabilityStatus.selected, id, false) }>Next</Button>
 										</CardActions>
 									</div>
 								</div>
@@ -60,9 +65,10 @@ class SustainabilityCards extends Component {
 							</Card>
 						: null
 					})}
-					<Card className='sustainabilityCard sustainabilityCardLastOne'>
+					<Card className='sustainabilityCard sustainabilityCardEverythingFine'>
 						<CardContent className='sustainabilityCardContent'>
-							<Icon style={{marginBottom: '-7px', color: 'green'}}>check_circle</Icon> There are no cards left.
+							<Icon style={{fontSize: 28, color: 'green'}}>check_circle</Icon> <br />
+							Everything looks fine here!
 						</CardContent>
 					</Card>
 				</CSSTransitionGroup>

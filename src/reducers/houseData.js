@@ -11,7 +11,7 @@ const houseData = (state = {
 				temperature: 24,
 			},
 			energyUsageRealtime: 0,
-			energyUsageAll: [0, 0, 0, 10, 0, 0, 0],
+			energyUsageAll: [],
 			energyUsageSocket: {
 				'F1': {
 					energyUsageRealtime: 0,
@@ -275,6 +275,42 @@ const houseData = (state = {
 					[action.payload.room]: {
 						...state.room[action.payload.room],
 						energyUsageRealtime: action.payload.energyUsageRealtime,
+					}
+				}
+            };
+			
+        case 'UPDATE_ENERGY_USAGE_SOCKET_ALL':
+			return {
+                ...state,
+				room: {
+					...state.room,
+					[action.payload.room]: {
+						...state.room[action.payload.room],
+						energyUsageSocket: {
+							...state.room[action.payload.room].energyUsageSocket,
+							[action.payload.socket]: {
+								...state.room[action.payload.room].energyUsageSocket[action.payload.socket],
+								energyUsageAll: action.payload.energyUsageAll,
+							}
+						}
+					}
+				}
+            };
+			
+        case 'UPDATE_ENERGY_USAGE_SOCKET_REALTIME':
+			return {
+                ...state,
+				room: {
+					...state.room,
+					[action.payload.room]: {
+						...state.room[action.payload.room],
+						energyUsageSocket: {
+							...state.room[action.payload.room].energyUsageSocket,
+							[action.payload.socket]: {
+								...state.room[action.payload.room].energyUsageSocket[action.payload.socket],
+								energyUsageRealtime: action.payload.energyUsageRealtime,
+							}
+						}
 					}
 				}
             };

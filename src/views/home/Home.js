@@ -598,6 +598,7 @@ class Home extends Component {
 									onClick={ () => this.handleDialogOpen('CO2') }
 								>
 									<div className={ classes.iconBoxContent }>
+										<span className="tooltiptext">Tap me!</span>
 										<div>
 											<span>
 												<Icon className={ classes.iconBoxContentBigger }>cloud</Icon>

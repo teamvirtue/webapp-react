@@ -71,7 +71,6 @@ defaults.global.elements.point.hitRadius = 15;
 
 
 class App extends Component {
-	
 	async componentDidMount() {
 		// Call Public API's every 5 minutes
 		this.loadPublicData();
@@ -82,6 +81,7 @@ class App extends Component {
 		
 		// Load API data interval every 5 minutes
 		/* TODO: use promises to do this directly - and only do this - after successful retrieval of token (the call in asyncActions.js can then be removed too) */
+		this.loadApiData();
 		setInterval(() => this.loadApiData(), 5 * 60 * 1000);
 	}
 
@@ -92,24 +92,30 @@ class App extends Component {
 	loadApiData() {
 		this.props.apiGetAtmoTemperature();
 		
-        /*this.props.apiGetSocketData('All Rooms', 'all');
-		this.props.apiGetSocketData('All Rooms', 'realtime'); <<<------ kan je niet gewoon laatste value pakken van 'all'??
-        this.props.apiGetSocketData('Technical Room', 'all');
-		this.props.apiGetSocketData('Technical Room', 'realtime');
-        this.props.apiGetSocketData('Outdoor', 'all');
-		this.props.apiGetSocketData('Outdoor', 'realtime');
-        this.props.apiGetSocketData('Living Room', 'all');
-		this.props.apiGetSocketData('Living Room', 'realtime');
-        this.props.apiGetSocketData('Kitchen', 'all');
-		this.props.apiGetSocketData('Kitchen', 'realtime');
-        this.props.apiGetSocketData('Hallway', 'all');
-		this.props.apiGetSocketData('Hallway', 'realtime');
-        this.props.apiGetSocketData('Dinner Room', 'all');
-		this.props.apiGetSocketData('Dinner Room', 'realtime');
-        this.props.apiGetSocketData('Bedroom', 'all');
-		this.props.apiGetSocketData('Bedroom', 'realtime');
-        this.props.apiGetSocketData('Bathroom', 'all');
-		this.props.apiGetSocketData('Bathroom', 'realtime');*/
+        this.props.apiGetSocketData('All Rooms', false, 'all');
+		/* this.props.apiGetSocketData('All Rooms', 'realtime'); <<<------ kan je niet gewoon laatste value pakken van 'all'?? */
+        this.props.apiGetSocketData('Technical Room', false, 'all');
+			this.props.apiGetSocketData('Technical Room', 'F13', 'realtime');
+			this.props.apiGetSocketData('Technical Room', 'F17', 'realtime');
+			this.props.apiGetSocketData('Technical Room', 'F18', 'realtime');
+			this.props.apiGetSocketData('Technical Room', 'F24', 'realtime');
+		/* this.props.apiGetSocketData('Technical Room', 'realtime'); */
+        this.props.apiGetSocketData('Outdoor', false, 'all');
+		/* this.props.apiGetSocketData('Outdoor', 'realtime'); */
+        this.props.apiGetSocketData('Living Room', false, 'all');
+		/* this.props.apiGetSocketData('Living Room', 'realtime'); */
+        this.props.apiGetSocketData('Kitchen', false, 'all');
+			this.props.apiGetSocketData('Kitchen', 'F10', 'realtime');
+		/* this.props.apiGetSocketData('Kitchen', 'realtime'); */
+        this.props.apiGetSocketData('Hallway', false, 'all');
+		/* this.props.apiGetSocketData('Hallway', 'realtime'); */
+        this.props.apiGetSocketData('Dinner Room', false, 'all');
+		/* this.props.apiGetSocketData('Dinner Room', 'realtime'); */
+        this.props.apiGetSocketData('Bedroom', false, 'all');
+		/* this.props.apiGetSocketData('Bedroom', 'realtime'); */
+        this.props.apiGetSocketData('Bathroom', false, 'all');
+		/* this.props.apiGetSocketData('Bathroom', 'realtime'); */
+		this.props.apiGetSocketData('Bathroom', false, 'all');
 	}
 
 	loadPublicData() {

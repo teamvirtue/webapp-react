@@ -32,36 +32,79 @@ export function getApiToken(callback) {
 	}
 }
 
-export function apiGetSocketData(room, time) {
+export function apiGetSocketData(room, socket, time) {
 	return dispatch => {
-		setInterval(() => {
-			dispatch({
-				type: 'UPDATE_ENERGY_USAGE_ALL',
-				payload: {
-					room: room, 
-					energyUsageAll: [10, 20, 30, 35, 60, 10, 15, 3, 12, 19, 36, 45, 12, 10, 20, 32, 35, 40, 38, 15, 6, 12, 19, 33, 25, 62],
-				}
-			});
-		}, 2000);
-		return axios.get(server + "/socket_reading/" + room + "/" + time + "/")
+		/*** TEMPORARY ***/
+		if(socket===false){
+			//update room
+			setInterval(() => {
+				dispatch({
+					type: 'UPDATE_ENERGY_USAGE_ALL',
+					payload: {
+						room: room, 
+						energyUsageAll: [10, 20, 30, 35, 60, 10, 15, 3, 12, 19, 36, 45, 12, 10, 20, 32, 35, 40, 38, 15, 6, 12, 19, 33, 25, 62],
+					}
+				});
+			}, 35000);
+			setInterval(() => {
+				dispatch({
+					type: 'UPDATE_ENERGY_USAGE_REALTIME',
+					payload: {
+						room: room, 
+						energyUsageRealtime: (Math.round((Math.random() * 40) + 1)),
+					}
+				});
+			}, 10000);
+		}else{
+			//update socket
+			setInterval(() => {
+				dispatch({
+					type: 'UPDATE_ENERGY_USAGE_SOCKET_REALTIME',
+					payload: {
+						room: room, 
+						socket: socket,
+						energyUsageRealtime: (Math.round((Math.random() * 40) + 1)),
+					}
+				});
+			}, 10000);
+
+		}
+		/*** END TEMPORARY ***/
+		if(socket===false){
+			var url = server + "/socket_reading/" + room + "/" + time + "/";
+		}else{
+			var url = server + "/socket_reading/" + socket + "/" + time + "/";
+		}
+		return axios.get(url)
 		.then(response => {
 			if (response.status >= 200 && response.status < 300) {
 				//console.log(response.data);
-				if(time === 'all'){
+				if(socket===false){
+					if(time === 'all'){
+						dispatch({			
+							type: 'UPDATE_ENERGY_USAGE_ALL',
+							payload: {
+								room: room, 
+								energyUsageAll: [0, 0, 0, 10, 30, 0, 0],
+							}
+						});
+					}
+					
+					if(time === 'realtime'){
+						dispatch({			
+							type: 'UPDATE_ENERGY_USAGE_REALTIME',
+							payload: {
+								room: room, 
+								energyUsageRealtime: 0,
+							}
+						});
+					}
+				}else{
 					dispatch({			
-						type: 'UPDATE_ENERGY_USAGE_ALL',
+						type: 'UPDATE_ENERGY_USAGE_SOCKET_REALTIME',
 						payload: {
-							room: room, 
-							energyUsageAll: [0, 0, 0, 10, 30, 0, 0],
-						}
-					});
-				}
-				
-				if(time === 'realtime'){
-					dispatch({			
-						type: 'UPDATE_ENERGY_USAGE_REALTIME',
-						payload: {
-							room: room, 
+							room: room,
+							socket: socket,
 							energyUsageAll: 0,
 						}
 					});
@@ -76,7 +119,7 @@ export function apiGetSocketData(room, time) {
 			error => {
 				console.log('[1] Refreshing token...');
 				dispatch(getApiToken(function() {
-					dispatch(apiGetSocketData(room, time));
+					dispatch(apiGetSocketData(room, socket, time));
 				})); 
 			}
 		);
