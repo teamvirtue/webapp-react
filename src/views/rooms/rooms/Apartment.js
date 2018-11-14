@@ -10,8 +10,6 @@ import NetEnergy from '../controlComponents/NetEnergy';
 //import WaterUsage from '../controlComponents/WaterUsage';
 import RealtimeEnergyBar from '../controlComponents/RealtimeEnergyBar';
 
-import { apiGetSocketData } from '../../../actions/asyncActions';
-
 class Apartment extends Component {
 
     render() {
@@ -40,9 +38,6 @@ class Apartment extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-	apiGetSocketData: (room, time) => {
-		dispatch(apiGetSocketData(room, time));
-	}
 });
 
 export default connect(null, mapDispatchToProps)(Apartment);

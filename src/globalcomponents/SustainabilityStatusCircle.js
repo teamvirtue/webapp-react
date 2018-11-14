@@ -33,7 +33,8 @@ const styles = theme => ({
         textAlign: 'center',
         lineHeight: '24px',
         transition: 'font-size 100ms',
-        padding: '10px 25px',
+		color: theme.palette.primary.main,
+        padding: '7px 25px',
         '&:hover': {
             cursor: 'pointer',
         }

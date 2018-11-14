@@ -13,7 +13,6 @@ const sustainabilityStatus = (state = {
 	advices: {
 		linq: {
 			1: {
-				id: '1',
 				title: 'Solar Car',
 				highlight: 'linq',
 				content: 'The bikes haven\'t been used for some time now. Make sure to use them for short trips around the city.',
@@ -21,7 +20,6 @@ const sustainabilityStatus = (state = {
 				active: true,
 			},
 			2: {
-				id: '2',
 				title: 'Solar Car',
 				highlight: 'linq',
 				content: 'There are two washing machines runnning while the electricity grid is not fully charged yet.',
@@ -31,7 +29,6 @@ const sustainabilityStatus = (state = {
 		},
 		mylinq: {
 			1: {
-				id: '1',
 				title: 'Television',
 				highlight: 'TV',
 				content: 'The television is on but no movement is detected. You can better turn it off.',
@@ -39,7 +36,6 @@ const sustainabilityStatus = (state = {
 				active: true,
 			},
 			2: {
-				id: '2',
 				title: 'Low humidity!',
 				highlight: 'Laptop',
 				content: 'The humidity in the living room is too low. Buy a humidifier to improve this.',
@@ -49,7 +45,6 @@ const sustainabilityStatus = (state = {
 		},
 		district: {
 			1: {
-				id: '1',
 				title: 'Critical energy usage!',
 				highlight: 'district',
 				content: 'The entire district is currently consuming a lot of energy! Consider turning some of your appliances off to balance the electricity grid.',
@@ -57,7 +52,6 @@ const sustainabilityStatus = (state = {
 				active: true,
 			},
 			2: {
-				id: '2',
 				title: 'Public transport',
 				highlight: 'district',
 				content: 'In October, public transport was used by fewer people than before. To optimize the city conditions it is encouraged to use public transport more often.',
@@ -65,7 +59,6 @@ const sustainabilityStatus = (state = {
 				active: true,
 			},
 			3: {
-				id: '3',
 				title: 'Renewable energy',
 				highlight: 'district',
 				content: 'Last month, 87% of the district\'s energy usage came from renewable energy. That is 5% more than the same month last year.',
@@ -98,6 +91,14 @@ const sustainabilityStatus = (state = {
 							active: action.payload.active,
 						}
 					}
+				}
+            };
+        case 'REORDER_ADVICE':
+			return {
+                ...state,
+				advices: {
+					...state.advices,
+					advices: action.payload.advices,
 				}
             };
 		default:

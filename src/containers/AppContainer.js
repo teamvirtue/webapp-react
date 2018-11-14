@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import App from '../App';
 import { updateWeatherData, updateWeatherForecastData } from '../actions';
-import { getApiToken, apiGetAtmoTemperature } from '../actions/asyncActions';
+import { getApiToken, apiGetAtmoTemperature, apiGetSocketData } from '../actions/asyncActions';
 
 const mapStateToProps = (state) => {
     return {
@@ -21,6 +21,9 @@ const mapDispatchToProps = dispatch => ({
 	},
 	apiGetAtmoTemperature: () => {
 		dispatch(apiGetAtmoTemperature());
+	},
+	apiGetSocketData: (room, socket, time) => {
+		dispatch(apiGetSocketData(room, socket, time));
 	},
 });
 
