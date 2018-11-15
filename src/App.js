@@ -77,11 +77,11 @@ class App extends Component {
 		this.intervalId = setInterval(() => this.loadPublicData(), 5 * 60 * 1000);
 
 		// Get API token
-		this.props.getApiToken();
+		//NOT NEEDED ANYMORE: this.props.getApiToken();
 		
 		// Load API data every 20 seconds
 		/* TODO: use promises to do this directly - and only do this - after successful retrieval of token (the call in asyncActions.js can then be removed too) */
-		//this.loadApiData();
+		this.loadApiData();
 		setInterval(() => this.loadApiData(), 10000); //5 minutes = 5 * 60 * 1000
 	}
 

@@ -12,7 +12,8 @@ export function getApiToken(callback) {
 		return axios.post(server + "/api/auth/token/", {
 				username: user,
 				password: pass
-			})
+			}
+		)
 		.then(response => {
 			if (response.status >= 200 && response.status < 300) {
 				var token = response.data.token;
@@ -110,11 +111,13 @@ export function apiGetSocketData(room, socket, time) {
 		})
 		.catch(
 			//refresh token
+			
 			error => {
-				console.log('[1] Refreshing token...');
-				dispatch(getApiToken(function() {
-					dispatch(apiGetSocketData(room, socket, time));
-				})); 
+				console.log('error [1]');
+			//NOT NEEDED ANYMORE: 	console.log('[1] Refreshing token...');
+			//NOT NEEDED ANYMORE: 	dispatch(getApiToken(function() {
+			//NOT NEEDED ANYMORE: 		dispatch(apiGetSocketData(room, socket, time));
+			//NOT NEEDED ANYMORE: 	})); 
 			}
 		);*/
 	}
@@ -143,10 +146,11 @@ export function apiGetAtmoTemperature() {
 		.catch(
 			//refresh token
 			error => {
-				console.log('[2] Refreshing token...');
-				dispatch(getApiToken(function() {
-					dispatch(apiGetAtmoTemperature());
-				})); 
+				console.log('error [1]');
+				//NOT NEEDED ANYMORE: console.log('[2] Refreshing token...');
+				//NOT NEEDED ANYMORE: dispatch(getApiToken(function() {
+				//NOT NEEDED ANYMORE: 	dispatch(apiGetAtmoTemperature());
+				//NOT NEEDED ANYMORE: })); 
 			}
 		);
 	}
