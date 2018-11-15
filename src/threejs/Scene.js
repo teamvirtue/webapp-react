@@ -22,6 +22,7 @@ let levels = ['MY', 'LINQ', 'DISTRICT'];
 let selectedObject = null;
 // let alpha = 0;
 let highlightColor = 0xff0000;
+let whiteColor = 0xffffff;
 let markers = [];
 let markerHeight = 1.25;
 
@@ -80,7 +81,9 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         /*const DPR = window.devicePixelRatio ? window.devicePixelRatio : 1;
         renderer.setPixelRatio(DPR);*/
         renderer.setSize(width, height);
-        // renderer.shadowMap.enabled = true; // TODO: fix light from inside LINQ
+        renderer.gammaFactor = 2.2;
+        renderer.gammaOutput = true;
+        // renderer.shadowMap.enabled = true;
         // renderer.shadowMap.type = THREE.PCFSoftShadowMap; // softer shadows
         // renderer.shadowMap.type = THREE.BasicShadowMap;
         // renderer.shadowMap.enabled = true;
@@ -141,27 +144,23 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         gltfLoader.load(gltfUrl,
             // called when resource is loaded
             (gltf) => {
-                /*console.log(gltf.scene.children[13]);
-                gltf.scene.children[13].children[0].material.transparent = true;
-                gltf.scene.children[13].children[1].material.transparent = true;
-                gltf.scene.children[13].children[2].material.transparent = true;
-                gltf.scene.children[13].children[0].material.opacity = 0.25;
-                gltf.scene.children[13].children[1].material.opacity = 0.25;
-                gltf.scene.children[13].children[2].material.opacity = 0.25;*/
+                // console.log(gltf.scene.children[13]);
 
                 gltf.scene.traverse((node) => {
                     if (node instanceof THREE.Mesh) {
-                        node.material.transparent = true;
-                        node.material.color.setHex(0xffffff);
-                        node.material.aoMap = node.material.map;
-                        node.material.aoMapIntensity = 0.75;
-                        node.material.map = null;
-                        node.material.alphaTest = 0.8; //0.5
-                        node.geometry.attributes.uv2 = node.geometry.attributes.uv;
+                        if (!node.name.includes('palm')) {
+                            node.material.transparent = true;
+                            node.material.color.setHex(whiteColor);
+                            node.material.aoMap = node.material.map;
+                            node.material.aoMapIntensity = 1; //0.8
+                            node.material.map = null;
+                            node.material.alphaTest = 0.8; //0.5
+                            node.geometry.attributes.uv2 = node.geometry.attributes.uv;
+                        }
 
-                        // console.log(node.material);
-
-                        // node.material.aoMapIntensity = 2;
+                        if (node.name.includes('Indicator') || node.name.includes('Bike')) {
+                            node.material.color.setHex(0xef490f);
+                        }
 
                         // node.material = new THREE.MeshStandardMaterial({color: 0xffffff});
 
@@ -236,7 +235,7 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
                 object = new THREE.Mesh(geometry, material);
                 object.scale.multiplyScalar(0.5);
                 object.rotation.set(0, 0.5, 0);
-                object.rotateX(Math.PI * -0.1);
+                object.rotateX(Math.PI * -0.25);
 
                 object.name = 'Marker';
 
@@ -383,12 +382,12 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         scene.add(meshGround);*/
 
         let lights = [];
-        lights[0] = new THREE.AmbientLight(0xffffff, 0.6);
+        lights[0] = new THREE.AmbientLight(whiteColor, 0.6);
         // lights[0] = new THREE.AmbientLight(0x97D6EA, 0.6);
         scene.add(lights[0]);
 
 
-        lights[1] = new THREE.HemisphereLight(0xffffff, 0x080820, 1.25);
+        lights[1] = new THREE.HemisphereLight(whiteColor, 0x080820, 1.25);
         // lights[1] = new THREE.HemisphereLight(0x97D6EA, 0x080820, 1);
         // lights[1] = new THREE.HemisphereLight(0xffffbb, 0x080820, 1);
         lights[1].position.set(0, 100, -25);
@@ -678,7 +677,7 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
                 // store reference to closest object as current intersection object
                 selectedObject = intersects[0].object;
 
-                console.log(selectedObject);
+                // console.log(selectedObject);
 
                 /*if (selectedObject.name = 'Marker') {
                     console.log('hi')
@@ -706,6 +705,10 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
     setActiveTab = (tab) => (event) => { // TODO: check event variable
         this.props.updateSustainabilityStatus(tab);
     };
+
+    /*setLoadedModel = (boolean) => {
+        this.props.updateLoadedModelStatus(boolean);
+    };*/
 
     selectLevel = (level) => { // TODO: check if level is already selected? + Make marker object global
         // let level = object.userData.parent.name;
