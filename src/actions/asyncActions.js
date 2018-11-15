@@ -23,7 +23,7 @@ export function getApiToken(callback) {
 				}
 				
 				//Directly refresh temperature and humidity
-				dispatch(apiGetAtmoTemperature());
+				//dispatch(apiGetAtmoTemperature());
 			} else {
 				throw new Error(response.statusText);
 			}
@@ -37,39 +37,33 @@ export function apiGetSocketData(room, socket, time) {
 		/*** TEMPORARY ***/
 		if(socket===false){
 			//update room
-			setInterval(() => {
-				dispatch({
-					type: 'UPDATE_ENERGY_USAGE_ALL',
-					payload: {
-						room: room, 
-						energyUsageAll: [10, 20, 30, 35, 60, 10, 15, 3, 12, 19, 36, 45, 12, 10, 20, 32, 35, 40, 38, 15, 6, 12, 19, 33, 25, 62],
-					}
-				});
-			}, 35000);
-			setInterval(() => {
-				dispatch({
-					type: 'UPDATE_ENERGY_USAGE_REALTIME',
-					payload: {
-						room: room, 
-						energyUsageRealtime: (Math.round((Math.random() * 40) + 1)),
-					}
-				});
-			}, 10000);
+			dispatch({
+				type: 'UPDATE_ENERGY_USAGE_ALL',
+				payload: {
+					room: room, 
+					energyUsageAll: [10, 20, 30, 35, 60, 10, 15, 3, 12, 19, 36, 45, 12, 10, 20, 32, 35, 40, 38, 15, 6, 12, 19, 33, 25, 62],
+				}
+			});
+			dispatch({
+				type: 'UPDATE_ENERGY_USAGE_REALTIME',
+				payload: {
+					room: room, 
+					energyUsageRealtime: (Math.round((Math.random() * 40) + 1)),
+				}
+			});
 		}else{
 			//update socket
-			setInterval(() => {
-				dispatch({
-					type: 'UPDATE_ENERGY_USAGE_SOCKET_REALTIME',
-					payload: {
-						room: room, 
-						socket: socket,
-						energyUsageRealtime: (Math.round((Math.random() * 40) + 1)),
-					}
-				});
-			}, 10000);
-
+			dispatch({
+				type: 'UPDATE_ENERGY_USAGE_SOCKET_REALTIME',
+				payload: {
+					room: room, 
+					socket: socket,
+					energyUsageRealtime: (Math.round((Math.random() * 40) + 1)),
+				}
+			});
 		}
 		/*** END TEMPORARY ***/
+		/*
 		if(socket===false){
 			var url = server + "/socket_reading/" + room + "/" + time + "/";
 		}else{
@@ -122,7 +116,7 @@ export function apiGetSocketData(room, socket, time) {
 					dispatch(apiGetSocketData(room, socket, time));
 				})); 
 			}
-		);
+		);*/
 	}
 }
 

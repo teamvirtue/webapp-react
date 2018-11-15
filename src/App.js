@@ -79,10 +79,10 @@ class App extends Component {
 		// Get API token
 		this.props.getApiToken();
 		
-		// Load API data interval every 5 minutes
+		// Load API data every 20 seconds
 		/* TODO: use promises to do this directly - and only do this - after successful retrieval of token (the call in asyncActions.js can then be removed too) */
-		this.loadApiData();
-		setInterval(() => this.loadApiData(), 5 * 60 * 1000);
+		//this.loadApiData();
+		setInterval(() => this.loadApiData(), 10000); //5 minutes = 5 * 60 * 1000
 	}
 
 	componentWillUnmount() {
@@ -90,6 +90,7 @@ class App extends Component {
 	}
 	
 	loadApiData() {
+		//ok bad fix. Just wait 10 seconds with data loading (assuming that token is retrieved)
 		this.props.apiGetAtmoTemperature();
 		
         this.props.apiGetSocketData('All Rooms', false, 'all');
@@ -105,7 +106,7 @@ class App extends Component {
         this.props.apiGetSocketData('Living Room', false, 'all');
 		/* this.props.apiGetSocketData('Living Room', 'realtime'); */
         this.props.apiGetSocketData('Kitchen', false, 'all');
-			this.props.apiGetSocketData('Kitchen', 'F10', 'realtime');
+			//this.props.apiGetSocketData('Kitchen', 'F10', 'realtime');
 		/* this.props.apiGetSocketData('Kitchen', 'realtime'); */
         this.props.apiGetSocketData('Hallway', false, 'all');
 		/* this.props.apiGetSocketData('Hallway', 'realtime'); */

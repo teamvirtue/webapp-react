@@ -2,8 +2,8 @@ const notifications = (state = {
     byId: {
         'card1': {
             id: 'card1',
-            title: 'The notifications area',
-            message: 'This notifications area highlights important information and warnings that require immediate response. Please be aware that this app resets itself every few minutes during public tours.',
+            title: 'Connecting people with technology',
+            message: 'LINQ connects people and technologies. This app makes users aware of the house functioning and helps people to live more sustainable livestyles. Please be aware that this app resets itself every few minutes during public tours.',
             buttonIcon: '',
             buttonText: '',
             visible: true,
