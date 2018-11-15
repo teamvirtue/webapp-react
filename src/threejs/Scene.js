@@ -726,7 +726,7 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         let tv = this.OTHER_GROUP.getObjectByName('TV');
         let washingMachine = this.OTHER_GROUP.getObjectByName('Washing_machine');
 
-        console.log(this.scene.getObjectByName('Marker'));
+        // console.log(this.scene.getObjectByName('Marker'));
 
         switch(level) {
             case 'mylinq':
