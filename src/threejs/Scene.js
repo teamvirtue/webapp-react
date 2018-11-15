@@ -21,8 +21,8 @@ import gltfUrl from '../assets/models/linq_low_poly_web_app.glb';
 let levels = ['MY', 'LINQ', 'DISTRICT'];
 let selectedObject = null;
 // let alpha = 0;
-let markerColor = 0xff0000;
-let highlightColor = 0xf15b27;
+let highlightColor = 0xff0000;
+let highlightMarkerColor = 0xf15b27;
 let whiteColor = 0xffffff;
 let markers = [];
 let markerHeight = 1.25;
@@ -220,7 +220,7 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         let aoMap = new THREE.TextureLoader().load(aoMapUrl);
         let material = new THREE.MeshStandardMaterial({
             // color: 0xffffff,
-            color: markerColor,
+            color: highlightColor,
             aoMap: aoMap,
             aoMapIntensity: 2,
             transparent: true,
@@ -694,7 +694,7 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
                 // this.setColor(selectedObject, highlightColor);
 
                 if (this.props.sustainabilityStatus.selected === 'mylinq' && selectedObject.name === 'Marker') {
-                    this.setColor(selectedObject, highlightColor);
+                    this.setColor(selectedObject, highlightMarkerColor);
                 }
             }
         } else {
@@ -726,19 +726,19 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         let tv = this.OTHER_GROUP.getObjectByName('TV');
         let washingMachine = this.OTHER_GROUP.getObjectByName('Washing_machine');
 
-        // console.log(marker);
+        // console.log(this.scene.getObjectByName('Marker'));
 
         switch(level) {
             case 'mylinq':
                 this.setTransparency({ objects: [roof, indicator, marker], opacity: [0, 0, 1] });
                 this.setMarker(laptop);
-                // this.setColor(laptop, markerColor);
+                this.setColor(laptop, highlightColor);
 
                 this.setMarker(tv);
-                // this.setColor(tv, markerColor);
+                this.setColor(tv, highlightColor);
 
                 this.setMarker(washingMachine);
-                // this.setColor(washingMachine, markerColor);
+                this.setColor(washingMachine, highlightColor);
 
                 // roof.position.setY(10);
 
@@ -1037,11 +1037,11 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
             let marker = markerObject.clone();
 
             marker.traverse((node) => {
-                if (node.isMesh) {
+                if (node.isMesh) { // TODO: check if statement
                     node.material = node.material.clone();
                 }
             });
-            
+
             /*let aoMap = markerObject.material.clone();
             // let material = markerObject.material;
 
