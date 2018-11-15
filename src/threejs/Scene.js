@@ -208,7 +208,7 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
             },
             // called when loading is in progresses
             (xhr) => {
-                console.log('Model ' + (xhr.loaded / xhr.total * 100) + '% loaded'); // TODO: check Infinity
+                //console.log('Model ' + (xhr.loaded / xhr.total * 100) + '% loaded'); // TODO: check Infinity
             },
             // called when loading has errors
             (error) => {
