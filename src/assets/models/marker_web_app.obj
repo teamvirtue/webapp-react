@@ -1,7 +1,7 @@
 # Blender v2.79 (sub 0) OBJ File: 'marker_web_app.blend'
 # www.blender.org
 mtllib marker_web_app.mtl
-o Indicator_Indicator_5
+o Marker
 v 0.036580 0.208415 -0.000000
 v 0.071753 0.197745 -0.000000
 v 0.104169 0.180418 -0.000000
@@ -246,7 +246,7 @@ vn 0.0000 0.0000 1.0000
 vn 1.0000 0.0000 -0.0000
 vn 0.0000 -1.0000 0.0000
 vn 0.0000 1.0000 0.0000
-usemtl Indicator
+usemtl Marker
 s off
 f 15/1/1 39/2/1 40/3/1 16/4/1
 f 6/5/2 7/6/2 31/7/2 30/8/2
