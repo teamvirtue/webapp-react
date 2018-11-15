@@ -156,6 +156,7 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
                         node.material.aoMap = node.material.map;
                         node.material.aoMapIntensity = 0.75;
                         node.material.map = null;
+                        node.material.alphaTest = 0.8; //0.5
                         node.geometry.attributes.uv2 = node.geometry.attributes.uv;
 
                         // console.log(node.material);
@@ -194,8 +195,6 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
                 LINQ_GROUP.children = linqObjects;
                 DISTRICT_GROUP.children = districtObjects;
                 OTHER_GROUP.children = otherObjects;
-
-                console.log(MYLINQ_GROUP);
 
                 this.selectLevel(this.props.sustainabilityStatus.selected);
 
@@ -672,13 +671,14 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
 
                     /*this.setTransparency(selectedObject, 1);
                     this.animateCamera(this.camera, { x: 0, y: 75, z: 5 });*/
+
                     this.setColor(selectedObject, selectedObject.currentHex);
                     // this.setMarker(selectedObject);
                 }
                 // store reference to closest object as current intersection object
                 selectedObject = intersects[0].object;
 
-                // console.log(selectedObject.name);
+                console.log(selectedObject);
 
                 /*if (selectedObject.name = 'Marker') {
                     console.log('hi')
@@ -690,8 +690,7 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
                 // this.selectLevel(selectedObject.userData.parent.name);
 
                 // set a new color for closest object
-                this.setColor(selectedObject, highlightColor);
-                // this.setMarker(selectedObject);
+                // this.setColor(selectedObject, highlightColor);
             }
         } else {
             // restore previous intersection object (if it exists) to its original color
@@ -906,10 +905,12 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
                     // targetProperties.objects[i].material.visible = false;
                     // targetProperties.objects[i].material.opacity = opacityObject[index];
                 }
-            })
-            .on('complete', (x) => {
-                // console.log(x);
             });
+            /*.on('complete', (x) => {
+                for (let i = 0; i < targetProperties.objects.length; i++) {
+                    targetProperties.objects[i].material.visible = false;
+                }
+            });*/
         opacityTween.start();
     };
 
