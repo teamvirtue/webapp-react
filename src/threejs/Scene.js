@@ -21,7 +21,9 @@ import gltfUrl from '../assets/models/linq_low_poly_web_app.glb';
 let levels = ['MY', 'LINQ', 'DISTRICT'];
 let selectedObject = null;
 // let alpha = 0;
-let highlightColor = 0xff0000;
+let markerColor = 0xff0000;
+let highlightColor = 0xf15b27;
+let whiteColor = 0xffffff;
 let markers = [];
 let markerHeight = 1.25;
 
@@ -48,7 +50,7 @@ let tween = new Tween(coordinates)
     });
     // .start();*/
 
-/* TODO: implement ambient occlusion using postprocessing library or baking it into the mesh in Blender https://blender.stackexchange.com/questions/13956/how-do-you-bake-ambient-occlusion-for-a-model*/
+// TODO: adjust camera, markers following camera, update loaded status to Redux store, check LINQ complexes
 class Scene extends Component { // code based on https://stackoverflow.com/questions/41248287/how-to-connect-threejs-to-react
     constructor(props) {
         super(props);
@@ -80,7 +82,9 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         /*const DPR = window.devicePixelRatio ? window.devicePixelRatio : 1;
         renderer.setPixelRatio(DPR);*/
         renderer.setSize(width, height);
-        // renderer.shadowMap.enabled = true; // TODO: fix light from inside LINQ
+        renderer.gammaFactor = 2.2;
+        renderer.gammaOutput = true;
+        // renderer.shadowMap.enabled = true;
         // renderer.shadowMap.type = THREE.PCFSoftShadowMap; // softer shadows
         // renderer.shadowMap.type = THREE.BasicShadowMap;
         // renderer.shadowMap.enabled = true;
@@ -141,27 +145,23 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         gltfLoader.load(gltfUrl,
             // called when resource is loaded
             (gltf) => {
-                /*console.log(gltf.scene.children[13]);
-                gltf.scene.children[13].children[0].material.transparent = true;
-                gltf.scene.children[13].children[1].material.transparent = true;
-                gltf.scene.children[13].children[2].material.transparent = true;
-                gltf.scene.children[13].children[0].material.opacity = 0.25;
-                gltf.scene.children[13].children[1].material.opacity = 0.25;
-                gltf.scene.children[13].children[2].material.opacity = 0.25;*/
+                // console.log(gltf.scene.children[13]);
 
                 gltf.scene.traverse((node) => {
                     if (node instanceof THREE.Mesh) {
-                        node.material.transparent = true;
-                        node.material.color.setHex(0xffffff);
-                        node.material.aoMap = node.material.map;
-                        node.material.aoMapIntensity = 0.75;
-                        node.material.map = null;
-                        node.material.alphaTest = 0.8; //0.5
-                        node.geometry.attributes.uv2 = node.geometry.attributes.uv;
+                        if (!node.name.includes('palm')) {
+                            node.material.transparent = true;
+                            node.material.color.setHex(whiteColor);
+                            node.material.aoMap = node.material.map;
+                            node.material.aoMapIntensity = 1; //0.8
+                            node.material.map = null;
+                            node.material.alphaTest = 0.8; //0.5
+                            node.geometry.attributes.uv2 = node.geometry.attributes.uv;
+                        }
 
-                        // console.log(node.material);
-
-                        // node.material.aoMapIntensity = 2;
+                        if (node.name.includes('Indicator') || node.name.includes('Bike')) {
+                            node.material.color.setHex(0xef490f);
+                        }
 
                         // node.material = new THREE.MeshStandardMaterial({color: 0xffffff});
 
@@ -176,16 +176,16 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
                         // store objects in correct array for levels
                         if (node.name.includes(levels[0])) {
                             mylinqObjects.push(node);
-                            node.userData.parent = MYLINQ_GROUP;
+                            node.userData.parent = MYLINQ_GROUP.name;
                         } else if (node.name.includes(levels[1])) {
                             linqObjects.push(node);
-                            node.userData.parent = LINQ_GROUP;
+                            node.userData.parent = LINQ_GROUP.name;
                         } else if (node.name.includes(levels[2])) {
                             districtObjects.push(node);
-                            node.userData.parent = DISTRICT_GROUP;
+                            node.userData.parent = DISTRICT_GROUP.name;
                         } else {
                             otherObjects.push(node);
-                            node.userData.parent = OTHER_GROUP;
+                            node.userData.parent = OTHER_GROUP.name;
                         }
                     }
                 });
@@ -220,10 +220,11 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         let aoMap = new THREE.TextureLoader().load(aoMapUrl);
         let material = new THREE.MeshStandardMaterial({
             // color: 0xffffff,
-            color: 0xff0000,
+            color: markerColor,
             aoMap: aoMap,
             aoMapIntensity: 2,
             transparent: true,
+            name: 'Marker_material'
             // opacity: 0.5,
         });
         // let mesh;
@@ -236,9 +237,13 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
                 object = new THREE.Mesh(geometry, material);
                 object.scale.multiplyScalar(0.5);
                 object.rotation.set(0, 0.5, 0);
-                object.rotateX(Math.PI * -0.1);
+                object.rotateX(Math.PI * -0.25);
 
-                object.name = 'Marker';
+                object.name = 'Marker'; // TODO: better to do this in Blender?
+
+                otherObjects.push(object);
+                object.userData.parent = OTHER_GROUP.name;
+                // OTHER_GROUP.children = otherObjects;
 
                 scene.add(object);
 
@@ -383,12 +388,12 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         scene.add(meshGround);*/
 
         let lights = [];
-        lights[0] = new THREE.AmbientLight(0xffffff, 0.6);
+        lights[0] = new THREE.AmbientLight(whiteColor, 0.6);
         // lights[0] = new THREE.AmbientLight(0x97D6EA, 0.6);
         scene.add(lights[0]);
 
 
-        lights[1] = new THREE.HemisphereLight(0xffffff, 0x080820, 1.25);
+        lights[1] = new THREE.HemisphereLight(whiteColor, 0x080820, 1.25);
         // lights[1] = new THREE.HemisphereLight(0x97D6EA, 0x080820, 1);
         // lights[1] = new THREE.HemisphereLight(0xffffbb, 0x080820, 1);
         lights[1].position.set(0, 100, -25);
@@ -420,7 +425,7 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         controls.rotateSpeed = 0.75;
         controls.minZoom = 0.05;
         controls.maxZoom = 8;
-        controls.maxPolarAngle = Math.PI * 0.4;
+        controls.maxPolarAngle = Math.PI * 0.6;
 
         /*let cameraHelper = new THREE.CameraHelper(camera);
         scene.add(cameraHelper);*/
@@ -678,11 +683,7 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
                 // store reference to closest object as current intersection object
                 selectedObject = intersects[0].object;
 
-                console.log(selectedObject);
-
-                /*if (selectedObject.name = 'Marker') {
-                    console.log('hi')
-                }*/
+                // console.log(selectedObject);
 
                 // store color of closest object (for later restoration)
                 selectedObject.currentHex = this.getColor(selectedObject);
@@ -691,6 +692,10 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
 
                 // set a new color for closest object
                 // this.setColor(selectedObject, highlightColor);
+
+                if (this.props.sustainabilityStatus.selected === 'mylinq' && selectedObject.name === 'Marker') {
+                    this.setColor(selectedObject, highlightColor);
+                }
             }
         } else {
             // restore previous intersection object (if it exists) to its original color
@@ -706,6 +711,10 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
     setActiveTab = (tab) => (event) => { // TODO: check event variable
         this.props.updateSustainabilityStatus(tab);
     };
+
+    /*setLoadedModel = (boolean) => {
+        this.props.updateLoadedModelStatus(boolean);
+    };*/
 
     selectLevel = (level) => { // TODO: check if level is already selected? + Make marker object global
         // let level = object.userData.parent.name;
@@ -723,13 +732,13 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
             case 'mylinq':
                 this.setTransparency({ objects: [roof, indicator, marker], opacity: [0, 0, 1] });
                 this.setMarker(laptop);
-                this.setColor(laptop, highlightColor);
+                // this.setColor(laptop, markerColor);
 
                 this.setMarker(tv);
-                this.setColor(tv, highlightColor);
+                // this.setColor(tv, markerColor);
 
                 this.setMarker(washingMachine);
-                this.setColor(washingMachine, highlightColor);
+                // this.setColor(washingMachine, markerColor);
 
                 // roof.position.setY(10);
 
@@ -743,6 +752,7 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
 
                     this.animateMarker(markers);
 
+                    this.controls.enableZoom = false;
                     // this.controls.enabled = false;
                     // this.animateCamera(this.camera, { x: 0, y: 500, z: 100 });
                     // this.animateCamera(this.camera, { x: 0, y: 75, z: 10 });
@@ -763,10 +773,11 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
             case 'linq':
                 this.setTransparency({ objects: [roof, indicator, marker], opacity: [1, 1, 0] });
                 // this.setTransparency({ objects: [roof, indicator], opacity: [1, 1] });
+                this.controls.enableZoom = false;
 
                 if (this.props.sustainabilityStatus.fullscreen) {
-                    this.animateCamera(this.camera, { x: 35, y: 25, z: 35 }, 1500);
-                    // this.controls.enabled = false;
+                    this.animateCamera(this.camera, { x: 35, y: 20, z: 35 }, 1500, 0.5);
+                    // this.animateCamera(this.camera, { x: 35, y: 25, z: 35 }, 1500);
                 } else {
                     this.animateCamera(this.camera, { x: 25, y: 25, z: 25 }, 1000, 0.25, { x: 10, y: -3, z: 7 });
                 }
@@ -774,12 +785,14 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
             case 'district':
                 this.setTransparency({ objects: [roof, indicator, marker], opacity: [1, 1, 0] });
                 // this.setTransparency({ objects: [roof, indicator], opacity: [1, 1] });
+                this.controls.enableZoom = true;
 
                 if (this.props.sustainabilityStatus.fullscreen) {
-                    this.animateCamera(this.camera, { x: 35, y: 45, z: 35 }, 1500, 0.3);
+                    this.animateCamera(this.camera, { x: 35, y: 45, z: 35 }, 1500, 0.25);
                     // this.controls.enabled = true;
                 } else {
-                    this.animateCamera(this.camera, { x: 25, y: 25, z: 25 }, 1000, 0.15, { x: 11, y: -17, z: 3});
+                    this.animateCamera(this.camera, { x: 35, y: 25, z: 35 }, 1000, 0.15, { x: 11, y: -17, z: 3});
+                    // this.animateCamera(this.camera, { x: 25, y: 25, z: 25 }, 1000, 0.15, { x: 11, y: -17, z: 3});
                 }
                 break;
         }
@@ -793,7 +806,7 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         }*/
     };
 
-    animateCamera = (camera, targetPosition, duration, targetZoom = 1, lookAt = { x: 0, y: 0, z:0 }) => {
+    animateCamera = (camera, targetPosition, duration, targetZoom = 1, lookAt = { x: 0, y: 0, z: 0 }) => {
         // Method from https://stackoverflow.com/questions/28091876/tween-camera-position-while-rotation-with-slerp-three-js
 
         let originalPosition = new THREE.Vector3().copy(camera.position); // original position
@@ -1016,13 +1029,40 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
     };
 
     setMarker = (object) => {
-        // store object position to be highlighted and add ~10 to the z coordinate
-        // animate marker (Tween bounce?)
         let position = object.position;
 
         if (!object.userData.marker) {
-            let marker = this.scene.getObjectByName('Marker').clone();
-            marker.position.set(position.x, markerHeight , position.z);
+            let markerObject = this.scene.getObjectByName('Marker');
+
+            let marker = markerObject.clone();
+
+            marker.traverse((node) => {
+                if (node.isMesh) {
+                    node.material = node.material.clone();
+                }
+            });
+            
+            /*let aoMap = markerObject.material.clone();
+            // let material = markerObject.material;
+
+            let material = new THREE.MeshStandardMaterial({
+                color: 0x0000ff,
+                aoMap: aoMap,
+            });
+
+            console.log(markerObject.material.aoMap)
+
+            marker.material = material;*/
+
+            /*var texture2 = texture1.clone();
+            texture2.needsUpdate = true;*/
+            // let testmaterial = new THREE.MeshBasicMaterial( { map: texture2, ... } );
+
+            // marker.material = material;
+            // marker.geometry.attributes.uv2 = marker.geometry.attributes.uv;
+            marker.position.set(position.x, markerHeight, position.z);
+
+            // console.log(marker.material, material)
 
             this.scene.add(marker);
 
