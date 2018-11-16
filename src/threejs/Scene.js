@@ -153,19 +153,19 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
 
                 gltf.scene.traverse((node) => {
                     if (node instanceof THREE.Mesh) {
-                        /*if (!node.name.includes('palm')) {
+                        if (!node.name.includes('palm')) {
                             node.material.transparent = true;
                             node.material.color.setHex(whiteColor);
                             node.material.aoMap = node.material.map;
-                            node.material.aoMapIntensity = 1; //0.8
+                            node.material.aoMapIntensity = 1.2; //0.8
                             node.material.map = null;
-                            node.material.alphaTest = 0.8; //0.5
+                            node.material.alphaTest = 0.75; //0.5
                             node.geometry.attributes.uv2 = node.geometry.attributes.uv;
                         }
 
                         if (node.name.includes('Indicator') || node.name.includes('Bike')) {
                             node.material.color.setHex(0xef490f);
-                        }*/
+                        }
 
                         // node.material = new THREE.MeshStandardMaterial({color: 0xffffff});
 
@@ -398,7 +398,7 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         scene.add(lights[0]);
 
 
-        lights[1] = new THREE.HemisphereLight(whiteColor, 0x080820, 1.25);
+        lights[1] = new THREE.HemisphereLight(whiteColor, 0x080820, 1); // 1.25
         // lights[1] = new THREE.HemisphereLight(0x97D6EA, 0x080820, 1);
         // lights[1] = new THREE.HemisphereLight(0xffffbb, 0x080820, 1);
         lights[1].position.set(0, 100, -25);
