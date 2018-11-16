@@ -14,14 +14,14 @@ const sustainabilityStatus = (state = {
 	advices: {
 		linq: {
 			1: {
-				title: 'Solar Car',
+				title: 'Bikes',
 				highlight: 'linq',
 				content: 'The bikes haven\'t been used for some time now. Make sure to use them for short trips around the city.',
 				icon: 'directions_bike',
 				active: true,
 			},
 			2: {
-				title: 'Solar Car',
+				title: 'Inefficient washing machines',
 				highlight: 'linq',
 				content: 'There are two washing machines runnning while the electricity grid is not fully charged yet.',
 				icon: 'local_laundry_service',
