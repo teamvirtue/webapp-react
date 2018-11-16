@@ -157,7 +157,7 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
                             node.material.transparent = true;
                             node.material.color.setHex(whiteColor);
                             node.material.aoMap = node.material.map;
-                            node.material.aoMapIntensity = 1.2; //0.8
+                            node.material.aoMapIntensity = 1.25; //0.8
                             node.material.map = null;
                             node.material.alphaTest = 0.75; //0.5
                             node.geometry.attributes.uv2 = node.geometry.attributes.uv;
@@ -176,8 +176,6 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
                         // node.castShadow = true;
                         // node.receiveShadow = true;
                         // node.material.opacity = 0.25;
-
-                        node.material.map = null;
 
                         // store objects in correct array for levels
                         if (node.name.includes(levels[0])) {
@@ -235,7 +233,7 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         });
         // let mesh;
 
-        objLoader.load(objUrl,
+        /*objLoader.load(objUrl,
             (object) => {
                 let geometry = object.children[0].geometry;
                 geometry.attributes.uv2 = geometry.attributes.uv;
@@ -251,24 +249,6 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
                 object.userData.parent = OTHER_GROUP.name;
 
                 scene.add(object);
-
-                /*scene.add(markerObject);
-                markerObject.position.set(0, 2, 0);*/
-
-                /*object.traverse((node) => {
-                    if (node instanceof THREE.Mesh) {
-                        node.material.flatShading = true;
-                        node.material.shininess = 0;
-
-                        new THREE.MeshStandardMaterial({
-                            color: 0xf15b27,
-                            aoMap: aoMap,
-                            aoMapIntensity: 1,
-                        })
-                    }
-                });*/
-
-                // this.setTransparency({ objects: [object], opacity: [0] });
             },
             // called when loading is in progresses
             (xhr) => {
@@ -277,7 +257,10 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
             // called when loading has errors
             (error) => {
                 console.log('Error ' + error);
-            });
+            });*/
+
+
+
 
         // Create mesh with these textures
         /*let crate = new THREE.Mesh(
@@ -398,7 +381,8 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         scene.add(lights[0]);
 
 
-        lights[1] = new THREE.HemisphereLight(whiteColor, 0x080820, 1); // 1.25
+        lights[1] = new THREE.HemisphereLight(whiteColor, 0xf15b27, 0.75); // 1.25
+        // lights[1] = new THREE.HemisphereLight(whiteColor, 0x080820, 1);
         // lights[1] = new THREE.HemisphereLight(0x97D6EA, 0x080820, 1);
         // lights[1] = new THREE.HemisphereLight(0xffffbb, 0x080820, 1);
         lights[1].position.set(0, 100, -25);
@@ -736,7 +720,7 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
 
         switch(level) {
             case 'mylinq':
-                this.setTransparency({ objects: [roof, indicator, marker], opacity: [0, 0, 1] });
+                // this.setTransparency({ objects: [roof, indicator, marker], opacity: [0, 0, 1] });
                 /*this.setMarker(laptop);
                 this.setColor(laptop, highlightColor);
 
@@ -777,7 +761,7 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
                 }
                 break;
             case 'linq':
-                this.setTransparency({ objects: [roof, indicator, marker], opacity: [1, 1, 0] });
+                // this.setTransparency({ objects: [roof, indicator, marker], opacity: [1, 1, 0] });
                 // this.setTransparency({ objects: [roof, indicator], opacity: [1, 1] });
                 this.controls.enableZoom = false;
 
@@ -789,7 +773,7 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
                 }
                 break;
             case 'district':
-                this.setTransparency({ objects: [roof, indicator, marker], opacity: [1, 1, 0] });
+                // this.setTransparency({ objects: [roof, indicator, marker], opacity: [1, 1, 0] });
                 // this.setTransparency({ objects: [roof, indicator], opacity: [1, 1] });
                 this.controls.enableZoom = true;
 
