@@ -10,11 +10,11 @@ import objUrl from '../assets/models/marker_web_app.obj';
 // import mtlUrl from '../assets/models/marker_web_app.mtl';
 import aoMapUrl from '../assets/models/textures/marker.jpg';
 // import crateTextureUrl from '../assets/models/textures/crate_diffuse.png';
-import gltfUrl from '../assets/models/linq_low_poly_web_app.glb';
+// import gltfUrl from '../assets/models/linq_low_poly_web_app.glb';
 // import aoUrl from '../assets/models/textures/ao2.png';
 // import gltfUrl from '../assets/models/linq_low_poly_web_app.gltf';
 // import gltfUrl from '../assets/models/gun.glb';
-// import gltfUrl from '../assets/models/aircraft.glb';
+import gltfUrl from '../assets/models/aircraft.glb';
 // import gltfUrl from '../assets/models/Duck.glb';
 // import gltfUrl from '../assets/models/DamagedHelmet/DamagedHelmet.gltf';
 
@@ -163,6 +163,11 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
                             node.material.color.setHex(0xef490f);
                         }*/
 
+                        // node.material = new THREE.MeshStandardMaterial({color: 0xffffff});
+
+                        /*texture.flipY = false;
+                        node.material.aoMap = texture;*/
+
                         // enable casting shadows
                         // node.castShadow = true;
                         // node.receiveShadow = true;
@@ -226,7 +231,7 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
 
         objLoader.load(objUrl,
             (object) => {
-                /*let geometry = object.children[0].geometry;
+                let geometry = object.children[0].geometry;
                 geometry.attributes.uv2 = geometry.attributes.uv;
                 // geometry.center();
                 object = new THREE.Mesh(geometry, material);
@@ -237,7 +242,7 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
                 object.name = 'Marker';
 
                 otherObjects.push(object);
-                object.userData.parent = OTHER_GROUP.name;*/
+                object.userData.parent = OTHER_GROUP.name;
 
                 scene.add(object);
 
@@ -726,14 +731,14 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         switch(level) {
             case 'mylinq':
                 this.setTransparency({ objects: [roof, indicator, marker], opacity: [0, 0, 1] });
-                this.setMarker(laptop);
+                /*this.setMarker(laptop);
                 this.setColor(laptop, highlightColor);
 
                 this.setMarker(tv);
                 this.setColor(tv, highlightColor);
 
                 this.setMarker(washingMachine);
-                this.setColor(washingMachine, highlightColor);
+                this.setColor(washingMachine, highlightColor);*/
 
                 // roof.position.setY(10);
 
@@ -747,8 +752,10 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
 
                     this.animateMarker(markers);
 
-                    // this.controls.enableZoom = false;
+                    this.controls.enableZoom = false;
                     // this.controls.enabled = false;
+                    // this.animateCamera(this.camera, { x: 0, y: 500, z: 100 });
+                    // this.animateCamera(this.camera, { x: 0, y: 75, z: 10 });
 
                     // this.MYLINQ_GROUP.remove(this.scene.getObjectById(26));
 
@@ -765,7 +772,8 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
                 break;
             case 'linq':
                 this.setTransparency({ objects: [roof, indicator, marker], opacity: [1, 1, 0] });
-                // this.controls.enableZoom = false;
+                // this.setTransparency({ objects: [roof, indicator], opacity: [1, 1] });
+                this.controls.enableZoom = false;
 
                 if (this.props.sustainabilityStatus.fullscreen) {
                     this.animateCamera(this.camera, { x: 35, y: 20, z: 35 }, 1500, 0.5);
@@ -776,7 +784,8 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
                 break;
             case 'district':
                 this.setTransparency({ objects: [roof, indicator, marker], opacity: [1, 1, 0] });
-                // this.controls.enableZoom = true;
+                // this.setTransparency({ objects: [roof, indicator], opacity: [1, 1] });
+                this.controls.enableZoom = true;
 
                 if (this.props.sustainabilityStatus.fullscreen) {
                     this.animateCamera(this.camera, { x: 35, y: 45, z: 35 }, 1500, 0.25);
