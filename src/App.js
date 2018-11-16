@@ -81,8 +81,8 @@ class App extends Component {
 		
 		// Load API data every 20 seconds
 		/* TODO: use promises to do this directly - and only do this - after successful retrieval of token (the call in asyncActions.js can then be removed too) */
-		this.loadApiData();
-		setInterval(() => this.loadApiData(), 10000); //5 minutes = 5 * 60 * 1000
+		//this.loadApiData();
+		//setInterval(() => this.loadApiData(), 10000); //5 minutes = 5 * 60 * 1000
 	}
 
 	componentWillUnmount() {
