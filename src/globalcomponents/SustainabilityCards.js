@@ -47,7 +47,7 @@ class SustainabilityCards extends Component {
 					{ Object.keys(sustainabilityStatus.advices[sustainabilityStatus.selected]).map((id) => {
 						let advice = sustainabilityStatus.advices[sustainabilityStatus.selected][id];
 						return advice.active ?
-							<Card className='sustainabilityCard row no-margin' key={id}>
+							<Card className='sustainabilityCard row no-margin' key={id} style={{zIndex: (100 - id)}}>
 								<div className='col-9'>
 									<div>
 										<CardContent className='sustainabilityCardContent'>

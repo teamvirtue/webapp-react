@@ -821,6 +821,10 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
                 camera.lookAt(lookAt.x, lookAt.y, lookAt.z);
                 // lookAtVector.applyQuaternion(camera.quaternion);
             });
+		/*console.log('original position');
+		console.log(camera.position);
+		console.log('target position');
+		console.log(targetPosition);*/
 
         cameraZoomTween = new Tween({ zoom: camera.zoom })
             .to({ zoom: targetZoom }, duration)

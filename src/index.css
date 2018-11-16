@@ -351,7 +351,6 @@ body {
 }
 
 .sustainabilityCard{
-	z-index:10;
 	transition:all 200ms;
 	opacity:1;
 	display: flex;
@@ -371,7 +370,6 @@ body {
 	width:100%;
 	transform: scale(0.95);
 	margin-top:15px;
-	z-index:3;
 }
 
 .sustainabilityCard:nth-child(n+3){
