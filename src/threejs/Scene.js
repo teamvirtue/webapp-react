@@ -22,7 +22,7 @@ let levels = ['MY', 'LINQ', 'DISTRICT'];
 let selectedObject = null;
 // let alpha = 0;
 let highlightColor = 0xff0000;
-let highlightMarkerColor = 0xf15b27;
+let highlightMarkerColor = 0xef490f;
 let whiteColor = 0xffffff;
 let markers = [];
 let markerHeight = 1.25;
@@ -717,7 +717,7 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
 
         switch(level) {
             case 'mylinq':
-                // this.setTransparency({ objects: [roof, indicator, marker], opacity: [0, 0, 1] });
+                this.setTransparency({ objects: [roof, indicator, marker], opacity: [0, 0, 1] });
                 this.setMarker(laptop);
                 this.setColor(laptop, highlightColor);
 
@@ -758,24 +758,24 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
                 }
                 break;
             case 'linq':
-                // this.setTransparency({ objects: [roof, indicator, marker], opacity: [1, 1, 0] });
+                this.setTransparency({ objects: [roof, indicator, marker], opacity: [1, 1, 0] });
                 // this.setTransparency({ objects: [roof, indicator], opacity: [1, 1] });
-                this.controls.enableZoom = false;
 
                 if (this.props.sustainabilityStatus.fullscreen) {
                     this.animateCamera(this.camera, { x: 35, y: 20, z: 35 }, 1500, 0.5);
                     // this.animateCamera(this.camera, { x: 35, y: 25, z: 35 }, 1500);
+                    this.controls.enableZoom = false;
                 } else {
                     this.animateCamera(this.camera, { x: 25, y: 25, z: 25 }, 1000, 0.25, { x: 10, y: -3, z: 7 });
                 }
                 break;
             case 'district':
-                // this.setTransparency({ objects: [roof, indicator, marker], opacity: [1, 1, 0] });
+                this.setTransparency({ objects: [roof, indicator, marker], opacity: [1, 1, 0] });
                 // this.setTransparency({ objects: [roof, indicator], opacity: [1, 1] });
-                this.controls.enableZoom = true;
 
                 if (this.props.sustainabilityStatus.fullscreen) {
                     this.animateCamera(this.camera, { x: 35, y: 45, z: 35 }, 1500, 0.25);
+                    this.controls.enableZoom = true;
                     // this.controls.enabled = true;
                 } else {
                     this.animateCamera(this.camera, { x: 35, y: 25, z: 35 }, 1000, 0.15, { x: 11, y: -17, z: 3});
