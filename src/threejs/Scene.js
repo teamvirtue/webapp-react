@@ -233,7 +233,7 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         });
         // let mesh;
 
-        /*objLoader.load(objUrl,
+        objLoader.load(objUrl,
             (object) => {
                 let geometry = object.children[0].geometry;
                 geometry.attributes.uv2 = geometry.attributes.uv;
@@ -257,10 +257,7 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
             // called when loading has errors
             (error) => {
                 console.log('Error ' + error);
-            });*/
-
-
-
+            });
 
         // Create mesh with these textures
         /*let crate = new THREE.Mesh(
@@ -415,7 +412,7 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         controls.rotateSpeed = 0.75;
         controls.minZoom = 0.05;
         controls.maxZoom = 8;
-        controls.maxPolarAngle = Math.PI * 0.6;
+        controls.maxPolarAngle = Math.PI * 0.5;
 
         /*let cameraHelper = new THREE.CameraHelper(camera);
         scene.add(cameraHelper);*/
@@ -721,14 +718,14 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         switch(level) {
             case 'mylinq':
                 // this.setTransparency({ objects: [roof, indicator, marker], opacity: [0, 0, 1] });
-                /*this.setMarker(laptop);
+                this.setMarker(laptop);
                 this.setColor(laptop, highlightColor);
 
                 this.setMarker(tv);
                 this.setColor(tv, highlightColor);
 
                 this.setMarker(washingMachine);
-                this.setColor(washingMachine, highlightColor);*/
+                this.setColor(washingMachine, highlightColor);
 
                 // roof.position.setY(10);
 
