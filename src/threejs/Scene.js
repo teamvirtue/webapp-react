@@ -10,11 +10,11 @@ import objUrl from '../assets/models/marker_web_app.obj';
 // import mtlUrl from '../assets/models/marker_web_app.mtl';
 import aoMapUrl from '../assets/models/textures/marker.jpg';
 // import crateTextureUrl from '../assets/models/textures/crate_diffuse.png';
-// import gltfUrl from '../assets/models/linq_low_poly_web_app.glb';
+import gltfUrl from '../assets/models/linq_low_poly_web_app.glb';
 // import aoUrl from '../assets/models/textures/ao2.png';
 // import gltfUrl from '../assets/models/linq_low_poly_web_app.gltf';
 // import gltfUrl from '../assets/models/gun.glb';
-import gltfUrl from '../assets/models/aircraft.glb';
+// import gltfUrl from '../assets/models/aircraft.glb';
 // import gltfUrl from '../assets/models/Duck.glb';
 // import gltfUrl from '../assets/models/DamagedHelmet/DamagedHelmet.gltf';
 
@@ -137,6 +137,10 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
 
         // let loadedObject = null;
         let gltfLoader = new GLTFLoader();
+        // Optional: Provide a DRACOLoader instance to decode compressed mesh data
+        /*THREE.DRACOLoader.setDecoderPath( '/examples/js/libs/draco' );
+        gltfLoader.setDRACOLoader(new THREE.DRACOLoader());*/
+
         // let mtlLoader = new MTLLoader();
         let objLoader = new OBJLoader();
 
@@ -172,6 +176,8 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
                         // node.castShadow = true;
                         // node.receiveShadow = true;
                         // node.material.opacity = 0.25;
+
+                        node.material.map = null;
 
                         // store objects in correct array for levels
                         if (node.name.includes(levels[0])) {
