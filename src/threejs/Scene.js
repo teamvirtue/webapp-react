@@ -156,10 +156,10 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
                         if (!node.name.includes('palm')) {
                             node.material.transparent = true;
                             node.material.color.setHex(whiteColor);
-                            // node.material.aoMap = node.material.map;
-                            // node.material.aoMapIntensity = 1.25; //0.8
-                            // node.material.map = null;
-                            // node.material.alphaTest = 0.75; //0.5
+                            node.material.aoMap = node.material.map;
+                            node.material.aoMapIntensity = 1.25; //0.8
+                            node.material.map = null;
+                            node.material.alphaTest = 0.75; //0.5
                             node.geometry.attributes.uv2 = node.geometry.attributes.uv;
                         }
 
