@@ -6,11 +6,11 @@ import FormControlLabel  from '@material-ui/core/FormControlLabel';
 import { Line } from 'react-chartjs-2';
 import moment from 'moment';
 
-let dataRealtime = [];
-let dataDay = [];
-let dataWeek = [];
-let dataMonth = [];
-let dataYear = [];
+var dataRealtime = [];
+var dataDay = [];
+var dataWeek = [];
+var dataMonth = [];
+var dataYear = [];
 
 const LABELS_REALTIME = ['','','','','','','',''];
 const LABELS_DAY = ['00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00', '08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00'];
@@ -97,22 +97,28 @@ class LineChart extends Component{
     handleChange = (event, value) => {
         this.setState({ timespan: value });
 		let selectedLabel = LABELS_REALTIME;
+		let selectedData = [];
 
         switch(value) {
             case 'realtime':
                 selectedLabel = LABELS_REALTIME;
+				selectedData = dataRealtime;
                 break;
             case 'day':
                 selectedLabel = LABELS_DAY;
+				selectedData = dataDay;
                 break;
             case 'week':
                 selectedLabel = LABELS_WEEK;
+				selectedData = dataWeek;
                 break;
             case 'month':
                 selectedLabel = LABELS_MONTHS;
+				selectedData = dataMonth;
                 break;
             case 'year':
                 selectedLabel = LABELS_YEARS;
+				selectedData = dataYear;
                 break;
 				
 			default:
@@ -122,7 +128,7 @@ class LineChart extends Component{
 		
 		var datasetsCopy = this.state.data.datasets.slice(0);
 		var dataCopy = datasetsCopy[0].data.slice(0);
-		dataCopy = this.props.data;
+		dataCopy = selectedData;
 		datasetsCopy[0].data = dataCopy;
 
 		var newData = Object.assign( {}, this.state.data, { labels: selectedLabel, datasets: datasetsCopy } );
@@ -141,9 +147,16 @@ class LineChart extends Component{
 				data: energyGraph
             });
         }
+		this.updateData();
     };
 
-    componentWillReceiveProps() {
+    componentWillReceiveProps(newProps) {
+		//if( newProps.data !== this.props.data ){//Only update after change of data (so not after update from other props)
+			this.updateData();
+		//}
+    };
+	
+	updateData() {
 		//okay, so new data retrieved. Now update the array data correctly.
 		var newData = this.props.data;
 		newData.reverse();//reverse array so old data becomes first.
@@ -155,7 +168,7 @@ class LineChart extends Component{
 		
 		
 		//REALTIME DATA
-				var dataRealtime = [];
+				dataRealtime = [];
 				var minusPowerConsumed;
 				var previousPowerConsumed = 0;
 				/*newData.map( function(item, i) {
@@ -174,7 +187,7 @@ class LineChart extends Component{
 		
 		
 		//DAY DATA
-				var dataDay = [];
+				dataDay = [];
 				var minusPowerConsumed;
 				var previousPowerConsumed = 0;
 				
@@ -212,7 +225,7 @@ class LineChart extends Component{
 		
 		
 		//WEEK DATA
-				var dataWeek = [];
+				dataWeek = [];
 				var minusPowerConsumed;
 				var previousPowerConsumed = 0;
 				
@@ -250,14 +263,11 @@ class LineChart extends Component{
 		
 		
 		//MONTH DATA
-				var dataMonth = [];
-				dataMonth = newData;
-		
+				dataMonth = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 		
 		
 		//YEAR DATA
-				var dataYear = [];
-				dataYear = newData;
+				dataYear = [0, 0, 0, 0, 0];
 		
 		
 		
@@ -284,7 +294,7 @@ class LineChart extends Component{
 		this.setState({
 			data: finalData
 		});
-    };
+	};
 	
 	
 	
