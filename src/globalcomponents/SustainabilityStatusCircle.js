@@ -26,8 +26,9 @@ const styles = theme => ({
         position: 'absolute',
         top: 12,
         right: 'auto',
-        left: 0,
+        left: 25,
         bottom: 'auto',
+		color: 'black',
     },
     subNavBarContainerTab: {
         textAlign: 'center',
@@ -110,7 +111,7 @@ class SustainabilityStatusCircle extends Component {
 							</div>
 
 							<IconButton className={ classes.backButton } onClick={ this.handleClose } aria-label='Back'>
-								<Icon>arrow_back</Icon>
+								<Icon>arrow_back</Icon> Back
 							</IconButton>
 						</div>
 					}

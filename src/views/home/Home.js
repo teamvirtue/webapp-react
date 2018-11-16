@@ -188,6 +188,8 @@ const styles = theme => ({
 	},
 	eatTogetherJoiningCancel: {
 		color: 'black',
+		padding: '20px 0',
+		display: 'inline-block',
 	},
 	avatarSmall: {
 		width: 30,

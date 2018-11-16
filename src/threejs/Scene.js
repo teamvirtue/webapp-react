@@ -241,7 +241,7 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
                 object = new THREE.Mesh(geometry, material);
                 object.scale.multiplyScalar(0.5);
                 object.rotation.set(0, 0.5, 0);
-                object.rotateX(Math.PI * -0.25);
+                //object.rotateX(Math.PI * -0.25);
 
                 object.name = 'Marker';
 
