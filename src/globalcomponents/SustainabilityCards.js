@@ -13,6 +13,8 @@ import '../animations.css';
 
 import { updateAdvice } from '../actions';
 
+// let indexCount = 100;
+
 const styles = theme => ({
 });
 
@@ -22,18 +24,22 @@ class SustainabilityCards extends Component {
 		this.props.updateAdvice(level, id, active);
 		
 		//set timer to re-add after a while
-        setTimeout(function(){
+        setTimeout(() => {
+            this.props.updateAdvice(level, id, true);
+        }, 1000 * 60); //60 seconds
+
+        /*setTimeout(function(){
 			this.props.updateAdvice(level, id, true);
-        }.bind(this), 1000 * 60);//60 seconds
+        }.bind(this), 1000 * 60); //60 seconds*/
 	};
 	
 	componentDidUpdate(prevProps){
-		//if marker is selected 
-		
+		// if marker is selected
 	}
 
     render() {
 		const { classes, sustainabilityStatus } = this.props;
+
 
         return (
             <div className='sustainabilityCardContainer'>
@@ -45,29 +51,34 @@ class SustainabilityCards extends Component {
 					transitionLeaveTimeout={ 350 }
 				>
 					{ Object.keys(sustainabilityStatus.advices[sustainabilityStatus.selected]).map((id) => {
-						let advice = sustainabilityStatus.advices[sustainabilityStatus.selected][id];
+						let advices = sustainabilityStatus.advices[sustainabilityStatus.selected];
+						let advice = advices[id];
+
+						// console.log(advices.indexOf(advice))
+
 						return advice.active ?
-							<Card className='sustainabilityCard row no-margin' key={id} style={{zIndex: (100 - id)}}>
+							<Card className='sustainabilityCard row no-margin' key={ advice.id } style={{ zIndex: (100 - id) }}>
+							{/*<Card className='sustainabilityCard row no-margin' key={ id } style={{ zIndex: (100 - id) }}>*/}
 								<div className='col-9'>
 									<div>
 										<CardContent className='sustainabilityCardContent'>
 											<h3>{ advice.title }</h3>
 											{ advice.content }
 										</CardContent>
-										<CardActions style={{paddingLeft: 0}}>
+										<CardActions style={{ paddingLeft: 0 }}>
 											<Button color="primary" onClick={ (event) => this.handleDismissAdvice(event, sustainabilityStatus.selected, id, false) }>Next</Button>
 										</CardActions>
 									</div>
 								</div>
 								<div className='sustainabilityCardGraphic col-3'>
-									<Icon className='sustainabilityCardIcon' style={{fontSize: 48}}>{ advice.icon }</Icon>
+									<Icon className='sustainabilityCardIcon' style={{ fontSize: 48 }}>{ advice.icon }</Icon>
 								</div>
 							</Card>
 						: null
 					})}
 					<Card className='sustainabilityCard sustainabilityCardEverythingFine'>
 						<CardContent className='sustainabilityCardContent'>
-							<Icon style={{fontSize: 28, color: 'green'}}>check_circle</Icon> <br />
+							<Icon style={{ fontSize: 28, color: 'green' }}>check_circle</Icon> <br />
 							Everything looks fine here!
 						</CardContent>
 					</Card>

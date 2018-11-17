@@ -1,3 +1,5 @@
+// TODO: pass payload as one variable instead of an object if applicable
+
 export const dismissCard = (id, visibility) => ({
     type: 'DISMISS_CARD',
     payload: { id, visibility },
@@ -60,12 +62,17 @@ export const updateWeatherForecastData = (forecast3hDatetime, forecast3hCelsius,
 
 export const updateSustainabilityStatus = (selected) => ({
 	type: 'UPDATE_SUSTAINABILITY_STATUS',
-	payload: { selected },
+	payload: selected,
 });
 
 export const updateFullscreenStatus = (fullscreen) => ({
     type: 'UPDATE_FULLSCREEN_STATUS',
-    payload: { fullscreen },
+    payload: fullscreen,
+});
+
+export const selectAdviceCard = (selected) => ({
+    type: 'SELECT_ADVICE_CARD',
+    payload: selected,
 });
 
 export const updateAdvice = (level, id, active) => ({

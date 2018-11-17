@@ -25,7 +25,7 @@ let highlightColor = 0xff0000;
 let highlightMarkerColor = 0xef490f;
 let whiteColor = 0xffffff;
 let markers = [];
-let markerHeight = 1.25;
+let markerPositionY = 1.25;
 
 let opacityTween,
     cameraPositionTween,
@@ -228,7 +228,7 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
             aoMap: aoMap,
             aoMapIntensity: 2,
             transparent: true,
-            name: 'Marker_material'
+            name: 'Marker_material',
             // opacity: 0.5,
         });
         // let mesh;
@@ -247,6 +247,7 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
 
                 otherObjects.push(object);
                 object.userData.parent = OTHER_GROUP.name;
+                // object.userData.highlight = 0;
 
                 scene.add(object);
             },
@@ -682,6 +683,7 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
 
                 if (this.props.sustainabilityStatus.selected === 'mylinq' && selectedObject.name === 'Marker') {
                     this.setColor(selectedObject, highlightMarkerColor);
+                    this.selectHighlight(selectedObject.userData.highlight);
                 }
             }
         } else {
@@ -1026,6 +1028,7 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
             let markerObject = this.scene.getObjectByName('Marker');
 
             let marker = markerObject.clone();
+            marker.userData.highlight = object.name;
 
             marker.traverse((node) => {
                 if (node.isMesh) { // TODO: check if statement
@@ -1051,7 +1054,7 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
 
             // marker.material = material;
             // marker.geometry.attributes.uv2 = marker.geometry.attributes.uv;
-            marker.position.set(position.x, markerHeight, position.z);
+            marker.position.set(position.x, markerPositionY, position.z);
             // marker.rotation.x = this.camera.rotation.x;
 
             // console.log(marker.material, material)
@@ -1064,12 +1067,16 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         object.userData.marker = true;
     };
 
+    selectHighlight = (selected) => {
+        this.props.selectAdviceCard(selected);
+    };
+
     animateMarker = (markerArray) => {
         let currentYCoordinates = [];
         let bounceYCoordinates = [];
 
         for (let i = 0; i < markerArray.length; i++) {
-            currentYCoordinates.push(markerHeight);
+            currentYCoordinates.push(markerPositionY);
         }
 
         for (let i = 0; i < markerArray.length; i++) {
