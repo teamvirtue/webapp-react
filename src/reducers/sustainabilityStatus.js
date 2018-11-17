@@ -14,10 +14,17 @@ const sustainabilityStatus = (state = {
 	advices: {
 		linq: [
             {
-                id: 'linq',
+                id: 'linq_washing_machines',
 				title: 'Inefficient washing machines',
 				content: 'There are two washing machines runnning while the electricity grid is not fully charged yet.',
 				icon: 'local_laundry_service',
+				active: true,
+			},
+            {
+                id: 'linq_complex',
+				title: 'Your LINQ apartment complex',
+				content: 'LINQ is currently consuming less energy than the average LINQ apartment complex. Great job!',
+				icon: 'wb_sunny',
 				active: true,
 			},
             {
@@ -32,30 +39,30 @@ const sustainabilityStatus = (state = {
             {
                 id: 'TV',
 				title: 'Television',
-				content: 'The television is on but no movement is detected. You can better turn it off.',
-				icon: 'power',
-				active: true,
-			},
-            {
-                id: 'Laptop',
-				title: 'Laptop!',
-				content: 'The humidity in the living room is too low. Buy a humidifier to improve this.',
-				icon: 'info',
+				content: 'The television is turned on but no movement is detected for more than an hour. You can better turn the television off after leaving the room.',
+				icon: 'tv',
 				active: true,
 			},
             {
                 id: 'Washing_machine',
-                title: 'Low humidity!',
-                content: 'The humidity in the living room is too low. Buy a humidifier to improve this.',
-                icon: 'info',
+                title: 'Air dry your dishes',
+                content: 'A great way to save energy and money is to let your dishes air dry. Turn off the machine\'s heat-dry setting and open the door after the wash cycle is over.',
+                icon: 'local_laundry_service',
                 active: true,
             },
+            {
+                id: 'Laptop',
+				title: 'Wireless charging',
+				content: 'Your laptop is fully charged but still standing on the wireless charging table. It\'s better for the laptop battery to take it off.',
+				icon: 'battery_charging_full',
+				active: true,
+			},
         ],
 		district: [
 			{
-                id: 'district_complete',
+                id: 'district_consumption',
 				title: 'Critical energy usage!',
-				content: 'The entire district is currently consuming a lot of energy! Consider turning some of your appliances off to balance the electricity grid.',
+				content: 'The entire district is currently consuming a lot of energy! Consider turning off some of your appliances to balance the electricity grid.',
 				icon: 'battery_alert',
 				active: true,
 			},
@@ -67,7 +74,7 @@ const sustainabilityStatus = (state = {
 				active: true,
 			},
 			{
-                id: 'district_linq',
+                id: 'district_renewables',
 				title: 'Renewable energy',
 				content: 'Last month, 87% of the district\'s energy usage came from renewable energy. That is 5% more than the same month last year.',
 				icon: 'power',

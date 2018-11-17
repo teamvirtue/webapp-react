@@ -618,7 +618,7 @@ class Home extends Component {
 										{ /* <span className="tooltiptext">Tap me!</span> */ }
 										<span className={ classes.iconBoxContentInfo }>
 											<Icon className={ classes.iconBoxContentBigger }>cloud</Icon>
-											<span className={ classes.iconBoxContentBigger }> { houseData.indoorCO2 }</span>
+											<span className={ classes.iconBoxContentBigger } style={{fontSize: 24, lineHeight: '1.9em'}}> { houseData.indoorCO2 }</span>
 										</span>
 										{ houseData.indoorCO2 < 1000 ? 
 											<span className={ classes.iconCounterDescription }>Healthy CO2</span>

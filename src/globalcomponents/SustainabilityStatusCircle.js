@@ -19,7 +19,7 @@ const styles = theme => ({
 		width: '75vw',
         top: 'auto',
 		left: '12.5vw',
-        bottom: 30,
+        bottom: 50,
 		zIndex: 15,
 	},
     backButton: {
@@ -112,7 +112,7 @@ class SustainabilityStatusCircle extends Component {
 							</div>
 
 							<IconButton className={ classes.backButton } onClick={ this.handleClose } aria-label='Back'>
-								<Icon>arrow_back</Icon> Back
+								<Icon>arrow_back</Icon>
 							</IconButton>
 						</div>
 					}
