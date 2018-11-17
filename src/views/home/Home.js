@@ -88,7 +88,7 @@ const styles = theme => ({
 		width: 105,
 		paddingTop: 30,
 		marginBottom: 10,
-		border: '1px solid #ba491f',
+		border: '2px solid #ba491f',
 		borderRadius: '50%',
 		backgroundColor: '#e46231',
 	},
