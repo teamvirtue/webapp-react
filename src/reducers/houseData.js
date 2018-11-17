@@ -3,7 +3,7 @@ const houseData = (state = {
 	eatTogetherMessage: [], 			/* } 	*/
 	indoorTemperature: 0,
 	indoorHumidity: 0,
-	indoorCO2: 674,
+	indoorCO2: 0,
 	room: {
 		'All Rooms': {
 			airco: {

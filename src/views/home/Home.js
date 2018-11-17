@@ -84,9 +84,9 @@ const styles = theme => ({
 		flexDirection: 'column',
 	},
 	iconBoxContentInfo: {
-		height: 95,
-		width: 95,
-		paddingTop: 24,
+		height: 105,
+		width: 105,
+		paddingTop: 30,
 		marginBottom: 10,
 		border: '1px solid #ba491f',
 		borderRadius: '50%',

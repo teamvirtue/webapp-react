@@ -2,8 +2,8 @@ const temperature = (state = {
 	outside: {
 		celsius: 0,
 		description: '',
-		sunrise: '1542335802',
-		sunset: '1542375017',
+		sunrise: '1542422237',
+		sunset: '1542461402',
 		forecast3hDatetime: '',
 		forecast3hCelsius: 0,
 		forecast3hDescription: '',
