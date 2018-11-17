@@ -50,8 +50,6 @@ const styles = theme => ({
 		textTransform: 'none',
 		fontWeight: 700,
 	},
-	badgeIcon: {
-	},
 	iconBox: {
 		display: 'table',
 		whiteSpace: 'nowrap',
@@ -71,7 +69,7 @@ const styles = theme => ({
 		paddingBottom: '100%',
 		transition: 'transform 50ms ease-out',
 		'&:hover': {
-			transform: 'scale(0.95)',
+			transform: 'scale(0.85)',
 		},
 	},
 	iconBoxContent: {
@@ -85,10 +83,27 @@ const styles = theme => ({
 		alignItems: 'center',
 		flexDirection: 'column',
 	},
+	iconBoxContentInfo: {
+		height: 95,
+		width: 95,
+		paddingTop: 24,
+		marginBottom: 10,
+		border: '1px solid #ba491f',
+		borderRadius: '50%',
+		backgroundColor: '#e46231',
+	},
+	iconBoxContentBadge: {
+		top: 10,
+		right: 0,
+	},
 	iconBoxContentBigger: {
 		fontSize: 30, 
 		verticalAlign: 'middle',
 		color: 'white',
+		marginRight: '-2px',
+	},
+	iconBoxContentSmaller: {
+		fontSize: 16,
 	},
 	iconCounter: {
 		fontSize: 30, 
@@ -465,7 +480,7 @@ class Home extends Component {
 					>
 						<Tab 
 							label={(houseData.eatTogetherStatus === 'requested' && tab!=='linq') ? (
-								<Badge badgeContent=/*{<Icon className={ classes.badgeIcon }>restaurant</Icon>}*/'1' color="secondary" style={{padding: '0 10px'}} classes={{badge: 'badge'}}>
+								<Badge badgeContent='1' color="secondary" style={{padding: '0 10px'}} classes={{badge: 'badge'}}>
 									LINQ
 								</Badge>
 							) : (
@@ -487,7 +502,7 @@ class Home extends Component {
 									onClick={ () => this.handleDialogOpen('bikes') }
 								>
 									<div className={ classes.iconBoxContent }>
-										<span>
+										<span className={ classes.iconBoxContentInfo }>
 											<Icon className={ classes.iconBoxContentBigger }>directions_bike</Icon>
 											<span className={ classes.iconBoxContentBigger }> 5</span>
 										</span>
@@ -503,7 +518,7 @@ class Home extends Component {
 									onClick={ () => this.handleDialogOpen('solarcar') }
 								>
 									<div className={ classes.iconBoxContent }>
-										<span>
+										<span className={ classes.iconBoxContentInfo }>
 											<FontAwesome className={ classes.iconBoxContentBigger } name='car' />
 											<span className={ classes.iconBoxContentBigger }> 1</span>
 										</span>
@@ -519,7 +534,7 @@ class Home extends Component {
 									onClick={ () => this.handleDialogOpen('washingmachine') }
 								>
 									<div className={ classes.iconBoxContent }>
-										<span>
+										<span className={ classes.iconBoxContentInfo }>
 											<Icon className={ classes.iconBoxContentBigger }>local_laundry_service</Icon>
 											<span className={ classes.iconBoxContentBigger }> 1</span>
 										</span>
@@ -537,8 +552,8 @@ class Home extends Component {
 									<div className={ classes.iconBoxContent }>
 										{houseData.eatTogetherStatus === 'requested' ? (
 											<div>
-												<Badge badgeContent=/*{<Icon className={ classes.badgeIcon }>restaurant</Icon>}*/'1' color="secondary">
-													<span>
+												<Badge badgeContent='1' classes={{ badge: classes.iconBoxContentBadge }} color="secondary">
+													<span className={ classes.iconBoxContentInfo }>
 														<Icon className={ classes.iconBoxContentBigger }>restaurant</Icon>
 														<span className={ classes.iconBoxContentBigger }> 2</span>
 													</span>
@@ -547,7 +562,7 @@ class Home extends Component {
 											</div>
 										) : (
 											<div>
-												<span>
+												<span className={ classes.iconBoxContentInfo }>
 													<Icon className={ classes.iconBoxContentBigger }>restaurant</Icon>
 													<span className={ classes.iconBoxContentBigger }> { (houseData.eatTogetherStatus === 'yes' ? 3 : 2 ) }</span>
 												</span>
@@ -568,9 +583,9 @@ class Home extends Component {
 									onClick={ () => this.handleDialogOpen('temperatureindoor') }
 								>
 									<div className={ classes.iconBoxContent }>
-										<span>
+										<span className={ classes.iconBoxContentInfo }>
 											<FontAwesome className={ classes.iconBoxContentBigger } name='thermometer-half' />
-											<span className={ classes.iconBoxContentBigger }> { Math.round(houseData.indoorTemperature) }°C</span>
+											<span className={ classes.iconBoxContentBigger }> { Math.round(houseData.indoorTemperature) }<span className={ classes.iconBoxContentSmaller }>°C</span></span>
 										</span>
 										<span className={ classes.iconCounterDescription }>Temperature</span>
 									</div>
@@ -584,9 +599,9 @@ class Home extends Component {
 									onClick={ () => this.handleDialogOpen('humidity') }
 								>
 									<div className={ classes.iconBoxContent }>
-										<span>
+										<span className={ classes.iconBoxContentInfo }>
 											<FontAwesome className={ classes.iconBoxContentBigger } name='tint' />
-											<span className={ classes.iconBoxContentBigger }> { houseData.indoorHumidity }%</span>
+											<span className={ classes.iconBoxContentBigger }> { houseData.indoorHumidity }<span className={ classes.iconBoxContentSmaller }>%</span></span>
 										</span>
 										<span className={ classes.iconCounterDescription }>Humidity</span>
 									</div>
@@ -600,18 +615,16 @@ class Home extends Component {
 									onClick={ () => this.handleDialogOpen('CO2') }
 								>
 									<div className={ classes.iconBoxContent }>
-										<span className="tooltiptext">Tap me!</span>
-										<div>
-											<span>
-												<Icon className={ classes.iconBoxContentBigger }>cloud</Icon>
-												<span className={ classes.iconBoxContentBigger }> { houseData.indoorCO2 }</span>
-											</span>
-											{ houseData.indoorCO2 < 1000 ? 
-												<span className={ classes.iconCounterDescription }>Healthy CO2</span>
-											:
-												<span className={ classes.iconCounterDescription }><strong>Unhealthy CO2</strong></span>
-											}
-										</div>
+										{ /* <span className="tooltiptext">Tap me!</span> */ }
+										<span className={ classes.iconBoxContentInfo }>
+											<Icon className={ classes.iconBoxContentBigger }>cloud</Icon>
+											<span className={ classes.iconBoxContentBigger }> { houseData.indoorCO2 }</span>
+										</span>
+										{ houseData.indoorCO2 < 1000 ? 
+											<span className={ classes.iconCounterDescription }>Healthy CO2</span>
+										:
+											<span className={ classes.iconCounterDescription }><strong>Unhealthy CO2</strong></span>
+										}
 									</div>
 								</Paper>
 							</div>
@@ -623,7 +636,7 @@ class Home extends Component {
 									onClick={ () => this.handleDialogOpen('energyusage') }
 								>
 									<div className={ classes.iconBoxContent }>
-										<span>
+										<span className={ classes.iconBoxContentInfo }>
 											<Icon className={ classes.iconBoxContentBigger }>power</Icon>
 											<span className={ classes.iconBoxContentBigger }>{ houseData.room['All Rooms'].energyUsageRealtime }</span>
 										</span>
@@ -642,9 +655,9 @@ class Home extends Component {
 									onClick={ () => this.handleDialogOpen('temperatureoutside') }
 								>
 									<div className={ classes.iconBoxContent }>
-										<span>
+										<span className={ classes.iconBoxContentInfo }>
 											<FontAwesome className={ classes.iconBoxContentBigger } name='thermometer-half' />
-											<span className={ classes.iconBoxContentBigger }> { temperature.outside.celsius }°C</span>
+											<span className={ classes.iconBoxContentBigger }> { temperature.outside.celsius }<span className={ classes.iconBoxContentSmaller }>°C</span></span>
 										</span>
 										<span className={ classes.iconCounterDescription }>{ temperature.outside.description }</span>
 									</div>
@@ -658,9 +671,9 @@ class Home extends Component {
 									onClick={ () => this.handleDialogOpen('publictransport') }
 								>
 									<div className={ classes.iconBoxContent }>
-										<span>
+										<span className={ classes.iconBoxContentInfo }>
 											<Icon className={ classes.iconBoxContentBigger }>directions_bus</Icon>
-											<span className={ classes.iconBoxContentBigger }> 7m</span>
+											<span className={ classes.iconBoxContentBigger }> 7<span className={ classes.iconBoxContentSmaller }>m</span></span>
 										</span>
 										<span className={ classes.iconCounterDescription }>Next bus</span>
 									</div>
@@ -674,9 +687,9 @@ class Home extends Component {
 									onClick={ () => this.handleDialogOpen('publictransport') }
 								>
 									<div className={ classes.iconBoxContent }>
-										<span>
+										<span className={ classes.iconBoxContentInfo }>
 											<Icon className={ classes.iconBoxContentBigger }>directions_subway</Icon>
-											<span className={ classes.iconBoxContentBigger }> 9m</span>
+											<span className={ classes.iconBoxContentBigger }> 9<span className={ classes.iconBoxContentSmaller }>m</span></span>
 										</span>
 										<span className={ classes.iconCounterDescription }>Next metro</span>
 									</div>
@@ -690,9 +703,9 @@ class Home extends Component {
 									onClick={ () => this.handleDialogOpen('publictransport') }
 								>
 									<div className={ classes.iconBoxContent }>
-										<span>
+										<span className={ classes.iconBoxContentInfo }>
 											<Icon className={ classes.iconBoxContentBigger }>tram</Icon>
-											<span className={ classes.iconBoxContentBigger }> 14m</span>
+											<span className={ classes.iconBoxContentBigger }> 9<span className={ classes.iconBoxContentSmaller }>m</span></span>
 										</span>
 										<span className={ classes.iconCounterDescription }>Next tram</span>
 									</div>
@@ -1036,8 +1049,8 @@ class Home extends Component {
 										<br />
 										<strong>Tram</strong>
 										<br />
-										14m<br />
-										20m<br />
+										9m<br />
+										17m<br />
 										29m <span className={classes.publicTransportDelay}>(+3)</span><br />
 									</div>
 								</div>

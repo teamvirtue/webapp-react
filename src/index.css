@@ -212,6 +212,11 @@ body {
 	transition: all 400ms linear, opacity 200ms linear 400ms;
 }
 
+.fullscreen .sustainabilityStatusCircle:after,
+.fullscreen .sustainabilityStatusCircle:before{
+	transition: all 500ms linear, opacity 1000ms linear 500ms;
+}
+
 .sustainabilityStatusCircleContainer.positive .sustainabilityStatusCircle:before,
 .sustainabilityStatusCircleContainer.positive .sustainabilityStatusCircle:after{
 	box-shadow: inset 0 3.5vw 0 rgba(3, 206, 164, 0.6),
@@ -423,6 +428,17 @@ body {
 	transform: scale(1.0);
 }
 
+.fullscreen .wrapper .sustainabilityStatusCircleContainer .vignette{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    box-shadow: 0 0 150px rgba(33, 50, 62, 0.2) inset;
+    z-index: 100000;
+    pointer-events: none;
+}
+
 .fullscreen .wrapper .sustainabilityStatusCircleContainer .sustainabilityStatusCircle{
 	border-radius: 0;
 	border:0;
@@ -578,7 +594,7 @@ body {
         pointer-events: auto;
 		margin-bottom:20px;
 		transition: all 300ms;
-		background-color: rgba(255,255,255,0.8);
+		background-color: rgba(255,255,255,1.0);
 		padding: 10px;
 		border-top-left-radius:5px;
 		border-top-right-radius:5px;
