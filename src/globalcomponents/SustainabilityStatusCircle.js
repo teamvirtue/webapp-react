@@ -86,6 +86,7 @@ class SustainabilityStatusCircle extends Component {
         return (
             <div className={ classes.root }>
                 <div className={'sustainabilityStatusCircleContainer ' + circleColorClass} onClick={ this.handleOpen }>
+					<div className='vignette'></div>
                     <div className={ 'sustainabilityStatusCircle' }>
                         <SceneContainer view={ this.props.view } />
                     </div>

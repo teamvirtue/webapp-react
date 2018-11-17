@@ -27,6 +27,13 @@ const sustainabilityStatus = (state = {
 				icon: 'local_laundry_service',
 				active: true,
 			},
+			3: {
+				title: 'Higher efficiency',
+				highlight: 'linq',
+				content: 'Great job! Last month, LINQ consumed 3% less energy than a month earlier. Keep up the good work!',
+				icon: 'battery_charging_full',
+				active: true,
+			},
 		},
 		mylinq: {
 			1: {
@@ -55,14 +62,14 @@ const sustainabilityStatus = (state = {
 			2: {
 				title: 'Public transport',
 				highlight: 'district',
-				content: 'In October, public transport was used by fewer people than before. To optimize the city conditions it is encouraged to use public transport more often.',
+				content: 'In October, public transport was used by fewer people. Make use of public transport more often to optimize the district conditions.',
 				icon: 'train',
 				active: true,
 			},
 			3: {
 				title: 'Renewable energy',
 				highlight: 'district',
-				content: 'Last month, 87% of the district\'s energy usage came from renewable energy. That is 5% more than the same month last year.',
+				content: 'Last month, 87% of the district\'s energy usage came from renewable energy. This is 5% more than the same month last year!',
 				icon: 'power',
 				active: true,
 			},

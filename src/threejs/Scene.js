@@ -412,7 +412,7 @@ class Scene extends Component { // code based on https://stackoverflow.com/quest
         controls.rotateSpeed = 0.75;
         controls.minZoom = 0.05;
         controls.maxZoom = 8;
-        controls.maxPolarAngle = Math.PI * 0.5;
+        controls.maxPolarAngle = Math.PI * 0.45;
 
         /*let cameraHelper = new THREE.CameraHelper(camera);
         scene.add(cameraHelper);*/
